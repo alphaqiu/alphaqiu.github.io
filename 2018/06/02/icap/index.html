@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="什么是ICAP？从以太坊Homestead指南的词汇表中可以看出：  Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICAP: 互换客户端地址协议">
+<meta property="og:url" content="https://alpha.checkitout.dev/2018/06/02/icap/index.html">
+<meta property="og:site_name" content="Check it out">
+<meta property="og:description" content="什么是ICAP？从以太坊Homestead指南的词汇表中可以看出：  Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring f">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-06-02T04:30:54.000Z">
+<meta property="article:modified_time" content="2020-03-06T12:21:30.978Z">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="ICAP">
+<meta property="article:tag" content="协议">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alpha.checkitout.dev/2018/06/02/icap/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>ICAP: 互换客户端地址协议 | Check it out</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-151212624-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Check it out</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">工作笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2018/06/02/icap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ICAP: 互换客户端地址协议
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-02 12:30:54" itemprop="dateCreated datePublished" datetime="2018-06-02T12:30:54+08:00">2018-06-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 20:21:30" itemprop="dateModified" datetime="2020-03-06T20:21:30+08:00">2020-03-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/06/02/icap/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/06/02/icap/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>什么是ICAP</strong>？从以太坊Homestead指南的<a href="https://github.com/ethereum/homestead-guide/blob/master/source/glossary.rst" target="_blank" rel="noopener">词汇表</a>中可以看出：</p>
+<blockquote>
+<p>Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring funds, worry-free between exchanges and, ultimately, making KYC and AML concerns a thing of the past.</p>
+</blockquote>
+<p>ICAP 互换客户端地址协议，一种IBAN兼容系统，用于引用和处理客户帐户，旨在简化资金转移流程，在交易所之间无忧无虑，并最终使KYC和AML成为过去。</p>
+<p>这里有相关于以太坊对ICAP的<a href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol" target="_blank" rel="noopener">介绍</a>：</p>
+<blockquote>
+<p>在第三方账户之间（特别是交易所账户）之间转账资金给用户带来了相当大的负担，并且由于客户账户中的存款被识别的方式而容易出错。现有的银行业通过拥有一个被称为<em>IBAN</em>的通用代码解决了这个问题。该代码合并了机构和客户帐户以及错误检测机制，实际上消除了微不足道的错误并为用户提供了相当大的便利。不幸的是，这是一个严格监管和集中的服务，只有大型的，完善的机构才能使用。目前的议定书ICAP可被视为适用于以太坊系统中任何含有资金的机构的分散版本。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="IBAN介绍"><a href="#IBAN介绍" class="headerlink" title="IBAN介绍"></a>IBAN介绍</h2><p><strong>国际银行账户号码</strong>~[1]~ (International Bank Account Number，简称<strong>IBAN</strong>)是各国各<a href="https://zh.wikipedia.org/wiki/%E9%8A%80%E8%A1%8C" target="_blank" rel="noopener">银行</a>之间互相定立的标识号码，可降低国际间金融操作的失误。它最初是由欧洲银行标准委员会（ECBS）通过，后来被采纳为国际标准 ISO 13616:1997。目前的标准是ISO 13616:2007，表明<a href="https://zh.wikipedia.org/wiki/SWIFT%E4%BB%A3%E7%A2%BC" target="_blank" rel="noopener">SWIFT代码</a>（ISO 9362）为正式的格式。最初开发是为了促进<a href="https://zh.wikipedia.org/wiki/%E6%AD%90%E7%9B%9F" target="_blank" rel="noopener">欧盟</a>范围内的支付，但现在也已经实施到大多数欧洲国家和其他国家，尤其是在<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9D%B1" target="_blank" rel="noopener">中东</a>和<a href="https://zh.wikipedia.org/wiki/%E5%8A%A0%E5%8B%92%E6%AF%94%E5%9C%B0%E5%8C%BA" target="_blank" rel="noopener">加勒比海地区</a>。IBAN最多包含34个字母和数字字符：首两个字母是<a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" rel="noopener">ISO 3166-1α-2</a>国家代码，然后两个校验位，校验位可检查完整性。最后一个是特定国家的基本银行账户号码（BBAN）。BBAN格式的决定是由每个国家的银行界的约束下，它必须是一个固定长度的不区分大小写的英数字。它包括国内银行账户号码，银行分行的号码，和潜在的路由信息。</p>
+<h3 id="基本银行账户号码"><a href="#基本银行账户号码" class="headerlink" title="基本银行账户号码"></a>基本银行账户号码</h3><p>基本银行账户号码（The Basic Bank Account Number，简称<strong>BBAN</strong>）的格式是由国家中央银行或相应机关所订定，格式并没有强制性。一国的基本银行账户号码须为固定长度且由<a href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E5%B0%8F%E5%86%99%E6%95%8F%E6%84%9F%E6%80%A7" target="_blank" rel="noopener">大小写不敏感</a>的英数字组成。其包括本国账户号码，子分支辨识码与路径资讯。各国皆可拥有不同的编号系统，最多三十字。</p>
+<h3 id="IBAN结构"><a href="#IBAN结构" class="headerlink" title="IBAN结构"></a>IBAN结构</h3><p>IBAN代码由多达34个不区分大小写的字母数字字符组成，其字符取值范围为0-9和A-Z。它包含三个信息：</p>
+<ul>
+<li>国家代码; 以下内容的顶级标识符（ISO 3166-1 alpha-2）;</li>
+<li>错误检测代码; 使用<em>mod-97-10</em>校验和协议（ISO / IEC 7064：2003）;</li>
+<li>基本银行账号（BBAN）; 该机构，分支和客户账户的标识符，其组成取决于上述国家。</li>
+</ul>
+<p>举例来说，从维基百科可以得知，英国的IBAN格式定义为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>国家</th>
+<th>格式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英国🇬🇧</td>
+<td><code>GBkk bbbb ssss sscc cccc cc</code></td>
+<td>b = 银行代码 s = 银行分类代码 c = 账号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>该 <code>GBkk bbbb ssss sscc cccc cc</code> 格式解读为：</p>
+<p><code>[国家代码:GB][错误校验码:kk][基本银行账号:bbbb ssss sscc cccc cc]</code></p>
+<p>对于英国来说，BBAN由以下部分组成：</p>
+<ul>
+<li>机构标识符，4个字符的字母，例如 <code>MIDL</code> 代表汇丰银行。</li>
+<li>分类代码（机构内的分行标识符），一个6位十进制数字，例如<code>402702</code>汇丰银行的Lancaster分行。</li>
+<li>帐号（分支机构内的客户标识符），一个8位十进制数字。</li>
+</ul>
+<h2 id="以太坊ICAP设计"><a href="#以太坊ICAP设计" class="headerlink" title="以太坊ICAP设计"></a>以太坊ICAP设计</h2><p>以太坊引入了新的IBAN国家代码：XE，X前缀为扩展的意思，E表示为以太坊（Ethereum），制定为非法定货币（例如XBOX, XEOS）。以太坊在IBAN基础上设计了ICAP，其设计思路与IBAN兼容。目的是为了方便各大公链之间转账？它有三种BBAN代码类型：直接类型，基本类型和间接类型。</p>
+<h3 id="直接类型"><a href="#直接类型" class="headerlink" title="直接类型"></a>直接类型</h3><p>此代码的直接BBAN为30个字符，将包含一个字段：</p>
+<ul>
+<li>帐户标识符，30个字母数字（&lt;155位）。这将被解释为表示160位以太坊地址的最低有效位的大端编码的36进制整数。因此，这些以太坊地址通常以零字节开始。</li>
+</ul>
+<p>例如XE 73 38O073KYGTWWZN0F2WZ0R8PX5ZPPZS，它的对应的地址</p>
+<p><code>00c5496aee77c1ba1f0854206a26dda82a81d6d8</code></p>
+<h3 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h3><p>与直接编码相同，但代码为31个字符（与IBAN不兼容）并组成相同的单个字段：</p>
+<ul>
+<li>帐户标识符，31个字符字母数字（&lt;161位）。这将被解释为一个代表160位以太坊地址的大端编码的36进制整数。</li>
+</ul>
+<h3 id="间接类型"><a href="#间接类型" class="headerlink" title="间接类型"></a>间接类型</h3><p>该代码的BBAN在间接时将为16个字符，并将包含三个字段：</p>
+<ul>
+<li>资产标识符，3个字符的字母数字（&lt;16位）;</li>
+<li>机构标识符，4个字符的字母数字（&lt;21位）;</li>
+<li>机构客户标识符，9个字符的字母数字（&lt;47位）;</li>
+</ul>
+<p>包括四个首字符，这导致最终的客户帐户地址长度为20个字符，格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XE81ETHXREGGAVOFYORK</span><br></pre></td></tr></table></figure>
+<p>分成：</p>
+<ul>
+<li><code>XE</code> 以太坊的国家代码;</li>
+<li><code>81</code> 校验和;</li>
+<li><code>ETH</code> 客户账户中的资产标识符 - 在这种情况下，“ETH”是唯一有效的资产标识符，因为以太坊的基础注册管理机构合同仅支持该资产;</li>
+<li><code>XREG</code> 账户的机构代码 - 在这种情况下，以太坊的基础注册管理机构合同;</li>
+<li><code>GAVOFYORK</code> 该机构内的客户标识符 - 在这种情况下，直接支付且无任何主要地址的额外数据与以太坊基础注册合同中的名称“GAVOFYORK”相关联;</li>
+</ul>
+<h3 id="URI表示形式"><a href="#URI表示形式" class="headerlink" title="URI表示形式"></a>URI表示形式</h3><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">iban:</span>XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS</span><br></pre></td></tr></table></figure>
+<h2 id="具体实现：以太坊地址转换成ICAP格式"><a href="#具体实现：以太坊地址转换成ICAP格式" class="headerlink" title="具体实现：以太坊地址转换成ICAP格式"></a>具体实现：以太坊地址转换成ICAP格式</h2><h3 id="转换函数"><a href="#转换函数" class="headerlink" title="转换函数"></a>转换函数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ConvertAddressToICAP 将以太坊地址转换为ICAP格式的地址</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ConvertAddressToICAP</span><span class="params">(a common.Address)</span> <span class="params">(<span class="keyword">string</span>, error)</span></span> &#123;</span><br><span class="line">	enc := base36Encode(a.Big())</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(enc) &lt; <span class="number">30</span> &#123;</span><br><span class="line">		enc = join(strings.Repeat(<span class="string">"0"</span>, <span class="number">30</span>-<span class="built_in">len</span>(enc)), enc)</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 以太坊国家代码XE + 校验码 + 账号</span></span><br><span class="line">	icap := join(<span class="string">"XE"</span>, checkDigits(enc), enc)</span><br><span class="line">	<span class="keyword">return</span> icap, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="36进制编码"><a href="#36进制编码" class="headerlink" title="36进制编码"></a>36进制编码</h3><p>其规则如同十进制数转十六进制数，其算法如下：</p>
+<p>十六进制数取值范围表示s=”0123456789ABCDEF”。其字符串数组下标范围为0-15，其中对应的下标：A=11，B=12… F=15。</p>
+<p>记余数数组a，</p>
+<ol>
+<li>把10进制数除以16，获取整数商和余数，记下余数和整数商，并把余数放入余数数组a；</li>
+<li>整数商不为0时，再次执行第一个步骤，整数商为0时停止，并记录下此时的余数；</li>
+<li>倒排余数数组a，同时影射每个位置值到s字符串数组下标对应的值。</li>
+</ol>
+<p>例如：十进制数505，500/16 得31余9，将9放入余数数组a，由于31不为0，再次用31/16 得1余15，将15放入a，1不为0，再次用1/16 得0余1，将1放入a，倒排a，得[s[1],s[15],s[9]] = [‘1’, ‘F’, ‘9’] = “0x1F9” = 505。</p>
+<p>36进制编码也是采用了如上算法，只是s=”0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ”。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    Base36Chars = <span class="string">"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span></span><br><span class="line">    Big36 = big.NewInt(<span class="number">36</span>)</span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">base36Encode</span><span class="params">(i *big.Int)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> chars []<span class="keyword">rune</span></span><br><span class="line">	x := <span class="built_in">new</span>(big.Int)</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		x.Mod(i, Big36)</span><br><span class="line">		chars = <span class="built_in">append</span>(chars, <span class="keyword">rune</span>(Base36Chars[x.Uint64()]))</span><br><span class="line">		i.Div(i, Big36)</span><br><span class="line">		<span class="keyword">if</span> i.Cmp(Big0) == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// reverse slice</span></span><br><span class="line">	<span class="keyword">for</span> i, j := <span class="number">0</span>, <span class="built_in">len</span>(chars)<span class="number">-1</span>; i &lt; j; i, j = i+<span class="number">1</span>, j<span class="number">-1</span> &#123;</span><br><span class="line">		chars[i], chars[j] = chars[j], chars[i]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">string</span>(chars)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="校验码"><a href="#校验码" class="headerlink" title="校验码"></a>校验码</h3><p>校验码使用了<em>mod-97-10</em>校验和<a href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7064:ed-1:v1:en" target="_blank" rel="noopener">协议</a> (ISO / IEC 7064：2003)，查看ISO具体<a href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7064:ed-1:v1:en" target="_blank" rel="noopener">协议</a>需要8,800瑞士法郎。</p>
+<p>举例，对于字符串794，其算法步骤为：</p>
+<p>步骤1：追加两个零占据校验字符位置：79400;<br>步骤2：除以97，得到商818和整数余数54;<br>步骤3：将校验字符值确定为（97 + 1） - 54 = 44并将其附加到原始字符串以给出79444。</p>
+<p>为了检查，将字符串除以97; 如果提醒是1，则校验通过。</p>
+<p><strong>计算国际银行帐号（IBAN）的校验位（xx yyy zzzzzzzz kk）</strong></p>
+<ul>
+<li><em>余数不等于0的计算。</em></li>
+</ul>
+<blockquote>
+<p>不包括支票号码的银行账号：06 000 01234567。</p>
+<p>a：06 000 01234567 <strong>00</strong><br>b：060000123456700：97 = 618557973780余数= 40<br>c：（97 + 1） - 40 = 58结果：06 000 01234567 <strong>58</strong></p>
+<p>校验和：06000123456758：97 = 618557973781其余= 1</p>
+</blockquote>
+<ul>
+<li><em>无余数计算或余数等于0。</em></li>
+</ul>
+<blockquote>
+<p>不包括支票号码的银行账号：06 000 01234586。</p>
+<p>a：06 000 01234586 <strong>00</strong><br>b：060000123458600：97 = 618557973800其余= 00<br>c：（97 + 1） - 00 = 98结果：06 000 01234586 <strong>98</strong>。</p>
+<p>校验和：06000123458698：97 = 618557973801余数= 1。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">checkDigits</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	expanded, _ := iso13616Expand(strings.Join([]<span class="keyword">string</span>&#123;s, <span class="string">"XE00"</span>&#125;, <span class="string">""</span>))</span><br><span class="line">	num, _ := <span class="built_in">new</span>(big.Int).SetString(expanded, <span class="number">10</span>)</span><br><span class="line">    <span class="comment">//mod-97-10</span></span><br><span class="line">	num.Sub(Big98, num.Mod(num, Big97))</span><br><span class="line"></span><br><span class="line">	checkDigits := num.String()</span><br><span class="line">	<span class="comment">// zero padd checksum</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(checkDigits) == <span class="number">1</span> &#123;</span><br><span class="line">		checkDigits = join(<span class="string">"0"</span>, checkDigits)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> checkDigits</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// not base-36, but expansion to decimal literal: A = 10, B = 11, ... Z = 35</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">iso13616Expand</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">(<span class="keyword">string</span>, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> parts []<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">if</span> !validBase36(s) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">""</span>, errICAPEncoding</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, c := <span class="keyword">range</span> s &#123;</span><br><span class="line">		i := <span class="keyword">uint64</span>(c)</span><br><span class="line">		<span class="keyword">if</span> i &gt;= <span class="number">65</span> &#123;</span><br><span class="line">            <span class="comment">//字符A-Z在ASCII码表中分别对应10进制值为65，66...</span></span><br><span class="line">            <span class="comment">//字符A-Z的36进制字符串索引分别是A=10,B=11...</span></span><br><span class="line">            <span class="comment">//字符的码表值-字符的索引值=55</span></span><br><span class="line">            <span class="comment">//字符码表值-55=字符的索引值</span></span><br><span class="line">			parts = <span class="built_in">append</span>(parts, strconv.FormatUint(<span class="keyword">uint64</span>(c)<span class="number">-55</span>, <span class="number">10</span>))</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			parts = <span class="built_in">append</span>(parts, <span class="keyword">string</span>(c))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> join(parts...), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="具体实现：ICAP格式转换成以太坊地址"><a href="#具体实现：ICAP格式转换成以太坊地址" class="headerlink" title="具体实现：ICAP格式转换成以太坊地址"></a>具体实现：ICAP格式转换成以太坊地址</h2><h3 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">validCheckSum</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	s = join(s[<span class="number">4</span>:], s[:<span class="number">4</span>])</span><br><span class="line">	expanded, err := iso13616Expand(s)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	checkSumNum, _ := <span class="built_in">new</span>(big.Int).SetString(expanded, <span class="number">10</span>)</span><br><span class="line">	<span class="keyword">if</span> checkSumNum.Mod(checkSumNum, Big97).Cmp(Big1) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errICAPChecksum</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parseICAP</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">(common.Address, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> !strings.HasPrefix(s, <span class="string">"XE"</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Address&#123;&#125;, errICAPCountryCode</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := validCheckSum(s); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Address&#123;&#125;, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// checksum is ISO13616, Ethereum address is base-36</span></span><br><span class="line">	bigAddr, _ := <span class="built_in">new</span>(big.Int).SetString(s[<span class="number">4</span>:], <span class="number">36</span>)</span><br><span class="line">	<span class="keyword">return</span> common.BigToAddress(bigAddr), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>imToken钱包二维码使用了ICAP格式，扫码之后出现的格式为：</p>
+<p><code>iban:XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO?account=100&amp;type=ETH</code></p>
+<p>其中<code>XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO</code>是转账的地址，<code>account</code>是转账的数额，<code>type</code>是转账的类型，这里代表转ETH。</p>
+<p><a href="https://box.la" target="_blank" rel="noopener">BOX</a>将兼容imToken格式。</p>
+<p>完整的代码片段可以在这里找到：</p>
+<p><a href="https://gist.github.com/alphaqiu/646d45fc5c2b1f42d8529d55b52f58d2" target="_blank" rel="noopener">https://gist.github.com/alphaqiu/646d45fc5c2b1f42d8529d55b52f58d2</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.)  <a href="https://en.wikipedia.org/wiki/International_Bank_Account_Number" target="_blank" rel="noopener">Wikipedia: International Bank Account Number</a></p>
+<p>2.)  <a href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol" target="_blank" rel="noopener">ICAP: Inter exchange Client Address Protocol</a></p>
+<p>3.)  <a href="https://github.com/boxproject/" target="_blank" rel="noopener">Open source: BOX a business wallet solution</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/ICAP/" rel="tag"><i class="fa fa-tag"></i> ICAP</a>
+              <a href="/tags/%E5%8D%8F%E8%AE%AE/" rel="tag"><i class="fa fa-tag"></i> 协议</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/03/clef/" rel="prev" title="初识Clef">
+      <i class="fa fa-chevron-left"></i> 初识Clef
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/12/bash-sigterm/" rel="next" title="如何将SIGTERM信号传播到Bash脚本中的子进程">
+      如何将SIGTERM信号传播到Bash脚本中的子进程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IBAN介绍"><span class="nav-number">1.</span> <span class="nav-text">IBAN介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本银行账户号码"><span class="nav-number">1.1.</span> <span class="nav-text">基本银行账户号码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IBAN结构"><span class="nav-number">1.2.</span> <span class="nav-text">IBAN结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太坊ICAP设计"><span class="nav-number">2.</span> <span class="nav-text">以太坊ICAP设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接类型"><span class="nav-number">2.1.</span> <span class="nav-text">直接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型"><span class="nav-number">2.2.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#间接类型"><span class="nav-number">2.3.</span> <span class="nav-text">间接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URI表示形式"><span class="nav-number">2.4.</span> <span class="nav-text">URI表示形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现：以太坊地址转换成ICAP格式"><span class="nav-number">3.</span> <span class="nav-text">具体实现：以太坊地址转换成ICAP格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转换函数"><span class="nav-number">3.1.</span> <span class="nav-text">转换函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36进制编码"><span class="nav-number">3.2.</span> <span class="nav-text">36进制编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验码"><span class="nav-number">3.3.</span> <span class="nav-text">校验码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现：ICAP格式转换成以太坊地址"><span class="nav-number">4.</span> <span class="nav-text">具体实现：ICAP格式转换成以太坊地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#校验"><span class="nav-number">4.1.</span> <span class="nav-text">校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换"><span class="nav-number">4.2.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用途"><span class="nav-number">5.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="alpha"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">alpha</p>
+  <div class="site-description" itemprop="description">记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alpha</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alphaqiu.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://alpha.checkitout.dev/2018/06/02/icap/";
+    this.page.identifier = "2018/06/02/icap/";
+    this.page.title = "ICAP: 互换客户端地址协议";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://alphaqiu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="在 $HOME&#x2F;.cargo&#x2F;config 中添加如下内容 12[registry]index &#x3D; &quot;git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot; 如果所处的环境中不允许使用 git 协议, 可以把上述地址改为 1index &#x3D; &quot;http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot; 同步频率为每两个小时更新一次. 如果 c">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-10-29T08:41:10.000Z">
-<meta property="article:modified_time" content="2019-10-29T08:42:16.582Z">
+<meta property="article:modified_time" content="2021-07-03T05:50:49.192Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="crates">
 <meta property="article:tag" content="rust">
@@ -200,10 +200,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-10-29 16:41:10 / 修改时间：16:42:16" itemprop="dateCreated datePublished" datetime="2019-10-29T16:41:10+08:00">2019-10-29</time>
+              <time title="创建时间：2019-10-29 16:41:10" itemprop="dateCreated datePublished" datetime="2019-10-29T16:41:10+08:00">2019-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-03 13:50:49" itemprop="dateModified" datetime="2021-07-03T13:50:49+08:00">2021-07-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -245,7 +251,7 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">index</span> = <span class="string">"http://mirrors.ustc.edu.cn/crates.io-index"</span></span><br></pre></td></tr></table></figure>
 <p>同步频率为每两个小时更新一次.</p>
 <p>如果 cargo 版本为 0.13.0 或以上, 需要更改 $HOME/.cargo/config 为以下内容:</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[source.crates-io]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">"https://github.com/rust-lang/crates.io-index"</span></span><br><span class="line"><span class="attr">replace-with</span> = <span class="string">'ustc'</span></span><br><span class="line"><span class="section">[source.ustc]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">"git://mirrors.ustc.edu.cn/crates.io-index"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[source.crates-io]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">"https://github.com/rust-lang/crates.io-index"</span></span><br><span class="line"><span class="attr">replace-with</span> = <span class="string">'ustc'</span></span><br><span class="line"><span class="section">[source.ustc]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">"git://mirrors.ustc.edu.cn/crates.io-index"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下是字节跳动新的Rust镜像，2021年6月25日创建。</span></span><br><span class="line"><span class="comment"># 用于备选代理</span></span><br><span class="line"><span class="comment">#[source.crates-io]</span></span><br><span class="line"><span class="comment">#replace-with = 'rsproxy'</span></span><br><span class="line"><span class="comment">#[source.rsproxy]</span></span><br><span class="line"><span class="comment">#registry = "https://rsproxy.cn/crates.io-index"</span></span><br></pre></td></tr></table></figure>
 <h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p><a href="https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates" target="_blank" rel="noopener">https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates</a></p>
 <p>官方主页: <a href="https://crates.io/" target="_blank" rel="noopener">https://crates.io/</a></p>
 
@@ -357,20 +363,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

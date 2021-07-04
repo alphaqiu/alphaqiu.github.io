@@ -175,6 +175,220 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/" class="post-title-link" itemprop="url">自签发双向证书认证的一种思路</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-20 15:08:48" itemprop="dateCreated datePublished" datetime="2019-04-20T15:08:48+08:00">2019-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 20:26:58" itemprop="dateModified" datetime="2020-03-06T20:26:58+08:00">2020-03-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/20/自签发双向证书认证的一种思路/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>服务器双向认证，原理上就是相互交换公钥，双方通过公钥认证对方。不同的是服务器双向认证，有一方作为主导方，另一方作为连接方。所以网上讲的自签发证书需要生成CA证书，通过CA证书再分别分发服务器证书和客户端证书这件事情<strong>不是必须的</strong>。 </p>
+<h2 id="生成证书的脚本"><a href="#生成证书的脚本" class="headerlink" title="生成证书的脚本"></a>生成证书的脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># call this script with an email address (valid or not). </span></span><br><span class="line"><span class="comment"># must install openssl before run this script. </span></span><br><span class="line"><span class="comment"># like: </span></span><br><span class="line"><span class="comment"># ./makecert.sh demo@random.com </span></span><br><span class="line"></span><br><span class="line">FULLPATH=<span class="variable">$1</span> </span><br><span class="line"></span><br><span class="line">rm -f <span class="variable">$&#123;FULLPATH&#125;</span>/client.pem <span class="variable">$&#123;FULLPATH&#125;</span>/client.key </span><br><span class="line"></span><br><span class="line">SUBJECT_SERVER=<span class="string">"/C=CN/ST=Shanghai/L=Earth/O=BOX/OU=DC/CN=192.168.10.189/emailAddress"</span> </span><br><span class="line">SUBJECT_CLIENT=<span class="string">"/C=CN/ST=Shanghai/L=Earth/O=BOX/OU=DC/CN=192.168.10.190/emailAddress"</span> </span><br><span class="line"></span><br><span class="line">EMAIL=<span class="variable">$&#123;2:-develop@example.com&#125;</span> </span><br><span class="line">DAYS=<span class="variable">$&#123;3:-3650&#125;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成服务器证书对，pem和key </span></span><br><span class="line"></span><br><span class="line">openssl req -new -nodes -x509 -days <span class="variable">$&#123;DAYS&#125;</span> -out <span class="variable">$&#123;FULLPATH&#125;</span>/server.pem -keyout <span class="variable">$&#123;FULLPATH&#125;</span>/server.key -extensions v3_req -config openssl.cnf -subj <span class="string">"<span class="variable">$&#123;SUBJECT_SERVER&#125;</span>=<span class="variable">$&#123;EMAIL&#125;</span>"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成客户端证书对，pem和key </span></span><br><span class="line"></span><br><span class="line">openssl req -new -nodes -x509 -days <span class="variable">$&#123;DAYS&#125;</span> -out <span class="variable">$&#123;FULLPATH&#125;</span>/client.pem -keyout <span class="variable">$&#123;FULLPATH&#125;</span>/client.key -extensions v3_req -config openssl.cnf -subj <span class="string">"<span class="variable">$&#123;SUBJECT_CLIENT&#125;</span>=<span class="variable">$&#123;EMAIL&#125;</span>"</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/03/26/go-build-tags/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/26/go-build-tags/" class="post-title-link" itemprop="url">使用go build -tags生成多种实现</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-26 11:14:12" itemprop="dateCreated datePublished" datetime="2019-03-26T11:14:12+08:00">2019-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-07-29 23:40:52" itemprop="dateModified" datetime="2019-07-29T23:40:52+08:00">2019-07-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/03/26/go-build-tags/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/26/go-build-tags/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="语法规则和构建约束"><a href="#语法规则和构建约束" class="headerlink" title="语法规则和构建约束"></a>语法规则和构建约束</h2><p><strong>构建约束</strong>（也称为构建标记）用注释行表示，格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>构建约束以一行<code>+build</code>开始的注释。在<code>+build</code>之后列出了一些条件，在这些条件成立时，该文件应包含在编译的包中；</li>
+<li>约束可以出现在任何源文件中，不限于go文件；</li>
+<li><code>+build</code>必须出现在<code>package</code>语句之前，<code>+build</code>注释之后应要有一个空行。</li>
+<li>只允许字母数字或_</li>
+</ol>
+<p><strong>构建约束</strong> 多个选项之间空格分隔表示为OR，多个选项之间逗号分隔表示为AND。 每个选项都是一个字母数字的单词，或者以！开头表示否定。也就是说，构建约束：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build linux,386 darwin,!cgo</span></span><br></pre></td></tr></table></figure>
+<p>等同于：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(linux AND <span class="number">386</span>) OR (darwin AND (NOT cgo))</span><br></pre></td></tr></table></figure>
+<p>一个文件可以包含多行<strong>构建约束</strong>。多行之间的约束表示为AND：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build linux darwin</span></span><br><span class="line"><span class="comment">// +build 386</span></span><br></pre></td></tr></table></figure>
+<p>等同于：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(linux OR darwin) AND <span class="number">386</span></span><br></pre></td></tr></table></figure>
+<p>以下单词支持特殊编译：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- the target operating system, as spelled by runtime.GOOS</span><br><span class="line">- the target architecture, as spelled by runtime.GOARCH</span><br><span class="line">- the compiler being used, either <span class="string">"gc"</span> or <span class="string">"gccgo"</span></span><br><span class="line">- <span class="string">"cgo"</span>, <span class="keyword">if</span> ctxt.CgoEnabled is <span class="literal">true</span></span><br><span class="line">- <span class="string">"go1.1"</span>, from Go version <span class="number">1.1</span> onward</span><br><span class="line">- <span class="string">"go1.2"</span>, from Go version <span class="number">1.2</span> onward</span><br><span class="line">- <span class="string">"go1.3"</span>, from Go version <span class="number">1.3</span> onward</span><br><span class="line">- <span class="string">"go1.4"</span>, from Go version <span class="number">1.4</span> onward</span><br><span class="line">- <span class="string">"go1.5"</span>, from Go version <span class="number">1.5</span> onward</span><br><span class="line">- <span class="string">"go1.6"</span>, from Go version <span class="number">1.6</span> onward</span><br><span class="line">- <span class="string">"go1.7"</span>, from Go version <span class="number">1.7</span> onward</span><br><span class="line">- <span class="string">"go1.8"</span>, from Go version <span class="number">1.8</span> onward</span><br><span class="line">- <span class="string">"go1.9"</span>, from Go version <span class="number">1.9</span> onward</span><br><span class="line">- <span class="string">"go1.10"</span>, from Go version <span class="number">1.10</span> onward</span><br><span class="line">- any additional words listed in ctxt.BuildTags</span><br></pre></td></tr></table></figure>
+<p>除去文件扩展名和_test后缀，符合以下文件名称格式的也将纳入构建约束：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*_GOOS</span><br><span class="line">*_GOARCH</span><br><span class="line">*_GOOS_GOARCH</span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line">hello_darwin.<span class="keyword">go</span></span><br><span class="line">hello_linux.<span class="keyword">go</span></span><br><span class="line">hello_windows.<span class="keyword">go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line">source_windows_amd64.<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+<p><code>GOOS</code>和<code>GOARCH</code>表示为已知的操作系统和体系架构值，这类的文件被认为具有需要这些隐式构建约束。</p>
+<p>让文件不被用于构建，任何其他不满意的词也会起作用，但“忽略”是符合传统的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build ignore</span></span><br></pre></td></tr></table></figure>
+<p>更多详细信息，可以查看<code>go/build/build.go</code>文件中<code>shouldBuild</code>和<code>match</code>方法。参考：<a href="https://golang.org/pkg/go/build/" target="_blank" rel="noopener">https://golang.org/pkg/go/build/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/03/26/go-build-tags/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/03/21/macOS-port-before-1024/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -861,20 +1075,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

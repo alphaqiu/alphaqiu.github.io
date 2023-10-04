@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Supervisord 要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。 这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样： 123456789#!&#x2F;bin&#x2F;bash# Prepare the JVM command line...$J">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将SIGTERM信号传播到Bash脚本中的子进程">
+<meta property="og:url" content="https://alpha.checkitout.dev/bash-sigterm">
+<meta property="og:site_name" content="Check it out">
+<meta property="og:description" content="Supervisord 要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。 这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样： 123456789#!&#x2F;bin&#x2F;bash# Prepare the JVM command line...$J">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-12T07:36:54.000Z">
+<meta property="article:modified_time" content="2019-07-29T15:39:04.435Z">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="bash">
+<meta property="article:tag" content="SIGTERM">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alpha.checkitout.dev/bash-sigterm">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>如何将SIGTERM信号传播到Bash脚本中的子进程 | Check it out</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-151212624-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Check it out</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">工作笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/bash-sigterm">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何将SIGTERM信号传播到Bash脚本中的子进程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-06-12 15:36:54" itemprop="dateCreated datePublished" datetime="2017-06-12T15:36:54+08:00">2017-06-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-07-29 23:39:04" itemprop="dateModified" datetime="2019-07-29T23:39:04+08:00">2019-07-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/bash-sigterm#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/bash-sigterm" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Supervisord 要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。</p>
+<p>这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare the JVM command line</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clean up</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，TERM信号由shell进程接收，但是Bash不会将该信号转发给子进程。这意味着shell进程将停止，但JVM将继续运行。</p>
+<p>如果创建子进程的命令是shell脚本中的最后一个命令，则可以使用<code>exec</code>以下方法轻松解决问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br></pre></td></tr></table></figure>
+<p>而不是创建一个新进程，这将取代JVM中的shell进程。在这种情况下，TERM信号由JVM直接接收，问题得到解决。</p>
+<span id="more"></span>
+<p>如果shell脚本需要在JVM终止后执行一些清理，那么事情会更加复杂。在这种情况下，除了创建子进程之外，我们别无选择，但是我们需要找到一种方法来传递TERM信号给该子进程，并在执行清除代码之前等待其完成。在这里，<a target="_blank" rel="noopener" href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_12_02.html"><code>trap</code>内置</a> 的拯救：它允许配置一个命令执行时shell接收到特定的信号。但是，有一个重要的限制：</p>
+<blockquote>
+<p>当Bash在等待命令完成时收到trap已设置的信号时，在命令完成之前不会执行trap。</p>
+</blockquote>
+<p>这使得有必要执行JVM作为后台进程（使用<code>&amp;</code>）并等待其完成，以便shell进程可以在子进程仍在运行时执行trap。经常<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/146756/forward-sigterm-to-child-in-bash#146770">在Web</a>上<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/146756/forward-sigterm-to-child-in-bash#146770">呈现</a>的解决方案是使用<code>wait</code> 内置函数等待子进程的完成来编写脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>但是，这是不正确的。要了解为什么，让我们来看看彼此之间的相互作用<code>trap</code>和<code>wait</code>互动：</p>
+<blockquote>
+<p>当Bash通过<code>wait</code>内置等待异步命令时，接收到已设置trap的信号将导致<code>wait</code>内置程序立即返回，退出状态大于128，紧接着执行trap。</p>
+</blockquote>
+<p>这意味着<code>wait</code>在子进程终止之前，shell将开始执行命令之后的指令（甚至可能退出）。一个解决方案是等待trap中子进程的终止：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID; wait $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这是因为trap在与正常控制流程相同的线程中执行，因此挂起脚本的执行。但是，如果脚本需要检索子进程的退出状态，则解决方案仍然不完整。通常，该信息 由 命令<a target="_blank" rel="noopener" href="http://www.gnu.org/software/bash/manual/html_node/Job-Control-Builtins.html">返回</a><code>wait</code>：</p>
+<blockquote>
+<p><code>wait [</code><em>jobspec</em><code>or</code><em>pid</em><code>...]</code></p>
+<p>等到每个进程ID所指定的子进程<em>的PID</em>或作业规范<em>JOBSPEC</em> 退出并返回退出状态的最后一个命令等待。如果给出了工作规范，则等待工作中的所有进程。如果没有给出参数，则等待所有当前活动的子进程，并且返回状态为零。</p>
+</blockquote>
+<p>除非<code>wait</code>被信号中断，否则这一功能将立即返回，退出状态大于128（实际上是128加上信号的数字值，SIGTERM为15）。人们可能想使用这些信息区分两种情况。然而，这种方法将是有缺陷的，因为子进程的退出状态本身可能大于128（特别是SIGTERM的默认信号处理程序导致进程以退出代码143终止）。这个问题的一个解决方案是调用<code>wait</code>两次：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID; wait $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这是因为<code>wait</code>如果进程已经退出，则立即返回（具有进程的退出状态）。然后不再需要等待trap，脚本可以简化如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>但是，解决方案仍然不完善，因为它不能正确处理SIGINT。当按CTRL + C时，终端<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/149741/why-is-sigint-not-propagated-to-childs-process-when-sent-to-its-parent-process#149756">向</a>终端<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/149741/why-is-sigint-not-propagated-to-childs-process-when-sent-to-its-parent-process#149756">的前台进程组发送一个SIGINT</a>（在这种情况下，这里包括shell进程及其子进程）。问题是Bash配置在后台启动的命令<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/55558/how-can-i-kill-and-wait-for-background-processes-to-finish-in-a-shell-script-whe#55591">忽略SIGINT</a>。这意味着CTRL + C只会停止脚本，而不会停止JVM。为了解决这个问题并模拟原始脚本的行为（它只是<code>$JAVA_EXECUTABLE $JAVA_ARGS</code>在前台执行），为INT信号配置相同的trap是足够的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM INT</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>最后，在收到第一个信号或由于其他原因停止JVM之后，删除trap也可能是个好主意：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM INT</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">trap</span> - TERM INT</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="exec命令"><a href="#exec命令" class="headerlink" title="exec命令"></a>exec命令</h2><p>shell的内建命令exec将并不启动新的shell，而是用要被执行命令替换当前的shell进程，并且将老进程的环境清理掉，而且exec命令后的其它命令将不再执行。</p>
+<p>不过，要注意一个例外，当exec命令来对文件描述符操作的时候，就不会替换shell，而且操作完成后，还会继续执行接下来的命令。<br>    exec 3&lt;&amp;0:这个命令就是将操作符3也指向标准输入。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/bash/" rel="tag"><i class="fa fa-tag"></i> bash</a>
+              <a href="/tags/SIGTERM/" rel="tag"><i class="fa fa-tag"></i> SIGTERM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/icap" rel="prev" title="ICAP: 互换客户端地址协议">
+      <i class="fa fa-chevron-left"></i> ICAP: 互换客户端地址协议
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/elasticsearch-5-install-note" rel="next" title="Elasticsearch 5.0 笔记">
+      Elasticsearch 5.0 笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#exec%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">exec命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="alpha"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">alpha</p>
+  <div class="site-description" itemprop="description">记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alpha</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v6.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alphaqiu.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://alpha.checkitout.dev/bash-sigterm";
+    this.page.identifier = "/bash-sigterm";
+    this.page.title = "如何将SIGTERM信号传播到Bash脚本中的子进程";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://alphaqiu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

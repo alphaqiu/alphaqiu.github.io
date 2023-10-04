@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Check it out">
+<meta property="og:url" content="https://alpha.checkitout.dev/page/2/index.html">
+<meta property="og:site_name" content="Check it out">
+<meta property="og:description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="checkitout.dev">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alpha.checkitout.dev/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false
+  };
+</script>
+
+  <title>Check it out</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-151212624-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Check it out</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">工作笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/" class="post-title-link" itemprop="url">PostgreSQL 12支持 Generated Columns 特性</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-22 14:15:02 / 修改时间：16:46:22" itemprop="dateCreated datePublished" datetime="2021-04-22T14:15:02+08:00">2021-04-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/database/" itemprop="url" rel="index"><span itemprop="name">database</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/22/PostgreSQL 12 支持 Generated Columns 特性/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="PostgreSQL-12-支持-Generated-Columns-特性"><a href="#PostgreSQL-12-支持-Generated-Columns-特性" class="headerlink" title="PostgreSQL 12: 支持 Generated Columns 特性"></a>PostgreSQL 12: 支持 Generated Columns 特性</h1><p>PostgreSQL 12 一个给力SQL特性是增加了对 Generated Columns 的支持，这个特性并不陌生，MySQL 已经支持这个特性。</p>
+<p>这个特性对分析类场景比较有用，本文简单测试下 PostgreSQL 的这个特性。</p>
+<h1 id="发行说明"><a href="#发行说明" class="headerlink" title="发行说明"></a>发行说明</h1><blockquote>
+<p>Add support for generated columns (Peter Eisentraut)</p>
+<p>The content of generated columns are computed from expressions (including references to other columns in the same table) rather than being specified by INSERT or UPDATE commands.</p>
+</blockquote>
+<h1 id="补丁说明"><a href="#补丁说明" class="headerlink" title="补丁说明"></a>补丁说明</h1><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Generated</span> <span class="keyword">columns</span></span><br><span class="line"></span><br><span class="line">This <span class="keyword">is</span> an <span class="keyword">SQL</span>-standard feature that allows creating <span class="keyword">columns</span> that are</span><br><span class="line">computed <span class="keyword">from</span> expressions rather than assigned, <span class="keyword">similar</span> <span class="keyword">to</span> a <span class="keyword">view</span> <span class="keyword">or</span></span><br><span class="line"><span class="keyword">materialized</span> <span class="keyword">view</span> but <span class="keyword">on</span> a <span class="keyword">column</span> basis.</span><br><span class="line"></span><br><span class="line">This implements one kind <span class="keyword">of</span> <span class="keyword">generated</span> <span class="keyword">column</span>: stored (computed <span class="keyword">on</span></span><br><span class="line"><span class="keyword">write</span>).  Another kind, virtual (computed <span class="keyword">on</span> <span class="keyword">read</span>), <span class="keyword">is</span> planned <span class="keyword">for</span> the</span><br><span class="line">future, <span class="keyword">and</span> <span class="keyword">some</span> room <span class="keyword">is</span> left <span class="keyword">for</span> it.</span><br><span class="line"></span><br><span class="line">Discussion: https://www.postgresql.org/message-id/flat/<span class="number">-4019</span>-bdb1<span class="number">-699</span>e-@<span class="number">2</span>ndquadrant.com</span><br></pre></td></tr></table></figure>
+<p>generated column 列的值是根据其它列表达式计算而得，和基于表的物化视图有些类似。</p>
+<p>目前仅支持 stored (computed on write)， virtual (computed on read) 暂不支持，以后版本会支持。</p>
+<h1 id="Generated-columns-语法"><a href="#Generated-columns-语法" class="headerlink" title="Generated columns 语法"></a>Generated columns 语法</h1><blockquote>
+<p>GENERATED ALWAYS AS ( generation_expr ) STORED</p>
+</blockquote>
+<p>generated column 说明如下:</p>
+<ul>
+<li>STORED： 表示 Generated columns 类型为 “computed on write”， 数据存储到磁盘上。</li>
+<li>generation_expr: 只能引用本表的非 generated column 字段，不可以引用其它表的字段，使用的表达式和操作符必须是 immutable 属性。</li>
+<li>generated column 字段只读: 不支持 INSRET 和 UPDATE。</li>
+</ul>
+<p>使用心得：</p>
+<ul>
+<li>所谓“使用表达式和操作符必须是immutable属性”就是不能是动态的操作，比如表达式中有函数，它会认为是动态的。</li>
+<li>更新相关的字段，generated column 字段中的表达式包含这些字段的话，该generated column字段会被更新。</li>
+</ul>
+<h1 id="Generated-columns-演示"><a href="#Generated-columns-演示" class="headerlink" title="Generated columns 演示"></a>Generated columns 演示</h1><p>创建测试表 score 并插入一条测试，如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> score(stuid int4, chinese int2, math int2, sum_score int2 GENERATED ALWAYS <span class="keyword">AS</span> (chinese<span class="operator">+</span>math) STORED );</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span></span><br><span class="line"></span><br><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> \d score</span><br><span class="line">                                   <span class="keyword">Table</span> &quot;pguser.score&quot;</span><br><span class="line">  <span class="keyword">Column</span>   <span class="operator">|</span>   Type   <span class="operator">|</span> <span class="keyword">Collation</span> <span class="operator">|</span> Nullable <span class="operator">|</span>                   <span class="keyword">Default</span></span><br><span class="line"><span class="comment">-----------+----------+-----------+----------+------------------------------------------</span></span><br><span class="line"> stuid     <span class="operator">|</span> <span class="type">integer</span>  <span class="operator">|</span>           <span class="operator">|</span>          <span class="operator">|</span></span><br><span class="line"> chinese   <span class="operator">|</span> <span class="type">smallint</span> <span class="operator">|</span>           <span class="operator">|</span>          <span class="operator">|</span></span><br><span class="line"> math      <span class="operator">|</span> <span class="type">smallint</span> <span class="operator">|</span>           <span class="operator">|</span>          <span class="operator">|</span></span><br><span class="line"> sum_score <span class="operator">|</span> <span class="type">smallint</span> <span class="operator">|</span>           <span class="operator">|</span>          <span class="operator">|</span> generated always <span class="keyword">as</span> (chinese <span class="operator">+</span> math) stored</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> score(stuid,chinese,math) <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="number">90</span>,<span class="number">95</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="number">0</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>备注: 表 socre 的 sum_score 为 generated column。</p>
+<p>验证 sum_score 列的数据，如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> score;</span><br><span class="line"> stuid <span class="operator">|</span> chinese <span class="operator">|</span> math <span class="operator">|</span> sum_score</span><br><span class="line"><span class="comment">-------+---------+------+-----------</span></span><br><span class="line">     <span class="number">1</span> <span class="operator">|</span>      <span class="number">90</span> <span class="operator">|</span>   <span class="number">95</span> <span class="operator">|</span>       <span class="number">185</span></span><br><span class="line">(<span class="number">1</span> <span class="type">row</span>)</span><br></pre></td></tr></table></figure>
+<p>Generated columns 不支持 INSERT 和 UPDATE，如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> score(stuid,chinese,math,sum_score) <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="number">80</span>,<span class="number">70</span>,<span class="number">100</span>);</span><br><span class="line">psql: ERROR:  cannot <span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">column</span> &quot;sum&quot;</span><br><span class="line">DETAIL:  <span class="keyword">Column</span> &quot;sum&quot; <span class="keyword">is</span> a generated column.</span><br><span class="line"></span><br><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">UPDATE</span> score <span class="keyword">SET</span> sum_score<span class="operator">=</span><span class="number">100</span> <span class="keyword">WHERE</span> stuid<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line">psql: ERROR:  <span class="keyword">column</span> &quot;sum&quot; can <span class="keyword">only</span> be updated <span class="keyword">to</span> <span class="keyword">DEFAULT</span></span><br><span class="line">DETAIL:  <span class="keyword">Column</span> &quot;sum&quot; <span class="keyword">is</span> a generated column.</span><br></pre></td></tr></table></figure>
+<p>Generated columns 支持创建索引，如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mydb<span class="operator">=</span><span class="operator">&gt;</span> <span class="keyword">CREATE</span> INDEX idx_score_sum <span class="keyword">ON</span> score <span class="keyword">USING</span> BTREE(sum);</span><br><span class="line"><span class="keyword">CREATE</span> INDEX</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文简单演示了 Generated columns 的使用，注意如下:</p>
+<ul>
+<li>Generated columns 有两种类型， Stored (computed on write) 和 Virtual (computed on read)，目前仅支持 stored 类型，数据存储到磁盘上。</li>
+<li>Generated columns 只能引用本表的非 generated column 字段，不可以引用其它表的字段。</li>
+<li>Generated columns 使用的表达式和操作符必须是 Immutable 属性。</li>
+<li>generated columns 字段只读，不支持 INSRET 和 UPDATE。</li>
+<li>generated columns 支持创建索引。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2021/04/10/%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/10/%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">安装 TCP BBR拥塞算法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-10 14:15:02 / 修改时间：17:09:19" itemprop="dateCreated datePublished" datetime="2021-04-10T14:15:02+08:00">2021-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/10/%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/10/安装-TCP-BBR拥塞算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装-TCP-BBR拥塞算法"><a href="#安装-TCP-BBR拥塞算法" class="headerlink" title="安装 TCP BBR拥塞算法"></a>安装 TCP BBR拥塞算法</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.williamlong.info/archives/5586.html">https://www.williamlong.info/archives/5586.html</a> 月光博客</p>
+<p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来创建网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。</p>
+<p>Google在<a target="_blank" rel="noopener" href="https://www.williamlong.info/tag/YouTube.html">YouTube</a>上应用该算法，将全球平均的YouTube网络吞吐量提高了4%，在一些国家超过了14%。根据实地测试，在部署了最新版内核并开启了 TCP BBR 的机器上，网速甚至可以提升好几个数量级。</p>
+<p>　　从 4.9 开始，Linux 内核已经用上了该算法，并且对于QUIC可用。如果想在Linux使用BBR，那么首先就是判断内核版本是否大于4.9，如果符合版本标准，那么直接启动BBR就可以了，如果低于4.9，升级内核之后启动就行了。</p>
+</blockquote>
+<h2 id="CentOS-7-3上安装TCP-BBR的方法"><a href="#CentOS-7-3上安装TCP-BBR的方法" class="headerlink" title="CentOS 7.3上安装TCP BBR的方法"></a>CentOS 7.3上安装TCP BBR的方法</h2><p>首先将Centos系统更新，更新到7.3版本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure>
+<p>查看系统版本，输出的release数值大于7.3即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-release</span><br></pre></td></tr></table></figure>
+<p>对于某些机器来说，安装一下wget</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> wget</span><br></pre></td></tr></table></figure>
+<p>使用下面命令安装elrepo并升级内核</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml -y</span><br><span class="line">grub2-set-default 0</span><br><span class="line">grub2-mkconfig -o /etc/grub2.cfg</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>更新grub文件并重启（reboot后，ssh会断开，稍等一会儿重新连接）开机后查看内核是否已更换.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<p>启动BBR。依次执行下面命令就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;net.core.default_qdisc = fq&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">echo &quot;net.ipv4.tcp_congestion_control = bbr&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p </span><br></pre></td></tr></table></figure>
+<p>验证bbr是否已经开启</p>
+<p>A，验证当前TCP控制算法的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
+<p>返回值一般为：</p>
+<p><code>net.ipv4.tcp_available_congestion_control = bbr cubic reno</code> 或者为：</p>
+<p><code>net.ipv4.tcp_available_congestion_control = reno cubic bbr</code></p>
+<p>B，验证BBR是否已经启动。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure>
+<p>返回值一般为：<code>net.ipv4.tcp_congestion_control = bbr</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>
+<p>返回值有 tcp_bbr 模块即说明 bbr 已启动。</p>
+<h2 id="CentOS8上启用TCP-BBR方法"><a href="#CentOS8上启用TCP-BBR方法" class="headerlink" title="CentOS8上启用TCP BBR方法"></a>CentOS8上启用TCP BBR方法</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">LSB</span> Version:	:core-<span class="number">4</span>.<span class="number">1</span>-amd64:core-<span class="number">4</span>.<span class="number">1</span>-noarch</span><br><span class="line"><span class="attribute">Distributor</span> ID:	CentOS</span><br><span class="line"><span class="attribute">Description</span>:	CentOS Linux release <span class="number">8</span>.<span class="number">1</span>.<span class="number">1911</span> (Core)</span><br><span class="line"><span class="attribute">Release</span>:	<span class="number">8</span>.<span class="number">1</span>.<span class="number">1911</span></span><br><span class="line"><span class="attribute">Codename</span>:	Core</span><br></pre></td></tr></table></figure>
+<p>已经自带了BBR</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">加载BBR算法</span></span><br><span class="line">/sbin/modprobe tcp_bbr</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">编辑系统配置文件</span></span><br><span class="line">sudo vi /etc/sysctl.conf</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">结尾添加两行</span></span><br><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp_congestion_control=bbr</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使修改生效</span></span><br><span class="line">sysctl -p</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看已加载算法模块</span></span><br><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/05/02/%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/02/%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97/" class="post-title-link" itemprop="url">切割日志</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-02 12:57:52 / 修改时间：13:18:15" itemprop="dateCreated datePublished" datetime="2020-05-02T12:57:52+08:00">2020-05-02</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/05/02/%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/02/切割日志/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一些程序会输出很多的日志，但是都输出到一个文件中。随着文件尺寸越来越大，会占用很多空间。同时超大文件也不便于操作。需要对日志文件做切割。切割日志有很多方案，这里选用logrotate。</p>
+<h2 id="程序启动命令"><a href="#程序启动命令" class="headerlink" title="程序启动命令"></a>程序启动命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup lotus daemon &gt;&gt; logs/lotus.log &amp;</span><br></pre></td></tr></table></figure>
+<p>让程序在后台运行，并将日志重定向并追加在日志文件之后。把 <code>&gt;</code> 替换成 <code>&gt;&gt;</code> 追加的形式,就可以被logrotate正常切割。</p>
+<h3 id="重定向和追加的区别"><a href="#重定向和追加的区别" class="headerlink" title="重定向和追加的区别"></a>重定向和追加的区别</h3><blockquote>
+<p><strong><code>&gt;</code></strong> 输出重定向：会将原来的文件内容<strong>覆盖</strong></p>
+<p><strong><code>&gt;&gt;</code></strong>追加：不会覆盖原来文件的内容，而是<strong>追加</strong>到文件的尾部</p>
+<p>基本语法</p>
+<ol>
+<li>```<br>ls -l &gt; a.txt<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    列表的内容写入文件a.txt（覆盖写）</span><br><span class="line"></span><br><span class="line">   - 示例：`ls -l &gt; a.txt`</span><br><span class="line">   - 说明：`ls -l &gt; a.txt`,将`ls -l`的显示内容**覆盖**写入到a.txt文件，如果文件不存在 ，就创建该文件。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. `ls -al &gt;&gt; 文件` :列表的内容追加到文件aa.txt的末尾</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. `cat 文件<span class="number">1</span> &gt; 文件<span class="number">2</span>` :将文件<span class="number">1</span>的内容覆盖到文件<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. `echo <span class="string">&quot;内容&quot;</span> &gt;&gt; 文件`:将内容 追加到文件中</span><br><span class="line"></span><br><span class="line">## logrotate 文件切割</span><br><span class="line"></span><br><span class="line">在`/etc/logrotate.d/`下建立一个文件 `/etc/logrotate.d/lotus`内容如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+/path/to/*.log<br>{<br> rotate 10<br> size 5M<br> daily<br> copytruncate<br> create 664 alpha alpha<br> missingok<br> notifempty<br> compress<br> delaycompress<br>}<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">**rotate** - 限制日志文件轮转的数量。因此，这将只保留最近的 10 个轮转的日志文件。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">**size** - logrotate 仅在文件大小等于（或大于）此大小时运行。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">**create** - 轮换原始文件并创建具有指定权限、用户和组的新文件。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">**compress** - 压缩文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">**delaycompress** - 延迟压缩最近一个文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">**copytruncate** - 🌶️ （有它就能实现文件切割）在创建副本后将原始日志文件截断为零大小，而不是移动旧日志文件和可以选择创建一个新的。它可以在某些程序无法关闭其日志文件时使用，因此可能继续永远写入（追加）上一个日志文件。注意，在复制文件并将其截断，因此某些日志数据可能会丢失。使用此选项时，创建选项将不起作用，因为旧的日志文件仍在原处。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">**daily** - 似乎没有小时级别的日志轮转，未确认。这个选项代表按天执行日志轮转</span></span><br><span class="line"></span><br><span class="line">想要立即执行，可以执行`logrotate /etc/logrotate.<span class="keyword">conf</span>`</span><br><span class="line"></span><br><span class="line">## 查看压缩日志文件</span><br><span class="line"></span><br><span class="line">```<span class="keyword">shell</span></span><br><span class="line">zcat example.<span class="keyword">log</span>.1.gz &gt; example.<span class="keyword">log</span>.1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Here are several alternatives:</p>
+<ul>
+<li><p>Give <code>gunzip</code> the <code>--keep</code> option (version 1.6 or later)</p>
+<blockquote>
+<p><code>-k</code>  <code>--keep</code></p>
+<pre><code>Keep (don&#39;t delete) input files during compression or decompression.
+</code></pre></blockquote>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip -k <span class="built_in">file</span>.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Pass the file to <code>gunzip</code> as stdin</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip &lt; <span class="built_in">file</span>.gz &gt; <span class="built_in">file</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Use <code>zcat</code> (or, on older systems, <code>gzcat</code>)</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zcat <span class="built_in">file</span>.gz &gt; <span class="built_in">file</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.ostechnix.com/manage-log-files-using-logrotate-linux/">How To Manage Log Files Using Logrotate In Linux</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.linuxprobe.com/configure-logrotate-tutorial.html">配置 logrotate 教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mayifan0/article/details/80453062">logrotate切割nohup日志大小不变</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.coder.work/article/1912078">如何将logrotate与输出重定向一起使用</a></p>
+<p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/156261/unzipping-a-gz-file-without-removing-the-gzipped-file">Unzipping a .gz file without removing the gzipped file</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/how-to-force-reset-local-branch">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/how-to-force-reset-local-branch" class="post-title-link" itemprop="url">强制使用远程分支覆盖本地分支</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-02 10:50:35 / 修改时间：10:53:07" itemprop="dateCreated datePublished" datetime="2020-05-02T10:50:35+08:00">2020-05-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/how-to-force-reset-local-branch#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/how-to-force-reset-local-branch" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all</span><br><span class="line">git reset --hard origin/xxx</span><br></pre></td></tr></table></figure>
+<p>这里<code>origin/xxx</code>是本地的远程分支副本。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">日志库打印行号问题</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-20 11:41:03" itemprop="dateCreated datePublished" datetime="2020-04-20T11:41:03+08:00">2020-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-21 20:41:36" itemprop="dateModified" datetime="2020-04-21T20:41:36+08:00">2020-04-21</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/20/日志库打印行号问题/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>golang提供运行时堆栈调用接口<code>runtime.Caller</code>。所有的日志库都是基于该接口实现日志中打印日志输出所在文件、行号。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;path&quot;</span></span><br><span class="line">	<span class="string">&quot;runtime&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">log</span><span class="params">(loglvl, format <span class="type">string</span>, args ...<span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	_, file, line, ok := runtime.Caller(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		<span class="built_in">panic</span>(<span class="string">&quot;asdf&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	now := time.Now().Format(<span class="string">&quot;2006-01-02 15:04:05&quot;</span>)</span><br><span class="line"></span><br><span class="line">	format = fmt.Sprintf(<span class="string">&quot;[%s]%s\t%s:%d %s&quot;</span>, loglvl, now, path.Base(file), line, format)</span><br><span class="line">	fmt.Fprintf(os.Stdout, format, args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomething</span><span class="params">(data <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">	log(<span class="string">&quot;info&quot;</span>, <span class="string">&quot;doSomething: %s&quot;</span>, data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	doSomething(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[info]</span><span class="number">2020</span>-<span class="number">04</span>-<span class="number">20</span> <span class="number">11</span>:<span class="number">42</span>:<span class="number">06</span>	<span class="selector-tag">main</span><span class="selector-class">.go</span>:<span class="number">12</span> doSomething: <span class="selector-attr">[hello world]</span></span><br></pre></td></tr></table></figure>
+<p>这里输出的日志行号显示为12。行号12所在的位置不是实际想要显示的日志位置。实际想要显示的日志位置在24行。这里只需要设置<code>runtime.Caller(1)</code>就可以了。</p>
+<blockquote>
+<p>func Caller(skip int) (pc uintptr, file string, line int, ok bool)</p>
+<p>Caller reports file and line number information about function invocations on the calling goroutine’s stack.<br>The argument skip is the number of stack frames to ascend, with 0 identifying the caller of Caller.<br>(For historical reasons the meaning of skip differs between Caller and Callers.)<br>The return values report the program counter, file name, and line number within the file of the corresponding call.<br>The boolean ok is false if it was not possible to recover the information.</p>
+<p>Caller 函数报告有关调用goroutine堆栈上的函数调用的文件和行号信息。<br>参数skip是要提升的堆栈帧数，其中0标识Caller的调用方。 </p>
+<p>（由于历史原因，在Caller和Callers之间，跳过的含义有所不同。）<br>返回值报告相应调用文件中的程序计数器，文件名和行号。<br>如果不可能恢复该信息，则ok布尔值为False。</p>
+</blockquote>
+<p>以<code>go.uber.org/zap</code>日志库为例，它也提供了设置该<code>skip</code>的设置，以方便对其进行二次包装。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">lgcfg = zap.Config&#123;</span><br><span class="line">		Level:            zap.NewAtomicLevelAt(zap.DebugLevel),</span><br><span class="line">		Development:      <span class="literal">true</span>,</span><br><span class="line">		Encoding:         <span class="string">&quot;console&quot;</span>,</span><br><span class="line">		EncoderConfig:    zap.NewDevelopmentEncoderConfig(),</span><br><span class="line">		OutputPaths:      []<span class="type">string</span>&#123;<span class="string">&quot;stderr&quot;</span>, logFilePath&#125;,</span><br><span class="line">		ErrorOutputPaths: []<span class="type">string</span>&#123;<span class="string">&quot;stderr&quot;</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line">lgr, _ := lgcfg.Build(zap.AddCaller(), zap.AddCallerSkip(<span class="number">1</span>))</span><br><span class="line">logger = lgr.Sugar()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Info</span><span class="params">(args ...<span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	logger.Info(args...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Infof</span><span class="params">(tpl <span class="type">string</span>, args ...<span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	logger.Infof(tpl, args...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/filecoin-elliptic-and-sign">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/filecoin-elliptic-and-sign" class="post-title-link" itemprop="url">FileCoin账户和离线签名</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-19 12:31:08 / 修改时间：12:33:30" itemprop="dateCreated datePublished" datetime="2020-04-19T12:31:08+08:00">2020-04-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/filecoin-elliptic-and-sign#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/filecoin-elliptic-and-sign" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="椭圆曲线的选择"><a href="#椭圆曲线的选择" class="headerlink" title="椭圆曲线的选择"></a>椭圆曲线的选择</h2><p>FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。</p>
+<p>比特币纯Go版本实现：<a target="_blank" rel="noopener" href="https://github.com/btcsuite/btcd/tree/master/btcec">btcec</a></p>
+<p>以太坊采用的C++版本：<a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum/tree/master/crypto/secp256k1">go-ethereum/crypto/secp256k1</a></p>
+<p>以及FileCoin使用的C版本：<a href="github.com/ipsn/go-secp256k1">go-secp256k1</a></p>
+<p>💡 注意，FileCoin 支持两种签名，一种是椭圆曲线签名，一种是bls签名。</p>
+<p>bls签名库使用了rust版本的实现：<a target="_blank" rel="noopener" href="https://github.com/filecoin-project/filecoin-ffi">Filecoin Proofs FFI</a></p>
+<blockquote>
+<p>BLS 签名算法是一种可以实现签名聚合和密钥聚合的算法（即可以将多个密钥聚合成一把密钥，将多个签名聚合成一个签名）。在以太坊未来的 Casper 实现中，有非常多的验证者都要对区块签名，要保证系统的安全性，同时节约存储空间，就需要用到这类签名聚合的算法。</p>
+<p><a target="_blank" rel="noopener" href="https://www.iacr.org/archive/asiacrypt2001/22480516.pdf">Boneh-Lynn-Shacham</a></p>
+</blockquote>
+<p>我们使用椭圆曲线签名来生成私钥。</p>
+<h2 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h2><p>以比特币<code>btcec</code>为例，生成符合FileCoin的私钥：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sk, _ := btcec.NewPrivateKey(btcec.S256())</span><br></pre></td></tr></table></figure>
+<h2 id="生成地址"><a href="#生成地址" class="headerlink" title="生成地址"></a>生成地址</h2><h3 id="获得公钥"><a href="#获得公钥" class="headerlink" title="获得公钥"></a>获得公钥</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;crypto/elliptic&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化椭圆曲线上的坐标点为未压缩格式的公钥</span></span><br><span class="line">pub := elliptic.Marshal(btcec.S256(), sk.PublicKey.X, sk.PublicKey.Y)</span><br></pre></td></tr></table></figure>
+<h3 id="获得地址"><a href="#获得地址" class="headerlink" title="获得地址"></a>获得地址</h3><h4 id="对公钥做哈希运算"><a href="#对公钥做哈希运算" class="headerlink" title="对公钥做哈希运算"></a>对公钥做哈希运算</h4><p>FileCoin中有一个通用的哈希函数，使用blake2b快速哈希。如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hash</span><span class="params">(ingest []<span class="type">byte</span>, cfg *blake2b.Config)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	hasher, err := blake2b.New(cfg)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// If this happens sth is very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;invalid address hash configuration: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> _, err := hasher.Write(ingest); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// blake2bs Write implementation never returns an error in its current</span></span><br><span class="line">		<span class="comment">// setup. So if this happens sth went very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;blake2b is unable to process hashes: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对公钥进行一次哈希运算：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash(pub, &amp;blake2b.Config&#123;Size: <span class="number">20</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>原文注释里是这样说的：</p>
+<blockquote>
+<p>PayloadHashLength defines the hash length taken over addresses using the Actor and SECP256K1 protocols.</p>
+</blockquote>
+<p>这里的<code>PayloadHashLength</code>等于20。</p>
+<h4 id="生成地址格式"><a href="#生成地址格式" class="headerlink" title="生成地址格式"></a>生成地址格式</h4><p>然后拼接地址格式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">explen := <span class="number">1</span> + <span class="built_in">len</span>(payload)</span><br><span class="line">buf := <span class="built_in">make</span>([]<span class="type">byte</span>, explen)</span><br><span class="line"></span><br><span class="line">buf[<span class="number">0</span>] = protocol</span><br><span class="line"><span class="built_in">copy</span>(buf[<span class="number">1</span>:], payload)</span><br></pre></td></tr></table></figure>
+<p>上面的<code>protocol</code>值固定为1，<code>payload</code>为<code>hash(pub)</code>。</p>
+<h4 id="对地址编码"><a href="#对地址编码" class="headerlink" title="对地址编码"></a>对地址编码</h4><p>FileCoin 内有这样一个函数，将生成编码后我们看到的地址格式如：<code>t1qecjxje6yjq2yatfgj3noapi5fa3cr7vmrw6xti</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(network Network, addr Address)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> addr == Undef &#123;</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> ntwk <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> network &#123;</span><br><span class="line">	<span class="keyword">case</span> Mainnet:</span><br><span class="line">		ntwk = MainnetPrefix</span><br><span class="line">	<span class="keyword">case</span> Testnet:</span><br><span class="line">		ntwk = TestnetPrefix</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownNetwork</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> strAddr <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> addr.Protocol() &#123;</span><br><span class="line">	<span class="keyword">case</span> SECP256K1, Actor, BLS:</span><br><span class="line">		cksm := Checksum(<span class="built_in">append</span>([]<span class="type">byte</span>&#123;addr.Protocol()&#125;, addr.Payload()...))</span><br><span class="line">		strAddr = ntwk + fmt.Sprintf(<span class="string">&quot;%d&quot;</span>, addr.Protocol()) + AddressEncoding.WithPadding(<span class="number">-1</span>).EncodeToString(<span class="built_in">append</span>(addr.Payload(), cksm[:]...))</span><br><span class="line">	<span class="keyword">case</span> ID:</span><br><span class="line">		i, n, err := varint.FromUvarint(addr.Payload())</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;could not decode varint: %w&quot;</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> n != <span class="built_in">len</span>(addr.Payload()) &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;payload contains additional bytes&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		strAddr = fmt.Sprintf(<span class="string">&quot;%s%d%d&quot;</span>, ntwk, addr.Protocol(), i)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownProtocol</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> strAddr, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Network</code>看作是枚举，<code>0</code>代表<code>Mainnet</code>，<code>1</code>代表<code>Testnet</code>。<code>TestnetPrefix = “t”</code>，<code>MainnetPrefix = “f”</code>。</p>
+<p>对地址格式再次做哈希，作为地址摘要</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cksm := hash(buf, &amp;blake2b.Config&#123;Size: <span class="number">4</span>&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ChecksumHashLength defines the hash length used for calculating address checksums.</p>
+</blockquote>
+<p><code>ChecksumHashLength</code>等于4。</p>
+<p>对<code>hash(pub)</code>+<code>cksum</code>做base32转换。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> encodeStd = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz234567&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// AddressEncoding defines the base32 config used for address encoding and decoding.</span></span><br><span class="line"><span class="keyword">var</span> AddressEncoding = base32.NewEncoding(encodeStd)</span><br></pre></td></tr></table></figure>
+<p>最终地址等于<code>网络前缀</code>+<code>椭圆曲线类型</code>+<code>base32(hash(pub)+cksum)</code></p>
+<h2 id="离线签名"><a href="#离线签名" class="headerlink" title="离线签名"></a>离线签名</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用secp256k1签名</span></span><br><span class="line"><span class="comment">// 签名前使用blake2哈希算法对要签名的消息做信息摘要，统一签名消息的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(secpSigner)</span></span> Sign(pk []<span class="type">byte</span>, msg []<span class="type">byte</span>) ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	b2sum := blake2b.Sum256(msg)</span><br><span class="line">	sig, err := crypto.Sign(pk, b2sum[:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> sig, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>crypto.Sign</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sign signs the given message, which must be 32 bytes long.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sign</span><span class="params">(sk, msg []<span class="type">byte</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">  <span class="comment">// secp256k1 就是最终的椭圆曲线签名，这个签名可以替换成secp256k1不同语言版本的实现</span></span><br><span class="line">	<span class="keyword">return</span> secp256k1.Sign(msg, sk)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/golang-interface-pit">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/golang-interface-pit" class="post-title-link" itemprop="url">Go语言interface的坑</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-10 22:37:56 / 修改时间：23:04:28" itemprop="dateCreated datePublished" datetime="2020-04-10T22:37:56+08:00">2020-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/golang-interface-pit#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/golang-interface-pit" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下代码执行结果是什么</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Namespace <span class="keyword">interface</span> &#123;</span><br><span class="line">	Value() <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyNamespace <span class="keyword">struct</span> &#123;</span><br><span class="line">	value <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n *MyNamespace)</span></span> Value() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> n.value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> n *MyNamespace = <span class="literal">nil</span></span><br><span class="line">	show(n)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>结果是报错。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">panic: runtime error: invalid memory <span class="selector-tag">address</span> or nil pointer dereference</span><br><span class="line"><span class="selector-attr">[signal SIGSEGV: segmentation violation code=0xffffffff addr=0x0 pc=0xe01c6]</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> <span class="selector-attr">[running]</span>:</span><br><span class="line"><span class="selector-tag">main</span>.(*MyNamespace)<span class="selector-class">.Value</span>(<span class="number">0</span>x0, <span class="number">0</span>x5bf2, <span class="number">0</span>x119bf8, <span class="number">0</span>x1d)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">16</span> +<span class="number">0</span>x6</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.show</span>(<span class="number">0</span>x15d910, <span class="number">0</span>x0)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">21</span> +<span class="number">0</span>x40</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.main</span>()</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">30</span> +<span class="number">0</span>x40</span><br><span class="line"></span><br><span class="line">Program exited.</span><br></pre></td></tr></table></figure>
+<p>报一个空指针错误。<code>n != nil</code>的判断在这里无效。</p>
+<p>原因是Go语言中，<code>interface&#123;&#125;</code>类型的变量包含了2个指针，一个指针指向值的类型，一个指针指向实际的值。<code>MyNamespace</code>实现了<code>Namespace</code>接口，<code>n</code>在传入<code>Show(n)</code>函数时被自动转型成为<code>Namespace</code>。<code>var n *MyNameSpace = nil</code>只是声明了该接口类型的实际值为nil，虽然我们把一个nil值赋值给它，但是实际上interface里依然存了指向类型的指针，所以拿这个interface变量去和nil常量进行比较的话就会返回<code>false</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> asStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	pt <span class="type">uintptr</span></span><br><span class="line">	pv <span class="type">uintptr</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;👉👉 %p\n&quot;</span>, n)</span><br><span class="line">	x := *(*asStruct)(unsafe.Pointer(&amp;n))</span><br><span class="line">	spew.Dump(x)</span><br><span class="line">	spew.Println(<span class="string">&quot;n == nil ?&quot;</span>, n == <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &amp;&amp; !reflect.ValueOf(n).IsNil() &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output：</span></span><br><span class="line"><span class="comment">// 👉👉 0x0</span></span><br><span class="line"><span class="comment">// (main.asStruct) &#123;</span></span><br><span class="line"><span class="comment">//  pt: (uintptr) 0x1125f80,</span></span><br><span class="line"><span class="comment">//  pv: (uintptr) &lt;nil&gt;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// n == nil ? false</span></span><br><span class="line"><span class="comment">// Hello World!</span></span><br></pre></td></tr></table></figure>
+<p>我们看到传入的参数指针值为0，但<code>interface&#123;&#125;</code>类型的变量的两个指针，值的类型是有值的，实际值为nil。因此接口传入的不是实际的nil的情况下，<code>n==nil</code>就为false。可以使用<code>reflect.ValueOf(n).IsNil()</code>来判断是否实际值为nil。</p>
+<p><code>reflect.ValueOf</code>只接受指针类型，否则会<code>panic</code>。</p>
+<p>如果显式传入<code>show(nil)</code>，<code>interface&#123;&#125;</code>类型变量的两个指针都为nil，则<code>n == nil</code>判断生效。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//show(nil)</span></span><br><span class="line">(main.asStruct) &#123;</span><br><span class="line"> pt: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;,</span><br><span class="line"> pv: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line">n == <span class="literal">nil</span> ? <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/10635">Go语言第一深坑 - interface 与 nil 的比较</a></p>
+<p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/5955">golang中interface判断nil问题</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/bandwidth">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/bandwidth" class="post-title-link" itemprop="url">网络带宽的那点事</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-20 19:54:51 / 修改时间：20:28:51" itemprop="dateCreated datePublished" datetime="2020-03-20T19:54:51+08:00">2020-03-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/bandwidth#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/bandwidth" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。</p>
+<blockquote>
+<p>有一种概念叫无线漫游，当网络环境存在多个相同SSID的AP，且它们的微单元互相有一定范围的重合时，无线用户可以在整个WLAN覆盖区内移动，无线网卡能够自动发现附近信号强度最大的AP，并通过这个AP收发数据，保持不间断的网络连接，这就称为无线漫游。</p>
+</blockquote>
+<p>华为路由器（荣耀路由2），它自带Bridge(AP)模式，这个模式非常棒，每个无线Wi-Fi信号源都设置相同的信号名称、相同的频段、相同的密码等全部相同的信号设置情况下，全屋就可以享受统一的Wi-Fi接入！再也不用忍受手动切换信号的痛苦了。然而华为路由器本身带有mesh功能，多个同类型路由器之间可以无缝切换。家用路由器几个型号不一致，无法享受mesh功能做无缝切换，只能算做“快速漫游”。</p>
+<p>快速漫游虽然可以通过同名Wi-Fi起到快速切换的作用，但可能会造成IP地址切换、网络断开重连。因此需要在上级路由器中绑定Mac地址为静态IP分配，保证在信号切换后IP地址不变。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/bandwidth#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/" class="post-title-link" itemprop="url">水平垂直居中以及Codepen</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-14 15:43:27 / 修改时间：15:58:53" itemprop="dateCreated datePublished" datetime="2020-03-14T15:43:27+08:00">2020-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/14/水平垂直居中以及Codepen/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="博客支持CodePen的方法"><a href="#博客支持CodePen的方法" class="headerlink" title="博客支持CodePen的方法"></a>博客支持CodePen的方法</h2><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/hexo-codepen">https://www.npmjs.com/package/hexo-codepen</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D hexo-codepen</span><br></pre></td></tr></table></figure>
+<p>然后在Markdown中嵌入</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name">codepen</span> userId|anonymous|anon slugHash theme [defaultTab [height [width]]] %&#125;</span></span><br></pre></td></tr></table></figure>
+<p>在CodePen编辑器右下角<code>Embed</code>按钮弹开后，复制HTML代码如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;codepen&quot;</span> <span class="attr">data-height</span>=<span class="string">&quot;265&quot;</span> <span class="attr">data-theme-id</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">data-default-tab</span>=<span class="string">&quot;html,result&quot;</span> <span class="attr">data-user</span>=<span class="string">&quot;alphaqiu&quot;</span> <span class="attr">data-slug-hash</span>=<span class="string">&quot;MWwVzar&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;&quot;</span> <span class="attr">data-pen-title</span>=<span class="string">&quot;水平垂直居中/Loading mask&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>See the Pen <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu/pen/MWwVzar&quot;</span>&gt;</span></span><br><span class="line">  水平垂直居中/Loading mask<span class="tag">&lt;/<span class="name">a</span>&gt;</span> by alphaqiu (<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu&quot;</span>&gt;</span>@alphaqiu<span class="tag">&lt;/<span class="name">a</span>&gt;</span>)</span><br><span class="line">  on <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io&quot;</span>&gt;</span>CodePen<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;https://static.codepen.io/assets/embed/ei.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把<code>p</code>🏷️标签里对应的参数填到潜入代码对应位置：</p>
+<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;%</span> <span class="name">codepen</span> alphaqiu MWwVzar dark <span class="string">&quot;result&quot;</span> <span class="number">500</span> <span class="template-tag">%&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="水平和垂直居中"><a href="#水平和垂直居中" class="headerlink" title="水平和垂直居中"></a>水平和垂直居中</h2><iframe id="cp_embed_MWwVzar" src="//codepen.io/alphaqiu/embed/MWwVzar?height=500&theme-id=dark&slug-hash=MWwVzar&default-tab=result" scrolling="no" frameborder="no" height="500" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/webpack_scaffold">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/webpack_scaffold" class="post-title-link" itemprop="url">Webpack脚手架</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-08 20:19:33 / 修改时间：20:24:32" itemprop="dateCreated datePublished" datetime="2020-03-08T20:19:33+08:00">2020-03-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/webpack_scaffold#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/webpack_scaffold" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Webpack脚手架"><a href="#Webpack脚手架" class="headerlink" title="Webpack脚手架"></a>Webpack脚手架</h1><p>学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。</p>
+<p>下面就对环境的搭建逐一拆解。</p>
+<h2 id="初始化空项目"><a href="#初始化空项目" class="headerlink" title="初始化空项目"></a>初始化空项目</h2><p>基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> my-project &amp;&amp; <span class="built_in">cd</span> my-project</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+<p>通过<code>npm init -y</code>来简单的创建一个<code>package.json</code>。需要简单修改一下其中的内容：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">-- 删除 <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>private</code>为私有项目，不至于后续误操作上传到npm网站。</p>
+<p>这是个web前端项目，所以入口程序不必提供。</p>
+<h2 id="初始化Webpack环境"><a href="#初始化Webpack环境" class="headerlink" title="初始化Webpack环境"></a>初始化Webpack环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡关于<code>npm install</code>参数</p>
+<p>npm install -D 等同于 <code>--save-dev</code><br>npm install -S 等同于 <code>—save</code><br>npm install -O 等同于 <code>--save-optional</code><br>当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们</p>
+<p>（在模块根目录下npm install module-name），</p>
+<p>然后连同版本号手动将他们添加到模块配置文件package.json中的依赖里（dependencies）。</p>
+<p><code>--save</code>和<code>--save-dev</code>可以省掉你手动修改package.json文件的步骤。<br>spm install module-name -save 自动把模块和版本号添加到<code>dependencies</code>部分<br>spm install module-name -save-dve 自动把模块和版本号添加到<code>devdependencies</code>部分</p>
+<p>至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块， 以我见过的情况来看 devDepandencies主要是配置测试框架， 例如jshint、mocha。</p>
+<p>通过这些命令，我们会得到一个新的<code>package.json</code>。然后再做一个试验就懂得了区别：</p>
+<p>删除node_modules目录，然后执行<br>npm install —production，可以看到，npm只帮我们自动安装package.json中dependencies部分的模块；如果执行npm install ，则package.json中指定的dependencies和devDependencies都会被自动安装进来。</p>
+</blockquote>
+<p>可以上官方网站查看具体使用说明：<a target="_blank" rel="noopener" href="https://webpack.docschina.org/guides/installation/">https://webpack.docschina.org/guides/installation/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/webpack_scaffold#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="alpha"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">alpha</p>
+  <div class="site-description" itemprop="description">记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alpha</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v6.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alphaqiu.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

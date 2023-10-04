@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="​        2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。 　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地HTTPS证书工具">
+<meta property="og:url" content="https://alpha.checkitout.dev/2019/11/14/mkcert/index.html">
+<meta property="og:site_name" content="Check it out">
+<meta property="og:description" content="​        2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。 　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alpha.checkitout.dev/images/mkcert1.png">
+<meta property="article:published_time" content="2019-11-14T05:27:43.000Z">
+<meta property="article:modified_time" content="2020-03-06T14:51:58.803Z">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="mkcert">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alpha.checkitout.dev/images/mkcert1.png">
+
+<link rel="canonical" href="https://alpha.checkitout.dev/2019/11/14/mkcert/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>本地HTTPS证书工具 | Check it out</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-151212624-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Check it out</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">工作笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/404.html" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/11/14/mkcert/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          本地HTTPS证书工具
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-14 13:27:43" itemprop="dateCreated datePublished" datetime="2019-11-14T13:27:43+08:00">2019-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-06 22:51:58" itemprop="dateModified" datetime="2020-03-06T22:51:58+08:00">2020-03-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/11/14/mkcert/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/14/mkcert/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>​        2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。</p>
+<p>　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而这样做就需要开发者在本地安装TLS/SSL证书，部署HTTPS环境，但实际操作起来并不那么简单，需要开发人员先生成自签名证书再进行安装，整个过较为程繁琐也容易出错。</p>
+<p>　　mkcert则是一个让网站通过自动发布证书和安装来处理HTTPS流量的工具。Valsorda介绍称，通过不安全的HTTP环境测试Web应用程序，可能会掩盖HTTP 和HTTPS混合内容问题，而这些问题可能降低站点的安全性。</p>
+<p>　　据称，mkcert是一个简单的设计工具，它隐藏了生成有效TLS证书所需的难懂知识，并且适用于包括本地主机在内的任何主机名或IP。mkcert并不是创建自签名证书，而是生成由用户的私有证书颁发机构（CA）签名的证书，并计算机在运行时会自动配置为证书可信任状态。因此，当您的浏览器加载由您的mkcert实例生成的证书时，它将显示绿色锁！</p>
+<p>　　mkcert适用的系统包括Linux、macOS、 Windows，同时支持Firefox、 Chrome和Chromium。通过一些额外的步骤，该工具还可以支持Android和iOS系统。</p>
+</blockquote>
+<p>mkcert地址： <a target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert">https://github.com/FiloSottile/mkcert</a></p>
+<p>mkcert是由谷歌的Filippo Valsorda使用Golang开发的一个开源工具，使用非常简单，不需要进行任何配置，就可以生成任何你喜欢的域名的本地可信赖的开发证书。</p>
+<p>这个开源库不仅展示了生成证书的用法，也展示了在各个平台上调用证书导入的办法。值得学习。</p>
+<span id="more"></span>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h3><p>Mac上面我们可以使用Homebrew来进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install mkcert</span><br><span class="line">brew install nss # 如果你使用Firefox的话</span><br></pre></td></tr></table></figure>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>在Linux上面，首先需要安装<code>certutil</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libnss3-tools</span><br><span class="line">    -or-</span><br><span class="line">sudo yum install nss-tools</span><br><span class="line">    -or-</span><br><span class="line">sudo pacman -S nss</span><br><span class="line">    -or-</span><br><span class="line">sudo zypper install mozilla-nss-tools</span><br></pre></td></tr></table></figure>
+<p>然后你可以使用<a target="_blank" rel="noopener" href="http://linuxbrew.sh/">Linuxbrew</a>来安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mkcert</span><br></pre></td></tr></table></figure>
+<p>你也可以直接从源代码进行编译（依赖Go 1.10+）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/FiloSottile/mkcert</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">(go <span class="built_in">env</span> GOPATH)/bin/mkcert</span></span><br></pre></td></tr></table></figure>
+<p>你也可以直接使用编译好的<a target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert/releases">二进制文件</a>。</p>
+<p>如果你使用的是Arch Linux：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://aur.archlinux.org/mkcert.git</span><br><span class="line">cd mkcert</span><br><span class="line">makepkg -si</span><br></pre></td></tr></table></figure>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>在Windows上面，你可以使用Chocolatey来进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install mkcert</span><br></pre></td></tr></table></figure>
+<p>你也可以使用Scoop来进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add extras</span><br><span class="line">scoop install mkcert</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>首先，我们要创建并安装一个本地的CA证书到本地信任库中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkcert -install</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/alpha/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line">Sudo password:</span><br><span class="line">The <span class="built_in">local</span> CA is now installed <span class="keyword">in</span> the system trust store! ⚡️</span><br><span class="line">Warning: <span class="string">&quot;certutil&quot;</span> is not available, so the CA can<span class="string">&#x27;t be automatically installed in Firefox! ⚠️</span></span><br><span class="line"><span class="string">Install &quot;certutil&quot; with &quot;brew install nss&quot; and re-run &quot;mkcert -install&quot; 👈</span></span><br></pre></td></tr></table></figure>
+<p>如果没有安装nss 会提示以上信息。安装好 nss后，再次执行<code>mkcert -install</code>。 执行<code>mkcert -install</code>需要管理员密码，安装到系统keychain中。</p>
+<p><img src="/images/mkcert1.png" alt="keychain"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkcert -install</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/alpha/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line">Sudo password:</span><br><span class="line">The <span class="built_in">local</span> CA is now installed <span class="keyword">in</span> the system trust store! ⚡️</span><br><span class="line">Warning: <span class="string">&quot;certutil&quot;</span> is not available, so the CA can<span class="string">&#x27;t be automatically installed in Firefox! ⚠️</span></span><br><span class="line"><span class="string">Install &quot;certutil&quot; with &quot;brew install nss&quot; and re-run &quot;mkcert -install&quot; 👈</span></span><br></pre></td></tr></table></figure>
+<p>再次执行<code>mkcert -install</code>会检测本地CA证书是否安装过了，安装过了就不会再安装；之前未安装的firefox证书会被安装。然后我们就可以直接生成我们自己的证书了。</p>
+<p>完成后，您可以开始为您的域生成SSL证书。比如我们要生成example.com,*.example.com,example.test,localhost,127.0.0.1,::1这几个地址的证书，那么使用mkcert直接跟上这些地址就可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ mkcert example.com <span class="string">&quot;*.example.com&quot;</span> example.test localhost 127.0.0.1 ::1</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/wangjunfeng/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line"></span><br><span class="line">Created a new certificate valid <span class="keyword">for</span> the following names 📜</span><br><span class="line"> - <span class="string">&quot;example.com&quot;</span></span><br><span class="line"> - <span class="string">&quot;*.example.com&quot;</span></span><br><span class="line"> - <span class="string">&quot;example.test&quot;</span></span><br><span class="line"> - <span class="string">&quot;localhost&quot;</span></span><br><span class="line"> - <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line"> - <span class="string">&quot;::1&quot;</span></span><br><span class="line"></span><br><span class="line">Reminder: X.509 wildcards only go one level deep, so this won<span class="string">&#x27;t match a.b.example.com ℹ️</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The certificate is at &quot;./example.com+5.pem&quot; and the key at &quot;./example.com+5-key.pem&quot; ✅</span></span><br></pre></td></tr></table></figure>
+<p>剩下的，我们直接在nginx或者其他程序内配置使用这个生成的证书就可以了，比起自己手动添加证书的方式，真的是太简单，太好用了。</p>
+<h2 id="高级使用方法"><a href="#高级使用方法" class="headerlink" title="高级使用方法"></a>高级使用方法</h2><h3 id="高级参数"><a href="#高级参数" class="headerlink" title="高级参数"></a>高级参数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-cert-file FILE, -key-file FILE, -p12-file FILE</span><br><span class="line">	    Customize the output paths.</span><br><span class="line"></span><br><span class="line">	-client</span><br><span class="line">	    Generate a certificate <span class="keyword">for</span> client authentication.</span><br><span class="line"></span><br><span class="line">	-ecdsa</span><br><span class="line">	    Generate a certificate with an ECDSA key.</span><br><span class="line"></span><br><span class="line">	-pkcs12</span><br><span class="line">	    Generate a <span class="string">&quot;.p12&quot;</span> PKCS <span class="comment">#12 file, also know as a &quot;.pfx&quot; file,</span></span><br><span class="line">	    containing certificate and key <span class="keyword">for</span> legacy applications.</span><br><span class="line"></span><br><span class="line">	-csr CSR</span><br><span class="line">	    Generate a certificate based on the supplied CSR. Conflicts with</span><br><span class="line">	    all other flags and arguments except -install and -cert-file.</span><br></pre></td></tr></table></figure>
+<h3 id="S-MIME"><a href="#S-MIME" class="headerlink" title="S/MIME"></a>S/MIME</h3><p>如果你想要生成一个S/MIME邮件证书，那么直接在生成证书的时候名字写成你的邮箱就可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert filippo@example.com</span><br></pre></td></tr></table></figure>
+<h3 id="移动设备"><a href="#移动设备" class="headerlink" title="移动设备"></a>移动设备</h3><p>如果你想让你的证书在移动设备上面受信任，那么就必须安装rootCA。你可以使用<code>mkcert -CAROOT</code>来生成一个<code>rootCA.pem</code>的文件。</p>
+<p>在iOS设备上，你可以使用AirDrop、邮件将CA发送给自己，也可以放在http服务器上。安装后，你必须先设置信任该证书。</p>
+<p>对于安卓设备，同样你必须安装这个rootCA，并启用它。</p>
+<p>其他更多高级用法，可以直接在<a target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert">Github</a>上面查看。</p>
+<h2 id="HTTPS最佳配置实践"><a href="#HTTPS最佳配置实践" class="headerlink" title="HTTPS最佳配置实践"></a>HTTPS最佳配置实践</h2><h3 id="HTTPS-证书选择"><a href="#HTTPS-证书选择" class="headerlink" title="HTTPS 证书选择"></a>HTTPS 证书选择</h3><p>HTTPS 证书如果按照类型来分，可以分为域名验证证书(DV)、组织验证证书(OV)、扩展验证证书(EV)，不同类型申请时需要验证的内容不同，花费的时间也不同。这里不做具体普及。</p>
+<p>证书有免费和付费两种，这里主要说免费的，常用免费证书主要有：</p>
+<ul>
+<li>与百度云、腾讯云、阿里云合作的赛门铁克签署的证书，一年免费，申请和使用都很简单，一年到期重新申请即可。</li>
+<li>现在很火的 <a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a>，今年它还支持了通配符证书申请，可以说是非常亲民。但是缺点就是证书有效期只有90天，当然这个可以通过技术实现自动续期。对于我们这些小站，可以说是很不错的选择了。</li>
+</ul>
+<h3 id="OpenSSL版本"><a href="#OpenSSL版本" class="headerlink" title="OpenSSL版本"></a>OpenSSL版本</h3><p>首先要了解自己服务器的OpenSSL版本号，如果你是用的nginx可以通过<code>nginx -V</code>查看版本号，也可以通过<code>openssl version</code>查看（适用于非自己通过openssl源码编译的）。</p>
+<p>推荐的OpenSSL版本如下：</p>
+<ol>
+<li>OpenSSL 1.0.2用户需更新到1.0.2h 以上。</li>
+<li>OpenSSL 1.0.1用户需更新到1.0.1t 以上。</li>
+<li>OpenSSL官方已停止对 0.9.8和 1.0.0 两个版本的升级维护，请使用这两个版本的用户将其升级至1.0.2h版本以上。</li>
+</ol>
+<blockquote>
+<p>OpenSSL 1.0.1以下不支持tls1.2 升级前请做好测试</p>
+</blockquote>
+<h3 id="使用安全的协议"><a href="#使用安全的协议" class="headerlink" title="使用安全的协议"></a>使用安全的协议</h3><p>SSL／TLS 系列中有五种协议：SSL v2，SSL v3，TLS v1.0，TLS v1.1和TLS v1.2。</p>
+<ul>
+<li>SSL v2 是不安全的，不能使用。此协议版本非常糟糕，即使它们位于完全不同的服务器（DROWN 攻击）上也可以用来攻击具有相同名称的RSA 密钥和站点。</li>
+<li>当与 HTTP（POODLE 攻击）一起使用时，SSL v3 是不安全的，当与其他协议一起使用时，SSL v3 是弱的。它也是过时的，不应该被使用。</li>
+<li>TLS v1.0 也是不应该使用的传统协议，但在实践中通常仍然是必需的。其主要弱点（BEAST）在现代浏览器中得到缓解，但其他问题仍然存在。</li>
+<li>TLS v1.1 和 v1.2 都没有已知的安全问题，只有 v1.2 提供了现代的加密算法。</li>
+</ul>
+<blockquote>
+<p>注意： 2017年6月30号PCI安全标准委员会官方发表<a target="_blank" rel="noopener" href="https://blog.pcisecuritystandards.org/are-you-ready-for-30-june-2018-sayin-goodbye-to-ssl-early-tls">博文</a>将于2018年6月30号（最晚）禁用早期SSL/TLS，并实施更安全的加密协议(TLS v1.1或更高版本,强烈建议使用TLS v1.2)以满足PCI数据安全标准的要求，从而保护支付数据。</p>
+</blockquote>
+<p>所以，目前来看TLS v1.2应该作为您的主要协议，现在TLS1.3已经出来了，未来主流应该是TLS v1.2 + TLS v1.3。</p>
+<p>nginx配置代码如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssl_protocols</span>   TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span> TLSv1.<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-HSTS-HTTP-Strict-Transport-Security"><a href="#使用-HSTS-HTTP-Strict-Transport-Security" class="headerlink" title="使用 HSTS (HTTP Strict Transport Security)"></a>使用 HSTS (HTTP Strict Transport Security)</h3><p>指示浏览器只使用 HTTPS 连接到目标服务器。这可以防止一些潜在的中间人攻击，包括 SSL 剥离，会话 cookie 窃取（如果没有被 适当保护）。如果遇到任何与证书相关的错误，它还可以阻止浏览器连接到网站。当浏览器访问一个设置相应 HTTP header 的 HTTPS 网站时，HSTS 将被激活。</p>
+<p>HSTS 有一个固定期限，由 max-age 字段值控制。这个值可以是静态的，也可以是相对于将来某个特定日期的，你可以设置成 SSL 证书的过期时间。</p>
+<p>建议设置 HSTS header 长的生命周期，最好是半年及以上(即不能小于15552000)。</p>
+<p>nginx配置如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_header <span class="keyword">Strict</span>-Transport-<span class="keyword">Security</span> &quot;max-age=31536000&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="选择安全的加密套件"><a href="#选择安全的加密套件" class="headerlink" title="选择安全的加密套件"></a>选择安全的加密套件</h3><p>为了安全通信，您必须首先确定您正在与所需方（而不是通过将窃听的其他人）直接沟通并安全地交换数据。在 SSL 和 TLS 中，密码套件定义了如何进行安全通信。</p>
+<p>有几个过时的加密原语必须避免：</p>
+<ul>
+<li>匿名 Diffie-Hellman（ADH）套件不提供身份验证。</li>
+<li>NULL 密码套件不提供加密。</li>
+<li>导出密码套件在连接中协商时不安全，但也可以针对更喜欢更强大的套件（FREAK攻击）的服务器使用。</li>
+<li>弱密码（通常为 40 和 56 位）的套件使用可以轻松破坏的加密。</li>
+<li>RC4 是不安全的。</li>
+<li>3DES 缓慢而虚弱。</li>
+</ul>
+<p>推荐的nginx配置：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssl_ciphers <span class="variable constant_">EECDH</span>+<span class="variable constant_">CHACHA20</span><span class="symbol">:EECDH+CHACHA20-draft</span><span class="symbol">:EECDH+AES128</span><span class="symbol">:RSA+AES128</span><span class="symbol">:EECDH+AES256</span><span class="symbol">:RSA+AES256</span><span class="symbol">:</span><span class="symbol">:</span>!<span class="variable constant_">MD5</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="更多安全加固策略"><a href="#更多安全加固策略" class="headerlink" title="更多安全加固策略"></a>更多安全加固策略</h3><p>请参考文章<a target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices/">HTTPS 安全最佳实践（二）之安全加固</a></p>
+<h3 id="nginx配置Demo"><a href="#nginx配置Demo" class="headerlink" title="nginx配置Demo"></a>nginx配置Demo</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">server</span> &#123;</span><br><span class="line">    <span class="keyword">listen</span>       <span class="number">443</span> ssl http2; # 开启http2</span><br><span class="line">    server_name  www.test.com; # 站点域名</span><br><span class="line">    root         /path_to_webroot; # 网站目录</span><br><span class="line">    <span class="keyword">index</span>        <span class="keyword">index</span>.html;</span><br><span class="line"></span><br><span class="line">    ssl <span class="keyword">on</span>;</span><br><span class="line">    ssl_certificate &quot;/path_tocert/server.crt&quot;;</span><br><span class="line">    ssl_certificate_key &quot;/path_tocert/server.key&quot;;</span><br><span class="line">    ssl_session_cache shared:SSL:<span class="number">1</span>m;</span><br><span class="line">    ssl_session_timeout  <span class="number">10</span>m;</span><br><span class="line">    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256::!MD5;</span><br><span class="line">    ssl_protocols TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span>;</span><br><span class="line">    ssl_prefer_server_ciphers <span class="keyword">on</span>;</span><br><span class="line"></span><br><span class="line">    add_header <span class="keyword">Strict</span>-Transport-<span class="keyword">Security</span> &quot;max-age=31536000&quot;;</span><br><span class="line"></span><br><span class="line">    error_page <span class="number">404</span> /<span class="number">404.</span>html;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">server</span>&#123;</span><br><span class="line">    <span class="keyword">listen</span> <span class="number">80</span>;</span><br><span class="line">    server_name www.test.com;</span><br><span class="line">    rewrite ^(.*)$  https://$server_name$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTTPS-安全监测工具"><a href="#HTTPS-安全监测工具" class="headerlink" title="HTTPS 安全监测工具"></a>HTTPS 安全监测工具</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://myssl.com/">MySSL</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ssllabs.com/ssltest/index.html">Qualys SSL Test</a></li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.myssl.com/ssl-and-tls-deployment-best-practices/">HTTPS 安全最佳实践（一）之SSL/TLS部署</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices/">HTTPS 安全最佳实践（二）之安全加固</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices-2/">HTTPS 安全最佳实践（三）之服务器软件</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-compatibility-best-practices/">HTTPS安全与兼容性配置指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.myssl.com/pci-dss/">更严格的PCI DSS合规标准</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.myfreax.com/how-to-create-locally-trusted-ssl-certificates-on-linux-and-macos-with-mkcert/">如何使用mkcert在Linux和macOS上创建本地受信任的SSL证书</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/mkcert/" rel="tag"><i class="fa fa-tag"></i> mkcert</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/26/bip39/" rel="prev" title="助记词的生成原理">
+      <i class="fa fa-chevron-left"></i> 助记词的生成原理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/06/untrusted_cert_title/" rel="next" title="Mac重新安装显示 untrusted_cert_title">
+      Mac重新安装显示 untrusted_cert_title <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MacOS"><span class="nav-number">1.1.</span> <span class="nav-text">MacOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-number">1.2.</span> <span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">1.3.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">高级使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">高级参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S-MIME"><span class="nav-number">3.2.</span> <span class="nav-text">S&#x2F;MIME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87"><span class="nav-number">3.3.</span> <span class="nav-text">移动设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS%E6%9C%80%E4%BD%B3%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5"><span class="nav-number">4.</span> <span class="nav-text">HTTPS最佳配置实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS-%E8%AF%81%E4%B9%A6%E9%80%89%E6%8B%A9"><span class="nav-number">4.1.</span> <span class="nav-text">HTTPS 证书选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenSSL%E7%89%88%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">OpenSSL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.</span> <span class="nav-text">使用安全的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-HSTS-HTTP-Strict-Transport-Security"><span class="nav-number">4.4.</span> <span class="nav-text">使用 HSTS (HTTP Strict Transport Security)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E5%A5%97%E4%BB%B6"><span class="nav-number">4.5.</span> <span class="nav-text">选择安全的加密套件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA%E7%AD%96%E7%95%A5"><span class="nav-number">4.6.</span> <span class="nav-text">更多安全加固策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AEDemo"><span class="nav-number">4.7.</span> <span class="nav-text">nginx配置Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS-%E5%AE%89%E5%85%A8%E7%9B%91%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="nav-number">4.8.</span> <span class="nav-text">HTTPS 安全监测工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.9.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="alpha"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">alpha</p>
+  <div class="site-description" itemprop="description">记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alpha</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v6.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alphaqiu.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://alpha.checkitout.dev/2019/11/14/mkcert/";
+    this.page.identifier = "2019/11/14/mkcert/";
+    this.page.title = "本地HTTPS证书工具";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://alphaqiu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

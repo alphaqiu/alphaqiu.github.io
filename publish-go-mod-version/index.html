@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="创建非默认本地SSH密钥GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用ssh-keygen生成新key，出现提示输入文件名的时候(Enter file in which to save the key (~&#x2F;.ssh&#x2F;id_rsa): id_rsa_new)要输入与默认配置不一样的文件名，比如：我这">
+  <meta name="description" content="版本号发布Go模块版本只要分为三个部分如&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;，例如对于v1.0.1,主版本&lt;major&gt;是1，次版本&lt;minor&gt;是0，补丁版本&lt;patch&gt;是1 v0版本为项目的初始版本，版本不保证稳定行，可以通过git tag来标记版本，将tag推送至仓库即可 v1版本为稳定版本，当你的项目稳定之">
 <meta property="og:type" content="article">
-<meta property="og:title" content="本地支持多Github账号">
-<meta property="og:url" content="https://alpha.checkitout.dev/multi-git-accounts">
+<meta property="og:title" content="Go mod 发布版本">
+<meta property="og:url" content="https://alpha.checkitout.dev/publish-go-mod-version/index.html">
 <meta property="og:site_name" content="Check it out">
-<meta property="og:description" content="创建非默认本地SSH密钥GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用ssh-keygen生成新key，出现提示输入文件名的时候(Enter file in which to save the key (~&#x2F;.ssh&#x2F;id_rsa): id_rsa_new)要输入与默认配置不一样的文件名，比如：我这">
+<meta property="og:description" content="版本号发布Go模块版本只要分为三个部分如&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;，例如对于v1.0.1,主版本&lt;major&gt;是1，次版本&lt;minor&gt;是0，补丁版本&lt;patch&gt;是1 v0版本为项目的初始版本，版本不保证稳定行，可以通过git tag来标记版本，将tag推送至仓库即可 v1版本为稳定版本，当你的项目稳定之">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-07-03T04:06:23.000Z">
-<meta property="article:modified_time" content="2021-07-03T05:55:18.498Z">
+<meta property="article:published_time" content="2021-07-03T05:32:23.000Z">
+<meta property="article:modified_time" content="2023-10-04T13:46:59.634Z">
 <meta property="article:author" content="alpha">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://alpha.checkitout.dev/multi-git-accounts">
+<link rel="canonical" href="https://alpha.checkitout.dev/publish-go-mod-version/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>本地支持多Github账号 | Check it out</title>
+  <title>Go mod 发布版本 | Check it out</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
     <script>
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/multi-git-accounts">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/publish-go-mod-version/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -194,7 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          本地支持多Github账号
+          Go mod 发布版本
         </h1>
 
         <div class="post-meta">
@@ -203,10 +203,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-07-03 12:06:23 / 修改时间：13:55:18" itemprop="dateCreated datePublished" datetime="2021-07-03T12:06:23+08:00">2021-07-03</time>
+              <time title="创建时间：2021-07-03 13:32:23" itemprop="dateCreated datePublished" datetime="2021-07-03T13:32:23+08:00">2021-07-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-04 21:46:59" itemprop="dateModified" datetime="2023-10-04T21:46:59+08:00">2023-10-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -214,10 +220,6 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
                 </span>
             </span>
 
@@ -230,8 +232,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/multi-git-accounts#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/multi-git-accounts" itemprop="commentCount"></span>
+    <a title="disqus" href="/publish-go-mod-version/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/publish-go-mod-version/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,22 +248,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="创建非默认本地SSH密钥"><a href="#创建非默认本地SSH密钥" class="headerlink" title="创建非默认本地SSH密钥"></a>创建非默认本地SSH密钥</h2><p>GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用<code>ssh-keygen</code>生成新key，出现提示输入文件名的时候(<code>Enter file in which to save the key (~/.ssh/id_rsa): id_rsa_new</code>)要输入与默认配置不一样的文件名，比如：我这里填的是 <code>id_rsa_new</code>。否则会覆盖之前生成的默认key。并用<code>ssh-add</code>命令将新创建的Key添加到由<code>ssh-agent</code> 维护的列表中。</p>
-<blockquote>
-<p>ssh-agent 是用于管理SSH private keys的, 长时间持续运行的守护进程（daemon）. 唯一目的就是对解密的私钥进行高速缓存。</p>
-<p>ssh-add 提示并将用户的使用的私钥添加到由ssh-agent 维护的列表中. 此后, 当使用公钥连接到远程 SSH 或 SCP 主机时,不再提示相关信息.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;xxx@xxx.com&quot;</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa_new</span><br></pre></td></tr></table></figure>
-<p>如果出现 <strong>Could not open a connection to your authentication agent</strong> 的错误，就试着用以下命令：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-agent bash</span><br><span class="line"><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_new</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><p>配置<code>~/.ssh/config</code></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认的GitHub连接</span></span><br><span class="line">Host git@github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    User username <span class="comment">#&lt;- GitHub的用户名</span></span><br><span class="line">    IdentityFile ~<span class="regexp">/.ssh/i</span>d_rsa_github</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 另一个GitHub的连接，带上GitHub用户名作为name前缀</span></span><br><span class="line">Host name.github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~<span class="regexp">/.ssh/i</span>d_rsa_new</span><br></pre></td></tr></table></figure>
-<h2 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">✦2 ➜ ssh -T git@name.github.com</span><br><span class="line">Hi &lt;name&gt;! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">✦2 ➜ ssh -T git@github.com</span></span><br><span class="line"><span class="string">Hi &lt;default&gt;! You&#x27;</span>ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-<p>在向非默认仓库提交代码时，需要对原远程Push地址做一下转换</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@name.github.com:name/hello.git</span><br></pre></td></tr></table></figure>
-<p>试一下吧！</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://github.com/jawil/notes/issues/2">https://github.com/jawil/notes/issues/2</a></p>
+        <h2 id="版本号发布"><a href="#版本号发布" class="headerlink" title="版本号发布"></a>版本号发布</h2><p>Go模块版本只要分为三个部分如<code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>，例如对于v1.0.1,主版本<code>&lt;major&gt;</code>是1，次版本<code>&lt;minor&gt;</code>是0，补丁版本<code>&lt;patch&gt;</code>是1</p>
+<p>v0版本为项目的初始版本，版本不保证稳定行，可以通过<code>git tag</code>来标记版本，将tag推送至仓库即可 v1版本为稳定版本，当你的项目稳定之后，可以标记v1版本对外发布；另外对于稳定之后的预发布版本，由于Go命令首选的是正常版本，而不是预发布版本；可以通过<code>-</code>来制定预发布版本，如<code>v1.0.1-beta</code>、<code>v1.0.1-alpha</code>；使用的时候需要显示的指定预发布版本<code>go get github.com/p1024k/helle@v1.0.1-beta</code> 下面看下怎么发布第一个v0.0.1版本：</p>
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>首先在你的github仓库创建一个<code>repository</code>，命名为<code>hello</code>，然后将hello项目同步至仓库</p>
+<h3 id="标记并推送Tag"><a href="#标记并推送Tag" class="headerlink" title="标记并推送Tag"></a>标记并推送Tag</h3><p>通过git标签维护版本。都以master为主仓库，每开发一个版本从master切换出一个分支开发。然后合并回master主分支。在master主分支上执行以下动作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag v0.0.1</span><br><span class="line">git push origin v0.0.1</span><br></pre></td></tr></table></figure>
+<h3 id="在其他项目中引用"><a href="#在其他项目中引用" class="headerlink" title="在其他项目中引用"></a>在其他项目中引用</h3><p>在项目中直接导入<code>&quot;github.com/p1024k/hello&quot;</code>，然后通过执行 go mod tiny或者go mod build就可以添加新的依赖了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/p1024k/hello&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	fmt.Println(hello.Hello())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>引入依赖之后 cat go.mod，可以看到已经引入了我们自定义的模块</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">module study</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.16</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">        github.com/p1024k/hello v0<span class="number">.0</span><span class="number">.1</span></span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="版本升级"><a href="#版本升级" class="headerlink" title="版本升级"></a>版本升级</h2><p>Go模块中规范了一个重要原则</p>
+<p><strong><em>If an old package and a new package have the same import path, the new package must be backwards compatible with the old package.</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果旧包和新包具有相同的导入路径，新包必须向后兼容旧包。</span><br></pre></td></tr></table></figure>
+<h3 id="v0-gt-v1"><a href="#v0-gt-v1" class="headerlink" title="v0-&gt;v1"></a>v0-&gt;v1</h3><p>假设我们自定义的模块已经稳定了，那么开始要对外发布v1.0.0版本了</p>
+<ol>
+<li>拉取新的分支v1.0.0_branch</li>
+<li>git tag v1.0.0 并且推送到远程仓库</li>
+</ol>
+<h3 id="v1-gt-v2"><a href="#v1-gt-v2" class="headerlink" title="v1-&gt;v2"></a>v1-&gt;v2</h3><p>v1-&gt;v2的升级属于主版本的升级（v2不向后兼容）， 这里有两种方式：</p>
+<ul>
+<li>创建新的版本目录v2</li>
+<li>继续使用v0-&gt;v1的升级方式</li>
+</ul>
+<p><strong>这里只讲在V1-&gt;V2的情况。且只讲继续使用V0-&gt;v1的升级方式。</strong></p>
+<p>拉取新的分支，修改go.mod路径为<code>github.com/p1024k/hello/v2</code>，基于master分支打tag v2.0.0</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># checkout from master</span></span><br><span class="line">git checkout -b v2</span><br><span class="line">go mod edit -module github.com/youdw/hello/v2</span><br><span class="line">...</span><br><span class="line"><span class="comment"># make some change</span></span><br><span class="line">git push</span><br><span class="line">git checkout master</span><br><span class="line">git rebase v2</span><br><span class="line">git tag v2.0.0</span><br><span class="line">git push origin master</span><br><span class="line">git push --tags</span><br><span class="line"></span><br><span class="line"><span class="comment"># git push origin v2.0.0</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -272,7 +283,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+              <a href="/tags/go/" rel="tag"><i class="fa fa-tag"></i> go</a>
           </div>
 
         
@@ -281,12 +292,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/publish-go-mod-version" rel="prev" title="Go mod 发布版本">
-      <i class="fa fa-chevron-left"></i> Go mod 发布版本
+    <a href="/2021/07/03/PostgreSQL-%E5%88%86%E5%8C%BA%E8%A1%A8%E7%9A%84%E5%9D%91/" rel="prev" title="PostgreSQL 分区表的坑">
+      <i class="fa fa-chevron-left"></i> PostgreSQL 分区表的坑
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/" rel="next" title="PostgreSQL 12支持 Generated Columns 特性">
-      PostgreSQL 12支持 Generated Columns 特性 <i class="fa fa-chevron-right"></i>
+    <a href="/multi-git-accounts/" rel="next" title="本地支持多Github账号">
+      本地支持多Github账号 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -354,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%9D%9E%E9%BB%98%E8%AE%A4%E6%9C%AC%E5%9C%B0SSH%E5%AF%86%E9%92%A5"><span class="nav-number">1.</span> <span class="nav-text">创建非默认本地SSH密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH"><span class="nav-number">2.</span> <span class="nav-text">配置SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="nav-number">3.</span> <span class="nav-text">测试一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7%E5%8F%91%E5%B8%83"><span class="nav-number">1.</span> <span class="nav-text">版本号发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">创建仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E5%B9%B6%E6%8E%A8%E9%80%81Tag"><span class="nav-number">1.2.</span> <span class="nav-text">标记并推送Tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%85%B6%E4%BB%96%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%BC%95%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">在其他项目中引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">版本升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v0-gt-v1"><span class="nav-number">2.1.</span> <span class="nav-text">v0-&gt;v1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v1-gt-v2"><span class="nav-number">2.2.</span> <span class="nav-text">v1-&gt;v2</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -493,9 +504,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://alpha.checkitout.dev/multi-git-accounts";
-    this.page.identifier = "/multi-git-accounts";
-    this.page.title = "本地支持多Github账号";
+    this.page.url = "https://alpha.checkitout.dev/publish-go-mod-version/";
+    this.page.identifier = "/publish-go-mod-version/";
+    this.page.title = "Go mod 发布版本";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

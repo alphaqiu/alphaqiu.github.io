@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="以下代码执行结果是什么 1234567891011121314151617181920212223242526272829package mainimport &quot;fmt&quot;type Namespace interface &amp;#123;	Value() string&amp;#125;type MyNamespace struct &amp;#123;	value string&amp;#125;func">
+  <meta name="description" content="创建非默认本地SSH密钥GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用ssh-keygen生成新key，出现提示输入文件名的时候(Enter file in which to save the key (~&#x2F;.ssh&#x2F;id_rsa): id_rsa_new)要输入与默认配置不一样的文件名，比如：我这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go语言interface的坑">
-<meta property="og:url" content="https://alpha.checkitout.dev/golang-interface-pit">
+<meta property="og:title" content="本地支持多Github账号">
+<meta property="og:url" content="https://alpha.checkitout.dev/multi-git-accounts/index.html">
 <meta property="og:site_name" content="Check it out">
-<meta property="og:description" content="以下代码执行结果是什么 1234567891011121314151617181920212223242526272829package mainimport &quot;fmt&quot;type Namespace interface &amp;#123;	Value() string&amp;#125;type MyNamespace struct &amp;#123;	value string&amp;#125;func">
+<meta property="og:description" content="创建非默认本地SSH密钥GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用ssh-keygen生成新key，出现提示输入文件名的时候(Enter file in which to save the key (~&#x2F;.ssh&#x2F;id_rsa): id_rsa_new)要输入与默认配置不一样的文件名，比如：我这">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-10T14:37:56.000Z">
-<meta property="article:modified_time" content="2020-04-10T15:04:28.267Z">
+<meta property="article:published_time" content="2021-07-03T04:06:23.000Z">
+<meta property="article:modified_time" content="2023-10-04T13:48:32.608Z">
 <meta property="article:author" content="alpha">
-<meta property="article:tag" content="checkitout.dev">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://alpha.checkitout.dev/golang-interface-pit">
+<link rel="canonical" href="https://alpha.checkitout.dev/multi-git-accounts/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Go语言interface的坑 | Check it out</title>
+  <title>本地支持多Github账号 | Check it out</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
     <script>
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/golang-interface-pit">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/multi-git-accounts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -194,7 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Go语言interface的坑
+          本地支持多Github账号
         </h1>
 
         <div class="post-meta">
@@ -203,17 +203,27 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-10 22:37:56 / 修改时间：23:04:28" itemprop="dateCreated datePublished" datetime="2020-04-10T22:37:56+08:00">2020-04-10</time>
+              <time title="创建时间：2021-07-03 12:06:23" itemprop="dateCreated datePublished" datetime="2021-07-03T12:06:23+08:00">2021-07-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-04 21:48:32" itemprop="dateModified" datetime="2023-10-04T21:48:32+08:00">2023-10-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
                 </span>
             </span>
 
@@ -226,8 +236,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/golang-interface-pit#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/golang-interface-pit" itemprop="commentCount"></span>
+    <a title="disqus" href="/multi-git-accounts/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/multi-git-accounts/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -242,19 +252,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>以下代码执行结果是什么</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Namespace <span class="keyword">interface</span> &#123;</span><br><span class="line">	Value() <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyNamespace <span class="keyword">struct</span> &#123;</span><br><span class="line">	value <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n *MyNamespace)</span></span> Value() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> n.value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> n *MyNamespace = <span class="literal">nil</span></span><br><span class="line">	show(n)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>结果是报错。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">panic: runtime error: invalid memory <span class="selector-tag">address</span> or nil pointer dereference</span><br><span class="line"><span class="selector-attr">[signal SIGSEGV: segmentation violation code=0xffffffff addr=0x0 pc=0xe01c6]</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> <span class="selector-attr">[running]</span>:</span><br><span class="line"><span class="selector-tag">main</span>.(*MyNamespace)<span class="selector-class">.Value</span>(<span class="number">0</span>x0, <span class="number">0</span>x5bf2, <span class="number">0</span>x119bf8, <span class="number">0</span>x1d)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">16</span> +<span class="number">0</span>x6</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.show</span>(<span class="number">0</span>x15d910, <span class="number">0</span>x0)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">21</span> +<span class="number">0</span>x40</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.main</span>()</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">30</span> +<span class="number">0</span>x40</span><br><span class="line"></span><br><span class="line">Program exited.</span><br></pre></td></tr></table></figure>
-<p>报一个空指针错误。<code>n != nil</code>的判断在这里无效。</p>
-<p>原因是Go语言中，<code>interface&#123;&#125;</code>类型的变量包含了2个指针，一个指针指向值的类型，一个指针指向实际的值。<code>MyNamespace</code>实现了<code>Namespace</code>接口，<code>n</code>在传入<code>Show(n)</code>函数时被自动转型成为<code>Namespace</code>。<code>var n *MyNameSpace = nil</code>只是声明了该接口类型的实际值为nil，虽然我们把一个nil值赋值给它，但是实际上interface里依然存了指向类型的指针，所以拿这个interface变量去和nil常量进行比较的话就会返回<code>false</code>。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> asStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	pt <span class="type">uintptr</span></span><br><span class="line">	pv <span class="type">uintptr</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;👉👉 %p\n&quot;</span>, n)</span><br><span class="line">	x := *(*asStruct)(unsafe.Pointer(&amp;n))</span><br><span class="line">	spew.Dump(x)</span><br><span class="line">	spew.Println(<span class="string">&quot;n == nil ?&quot;</span>, n == <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &amp;&amp; !reflect.ValueOf(n).IsNil() &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output：</span></span><br><span class="line"><span class="comment">// 👉👉 0x0</span></span><br><span class="line"><span class="comment">// (main.asStruct) &#123;</span></span><br><span class="line"><span class="comment">//  pt: (uintptr) 0x1125f80,</span></span><br><span class="line"><span class="comment">//  pv: (uintptr) &lt;nil&gt;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// n == nil ? false</span></span><br><span class="line"><span class="comment">// Hello World!</span></span><br></pre></td></tr></table></figure>
-<p>我们看到传入的参数指针值为0，但<code>interface&#123;&#125;</code>类型的变量的两个指针，值的类型是有值的，实际值为nil。因此接口传入的不是实际的nil的情况下，<code>n==nil</code>就为false。可以使用<code>reflect.ValueOf(n).IsNil()</code>来判断是否实际值为nil。</p>
-<p><code>reflect.ValueOf</code>只接受指针类型，否则会<code>panic</code>。</p>
-<p>如果显式传入<code>show(nil)</code>，<code>interface&#123;&#125;</code>类型变量的两个指针都为nil，则<code>n == nil</code>判断生效。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//show(nil)</span></span><br><span class="line">(main.asStruct) &#123;</span><br><span class="line"> pt: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;,</span><br><span class="line"> pv: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line">n == <span class="literal">nil</span> ? <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/10635">Go语言第一深坑 - interface 与 nil 的比较</a></p>
-<p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/5955">golang中interface判断nil问题</a></p>
+        <h2 id="创建非默认本地SSH密钥"><a href="#创建非默认本地SSH密钥" class="headerlink" title="创建非默认本地SSH密钥"></a>创建非默认本地SSH密钥</h2><p>GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用<code>ssh-keygen</code>生成新key，出现提示输入文件名的时候(<code>Enter file in which to save the key (~/.ssh/id_rsa): id_rsa_new</code>)要输入与默认配置不一样的文件名，比如：我这里填的是 <code>id_rsa_new</code>。否则会覆盖之前生成的默认key。并用<code>ssh-add</code>命令将新创建的Key添加到由<code>ssh-agent</code> 维护的列表中。</p>
+<blockquote>
+<p>ssh-agent 是用于管理SSH private keys的, 长时间持续运行的守护进程（daemon）. 唯一目的就是对解密的私钥进行高速缓存。</p>
+<p>ssh-add 提示并将用户的使用的私钥添加到由ssh-agent 维护的列表中. 此后, 当使用公钥连接到远程 SSH 或 SCP 主机时,不再提示相关信息.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;xxx@xxx.com&quot;</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa_new</span><br></pre></td></tr></table></figure>
+<p>如果出现 <strong>Could not open a connection to your authentication agent</strong> 的错误，就试着用以下命令：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-agent bash</span><br><span class="line"><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_new</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><p>配置<code>~/.ssh/config</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认的GitHub连接</span></span><br><span class="line">Host git@github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    User username <span class="comment">#&lt;- GitHub的用户名</span></span><br><span class="line">    IdentityFile ~<span class="regexp">/.ssh/i</span>d_rsa_github</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 另一个GitHub的连接，带上GitHub用户名作为name前缀</span></span><br><span class="line">Host name.github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~<span class="regexp">/.ssh/i</span>d_rsa_new</span><br></pre></td></tr></table></figure>
+<h2 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">✦2 ➜ ssh -T git@name.github.com</span><br><span class="line">Hi &lt;name&gt;! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">✦2 ➜ ssh -T git@github.com</span></span><br><span class="line"><span class="string">Hi &lt;default&gt;! You&#x27;</span>ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+<p>在向非默认仓库提交代码时，需要对原远程Push地址做一下转换</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@name.github.com:name/hello.git</span><br></pre></td></tr></table></figure>
+<p>试一下吧！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://github.com/jawil/notes/issues/2">https://github.com/jawil/notes/issues/2</a></p>
 
     </div>
 
@@ -263,6 +276,10 @@
     
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          </div>
 
         
 
@@ -270,12 +287,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/filecoin-elliptic-and-sign" rel="prev" title="FileCoin账户和离线签名">
-      <i class="fa fa-chevron-left"></i> FileCoin账户和离线签名
+    <a href="/publish-go-mod-version/" rel="prev" title="Go mod 发布版本">
+      <i class="fa fa-chevron-left"></i> Go mod 发布版本
     </a></div>
       <div class="post-nav-item">
-    <a href="/bandwidth" rel="next" title="网络带宽的那点事">
-      网络带宽的那点事 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/" rel="next" title="PostgreSQL 12支持 Generated Columns 特性">
+      PostgreSQL 12支持 Generated Columns 特性 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -343,7 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%9D%9E%E9%BB%98%E8%AE%A4%E6%9C%AC%E5%9C%B0SSH%E5%AF%86%E9%92%A5"><span class="nav-number">1.</span> <span class="nav-text">创建非默认本地SSH密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH"><span class="nav-number">2.</span> <span class="nav-text">配置SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="nav-number">3.</span> <span class="nav-text">测试一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -482,9 +499,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://alpha.checkitout.dev/golang-interface-pit";
-    this.page.identifier = "/golang-interface-pit";
-    this.page.title = "Go语言interface的坑";
+    this.page.url = "https://alpha.checkitout.dev/multi-git-accounts/";
+    this.page.identifier = "/multi-git-accounts/";
+    this.page.title = "本地支持多Github账号";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

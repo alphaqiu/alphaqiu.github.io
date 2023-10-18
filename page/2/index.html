@@ -291,6 +291,112 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/multi-git-accounts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/multi-git-accounts/" class="post-title-link" itemprop="url">本地支持多Github账号</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-03 12:06:23" itemprop="dateCreated datePublished" datetime="2021-07-03T12:06:23+08:00">2021-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-04 21:48:32" itemprop="dateModified" datetime="2023-10-04T21:48:32+08:00">2023-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/multi-git-accounts/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/multi-git-accounts/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="创建非默认本地SSH密钥"><a href="#创建非默认本地SSH密钥" class="headerlink" title="创建非默认本地SSH密钥"></a>创建非默认本地SSH密钥</h2><p>GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用<code>ssh-keygen</code>生成新key，出现提示输入文件名的时候(<code>Enter file in which to save the key (~/.ssh/id_rsa): id_rsa_new</code>)要输入与默认配置不一样的文件名，比如：我这里填的是 <code>id_rsa_new</code>。否则会覆盖之前生成的默认key。并用<code>ssh-add</code>命令将新创建的Key添加到由<code>ssh-agent</code> 维护的列表中。</p>
+<blockquote>
+<p>ssh-agent 是用于管理SSH private keys的, 长时间持续运行的守护进程（daemon）. 唯一目的就是对解密的私钥进行高速缓存。</p>
+<p>ssh-add 提示并将用户的使用的私钥添加到由ssh-agent 维护的列表中. 此后, 当使用公钥连接到远程 SSH 或 SCP 主机时,不再提示相关信息.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;xxx@xxx.com&quot;</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa_new</span><br></pre></td></tr></table></figure>
+<p>如果出现 <strong>Could not open a connection to your authentication agent</strong> 的错误，就试着用以下命令：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-agent bash</span><br><span class="line"><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_new</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/multi-git-accounts/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1224,120 +1330,6 @@ mjx-container[display="true"] + br {
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/webpack_scaffold/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Check it out">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/webpack_scaffold/" class="post-title-link" itemprop="url">Webpack脚手架</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-08 20:19:33" itemprop="dateCreated datePublished" datetime="2020-03-08T20:19:33+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 21:46:16" itemprop="dateModified" datetime="2023-10-04T21:46:16+08:00">2023-10-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/webpack_scaffold/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/webpack_scaffold/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Webpack脚手架"><a href="#Webpack脚手架" class="headerlink" title="Webpack脚手架"></a>Webpack脚手架</h1><p>学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。</p>
-<p>下面就对环境的搭建逐一拆解。</p>
-<h2 id="初始化空项目"><a href="#初始化空项目" class="headerlink" title="初始化空项目"></a>初始化空项目</h2><p>基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> my-project &amp;&amp; <span class="built_in">cd</span> my-project</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
-<p>通过<code>npm init -y</code>来简单的创建一个<code>package.json</code>。需要简单修改一下其中的内容：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">-- 删除 <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span></span><br></pre></td></tr></table></figure>
-<p><code>private</code>为私有项目，不至于后续误操作上传到npm网站。</p>
-<p>这是个web前端项目，所以入口程序不必提供。</p>
-<h2 id="初始化Webpack环境"><a href="#初始化Webpack环境" class="headerlink" title="初始化Webpack环境"></a>初始化Webpack环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>💡关于<code>npm install</code>参数</p>
-<p>npm install -D 等同于 <code>--save-dev</code><br>npm install -S 等同于 <code>—save</code><br>npm install -O 等同于 <code>--save-optional</code><br>当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们</p>
-<p>（在模块根目录下npm install module-name），</p>
-<p>然后连同版本号手动将他们添加到模块配置文件package.json中的依赖里（dependencies）。</p>
-<p><code>--save</code>和<code>--save-dev</code>可以省掉你手动修改package.json文件的步骤。<br>spm install module-name -save 自动把模块和版本号添加到<code>dependencies</code>部分<br>spm install module-name -save-dve 自动把模块和版本号添加到<code>devdependencies</code>部分</p>
-<p>至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块， 以我见过的情况来看 devDepandencies主要是配置测试框架， 例如jshint、mocha。</p>
-<p>通过这些命令，我们会得到一个新的<code>package.json</code>。然后再做一个试验就懂得了区别：</p>
-<p>删除node_modules目录，然后执行<br>npm install —production，可以看到，npm只帮我们自动安装package.json中dependencies部分的模块；如果执行npm install ，则package.json中指定的dependencies和devDependencies都会被自动安装进来。</p>
-</blockquote>
-<p>可以上官方网站查看具体使用说明：<a target="_blank" rel="noopener" href="https://webpack.docschina.org/guides/installation/">https://webpack.docschina.org/guides/installation/</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/webpack_scaffold/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1410,7 +1402,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1423,7 +1415,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

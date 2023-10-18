@@ -179,6 +179,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/10/30/brew/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/30/brew/" class="post-title-link" itemprop="url">玩转Homebrew</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-30 11:33:54" itemprop="dateCreated datePublished" datetime="2019-10-30T11:33:54+08:00">2019-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-28 12:46:27" itemprop="dateModified" datetime="2020-02-28T12:46:27+08:00">2020-02-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/10/30/brew/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/30/brew/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="搜索软件"><a href="#搜索软件" class="headerlink" title="搜索软件"></a>搜索软件</h3><p><code>brew search [TEXT|/REGEX/]</code>用于搜索软件，支持使用正则表达式进行复杂的搜索。</p>
+<p>例如，查询静态博客生成工具 hugo：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ brew search hugo</span><br><span class="line"></span><br><span class="line">==&gt; Searching local taps...</span><br><span class="line">hugo ✔</span><br><span class="line">==&gt; Searching taps on GitHub...</span><br><span class="line">==&gt; Searching blacklisted, migrated <span class="keyword">and</span> deleted formulae...</span><br></pre></td></tr></table></figure>
+<h3 id="查看安装的包"><a href="#查看安装的包" class="headerlink" title="查看安装的包"></a>查看安装的包</h3><p>查看已经安装的包</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">brew list</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看包相关信息"><a href="#查看包相关信息" class="headerlink" title="查看包相关信息"></a>查看包相关信息</h3><p>brew info 可以查看包的相关信息，最有用的应该是包依赖和相应的命令。比如 Nginx 会提醒你怎么加 launchctl ，PostgreSQL 会告诉你如何迁移数据库。这些信息会在包安装完成后自动显示，如果忘了的话可以用这个命令很方便地查看。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew info <span class="variable">$FORMULA</span>    <span class="comment"># 显示某个包的信息</span></span><br><span class="line">brew info             <span class="comment"># 显示安装了包数量，文件数量，和总占用空间</span></span><br><span class="line">brew deps 可以显示包的依赖关系，我常用它来查看已安装的包的依赖，然后判断哪些包是可以安全删除的。</span><br><span class="line"></span><br><span class="line">brew deps --installed --tree <span class="comment"># 查看已安装的包的依赖，树形显示</span></span><br></pre></td></tr></table></figure>
+<h3 id="更新-Homebrew"><a href="#更新-Homebrew" class="headerlink" title="更新 Homebrew"></a>更新 Homebrew</h3><p>要获取最新的包的列表，首先得更新 Homebrew 自己。这可以用 brew update 办到。</p>
+<p><code>brew update</code><br>完后会显示可以更新的包列表，其中打钩的是已经安装的包。</p>
+<h3 id="更新包-formula"><a href="#更新包-formula" class="headerlink" title="更新包 (formula)"></a>更新包 (formula)</h3><p>更新之前，我会用 brew outdated 查看哪些包可以更新。</p>
+<p><code>brew outdated</code><br>然后就可以用 brew upgrade 去更新了。Homebrew 会安装新版本的包，但旧版本仍然会保留</p>
+<p><code>brew upgrade</code> # 更新所有的包</p>
+<p><code>brew upgrade $FORMULA</code> # 更新指定的包</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/10/30/brew/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/10/29/crates-mirror/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1160,105 +1267,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/icap-ios/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Check it out">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/icap-ios/" class="post-title-link" itemprop="url">ICAP互换客户端地址协议iOS实现示例</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-06-07 18:42:28" itemprop="dateCreated datePublished" datetime="2018-06-07T18:42:28+08:00">2018-06-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 21:46:36" itemprop="dateModified" datetime="2023-10-04T21:46:36+08:00">2023-10-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/icap-ios/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/icap-ios/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>之前我写了一篇关于<a target="_blank" rel="noopener" href="https://alphaqiu.github.io/2018/06/02/icap/">ICAP: 互换客户端地址协议</a>的文章。文章中介绍和详细解析了关于ICAP协议算法，并给出Go语言版本的具体实现。实际上以太坊全节点<a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum">Geth</a>提供了WEB3接口，来转换ICAP格式地址</p>
-<p>（<code>web3.fromICAP(&quot;XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO&quot;)</code>）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; web3</span><br><span class="line">&#123;</span><br><span class="line">  ... ...</span><br><span class="line">  BigNumber: <span class="keyword">function</span> a(e,n),</span><br><span class="line">  fromICAP: <span class="keyword">function</span>(icap),</span><br><span class="line">  isAddress: <span class="keyword">function</span>(address),</span><br><span class="line">  isChecksumAddress: <span class="keyword">function</span>(address),</span><br><span class="line">  sha3: <span class="keyword">function</span>(string, options),</span><br><span class="line">  toBigNumber: <span class="keyword">function</span>(number),</span><br><span class="line">  toChecksumAddress: <span class="keyword">function</span>(address)</span><br><span class="line">  ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt; web3.fromICAP(<span class="string">&quot;XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO&quot;</span>)</span><br><span class="line"><span class="string">&quot;8982b139b2fca9452eae977827fb12280a9a1bf0&quot;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>不过这种方式转换ICAP格式地址，在客户端与服务端交互上有些繁琐，特别是在手机端操作时。手机端完全可以利用每一台终端设备来处理这个转换工作，直接将ICAP格式地址发送给服务端处理全部转换逻辑显得没有必要。另外，<code>web3.fromICAP</code>只能转换出非含校验和的以太坊账户地址，仍需要调用<code>web3.toChecksumAddress</code>来完成剩余工作。</p>
-<p>因此，在这个大前提下，<a target="_blank" rel="noopener" href="https://github.com/boxproject/box-Staff-Manager">BOX企业数字资产保险箱 员工版APP</a>开发了基于ICAP协议算法的一套iOS库。该库可以直接在手机端完成转换工作，不需要与后端web3接口交互。可能Geth已有iOS版本相关的库（<code>pod Geth</code>)，不过由于这个库太大，一直没有下载成功，也没有办法验证其功能是否包含ICAP功能。使用本库的还有一个好处是简单明了，不必依赖大型库，同时转换出的以太坊地址支持checksum。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/icap-ios/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1331,7 +1339,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1344,7 +1352,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

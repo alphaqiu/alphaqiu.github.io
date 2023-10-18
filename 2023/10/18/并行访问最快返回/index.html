@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="创建非默认本地SSH密钥GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用ssh-keygen生成新key，出现提示输入文件名的时候(Enter file in which to save the key (~&#x2F;.ssh&#x2F;id_rsa): id_rsa_new)要输入与默认配置不一样的文件名，比如：我这">
+  <meta name="description" content="设想这样一个场景：服务器需要同步时间服务，希望访问若干个时间同步服务，取最快且正确返回结果的服务作为结果。通过Go并行访问这若干个服务器，只取最快返回且正确的，其它结果统统丢弃。下面是这样的示例代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354">
 <meta property="og:type" content="article">
-<meta property="og:title" content="本地支持多Github账号">
-<meta property="og:url" content="https://alpha.checkitout.dev/multi-git-accounts/index.html">
+<meta property="og:title" content="并行访问最快返回">
+<meta property="og:url" content="https://alpha.checkitout.dev/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/index.html">
 <meta property="og:site_name" content="Check it out">
-<meta property="og:description" content="创建非默认本地SSH密钥GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用ssh-keygen生成新key，出现提示输入文件名的时候(Enter file in which to save the key (~&#x2F;.ssh&#x2F;id_rsa): id_rsa_new)要输入与默认配置不一样的文件名，比如：我这">
+<meta property="og:description" content="设想这样一个场景：服务器需要同步时间服务，希望访问若干个时间同步服务，取最快且正确返回结果的服务作为结果。通过Go并行访问这若干个服务器，只取最快返回且正确的，其它结果统统丢弃。下面是这样的示例代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-07-03T04:06:23.000Z">
-<meta property="article:modified_time" content="2023-10-04T13:48:32.608Z">
+<meta property="article:published_time" content="2023-10-18T07:44:06.000Z">
+<meta property="article:modified_time" content="2023-10-18T07:49:47.839Z">
 <meta property="article:author" content="alpha">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://alpha.checkitout.dev/multi-git-accounts/">
+<link rel="canonical" href="https://alpha.checkitout.dev/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>本地支持多Github账号 | Check it out</title>
+  <title>并行访问最快返回 | Check it out</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
     <script>
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/multi-git-accounts/">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -194,7 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          本地支持多Github账号
+          并行访问最快返回
         </h1>
 
         <div class="post-meta">
@@ -203,28 +203,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-07-03 12:06:23" itemprop="dateCreated datePublished" datetime="2021-07-03T12:06:23+08:00">2021-07-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 21:48:32" itemprop="dateModified" datetime="2023-10-04T21:48:32+08:00">2023-10-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
-                </span>
+              <time title="创建时间：2023-10-18 15:44:06 / 修改时间：15:49:47" itemprop="dateCreated datePublished" datetime="2023-10-18T15:44:06+08:00">2023-10-18</time>
             </span>
 
           
@@ -236,8 +217,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/multi-git-accounts/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/multi-git-accounts/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/10/18/并行访问最快返回/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -252,22 +233,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="创建非默认本地SSH密钥"><a href="#创建非默认本地SSH密钥" class="headerlink" title="创建非默认本地SSH密钥"></a>创建非默认本地SSH密钥</h2><p>GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用<code>ssh-keygen</code>生成新key，出现提示输入文件名的时候(<code>Enter file in which to save the key (~/.ssh/id_rsa): id_rsa_new</code>)要输入与默认配置不一样的文件名，比如：我这里填的是 <code>id_rsa_new</code>。否则会覆盖之前生成的默认key。并用<code>ssh-add</code>命令将新创建的Key添加到由<code>ssh-agent</code> 维护的列表中。</p>
-<blockquote>
-<p>ssh-agent 是用于管理SSH private keys的, 长时间持续运行的守护进程（daemon）. 唯一目的就是对解密的私钥进行高速缓存。</p>
-<p>ssh-add 提示并将用户的使用的私钥添加到由ssh-agent 维护的列表中. 此后, 当使用公钥连接到远程 SSH 或 SCP 主机时,不再提示相关信息.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;xxx@xxx.com&quot;</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa_new</span><br></pre></td></tr></table></figure>
-<p>如果出现 <strong>Could not open a connection to your authentication agent</strong> 的错误，就试着用以下命令：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-agent bash</span><br><span class="line"><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_new</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><p>配置<code>~/.ssh/config</code></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认的GitHub连接</span></span><br><span class="line">Host git@github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    User username <span class="comment">#&lt;- GitHub的用户名</span></span><br><span class="line">    IdentityFile ~<span class="regexp">/.ssh/i</span>d_rsa_github</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 另一个GitHub的连接，带上GitHub用户名作为name前缀</span></span><br><span class="line">Host name.github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~<span class="regexp">/.ssh/i</span>d_rsa_new</span><br></pre></td></tr></table></figure>
-<h2 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">✦2 ➜ ssh -T git@name.github.com</span><br><span class="line">Hi &lt;name&gt;! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">✦2 ➜ ssh -T git@github.com</span></span><br><span class="line"><span class="string">Hi &lt;default&gt;! You&#x27;</span>ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-<p>在向非默认仓库提交代码时，需要对原远程Push地址做一下转换</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@name.github.com:name/hello.git</span><br></pre></td></tr></table></figure>
-<p>试一下吧！</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://github.com/jawil/notes/issues/2">https://github.com/jawil/notes/issues/2</a></p>
+        <p>设想这样一个场景：服务器需要同步时间服务，希望访问若干个时间同步服务，取最快且正确返回结果的服务作为结果。通过Go并行访问这若干个服务器，只取最快返回且正确的，其它结果统统丢弃。下面是这样的示例代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	ntpServers = []<span class="type">string</span>&#123;</span><br><span class="line">		<span class="string">&quot;us.pool.ntp.org:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.cloudflare.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.windows.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.apple.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.google.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.nist.gov:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;ntp.ntsc.ac.cn:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.smg.gov.mo:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;stdtime.gov.hk:123&quot;</span>,</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewGroupVisitor</span>[<span class="title">T</span> <span class="title">any</span>]<span class="params">()</span></span> *GroupVisitor[T] &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;GroupVisitor[T]&#123;result: <span class="built_in">make</span>(<span class="keyword">chan</span> T)&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> GroupVisitor[T any] <span class="keyword">struct</span> &#123;</span><br><span class="line">	wg       sync.WaitGroup</span><br><span class="line">	doneOnce sync.Once</span><br><span class="line">	result   <span class="keyword">chan</span> T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *GroupVisitor[T])</span></span> Go(f <span class="function"><span class="keyword">func</span><span class="params">()</span></span> (T, <span class="type">string</span>, <span class="type">bool</span>, <span class="type">error</span>)) &#123;</span><br><span class="line">	g.wg.Add(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">defer</span> g.wg.Done()</span><br><span class="line">		<span class="keyword">if</span> data, host, done, err := f(); done &amp;&amp; err == <span class="literal">nil</span> &#123;</span><br><span class="line">			g.doneOnce.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">				g.result &lt;- data</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *GroupVisitor[T])</span></span> Wait(duration time.Duration) (T, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> empty T</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> &lt;-time.After(duration):</span><br><span class="line">		<span class="keyword">return</span> empty, errors.New(<span class="string">&quot;request timeout&quot;</span>)</span><br><span class="line">	<span class="keyword">case</span> ret := &lt;-g.result:</span><br><span class="line">		<span class="keyword">return</span> ret, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  g := NewGroupVisitor[*time.Time]()</span><br><span class="line">	<span class="keyword">for</span> _, host := <span class="keyword">range</span> ntpServers &#123;</span><br><span class="line">		host := host</span><br><span class="line">		g.Go(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> (*time.Time, <span class="type">string</span>, <span class="type">bool</span>, <span class="type">error</span>) &#123;</span><br><span class="line">			respTime, err := ntp.Time(host)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">nil</span>, host, <span class="literal">false</span>, err</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> &amp;respTime, host, <span class="literal">true</span>, <span class="literal">nil</span></span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	clock, err := g.Wait(<span class="number">6</span> * time.Second)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -278,7 +245,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+              <a href="/tags/Go/" rel="tag"><i class="fa fa-tag"></i> Go</a>
           </div>
 
         
@@ -286,13 +253,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/publish-go-mod-version/" rel="prev" title="Go mod 发布版本">
-      <i class="fa fa-chevron-left"></i> Go mod 发布版本
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/22/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/" rel="next" title="PostgreSQL 12支持 Generated Columns 特性">
-      PostgreSQL 12支持 Generated Columns 特性 <i class="fa fa-chevron-right"></i>
+    <a href="/proxy-re-encrypt/" rel="next" title="谈谈我对代理重加密的理解">
+      谈谈我对代理重加密的理解 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -360,7 +324,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%9D%9E%E9%BB%98%E8%AE%A4%E6%9C%AC%E5%9C%B0SSH%E5%AF%86%E9%92%A5"><span class="nav-number">1.</span> <span class="nav-text">创建非默认本地SSH密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH"><span class="nav-number">2.</span> <span class="nav-text">配置SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="nav-number">3.</span> <span class="nav-text">测试一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -499,9 +462,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://alpha.checkitout.dev/multi-git-accounts/";
-    this.page.identifier = "/multi-git-accounts/";
-    this.page.title = "本地支持多Github账号";
+    this.page.url = "https://alpha.checkitout.dev/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/";
+    this.page.identifier = "2023/10/18/并行访问最快返回/";
+    this.page.title = "并行访问最快返回";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

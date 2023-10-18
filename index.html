@@ -291,6 +291,80 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/" class="post-title-link" itemprop="url">并行访问最快返回</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-18 15:44:06 / 修改时间：15:49:47" itemprop="dateCreated datePublished" datetime="2023-10-18T15:44:06+08:00">2023-10-18</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/10/18/并行访问最快返回/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>设想这样一个场景：服务器需要同步时间服务，希望访问若干个时间同步服务，取最快且正确返回结果的服务作为结果。通过Go并行访问这若干个服务器，只取最快返回且正确的，其它结果统统丢弃。下面是这样的示例代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	ntpServers = []<span class="type">string</span>&#123;</span><br><span class="line">		<span class="string">&quot;us.pool.ntp.org:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.cloudflare.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.windows.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.apple.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.google.com:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.nist.gov:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;ntp.ntsc.ac.cn:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;time.smg.gov.mo:123&quot;</span>,</span><br><span class="line">		<span class="string">&quot;stdtime.gov.hk:123&quot;</span>,</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewGroupVisitor</span>[<span class="title">T</span> <span class="title">any</span>]<span class="params">()</span></span> *GroupVisitor[T] &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;GroupVisitor[T]&#123;result: <span class="built_in">make</span>(<span class="keyword">chan</span> T)&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> GroupVisitor[T any] <span class="keyword">struct</span> &#123;</span><br><span class="line">	wg       sync.WaitGroup</span><br><span class="line">	doneOnce sync.Once</span><br><span class="line">	result   <span class="keyword">chan</span> T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *GroupVisitor[T])</span></span> Go(f <span class="function"><span class="keyword">func</span><span class="params">()</span></span> (T, <span class="type">string</span>, <span class="type">bool</span>, <span class="type">error</span>)) &#123;</span><br><span class="line">	g.wg.Add(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">defer</span> g.wg.Done()</span><br><span class="line">		<span class="keyword">if</span> data, host, done, err := f(); done &amp;&amp; err == <span class="literal">nil</span> &#123;</span><br><span class="line">			g.doneOnce.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">				g.result &lt;- data</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *GroupVisitor[T])</span></span> Wait(duration time.Duration) (T, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> empty T</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> &lt;-time.After(duration):</span><br><span class="line">		<span class="keyword">return</span> empty, errors.New(<span class="string">&quot;request timeout&quot;</span>)</span><br><span class="line">	<span class="keyword">case</span> ret := &lt;-g.result:</span><br><span class="line">		<span class="keyword">return</span> ret, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  g := NewGroupVisitor[*time.Time]()</span><br><span class="line">	<span class="keyword">for</span> _, host := <span class="keyword">range</span> ntpServers &#123;</span><br><span class="line">		host := host</span><br><span class="line">		g.Go(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> (*time.Time, <span class="type">string</span>, <span class="type">bool</span>, <span class="type">error</span>) &#123;</span><br><span class="line">			respTime, err := ntp.Time(host)</span><br><span class="line">			<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">nil</span>, host, <span class="literal">false</span>, err</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> &amp;respTime, host, <span class="literal">true</span>, <span class="literal">nil</span></span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	clock, err := g.Wait(<span class="number">6</span> * time.Second)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/proxy-re-encrypt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1567,112 +1641,6 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/multi-git-accounts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Check it out">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/multi-git-accounts/" class="post-title-link" itemprop="url">本地支持多Github账号</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-03 12:06:23" itemprop="dateCreated datePublished" datetime="2021-07-03T12:06:23+08:00">2021-07-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 21:48:32" itemprop="dateModified" datetime="2023-10-04T21:48:32+08:00">2023-10-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/multi-git-accounts/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/multi-git-accounts/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="创建非默认本地SSH密钥"><a href="#创建非默认本地SSH密钥" class="headerlink" title="创建非默认本地SSH密钥"></a>创建非默认本地SSH密钥</h2><p>GitHub不支持相同SSH Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH Key。注意，使用<code>ssh-keygen</code>生成新key，出现提示输入文件名的时候(<code>Enter file in which to save the key (~/.ssh/id_rsa): id_rsa_new</code>)要输入与默认配置不一样的文件名，比如：我这里填的是 <code>id_rsa_new</code>。否则会覆盖之前生成的默认key。并用<code>ssh-add</code>命令将新创建的Key添加到由<code>ssh-agent</code> 维护的列表中。</p>
-<blockquote>
-<p>ssh-agent 是用于管理SSH private keys的, 长时间持续运行的守护进程（daemon）. 唯一目的就是对解密的私钥进行高速缓存。</p>
-<p>ssh-add 提示并将用户的使用的私钥添加到由ssh-agent 维护的列表中. 此后, 当使用公钥连接到远程 SSH 或 SCP 主机时,不再提示相关信息.</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;xxx@xxx.com&quot;</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa_new</span><br></pre></td></tr></table></figure>
-<p>如果出现 <strong>Could not open a connection to your authentication agent</strong> 的错误，就试着用以下命令：</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-agent bash</span><br><span class="line"><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_new</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/multi-git-accounts/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1745,7 +1713,7 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1758,7 +1726,7 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

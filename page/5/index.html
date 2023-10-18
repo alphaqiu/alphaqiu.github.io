@@ -179,6 +179,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/macOS-port-before-1024/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/macOS-port-before-1024/" class="post-title-link" itemprop="url">在MacOS上使用1024以下端口</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-21 10:33:36" itemprop="dateCreated datePublished" datetime="2019-03-21T10:33:36+08:00">2019-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-04 21:47:32" itemprop="dateModified" datetime="2023-10-04T21:47:32+08:00">2023-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/macOS-port-before-1024/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/macOS-port-before-1024/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>MacOS和Linux一样，需要root权限使用低于1024以下端口。因此要在Mac机器上监听80端口或443端口，要么以root用户启动应用，要么使用端口转发。</p>
+<p>在Linux系统中可以通过<code>sudo setcap cap_net_bind_service=+ep &lt;app name&gt;</code>来让非root用户使用1024以下端口（<app name>指要授权监听端口的程序）。</p>
+<p>MacOS没有<code>setcap</code>命令，所以需要通过端口转发来达到目的。新版的MacOS操作系统使用pf（packet filter）设置端口转发。</p>
+<h2 id="简单粗暴的解决方式"><a href="#简单粗暴的解决方式" class="headerlink" title="简单粗暴的解决方式"></a>简单粗暴的解决方式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;</span></span><br><span class="line"><span class="string">rdr pass inet proto tcp from any to any port 80 -&gt; 127.0.0.1 port 8080</span></span><br><span class="line"><span class="string">rdr pass inet proto tcp from any to any port 443 -&gt; 127.0.0.1 port 8443</span></span><br><span class="line"><span class="string">&quot;</span> | sudo pfctl -ef -</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>rdr: The packet is redirected to another destination and possibly a different port.<br>数据包被重定向到另一个目的地，可能还有一个不同的端口<br>rdr rules can optionally specify port ranges instead of single ports.<br>规则可以选择指定端口范围而不是单个端口<br>rdr … port 2000:2999 -&gt; … port 4000 redirects ports 2000 to 2999 (inclusive) to port 4000.<br>… port 2000:2999 -&gt; … port 4000 重定向端口2000-2999（包含2999）到端口4000<br>rdr … port 2000:2999 -&gt; … port 4000:<em> redirects port 2000 to 4000, 2001 to 4001, …, 2999 to 4999.<br>… port 2000:2999 -&gt; … port 4000:</em> 重定向端口2000到端口4000，端口2001到端口4001，…，端口2999到4999</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/macOS-port-before-1024/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/icap-ios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -764,7 +865,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -291,6 +291,118 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/publish-go-mod-version/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Check it out">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/publish-go-mod-version/" class="post-title-link" itemprop="url">Go mod 发布版本</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-03 13:32:23" itemprop="dateCreated datePublished" datetime="2021-07-03T13:32:23+08:00">2021-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-04 21:46:59" itemprop="dateModified" datetime="2023-10-04T21:46:59+08:00">2023-10-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/publish-go-mod-version/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/publish-go-mod-version/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="版本号发布"><a href="#版本号发布" class="headerlink" title="版本号发布"></a>版本号发布</h2><p>Go模块版本只要分为三个部分如<code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>，例如对于v1.0.1,主版本<code>&lt;major&gt;</code>是1，次版本<code>&lt;minor&gt;</code>是0，补丁版本<code>&lt;patch&gt;</code>是1</p>
+<p>v0版本为项目的初始版本，版本不保证稳定行，可以通过<code>git tag</code>来标记版本，将tag推送至仓库即可 v1版本为稳定版本，当你的项目稳定之后，可以标记v1版本对外发布；另外对于稳定之后的预发布版本，由于Go命令首选的是正常版本，而不是预发布版本；可以通过<code>-</code>来制定预发布版本，如<code>v1.0.1-beta</code>、<code>v1.0.1-alpha</code>；使用的时候需要显示的指定预发布版本<code>go get github.com/p1024k/helle@v1.0.1-beta</code> 下面看下怎么发布第一个v0.0.1版本：</p>
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>首先在你的github仓库创建一个<code>repository</code>，命名为<code>hello</code>，然后将hello项目同步至仓库</p>
+<h3 id="标记并推送Tag"><a href="#标记并推送Tag" class="headerlink" title="标记并推送Tag"></a>标记并推送Tag</h3><p>通过git标签维护版本。都以master为主仓库，每开发一个版本从master切换出一个分支开发。然后合并回master主分支。在master主分支上执行以下动作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag v0.0.1</span><br><span class="line">git push origin v0.0.1</span><br></pre></td></tr></table></figure>
+<h3 id="在其他项目中引用"><a href="#在其他项目中引用" class="headerlink" title="在其他项目中引用"></a>在其他项目中引用</h3><p>在项目中直接导入<code>&quot;github.com/p1024k/hello&quot;</code>，然后通过执行 go mod tiny或者go mod build就可以添加新的依赖了</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/p1024k/hello&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	fmt.Println(hello.Hello())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>引入依赖之后 cat go.mod，可以看到已经引入了我们自定义的模块</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">module study</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.16</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">        github.com/p1024k/hello v0<span class="number">.0</span><span class="number">.1</span></span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="版本升级"><a href="#版本升级" class="headerlink" title="版本升级"></a>版本升级</h2><p>Go模块中规范了一个重要原则</p>
+<p><strong><em>If an old package and a new package have the same import path, the new package must be backwards compatible with the old package.</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果旧包和新包具有相同的导入路径，新包必须向后兼容旧包。</span><br></pre></td></tr></table></figure>
+<h3 id="v0-gt-v1"><a href="#v0-gt-v1" class="headerlink" title="v0-&gt;v1"></a>v0-&gt;v1</h3><p>假设我们自定义的模块已经稳定了，那么开始要对外发布v1.0.0版本了</p>
+<ol>
+<li>拉取新的分支v1.0.0_branch</li>
+<li>git tag v1.0.0 并且推送到远程仓库</li>
+</ol>
+<h3 id="v1-gt-v2"><a href="#v1-gt-v2" class="headerlink" title="v1-&gt;v2"></a>v1-&gt;v2</h3><p>v1-&gt;v2的升级属于主版本的升级（v2不向后兼容）， 这里有两种方式：</p>
+<ul>
+<li>创建新的版本目录v2</li>
+<li>继续使用v0-&gt;v1的升级方式</li>
+</ul>
+<p><strong>这里只讲在V1-&gt;V2的情况。且只讲继续使用V0-&gt;v1的升级方式。</strong></p>
+<p>拉取新的分支，修改go.mod路径为<code>github.com/p1024k/hello/v2</code>，基于master分支打tag v2.0.0</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># checkout from master</span></span><br><span class="line">git checkout -b v2</span><br><span class="line">go mod edit -module github.com/youdw/hello/v2</span><br><span class="line">...</span><br><span class="line"><span class="comment"># make some change</span></span><br><span class="line">git push</span><br><span class="line">git checkout master</span><br><span class="line">git rebase v2</span><br><span class="line">git tag v2.0.0</span><br><span class="line">git push origin master</span><br><span class="line">git push --tags</span><br><span class="line"></span><br><span class="line"><span class="comment"># git push origin v2.0.0</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/multi-git-accounts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1240,96 +1352,6 @@ mjx-container[display="true"] + br {
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录工作中研究和学习的内容，把他们以文字的形式记录下来，备忘。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Check it out">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/" class="post-title-link" itemprop="url">水平垂直居中以及Codepen</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-03-14 15:43:27 / 修改时间：15:58:53" itemprop="dateCreated datePublished" datetime="2020-03-14T15:43:27+08:00">2020-03-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/14/水平垂直居中以及Codepen/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="博客支持CodePen的方法"><a href="#博客支持CodePen的方法" class="headerlink" title="博客支持CodePen的方法"></a>博客支持CodePen的方法</h2><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/hexo-codepen">https://www.npmjs.com/package/hexo-codepen</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D hexo-codepen</span><br></pre></td></tr></table></figure>
-<p>然后在Markdown中嵌入</p>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name">codepen</span> userId|anonymous|anon slugHash theme [defaultTab [height [width]]] %&#125;</span></span><br></pre></td></tr></table></figure>
-<p>在CodePen编辑器右下角<code>Embed</code>按钮弹开后，复制HTML代码如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;codepen&quot;</span> <span class="attr">data-height</span>=<span class="string">&quot;265&quot;</span> <span class="attr">data-theme-id</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">data-default-tab</span>=<span class="string">&quot;html,result&quot;</span> <span class="attr">data-user</span>=<span class="string">&quot;alphaqiu&quot;</span> <span class="attr">data-slug-hash</span>=<span class="string">&quot;MWwVzar&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;&quot;</span> <span class="attr">data-pen-title</span>=<span class="string">&quot;水平垂直居中/Loading mask&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>See the Pen <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu/pen/MWwVzar&quot;</span>&gt;</span></span><br><span class="line">  水平垂直居中/Loading mask<span class="tag">&lt;/<span class="name">a</span>&gt;</span> by alphaqiu (<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu&quot;</span>&gt;</span>@alphaqiu<span class="tag">&lt;/<span class="name">a</span>&gt;</span>)</span><br><span class="line">  on <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io&quot;</span>&gt;</span>CodePen<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;https://static.codepen.io/assets/embed/ei.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>把<code>p</code>🏷️标签里对应的参数填到潜入代码对应位置：</p>
-<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;%</span> <span class="name">codepen</span> alphaqiu MWwVzar dark <span class="string">&quot;result&quot;</span> <span class="number">500</span> <span class="template-tag">%&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="水平和垂直居中"><a href="#水平和垂直居中" class="headerlink" title="水平和垂直居中"></a>水平和垂直居中</h2><iframe id="cp_embed_MWwVzar" src="//codepen.io/alphaqiu/embed/MWwVzar?height=500&theme-id=dark&slug-hash=MWwVzar&default-tab=result" scrolling="no" frameborder="no" height="500" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1402,7 +1424,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

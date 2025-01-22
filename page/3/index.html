@@ -88,7 +88,119 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<!-- hexo injector head_end end --><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
@@ -180,6 +292,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/bandwidth">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/bandwidth" class="post-title-link" itemprop="url">网络带宽的那点事</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-20 19:54:51" itemprop="dateCreated datePublished" datetime="2020-03-20T19:54:51+08:00">2020-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/bandwidth#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/bandwidth" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。</p>
+<blockquote>
+<p>有一种概念叫无线漫游，当网络环境存在多个相同SSID的AP，且它们的微单元互相有一定范围的重合时，无线用户可以在整个WLAN覆盖区内移动，无线网卡能够自动发现附近信号强度最大的AP，并通过这个AP收发数据，保持不间断的网络连接，这就称为无线漫游。</p>
+</blockquote>
+<p>华为路由器（荣耀路由2），它自带Bridge(AP)模式，这个模式非常棒，每个无线Wi-Fi信号源都设置相同的信号名称、相同的频段、相同的密码等全部相同的信号设置情况下，全屋就可以享受统一的Wi-Fi接入！再也不用忍受手动切换信号的痛苦了。然而华为路由器本身带有mesh功能，多个同类型路由器之间可以无缝切换。家用路由器几个型号不一致，无法享受mesh功能做无缝切换，只能算做“快速漫游”。</p>
+<p>快速漫游虽然可以通过同名Wi-Fi起到快速切换的作用，但可能会造成IP地址切换、网络断开重连。因此需要在上级路由器中绑定Mac地址为静态IP分配，保证在信号切换后IP地址不变。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/bandwidth#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,7 +423,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -307,7 +519,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -421,7 +633,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -533,7 +745,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -624,7 +836,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -724,7 +936,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -836,7 +1048,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -942,7 +1154,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1046,7 +1258,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
+                <time title="修改时间：2025-01-22 14:42:40" itemprop="dateModified" datetime="2025-01-22T14:42:40+08:00">2025-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1090,110 +1302,6 @@
 <h3 id="2-命令行输入-date"><a href="#2-命令行输入-date" class="headerlink" title="2.命令行输入 date"></a>2.命令行输入 date</h3><p>如果您收到  UNTRUSTED_CERT_TITLE 错误，则可能会看到一个非常旧的日期。比如31/12/2017</p>
 <h3 id="3-然后只需要在命令行输入-当前日期-date-MMDDHHMMYY"><a href="#3-然后只需要在命令行输入-当前日期-date-MMDDHHMMYY" class="headerlink" title="3.然后只需要在命令行输入  当前日期   date MMDDHHMMYY"></a>3.然后只需要在命令行输入  当前日期   date MMDDHHMMYY</h3><p>注: M=Month, D=Day, H=Hour in 24-hour notation, M=Minute and Y=年份后两位.</p>
 <h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>退出命令行, 重新启动，按住 ⌘+R 再选择重新安装macOS就OK了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/11/04/gitlab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/04/gitlab/" class="post-title-link" itemprop="url">安装Gitlab</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-05 01:30:54" itemprop="dateCreated datePublished" datetime="2019-11-05T01:30:54+08:00">2019-11-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-11 22:06:54" itemprop="dateModified" datetime="2025-01-11T22:06:54+08:00">2025-01-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/11/04/gitlab/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/04/gitlab/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装Gitlab 社区版本。选择操作系统，并选择安装源。</p>
-<p>安装源及安装方法参考<a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/">https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/</a></p>
-<p>如迁移，需要相同版本的Gitlab。故在选择安时指定版本。</p>
-<p>Ubuntu 列举出安装的软件版本，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-cache policy &lt;&lt;package name&gt;&gt;</span><br><span class="line">apt-get install package=version</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">例如</span></span><br><span class="line">apt-get install autoconf=2.50</span><br></pre></td></tr></table></figure>
-<p>CentOS 安装软件版本，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep mariadb</span><br><span class="line">yum install mariadb-5.5.56-2.el7.x86_64</span><br></pre></td></tr></table></figure>
-<h2 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h2><p>备份原GIT服务器数据</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rake gitlab:backup:create <span class="attribute">RAILS_ENV</span>=production </span><br></pre></td></tr></table></figure>
-<p>默认备份后文件一般位于<code>/var/opt/gitlab/backups/</code>，文件名：<code>1513578325_2017_12_18_gitlab_backup.tar</code></p>
-<p>新服务器上安装与原服务器一样版本的Gitlab</p>
-<p>将步骤1生成的tar文件拷贝到新服务器上相应的backups目录下</p>
-<p>新GitLab服务数据恢复</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This command will overwrite the contents of your GitLab database!</span></span><br><span class="line">gitlab-rake gitlab:backup:restore <span class="attribute">RAILS_ENV</span>=production   <span class="attribute">BACKUP</span>=1513578325_2017_12_18</span><br><span class="line">sudo gitlab-ctl restart</span><br><span class="line">sudo gitlab-rake gitlab:check <span class="attribute">SANITIZE</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>可以指定仓库及备份的位置，防止磁盘占用过大。</p>
-<p>打开<code>/etc/gitlab/gitlab.rb</code> 打开 <code>git_data_dir</code>选项。</p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>gitlab 会占用80端口，如果本机有80端口占用，会无法访问服务。需调整。旗下有很多服务，要注意。</p>
 
       
     </div>
@@ -1280,20 +1388,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1387,6 +1495,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="人工智能求职助手🤖  有针对性的调整简历，助你快速找到心仪的工作。 🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly. Features More aligned with practices within China Analyzes the 3 most importa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Curriculum Vitae AI Agent">
+<meta property="og:url" content="https://alpha.checkitout.dev/curriculum_vitae_ai_agent">
+<meta property="og:site_name" content="比十万多一点">
+<meta property="og:description" content="人工智能求职助手🤖  有针对性的调整简历，助你快速找到心仪的工作。 🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly. Features More aligned with practices within China Analyzes the 3 most importa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alpha.checkitout.dev/images/cv_example.png">
+<meta property="article:published_time" content="2025-01-22T06:34:54.000Z">
+<meta property="article:modified_time" content="2025-01-22T06:42:40.510Z">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="求职">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alpha.checkitout.dev/images/cv_example.png">
+
+<link rel="canonical" href="https://alpha.checkitout.dev/curriculum_vitae_ai_agent">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Curriculum Vitae AI Agent | 比十万多一点</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-151212624-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">比十万多一点</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">毕方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/404.html" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/curriculum_vitae_ai_agent">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Curriculum Vitae AI Agent
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-22 14:34:54 / 修改时间：14:42:40" itemprop="dateCreated datePublished" datetime="2025-01-22T14:34:54+08:00">2025-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/curriculum_vitae_ai_agent#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/curriculum_vitae_ai_agent" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="人工智能求职助手"><a href="#人工智能求职助手" class="headerlink" title="人工智能求职助手"></a>人工智能求职助手</h1><p>🤖  有针对性的调整简历，助你快速找到心仪的工作。</p>
+<p>🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly.</p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
+<li>More aligned with practices <strong>within China</strong></li>
+<li>Analyzes the 3 most important responsibilities from the input job posting link</li>
+<li>Strategically highlights key personal strengths</li>
+<li>Quantifies past work achievements</li>
+<li>ATS (Applicant Tracking System) friendly format</li>
+<li>Customizable resume templates</li>
+<li>Ready-to-use default resume template style</li>
+<li>Supports multiple API integrations</li>
+<li>Supports langsmith observability</li>
+<li>Generate HTML file and PDF file</li>
+</ul>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>To set up the project locally, follow these steps:</p>
+<ol>
+<li><p><strong>Clone the repository:</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/alphaqiu/curriculum_vitae_ai_agent.git</span><br><span class="line"><span class="built_in">cd</span> curriculum_vitae_ai_agent</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Create a virtual environment:</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv venv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Activate the virtual environment:</strong></p>
+<ul>
+<li><p>On Windows:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">venv\Scripts\activate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>On macOS and Linux:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>Install the required packages:</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Create a <code>.env</code> file in the same directory as <code>main.py</code>. The content of the <code>.env</code> file should be as follows:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> dashscope, uncomment the following line</span></span><br><span class="line">DASHSCOPE_API_KEY=&quot;your-aliyun-tongyi-key&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> openai, uncomment the following line</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">OPENAI_API_KEY=<span class="string">&quot;openai-api-key or deepseek-api-key&quot;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> langsmith, uncomment the following lines</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_API_KEY=<span class="string">&quot;langchain-api-key&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_TRACING_V2=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_ENDPOINT=<span class="string">&quot;https://api.smith.langchain.com&quot;</span></span></span><br></pre></td></tr></table></figure>
+<p>To generate a resume, use the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py --<span class="built_in">link</span> <span class="string">&quot;https://example.com/job-description&quot;</span> --config <span class="string">&quot;./data/config.yml&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>--link</code> or <code>-l</code>: The URL of the job description (required).</li>
+<li><code>--config</code> or <code>-c</code>: Path to the configuration file (optional, defaults to <code>./data/config.yml</code>).</li>
+</ul>
+<h2 id="Generate-Example"><a href="#Generate-Example" class="headerlink" title="Generate Example"></a>Generate Example</h2><p>The resume template has been modified based on<br><a target="_blank" rel="noopener" href="https://github.com/hoochanlon/jsonresume-theme-mix">https://github.com/hoochanlon/jsonresume-theme-mix</a></p>
+<p><img src="/images/cv_example.png" alt="example"></p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>The configuration file (<code>config.yml</code>) contains settings for the resume generation process, including model usage and file paths. Customize it according to your needs.</p>
+<p>The <code>config.yml</code> file supports the following key parameters:</p>
+<ul>
+<li><p><code>model</code>: Specifies the AI model to use for resume generation</p>
+<ul>
+<li>Currently supports: <code>qwen-plus</code> (Alibaba Cloud’s Tongyi Qianwen model)</li>
+<li>This parameter determines which AI service will process your resume</li>
+</ul>
+</li>
+<li><p><code>task_path</code>: Specifies the directory path for task-related files</p>
+<ul>
+<li>Default value: <code>./data</code></li>
+<li>This directory contains necessary files like templates, configurations, and resume information</li>
+</ul>
+</li>
+</ul>
+<p>Example configuration:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model:</span> <span class="string">qwen-plus</span></span><br><span class="line"><span class="attr">task_path:</span> <span class="string">./data</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Resume-Information"><a href="#Resume-Information" class="headerlink" title="Resume Information"></a>Resume Information</h3><p>Resume information file is located at <code>data/info.yml</code>, you can customize it or use the default information.</p>
+<h4 id="Basic-Profile-resume-profile"><a href="#Basic-Profile-resume-profile" class="headerlink" title="Basic Profile (resume_profile)"></a>Basic Profile (<code>resume_profile</code>)</h4><ul>
+<li><code>name</code>: Your full name</li>
+<li><code>gender</code>: Your gender</li>
+<li><code>age</code>: Your age</li>
+<li><code>email</code>: Contact email address</li>
+<li><code>education_background</code>: Brief education summary</li>
+<li><code>work_experience</code>: Years of work experience</li>
+<li><code>skills</code>: Key technical skills, separated by commas</li>
+<li><code>projects</code>: Brief project summary</li>
+<li><code>awards</code>: Notable achievements or awards</li>
+<li><code>mobile_phone</code>: Contact phone number</li>
+<li><code>job_seeking_status</code>: Current employment status</li>
+<li><code>desired_positions</code>: List of target positions<ul>
+<li><code>position</code>: Job title</li>
+<li><code>location</code>: Preferred location</li>
+<li><code>salary</code>: Expected salary range</li>
+<li><code>industry</code>: Target industry</li>
+<li><code>employment_type</code>: Type of employment (e.g., full-time, part-time)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Personal-Advantages-personal-advantage"><a href="#Personal-Advantages-personal-advantage" class="headerlink" title="Personal Advantages (personal_advantage)"></a>Personal Advantages (<code>personal_advantage</code>)</h4><p>List of key strengths and competencies that make you stand out</p>
+<h4 id="Education-Details-education-details"><a href="#Education-Details-education-details" class="headerlink" title="Education Details (education_details)"></a>Education Details (<code>education_details</code>)</h4><ul>
+<li><code>school</code>: Institution name</li>
+<li><code>major</code>: Field of study</li>
+<li><code>degree</code>: Degree type</li>
+<li><code>start_date</code>: Start date (YYYY-MM format)</li>
+<li><code>graduation_date</code>: End date (YYYY-MM format)</li>
+<li><code>school_experience</code>: Notable activities during education</li>
+<li><code>graduation_project_topic</code>: Final project title</li>
+<li><code>graduation_project_description</code>: Project description</li>
+</ul>
+<h4 id="Work-Experience-work-experience"><a href="#Work-Experience-work-experience" class="headerlink" title="Work Experience (work_experience)"></a>Work Experience (<code>work_experience</code>)</h4><p>For each position:</p>
+<ul>
+<li><code>company</code>: Company name</li>
+<li><code>position</code>: Job title</li>
+<li><code>start_date</code>: Start date (YYYY-MM format)</li>
+<li><code>end_date</code>: End date (YYYY-MM format)</li>
+<li><code>work_experience</code>: Overall experience summary</li>
+<li><code>work_experience_description</code>: Detailed role description</li>
+<li><code>work_experience_achievements</code>: Key accomplishments</li>
+<li><code>work_experience_skills</code>: Skills utilized</li>
+<li><code>work_experience_projects</code>: Projects involved</li>
+<li><code>work_experience_awards</code>: Awards received</li>
+<li><code>tags</code>: Relevant skill tags</li>
+</ul>
+<h4 id="Project-Experience-project-experience"><a href="#Project-Experience-project-experience" class="headerlink" title="Project Experience (project_experience)"></a>Project Experience (<code>project_experience</code>)</h4><p>For each project:</p>
+<ul>
+<li><code>project_name</code>: Project title</li>
+<li><code>project_role</code>: Your role</li>
+<li><code>project_start_date</code>: Start date</li>
+<li><code>project_end_date</code>: End date</li>
+<li><code>project_description</code>: Project overview</li>
+<li><code>project_achievements</code>: Key accomplishments</li>
+<li><code>project_link</code>: Project URL (if applicable)</li>
+<li><code>project_skills</code>: Technologies used</li>
+</ul>
+<h4 id="Certifications-qualification-certificate"><a href="#Certifications-qualification-certificate" class="headerlink" title="Certifications (qualification_certificate)"></a>Certifications (<code>qualification_certificate</code>)</h4><ul>
+<li><code>certificate_name</code>: Name of certification</li>
+<li><code>certificate_date</code>: Date obtained</li>
+<li><code>certificate_link</code>: Verification link</li>
+</ul>
+<h4 id="Volunteer-Experience-volunteer-experience"><a href="#Volunteer-Experience-volunteer-experience" class="headerlink" title="Volunteer Experience (volunteer_experience)"></a>Volunteer Experience (<code>volunteer_experience</code>)</h4><ul>
+<li><code>volunteer_experience_name</code>: Activity name</li>
+<li><code>start_date</code>: Start date</li>
+<li><code>end_date</code>: End date</li>
+<li><code>service_duration</code>: Duration of service</li>
+<li><code>volunteer_experience_description</code>: Description of activities</li>
+</ul>
+<h4 id="Hobbies-and-Interests-hobbies-and-interests"><a href="#Hobbies-and-Interests-hobbies-and-interests" class="headerlink" title="Hobbies and Interests (hobbies_and_interests)"></a>Hobbies and Interests (<code>hobbies_and_interests</code>)</h4><ul>
+<li><code>hobbies_and_interests_name</code>: Interest category</li>
+<li><code>hobbies_and_interests_description</code>: Detailed descriptions</li>
+</ul>
+<p>Example:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resume_profile:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&#x27;John Doe&#x27;</span></span><br><span class="line">  <span class="attr">gender:</span> <span class="string">&#x27;Male&#x27;</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">email:</span> <span class="string">&#x27;john.doe@example.com&#x27;</span></span><br><span class="line">  <span class="attr">education_background:</span> <span class="string">&#x27;Shanghai Jiao Tong University&#x27;</span></span><br><span class="line">  <span class="attr">work_experience:</span> <span class="string">&#x27;2 years&#x27;</span></span><br><span class="line">  <span class="attr">skills:</span> <span class="string">&#x27;Python, Java, C++, Machine Learning, Deep Learning&#x27;</span></span><br><span class="line">  <span class="comment"># ... other fields ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Additional sections follow the same structure as shown above</span></span><br></pre></td></tr></table></figure></p>
+<p>All fields support both English and Chinese content. Customize the information according to your background and target position.</p>
+<h3 id="Resume-Template"><a href="#Resume-Template" class="headerlink" title="Resume Template"></a>Resume Template</h3><p>Resume template file is located at <code>data/resume_templates/resume_template.tpl</code>, you can customize it or use the default template.</p>
+<p>The resume template is a simple HTML file that uses Tailwind CSS for styling.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+              <a href="/tags/%E6%B1%82%E8%81%8C/" rel="tag"><i class="fa fa-tag"></i> 求职</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/01/22/macOS-%E8%A7%A3%E5%86%B3-too-many-open-files/" rel="prev" title="macOS 解决 too many open files">
+      <i class="fa fa-chevron-left"></i> macOS 解决 too many open files
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/10/18/ntp%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="next" title="ntp客户端">
+      ntp客户端 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%B1%82%E8%81%8C%E5%8A%A9%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">人工智能求职助手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.1.</span> <span class="nav-text">Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">1.2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.3.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generate-Example"><span class="nav-number">1.4.</span> <span class="nav-text">Generate Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">1.5.</span> <span class="nav-text">Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Resume-Information"><span class="nav-number">1.5.1.</span> <span class="nav-text">Resume Information</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-Profile-resume-profile"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Basic Profile (resume_profile)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Personal-Advantages-personal-advantage"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">Personal Advantages (personal_advantage)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Education-Details-education-details"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">Education Details (education_details)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Work-Experience-work-experience"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">Work Experience (work_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Project-Experience-project-experience"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">Project Experience (project_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Certifications-qualification-certificate"><span class="nav-number">1.5.1.6.</span> <span class="nav-text">Certifications (qualification_certificate)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Volunteer-Experience-volunteer-experience"><span class="nav-number">1.5.1.7.</span> <span class="nav-text">Volunteer Experience (volunteer_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hobbies-and-Interests-hobbies-and-interests"><span class="nav-number">1.5.1.8.</span> <span class="nav-text">Hobbies and Interests (hobbies_and_interests)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resume-Template"><span class="nav-number">1.5.2.</span> <span class="nav-text">Resume Template</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="alpha"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">alpha</p>
+  <div class="site-description" itemprop="description">记录,分享,备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alpha</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alphaqiu.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://alpha.checkitout.dev/curriculum_vitae_ai_agent";
+    this.page.identifier = "/curriculum_vitae_ai_agent";
+    this.page.title = "Curriculum Vitae AI Agent";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://alphaqiu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

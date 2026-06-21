@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 7.3.0">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="oak-keyring 上手指南：从安装到日常使用第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。 如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。 你需要准备什么 一台 Mac，Apple Silicon 或 Intel 均可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-21T08:47:07.776Z">
+<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="checkitout.dev">
 <meta name="twitter:card" content="summary">
@@ -86,14 +86,10 @@
   </style>
 </noscript>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -207,7 +203,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2026-06-21 00:00:00 / 修改时间：16:47:07" itemprop="dateCreated datePublished" datetime="2026-06-21T00:00:00+08:00">2026-06-21</time>
+              <time title="创建时间：2026-06-21 00:00:00 / 修改时间：17:33:27" itemprop="dateCreated datePublished" datetime="2026-06-21T00:00:00+08:00">2026-06-21</time>
             </span>
 
           
@@ -244,7 +240,9 @@
 </ul>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>有三种方式，选适合你的就行。</p>
 <h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap openkeyring/oak-keyring</span><br><span class="line">brew install ok</span><br></pre></td></tr></table></figure>
+
 <h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @openkeyring/ok</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
+
 <p>npm 包内置了 macOS 预编译二进制。如果你的架构暂时没覆盖到，改用 GitHub Release。</p>
 <h3 id="GitHub-Release"><a href="#GitHub-Release" class="headerlink" title="GitHub Release"></a>GitHub Release</h3><ol>
 <li>打开 <a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/releases">releases 页面</a>。</li>
@@ -253,10 +251,13 @@
 <li>解压后把 <code>ok</code> 二进制移到 <code>PATH</code> 里的目录：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xzf ok-*.tar.gz</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> ok /usr/local/bin/</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
+
 <p>预览版二进制未签名、未公证，macOS Gatekeeper 可能拦截首次启动。如果你确认是从官方 GitHub Release 下载且校验过 checksum，可以在「系统设置 &gt; 隐私与安全性」里允许运行，或者执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xattr -d com.apple.quarantine /usr/local/bin/ok</span><br></pre></td></tr></table></figure>
+
 <h2 id="创建你的-Vault"><a href="#创建你的-Vault" class="headerlink" title="创建你的 Vault"></a>创建你的 Vault</h2><p>启动应用：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ok</span><br></pre></td></tr></table></figure>
+
 <p>首次运行时，oak-keyring 会引导你创建新 vault。需要设置两样东西。</p>
 <p>第一项是主密码。每次启动 <code>ok</code> 都要输入它解锁 vault，选一个强且好记的。oak-keyring 不提供托管账户恢复，主密码和恢复词都丢了的话，谁都帮不了你。</p>
 <p>第二项是恢复词。oak-keyring 会生成一组 BIP-39 助记词，抄在纸上，存在和电脑分开的安全地方。这是主密码丢失后的最后兜底，重要程度等同于加密货币钱包的种子短语。</p>
@@ -267,7 +268,7 @@
 <li>中间是记录列表，显示当前分类下的记录，包含名称、用户名和时间戳。</li>
 <li>右边是详情面板，列出选中记录的字段和可用操作。</li>
 </ul>
-<p>用 <code>Tab</code> 和 <code>Shift+Tab</code> 在区域之间切换，用 <code>j</code>/<code>k</code> 或方向键在区域内移动。整个界面完全键盘驱动，不需要动鼠标。</p>
+<p>用 <code>Tab</code> 和 <code>Shift+Tab</code> 在区域之间切换，用 <code>j</code>&#x2F;<code>k</code> 或方向键在区域内移动。整个界面完全键盘驱动，不需要动鼠标。</p>
 <h2 id="创建第一条记录"><a href="#创建第一条记录" class="headerlink" title="创建第一条记录"></a>创建第一条记录</h2><p>按 <code>n</code> 新建记录。表单包含标题、用户名、密码、网址、标签和备注等字段。</p>
 <p>密码字段可以手动输入，也可以用内置生成器。光标停在密码字段时调用生成器，可以按可配置的长度和字符集生成强密码。</p>
 <p>用标签来组织记录（比如 <code>工作</code>、<code>个人</code>、<code>银行</code>）。标签是自由文本，之后可以从侧边栏按标签筛选。</p>
@@ -281,8 +282,7 @@
 <li><code>p</code> 显示或隐藏密码。</li>
 </ul>
 <p>剪贴板内容会在短时间后自动清除，降低粘贴到错误位置的风险。</p>
-<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><div class="table-container">
-<table>
+<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><table>
 <thead>
 <tr>
 <th>按键</th>
@@ -290,8 +290,7 @@
 <th>操作</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>Ctrl+K</code></td>
 <td>主列表</td>
 <td>进入搜索模式</td>
@@ -307,12 +306,12 @@
 <td>取消搜索，恢复列表</td>
 </tr>
 <tr>
-<td><code>j</code> / <code>Down</code></td>
+<td><code>j</code> &#x2F; <code>Down</code></td>
 <td>侧边栏、列表、详情</td>
 <td>向下移动</td>
 </tr>
 <tr>
-<td><code>k</code> / <code>Up</code></td>
+<td><code>k</code> &#x2F; <code>Up</code></td>
 <td>侧边栏、列表、详情</td>
 <td>向上移动</td>
 </tr>
@@ -339,7 +338,7 @@
 <tr>
 <td><code>p</code></td>
 <td>详情面板</td>
-<td>显示/隐藏密码</td>
+<td>显示&#x2F;隐藏密码</td>
 </tr>
 <tr>
 <td><code>Ctrl+G</code></td>
@@ -357,7 +356,7 @@
 <td>触发同步</td>
 </tr>
 <tr>
-<td><code>?</code> / <code>F1</code></td>
+<td><code>?</code> &#x2F; <code>F1</code></td>
 <td>主界面</td>
 <td>打开帮助</td>
 </tr>
@@ -367,13 +366,11 @@
 <td>退出</td>
 </tr>
 <tr>
-<td><code>Tab</code> / <code>Shift+Tab</code></td>
+<td><code>Tab</code> &#x2F; <code>Shift+Tab</code></td>
 <td>设置页</td>
 <td>在区域间切换焦点</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>在应用里随时按 <code>?</code> 或 <code>F1</code> 可以查看当前上下文的帮助。</p>
 <h2 id="密码生成器"><a href="#密码生成器" class="headerlink" title="密码生成器"></a>密码生成器</h2><p>在主界面按 <code>Ctrl+G</code> 可以打开独立的密码生成器。生成前可以配置长度、字符集（大写、小写、数字、符号）和排除规则。</p>
 <p>生成器也内嵌在记录表单里。创建或编辑记录需要密码时，可以直接在表单里生成，不需要跳出去。</p>
@@ -400,8 +397,8 @@
 <li>签名二进制还在路上，目前需要手动校验 checksum。</li>
 </ul>
 <h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><ul>
-<li><strong>完整文档</strong>：<a target="_blank" rel="noopener" href="https://openkeyring.com/zh/docs/">openkeyring.com/zh/docs/</a></li>
-<li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">github.com/OpenKeyring/oak-keyring</a></li>
+<li><strong>完整文档</strong>：<a target="_blank" rel="noopener" href="https://openkeyring.com/zh/docs/">openkeyring.com&#x2F;zh&#x2F;docs&#x2F;</a></li>
+<li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">github.com&#x2F;OpenKeyring&#x2F;oak-keyring</a></li>
 <li><strong>Discord</strong>：<a target="_blank" rel="noopener" href="https://discord.gg/3xnuu2bQz">加入社区</a></li>
 <li><strong>安全模型</strong>：阅读 <a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/blob/develop/THREAT_MODEL.md">THREAT_MODEL.md</a> 了解正式的安全假设和边界。</li>
 </ul>
@@ -616,8 +613,6 @@
 
   
 
-  
-
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -647,7 +642,7 @@
       (d.head || d.body).appendChild(s);
     }
   });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 </body>
 </html>

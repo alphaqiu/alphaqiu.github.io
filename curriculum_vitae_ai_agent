@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 7.3.0">
@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alpha.checkitout.dev/images/cv_example.png">
 <meta property="article:published_time" content="2025-01-22T06:34:54.000Z">
-<meta property="article:modified_time" content="2026-06-21T08:47:07.776Z">
+<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="求职">
@@ -89,14 +89,10 @@
   </style>
 </noscript>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,7 +212,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,18 +277,18 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">venv\Scripts\activate</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>On macOS and Linux:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p><strong>Install the required packages:</strong></p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Create a <code>.env</code> file in the same directory as <code>main.py</code>. The content of the <code>.env</code> file should be as follows:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> dashscope, uncomment the following line</span></span><br><span class="line">DASHSCOPE_API_KEY=&quot;your-aliyun-tongyi-key&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> openai, uncomment the following line</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">OPENAI_API_KEY=<span class="string">&quot;openai-api-key or deepseek-api-key&quot;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> langsmith, uncomment the following lines</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_API_KEY=<span class="string">&quot;langchain-api-key&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_TRACING_V2=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_ENDPOINT=<span class="string">&quot;https://api.smith.langchain.com&quot;</span></span></span><br></pre></td></tr></table></figure>
+
 <p>To generate a resume, use the following command:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py --<span class="built_in">link</span> <span class="string">&quot;https://example.com/job-description&quot;</span> --config <span class="string">&quot;./data/config.yml&quot;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><code>--link</code> or <code>-l</code>: The URL of the job description (required).</li>
 <li><code>--config</code> or <code>-c</code>: Path to the configuration file (optional, defaults to <code>./data/config.yml</code>).</li>
@@ -315,7 +311,9 @@
 </ul>
 </li>
 </ul>
-<p>Example configuration:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model:</span> <span class="string">qwen-plus</span></span><br><span class="line"><span class="attr">task_path:</span> <span class="string">./data</span></span><br></pre></td></tr></table></figure></p>
+<p>Example configuration:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model:</span> <span class="string">qwen-plus</span></span><br><span class="line"><span class="attr">task_path:</span> <span class="string">./data</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="Resume-Information"><a href="#Resume-Information" class="headerlink" title="Resume Information"></a>Resume Information</h3><p>Resume information file is located at <code>data/info.yml</code>, you can customize it or use the default information.</p>
 <h4 id="Basic-Profile-resume-profile"><a href="#Basic-Profile-resume-profile" class="headerlink" title="Basic Profile (resume_profile)"></a>Basic Profile (<code>resume_profile</code>)</h4><ul>
 <li><code>name</code>: Your full name</li>
@@ -390,7 +388,9 @@
 <li><code>hobbies_and_interests_name</code>: Interest category</li>
 <li><code>hobbies_and_interests_description</code>: Detailed descriptions</li>
 </ul>
-<p>Example:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resume_profile:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&#x27;John Doe&#x27;</span></span><br><span class="line">  <span class="attr">gender:</span> <span class="string">&#x27;Male&#x27;</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">email:</span> <span class="string">&#x27;john.doe@example.com&#x27;</span></span><br><span class="line">  <span class="attr">education_background:</span> <span class="string">&#x27;Shanghai Jiao Tong University&#x27;</span></span><br><span class="line">  <span class="attr">work_experience:</span> <span class="string">&#x27;2 years&#x27;</span></span><br><span class="line">  <span class="attr">skills:</span> <span class="string">&#x27;Python, Java, C++, Machine Learning, Deep Learning&#x27;</span></span><br><span class="line">  <span class="comment"># ... other fields ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Additional sections follow the same structure as shown above</span></span><br></pre></td></tr></table></figure></p>
+<p>Example:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resume_profile:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&#x27;John Doe&#x27;</span></span><br><span class="line">  <span class="attr">gender:</span> <span class="string">&#x27;Male&#x27;</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">email:</span> <span class="string">&#x27;john.doe@example.com&#x27;</span></span><br><span class="line">  <span class="attr">education_background:</span> <span class="string">&#x27;Shanghai Jiao Tong University&#x27;</span></span><br><span class="line">  <span class="attr">work_experience:</span> <span class="string">&#x27;2 years&#x27;</span></span><br><span class="line">  <span class="attr">skills:</span> <span class="string">&#x27;Python, Java, C++, Machine Learning, Deep Learning&#x27;</span></span><br><span class="line">  <span class="comment"># ... other fields ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Additional sections follow the same structure as shown above</span></span><br></pre></td></tr></table></figure>
+
 <p>All fields support both English and Chinese content. Customize the information according to your background and target position.</p>
 <h3 id="Resume-Template"><a href="#Resume-Template" class="headerlink" title="Resume Template"></a>Resume Template</h3><p>Resume template file is located at <code>data/resume_templates/resume_template.tpl</code>, you can customize it or use the default template.</p>
 <p>The resume template is a simple HTML file that uses Tailwind CSS for styling.</p>
@@ -610,8 +610,6 @@
 
   
 
-  
-
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -641,7 +639,7 @@
       (d.head || d.body).appendChild(s);
     }
   });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 </body>
 </html>

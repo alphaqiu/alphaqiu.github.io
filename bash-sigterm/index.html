@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 7.3.0">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="Supervisord 要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。 这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样： 123456789#!&#x2F;bin&#x2F;bash# Prepare the JVM command line...$J">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-06-12T07:36:54.000Z">
-<meta property="article:modified_time" content="2026-06-21T08:47:07.777Z">
+<meta property="article:modified_time" content="2026-06-21T09:33:27.881Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="bash">
 <meta property="article:tag" content="SIGTERM">
@@ -87,14 +87,10 @@
   </style>
 </noscript>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,36 +250,45 @@
         <p>Supervisord 要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。</p>
 <p>这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare the JVM command line</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clean up</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>在这种情况下，TERM信号由shell进程接收，但是Bash不会将该信号转发给子进程。这意味着shell进程将停止，但JVM将继续运行。</p>
 <p>如果创建子进程的命令是shell脚本中的最后一个命令，则可以使用<code>exec</code>以下方法轻松解决问题：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br></pre></td></tr></table></figure>
+
 <p>而不是创建一个新进程，这将取代JVM中的shell进程。在这种情况下，TERM信号由JVM直接接收，问题得到解决。</p>
 <span id="more"></span>
+
 <p>如果shell脚本需要在JVM终止后执行一些清理，那么事情会更加复杂。在这种情况下，除了创建子进程之外，我们别无选择，但是我们需要找到一种方法来传递TERM信号给该子进程，并在执行清除代码之前等待其完成。在这里，<a target="_blank" rel="noopener" href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_12_02.html"><code>trap</code>内置</a> 的拯救：它允许配置一个命令执行时shell接收到特定的信号。但是，有一个重要的限制：</p>
 <blockquote>
 <p>当Bash在等待命令完成时收到trap已设置的信号时，在命令完成之前不会执行trap。</p>
 </blockquote>
 <p>这使得有必要执行JVM作为后台进程（使用<code>&amp;</code>）并等待其完成，以便shell进程可以在子进程仍在运行时执行trap。经常<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/146756/forward-sigterm-to-child-in-bash#146770">在Web</a>上<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/146756/forward-sigterm-to-child-in-bash#146770">呈现</a>的解决方案是使用<code>wait</code> 内置函数等待子进程的完成来编写脚本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>但是，这是不正确的。要了解为什么，让我们来看看彼此之间的相互作用<code>trap</code>和<code>wait</code>互动：</p>
 <blockquote>
 <p>当Bash通过<code>wait</code>内置等待异步命令时，接收到已设置trap的信号将导致<code>wait</code>内置程序立即返回，退出状态大于128，紧接着执行trap。</p>
 </blockquote>
 <p>这意味着<code>wait</code>在子进程终止之前，shell将开始执行命令之后的指令（甚至可能退出）。一个解决方案是等待trap中子进程的终止：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID; wait $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>这是因为trap在与正常控制流程相同的线程中执行，因此挂起脚本的执行。但是，如果脚本需要检索子进程的退出状态，则解决方案仍然不完整。通常，该信息 由 命令<a target="_blank" rel="noopener" href="http://www.gnu.org/software/bash/manual/html_node/Job-Control-Builtins.html">返回</a><code>wait</code>：</p>
 <blockquote>
-<p><code>wait [</code><em>jobspec</em><code>or</code><em>pid</em><code>...]</code></p>
+<p><code>wait [</code><em>jobspec</em><code>or</code><em>pid</em><code> ...]</code></p>
 <p>等到每个进程ID所指定的子进程<em>的PID</em>或作业规范<em>JOBSPEC</em> 退出并返回退出状态的最后一个命令等待。如果给出了工作规范，则等待工作中的所有进程。如果没有给出参数，则等待所有当前活动的子进程，并且返回状态为零。</p>
 </blockquote>
 <p>除非<code>wait</code>被信号中断，否则这一功能将立即返回，退出状态大于128（实际上是128加上信号的数字值，SIGTERM为15）。人们可能想使用这些信息区分两种情况。然而，这种方法将是有缺陷的，因为子进程的退出状态本身可能大于128（特别是SIGTERM的默认信号处理程序导致进程以退出代码143终止）。这个问题的一个解决方案是调用<code>wait</code>两次：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID; wait $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>这是因为<code>wait</code>如果进程已经退出，则立即返回（具有进程的退出状态）。然后不再需要等待trap，脚本可以简化如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>但是，解决方案仍然不完善，因为它不能正确处理SIGINT。当按CTRL + C时，终端<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/149741/why-is-sigint-not-propagated-to-childs-process-when-sent-to-its-parent-process#149756">向</a>终端<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/149741/why-is-sigint-not-propagated-to-childs-process-when-sent-to-its-parent-process#149756">的前台进程组发送一个SIGINT</a>（在这种情况下，这里包括shell进程及其子进程）。问题是Bash配置在后台启动的命令<a target="_blank" rel="noopener" href="http://unix.stackexchange.com/questions/55558/how-can-i-kill-and-wait-for-background-processes-to-finish-in-a-shell-script-whe#55591">忽略SIGINT</a>。这意味着CTRL + C只会停止脚本，而不会停止JVM。为了解决这个问题并模拟原始脚本的行为（它只是<code>$JAVA_EXECUTABLE $JAVA_ARGS</code>在前台执行），为INT信号配置相同的trap是足够的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM INT</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>最后，在收到第一个信号或由于其他原因停止JVM之后，删除trap也可能是个好主意：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">trap</span> <span class="string">&#x27;kill -TERM $PID&#x27;</span> TERM INT</span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span> &amp;</span><br><span class="line">PID=$!</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line"><span class="built_in">trap</span> - TERM INT</span><br><span class="line"><span class="built_in">wait</span> <span class="variable">$PID</span></span><br><span class="line">EXIT_STATUS=$?</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <h2 id="exec命令"><a href="#exec命令" class="headerlink" title="exec命令"></a>exec命令</h2><p>shell的内建命令exec将并不启动新的shell，而是用要被执行命令替换当前的shell进程，并且将老进程的环境清理掉，而且exec命令后的其它命令将不再执行。</p>
 <p>不过，要注意一个例外，当exec命令来对文件描述符操作的时候，就不会替换shell，而且操作完成后，还会继续执行接下来的命令。<br>    exec 3&lt;&amp;0:这个命令就是将操作符3也指向标准输入。</p>
 
@@ -502,8 +507,6 @@
 
   
 
-  
-
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -533,7 +536,7 @@
       (d.head || d.body).appendChild(s);
     }
   });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 </body>
 </html>

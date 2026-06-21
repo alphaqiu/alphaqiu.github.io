@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 7.3.0">
@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alpha.checkitout.dev/images/swagger-ui.png">
 <meta property="article:published_time" content="2019-10-28T22:50:03.000Z">
-<meta property="article:modified_time" content="2026-06-21T08:47:07.776Z">
+<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="swagger">
 <meta name="twitter:card" content="summary">
@@ -88,14 +88,10 @@
   </style>
 </noscript>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -215,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,35 +250,45 @@
       
         <h2 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h2><p>一个一键生成API文档的工具。GoSwagger，Golang版本的Swagger，支持在代码中编写注释，通过Swagger编译后生成API文档。</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://swagger.io">Swagger</a>是一个简单但功能强大的API表达工具。它具有地球上最大的API工具生态系统，数以千计的开发人员，使用几乎所有的现代编程语言，都在支持和使用Swagger。使用Swagger生成API，我们可以得到交互式文档，自动生成代码的SDK以及API的发现特性等。</p>
+<p><a target="_blank" rel="noopener" href="https://swagger.io/">Swagger</a>是一个简单但功能强大的API表达工具。它具有地球上最大的API工具生态系统，数以千计的开发人员，使用几乎所有的现代编程语言，都在支持和使用Swagger。使用Swagger生成API，我们可以得到交互式文档，自动生成代码的SDK以及API的发现特性等。</p>
 <p>——《<a target="_blank" rel="noopener" href="https://juejin.im/post/5b05138cf265da0ba7701a37">使用go-swagger为golang API自动生成swagger文档</a>》</p>
 </blockquote>
 <h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><p>通过<code>brew</code>安装</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap go-swagger/go-swagger</span><br><span class="line">brew install go-swagger</span><br></pre></td></tr></table></figure>
+
 <p>其余的安装方式请移步：<a target="_blank" rel="noopener" href="https://goswagger.io/install.html">Install goswagger</a></p>
 <span id="more"></span>
+
 <h2 id="动手实践"><a href="#动手实践" class="headerlink" title="动手实践"></a>动手实践</h2><p>《<a target="_blank" rel="noopener" href="https://juejin.im/post/5b05138cf265da0ba7701a37">使用go-swagger为golang API自动生成swagger文档</a>》已经给出了部分用法。以下为对用法的基本实践。</p>
 <h3 id="建立实践项目"><a href="#建立实践项目" class="headerlink" title="建立实践项目"></a>建立实践项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">go mod init github.com/xxx/swagger_lesson</span><br><span class="line"><span class="built_in">touch</span> doc.go</span><br><span class="line"><span class="built_in">touch</span> api.go</span><br><span class="line"><span class="built_in">mkdir</span> models</span><br><span class="line"><span class="built_in">cd</span> models</span><br><span class="line"><span class="built_in">touch</span> user.go</span><br><span class="line"><span class="built_in">touch</span> resp.go</span><br></pre></td></tr></table></figure>
+
 <p><code>doc.go</code>中的内容：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一份用于实验GoSwagger的学习代码</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//	Schemes: http, https</span></span><br><span class="line"><span class="comment">//	Host: localhost</span></span><br><span class="line"><span class="comment">//	BasePath: v1</span></span><br><span class="line"><span class="comment">//	Version: 0.0.1</span></span><br><span class="line"><span class="comment">//	License: MIT http://opensource.org/licenses/MIT</span></span><br><span class="line"><span class="comment">//	Contact: alpha qiu&lt;alphaqiu@gmail.com&gt; https://alphaqiu.github.io</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// swagger:meta</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/alphaqiu/swagger_lesson/models&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// swagger:parameters UpdateUserResponseWrapper</span></span><br><span class="line"><span class="keyword">type</span> UpdateUserRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// in: body</span></span><br><span class="line">	Body models.User</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Update User Info</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// swagger:response UpdateUserResponseWrapper</span></span><br><span class="line"><span class="keyword">type</span> UpdateUserResponseWrapper <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// in: body</span></span><br><span class="line">	Body models.ResponseMessage</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// swagger:route POST /users users UpdateUserResponseWrapper</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Update User</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// This will update user info</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//     Responses:</span></span><br><span class="line"><span class="comment">//       200: UpdateUserResponseWrapper</span></span><br></pre></td></tr></table></figure>
+
 <p>首先在<code>package</code>上的注释定义<code>swagger:meta</code>信息。然后声明输入和输出。<code>UpdateUserRequest</code> 为输入，<code>swagger</code>注释成<code>swagger:parameters</code>，后跟一个或多个输出的引用（语法：<code>swagger:parameters [operationid1 operationid2]</code>，这里的输出引用指向<code>UpdateUserResponseWrapper</code>）。</p>
 <p>其次定义输入参数。<code>Body</code>这个输入参数类型定义为<code>in: body</code>，表示以<code>POST</code>方式传输数据。也可限定<code>required: true</code>表示必填参数。</p>
 <p>定义输出。<code>UpdateUserResponseWrapper</code>为输出参数。<code>swagger</code>注释成<code>swagger:response</code>，后跟一个可选输出的引用（语法：<code>swagger:response [?response name]</code>）。</p>
 <p>定义输出参数。<code>Body</code>这个输入参数类型定义为<code>in: body</code>，表示以<code>POST</code>方式传输数据。也可限定<code>required: true</code>表示必填参数。</p>
 <p>定义路由。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swagger:route POST /users users UpdateUserResponseWrapper</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Update User</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// This will update user info</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//     Responses:</span></span><br><span class="line"><span class="comment">//       200: UpdateUserResponseWrapper</span></span><br></pre></td></tr></table></figure>
+
 <p>以上注释代表了路由。<code>swagger:route</code>语法<code>swagger:route [method] [path pattern] [?tag1 tag2 tag3] [operation id]</code>，其中<code>method</code>表示<code>GET</code>或<code>POST</code>，<code>path pattern</code>表示为访问路径，<code>tag</code>表示成API的分组。<code>operation id</code>必填，用于客户端生成方法名。</p>
 <p><code>api.go</code>中的内容：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UpdateUser</span><span class="params">(w http.ResponseWriter, req *http.Request)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><code>api.go</code>表现为与接口定义无关。因为在<code>doc.go</code>中已定义。</p>
 <p><code>models/user.go</code>中内容：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="comment">// User represents the user for this application</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// A user is the security principal for this application.</span></span><br><span class="line"><span class="comment">// It&#x27;s also used as one of main axes for reporting.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// A user can have friends with whom they can share what they like.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// swagger:model</span></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">// The name for this user</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// required: true</span></span><br><span class="line">	<span class="comment">// example: Jane</span></span><br><span class="line">	Name <span class="type">string</span> <span class="string">`json:&quot;name&quot;`</span></span><br><span class="line">	<span class="comment">// the age for this user</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// required: false</span></span><br><span class="line">	<span class="comment">// min: 18</span></span><br><span class="line">	<span class="comment">// example: 18</span></span><br><span class="line">	Age <span class="type">int</span> <span class="string">`json:&quot;age&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>声明模型相关的说明和约束。</p>
 <p><code>models/resp.go</code>中的内容：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> models</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ResponseMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">		Code <span class="type">int</span> <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">		Name <span class="type">string</span> <span class="string">`json:&quot;name&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><code>resp.go</code>中未声明，走默认值。</p>
 <h3 id="生成配置"><a href="#生成配置" class="headerlink" title="生成配置"></a>生成配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swagger generate -o ./swagger.json</span><br></pre></td></tr></table></figure>
+
 <h3 id="查看接口"><a href="#查看接口" class="headerlink" title="查看接口"></a>查看接口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swagger serve ./swagger.json</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/swagger-ui.png" alt="swagger-ui"></p>
 
     </div>
@@ -499,8 +505,6 @@
 
   
 
-  
-
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -530,7 +534,7 @@
       (d.head || d.body).appendChild(s);
     }
   });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 </body>
 </html>

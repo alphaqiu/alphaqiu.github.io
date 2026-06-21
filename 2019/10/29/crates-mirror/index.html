@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 7.3.0">
@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在 $HOME&#x2F;.cargo&#x2F;config 中添加如下内容 12[registry]index &#x3D; &quot;git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot; 如果所处的环境中不允许使用 git 协议, 可以把上述地址改为 1index &#x3D; &quot;http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot;">
+  <meta name="description" content="在 $HOME&#x2F;.cargo&#x2F;config 中添加如下内容 12[registry]index &#x3D; &quot;git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot;  如果所处的环境中不允许使用 git 协议, 可以把上述地址改为 1index &#x3D; &quot;http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rust Crates 镜像">
 <meta property="og:url" content="https://alpha.checkitout.dev/2019/10/29/crates-mirror/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="在 $HOME&#x2F;.cargo&#x2F;config 中添加如下内容 12[registry]index &#x3D; &quot;git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot; 如果所处的环境中不允许使用 git 协议, 可以把上述地址改为 1index &#x3D; &quot;http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot;">
+<meta property="og:description" content="在 $HOME&#x2F;.cargo&#x2F;config 中添加如下内容 12[registry]index &#x3D; &quot;git:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-index&quot;  如果所处的环境中不允许使用 git 协议, 可以把上述地址改为 1index &#x3D; &quot;http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;crates.io-i">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-10-29T00:41:10.000Z">
-<meta property="article:modified_time" content="2026-06-21T08:47:07.776Z">
+<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="crates">
 <meta property="article:tag" content="rust">
@@ -87,14 +87,10 @@
   </style>
 </noscript>
 
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+  <div class="container use-motion">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,13 +247,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在 $HOME/.cargo/config 中添加如下内容</p>
+        <p>在 $HOME&#x2F;.cargo&#x2F;config 中添加如下内容</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[registry]</span></span><br><span class="line"><span class="attr">index</span> = <span class="string">&quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>如果所处的环境中不允许使用 git 协议, 可以把上述地址改为</p>
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">index</span> <span class="operator">=</span> <span class="string">&quot;http://mirrors.ustc.edu.cn/crates.io-index&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>同步频率为每两个小时更新一次.</p>
-<p>如果 cargo 版本为 0.13.0 或以上, 需要更改 $HOME/.cargo/config 为以下内容:</p>
+<p>如果 cargo 版本为 0.13.0 或以上, 需要更改 $HOME&#x2F;.cargo&#x2F;config 为以下内容:</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[source.crates-io]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">&quot;https://github.com/rust-lang/crates.io-index&quot;</span></span><br><span class="line"><span class="attr">replace-with</span> = <span class="string">&#x27;ustc&#x27;</span></span><br><span class="line"><span class="section">[source.ustc]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">&quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下是字节跳动新的Rust镜像，2021年6月25日创建。</span></span><br><span class="line"><span class="comment"># 用于备选代理</span></span><br><span class="line"><span class="comment">#[source.crates-io]</span></span><br><span class="line"><span class="comment">#replace-with = &#x27;rsproxy&#x27;</span></span><br><span class="line"><span class="comment">#[source.rsproxy]</span></span><br><span class="line"><span class="comment">#registry = &quot;https://rsproxy.cn/crates.io-index&quot;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p><a target="_blank" rel="noopener" href="https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates">https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates</a></p>
 <p>官方主页: <a target="_blank" rel="noopener" href="https://crates.io/">https://crates.io/</a></p>
 
@@ -476,8 +475,6 @@
 
   
 
-  
-
 <script>
   function loadCount() {
     var d = document, s = d.createElement('script');
@@ -507,7 +504,7 @@
       (d.head || d.body).appendChild(s);
     }
   });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 </body>
 </html>

@@ -1,90 +1,194 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="checkitout.dev">
+    
+    
+    <meta name="author" content="alpha">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
 
-<link rel="stylesheet" href="/css/main.css">
+                // Try immediately
+                if (addBodyClass()) return;
 
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="记录,分享,备忘">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://alpha.checkitout.dev/page/3/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="比十万多一点">
 <meta property="og:url" content="https://alpha.checkitout.dev/page/3/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="记录,分享,备忘">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="checkitout.dev">
 <meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://alpha.checkitout.dev/page/3/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>比十万多一点</title>
-  
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
-    <script>
-      if (CONFIG.hostname === location.hostname) {
+<meta name="twitter:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+        <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+
         gtag('config', 'UA-151212624-1');
-      }
-    </script>
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.jpeg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpeg">
+    <meta name="theme-color" content="#37c6c0">
+    <link rel="shortcut icon" href="/images/avatar.jpeg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            比十万多一点 - 毕方
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <a href="https://github.com/alphaqiu" class="github-corner" aria-label="View source on GitHub" target="_blank" rel="noopener"><svg width="70" height="70" viewBox="0 0 250 250" style="position:fixed; top:0; border:0; right:0; z-index:9999; fill:#000; color:#fff;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}@media (prefers-color-scheme: dark){.github-corner svg{fill:#fff;color:#000}}</style>
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
 
 
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
 
+    
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
 
-<style>mjx-container[jax="SVG"] {
+    <script id="hexo-configurations">
+    window.config = {"hostname":"alpha.checkitout.dev","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"atom-one-light","dark":"night-owl"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#37c6c0","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"UA-151212624-1"}},"home_banner":{"enable":false,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"比十万多一点","subtitle":{"text":["记录, 分享, 备忘"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/alphaqiu"},{"icon":"fa-solid fa-at","url":"mailto:alphaqiu@gmail.com"},{"icon":"fa-solid fa-at","url":""},{"icon":"fa-brands fa-telegram","url":""},{"icon":"/images/custom-icon.svg","url":""}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#37c6c0","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2019/04/20 00:00:00","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2019/04/20 00:00:00","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -198,1427 +302,1593 @@ mjx-container[display="true"] + br {
 }
 </style></head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
 
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">比十万多一点</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">毕方</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
 
+<main class="page-container" id="swup">
 
+	
 
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-commonweal">
-
-    <a href="/404/404.html" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/filecoin-elliptic-and-sign/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/filecoin-elliptic-and-sign/" class="post-title-link" itemprop="url">FileCoin账户和离线签名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-19 12:31:08" itemprop="dateCreated datePublished" datetime="2020-04-19T12:31:08+08:00">2020-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/filecoin-elliptic-and-sign/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/filecoin-elliptic-and-sign/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
+            <a class="logo-title" href="/">
+                <h1>
+                比十万多一点
+                </h1>
+            </a>
         </div>
-      </header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
 
-      
-          <h2 id="椭圆曲线的选择">椭圆曲线的选择</h2>
-<p>FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。</p>
-<p>比特币纯Go版本实现：<a
-target="_blank" rel="noopener" href="https://github.com/btcsuite/btcd/tree/master/btcec">btcec</a></p>
-<p>以太坊采用的C++版本：<a
-target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum/tree/master/crypto/secp256k1">go-ethereum/crypto/secp256k1</a></p>
-<p>以及FileCoin使用的C版本：<a
-href="github.com/ipsn/go-secp256k1">go-secp256k1</a></p>
-<p>💡 注意，FileCoin
-支持两种签名，一种是椭圆曲线签名，一种是bls签名。</p>
-<p>bls签名库使用了rust版本的实现：<a
-target="_blank" rel="noopener" href="https://github.com/filecoin-project/filecoin-ffi">Filecoin Proofs
-FFI</a></p>
-<blockquote>
-<p>BLS
-签名算法是一种可以实现签名聚合和密钥聚合的算法（即可以将多个密钥聚合成一把密钥，将多个签名聚合成一个签名）。在以太坊未来的
-Casper
-实现中，有非常多的验证者都要对区块签名，要保证系统的安全性，同时节约存储空间，就需要用到这类签名聚合的算法。</p>
-<p><a
-target="_blank" rel="noopener" href="https://www.iacr.org/archive/asiacrypt2001/22480516.pdf">Boneh-Lynn-Shacham</a></p>
-</blockquote>
-<p>我们使用椭圆曲线签名来生成私钥。</p>
-<h2 id="生成私钥">生成私钥</h2>
-<p>以比特币<code>btcec</code>为例，生成符合FileCoin的私钥：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sk, _ := btcec.NewPrivateKey(btcec.S256())</span><br></pre></td></tr></table></figure>
-<h2 id="生成地址">生成地址</h2>
-<h3 id="获得公钥">获得公钥</h3>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;crypto/elliptic&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化椭圆曲线上的坐标点为未压缩格式的公钥</span></span><br><span class="line">pub := elliptic.Marshal(btcec.S256(), sk.PublicKey.X, sk.PublicKey.Y)</span><br></pre></td></tr></table></figure>
-<h3 id="获得地址">获得地址</h3>
-<h4 id="对公钥做哈希运算">对公钥做哈希运算</h4>
-<p>FileCoin中有一个通用的哈希函数，使用blake2b快速哈希。如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hash</span><span class="params">(ingest []<span class="type">byte</span>, cfg *blake2b.Config)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	hasher, err := blake2b.New(cfg)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// If this happens sth is very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;invalid address hash configuration: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> _, err := hasher.Write(ingest); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// blake2bs Write implementation never returns an error in its current</span></span><br><span class="line">		<span class="comment">// setup. So if this happens sth went very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;blake2b is unable to process hashes: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对公钥进行一次哈希运算：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash(pub, &amp;blake2b.Config&#123;Size: <span class="number">20</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>原文注释里是这样说的：</p>
-<blockquote>
-<p>PayloadHashLength defines the hash length taken over addresses using
-the Actor and SECP256K1 protocols.</p>
-</blockquote>
-<p>这里的<code>PayloadHashLength</code>等于20。</p>
-<h4 id="生成地址格式">生成地址格式</h4>
-<p>然后拼接地址格式：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">explen := <span class="number">1</span> + <span class="built_in">len</span>(payload)</span><br><span class="line">buf := <span class="built_in">make</span>([]<span class="type">byte</span>, explen)</span><br><span class="line"></span><br><span class="line">buf[<span class="number">0</span>] = protocol</span><br><span class="line"><span class="built_in">copy</span>(buf[<span class="number">1</span>:], payload)</span><br></pre></td></tr></table></figure>
-<p>上面的<code>protocol</code>值固定为1，<code>payload</code>为<code>hash(pub)</code>。</p>
-<h4 id="对地址编码">对地址编码</h4>
-<p>FileCoin
-内有这样一个函数，将生成编码后我们看到的地址格式如：<code>t1qecjxje6yjq2yatfgj3noapi5fa3cr7vmrw6xti</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(network Network, addr Address)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> addr == Undef &#123;</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> ntwk <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> network &#123;</span><br><span class="line">	<span class="keyword">case</span> Mainnet:</span><br><span class="line">		ntwk = MainnetPrefix</span><br><span class="line">	<span class="keyword">case</span> Testnet:</span><br><span class="line">		ntwk = TestnetPrefix</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownNetwork</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> strAddr <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> addr.Protocol() &#123;</span><br><span class="line">	<span class="keyword">case</span> SECP256K1, Actor, BLS:</span><br><span class="line">		cksm := Checksum(<span class="built_in">append</span>([]<span class="type">byte</span>&#123;addr.Protocol()&#125;, addr.Payload()...))</span><br><span class="line">		strAddr = ntwk + fmt.Sprintf(<span class="string">&quot;%d&quot;</span>, addr.Protocol()) + AddressEncoding.WithPadding(<span class="number">-1</span>).EncodeToString(<span class="built_in">append</span>(addr.Payload(), cksm[:]...))</span><br><span class="line">	<span class="keyword">case</span> ID:</span><br><span class="line">		i, n, err := varint.FromUvarint(addr.Payload())</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;could not decode varint: %w&quot;</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> n != <span class="built_in">len</span>(addr.Payload()) &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;payload contains additional bytes&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		strAddr = fmt.Sprintf(<span class="string">&quot;%s%d%d&quot;</span>, ntwk, addr.Protocol(), i)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownProtocol</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> strAddr, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Network</code>看作是枚举，<code>0</code>代表<code>Mainnet</code>，<code>1</code>代表<code>Testnet</code>。<code>TestnetPrefix = “t”</code>，<code>MainnetPrefix = “f”</code>。</p>
-<p>对地址格式再次做哈希，作为地址摘要</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cksm := hash(buf, &amp;blake2b.Config&#123;Size: <span class="number">4</span>&#125;)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>ChecksumHashLength defines the hash length used for calculating
-address checksums.</p>
-</blockquote>
-<p><code>ChecksumHashLength</code>等于4。</p>
-<p>对<code>hash(pub)</code>+<code>cksum</code>做base32转换。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> encodeStd = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz234567&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// AddressEncoding defines the base32 config used for address encoding and decoding.</span></span><br><span class="line"><span class="keyword">var</span> AddressEncoding = base32.NewEncoding(encodeStd)</span><br></pre></td></tr></table></figure>
-<p>最终地址等于<code>网络前缀</code>+<code>椭圆曲线类型</code>+<code>base32(hash(pub)+cksum)</code></p>
-<h2 id="离线签名">离线签名</h2>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用secp256k1签名</span></span><br><span class="line"><span class="comment">// 签名前使用blake2哈希算法对要签名的消息做信息摘要，统一签名消息的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(secpSigner)</span></span> Sign(pk []<span class="type">byte</span>, msg []<span class="type">byte</span>) ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	b2sum := blake2b.Sum256(msg)</span><br><span class="line">	sig, err := crypto.Sign(pk, b2sum[:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> sig, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>crypto.Sign</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sign signs the given message, which must be 32 bytes long.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sign</span><span class="params">(sk, msg []<span class="type">byte</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">  <span class="comment">// secp256k1 就是最终的椭圆曲线签名，这个签名可以替换成secp256k1不同语言版本的实现</span></span><br><span class="line">	<span class="keyword">return</span> secp256k1.Sign(msg, sk)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="active"
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
 
-      
-    </div>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives/"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/golang-interface-pit/">
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/golang-interface-pit/" class="post-title-link" itemprop="url">Go语言interface的坑</a>
-        </h2>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
 
-              <time title="创建时间：2020-04-10 22:37:56" itemprop="dateCreated datePublished" datetime="2020-04-10T22:37:56+08:00">2020-04-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/golang-interface-pit/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/golang-interface-pit/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以下代码执行结果是什么</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Namespace <span class="keyword">interface</span> &#123;</span><br><span class="line">	Value() <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyNamespace <span class="keyword">struct</span> &#123;</span><br><span class="line">	value <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n *MyNamespace)</span></span> Value() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> n.value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> n *MyNamespace = <span class="literal">nil</span></span><br><span class="line">	show(n)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>结果是报错。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">panic: runtime error: invalid memory <span class="selector-tag">address</span> or nil pointer dereference</span><br><span class="line"><span class="selector-attr">[signal SIGSEGV: segmentation violation code=0xffffffff addr=0x0 pc=0xe01c6]</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> <span class="selector-attr">[running]</span>:</span><br><span class="line"><span class="selector-tag">main</span>.(*MyNamespace)<span class="selector-class">.Value</span>(<span class="number">0</span>x0, <span class="number">0</span>x5bf2, <span class="number">0</span>x119bf8, <span class="number">0</span>x1d)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">16</span> +<span class="number">0</span>x6</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.show</span>(<span class="number">0</span>x15d910, <span class="number">0</span>x0)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">21</span> +<span class="number">0</span>x40</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.main</span>()</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">30</span> +<span class="number">0</span>x40</span><br><span class="line"></span><br><span class="line">Program exited.</span><br></pre></td></tr></table></figure>
-<p>报一个空指针错误。<code>n != nil</code>的判断在这里无效。</p>
-<p>原因是Go语言中，<code>interface&#123;&#125;</code>类型的变量包含了2个指针，一个指针指向值的类型，一个指针指向实际的值。<code>MyNamespace</code>实现了<code>Namespace</code>接口，<code>n</code>在传入<code>Show(n)</code>函数时被自动转型成为<code>Namespace</code>。<code>var n *MyNameSpace = nil</code>只是声明了该接口类型的实际值为nil，虽然我们把一个nil值赋值给它，但是实际上interface里依然存了指向类型的指针，所以拿这个interface变量去和nil常量进行比较的话就会返回<code>false</code>。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> asStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	pt <span class="type">uintptr</span></span><br><span class="line">	pv <span class="type">uintptr</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;👉👉 %p\n&quot;</span>, n)</span><br><span class="line">	x := *(*asStruct)(unsafe.Pointer(&amp;n))</span><br><span class="line">	spew.Dump(x)</span><br><span class="line">	spew.Println(<span class="string">&quot;n == nil ?&quot;</span>, n == <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &amp;&amp; !reflect.ValueOf(n).IsNil() &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output：</span></span><br><span class="line"><span class="comment">// 👉👉 0x0</span></span><br><span class="line"><span class="comment">// (main.asStruct) &#123;</span></span><br><span class="line"><span class="comment">//  pt: (uintptr) 0x1125f80,</span></span><br><span class="line"><span class="comment">//  pv: (uintptr) &lt;nil&gt;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// n == nil ? false</span></span><br><span class="line"><span class="comment">// Hello World!</span></span><br></pre></td></tr></table></figure>
-<p>我们看到传入的参数指针值为0，但<code>interface&#123;&#125;</code>类型的变量的两个指针，值的类型是有值的，实际值为nil。因此接口传入的不是实际的nil的情况下，<code>n==nil</code>就为false。可以使用<code>reflect.ValueOf(n).IsNil()</code>来判断是否实际值为nil。</p>
-<p><code>reflect.ValueOf</code>只接受指针类型，否则会<code>panic</code>。</p>
-<p>如果显式传入<code>show(nil)</code>，<code>interface&#123;&#125;</code>类型变量的两个指针都为nil，则<code>n == nil</code>判断生效。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//show(nil)</span></span><br><span class="line">(main.asStruct) &#123;</span><br><span class="line"> pt: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;,</span><br><span class="line"> pv: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line">n == <span class="literal">nil</span> ? <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="参考">参考</h2>
-<p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/10635">Go语言第一深坑 -
-interface 与 nil 的比较</a></p>
-<p><a
-target="_blank" rel="noopener" href="https://studygolang.com/articles/5955">golang中interface判断nil问题</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/bandwidth">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/bandwidth" class="post-title-link" itemprop="url">网络带宽的那点事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-20 19:54:51" itemprop="dateCreated datePublished" datetime="2020-03-20T19:54:51+08:00">2020-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/bandwidth#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/bandwidth" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="起因">起因</h2>
-<p>一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。</p>
-<blockquote>
-<p>有一种概念叫无线漫游，当网络环境存在多个相同SSID的AP，且它们的微单元互相有一定范围的重合时，无线用户可以在整个WLAN覆盖区内移动，无线网卡能够自动发现附近信号强度最大的AP，并通过这个AP收发数据，保持不间断的网络连接，这就称为无线漫游。</p>
-</blockquote>
-<p>华为路由器（荣耀路由2），它自带Bridge(AP)模式，这个模式非常棒，每个无线Wi-Fi信号源都设置相同的信号名称、相同的频段、相同的密码等全部相同的信号设置情况下，全屋就可以享受统一的Wi-Fi接入！再也不用忍受手动切换信号的痛苦了。然而华为路由器本身带有mesh功能，多个同类型路由器之间可以无缝切换。家用路由器几个型号不一致，无法享受mesh功能做无缝切换，只能算做“快速漫游”。</p>
-<p>快速漫游虽然可以通过同名Wi-Fi起到快速切换的作用，但可能会造成IP地址切换、网络断开重连。因此需要在上级路由器中绑定Mac地址为静态IP分配，保证在信号切换后IP地址不变。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/bandwidth#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
             </div>
-          <!--/noindex-->
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives/"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+			<div class="home-sidebar-container">
+    <div class="sticky-container sticky">
         
-      
+        
+            
+                <div class="sidebar-links">
+                    <div class="site-info">
+                        <div class="site-name">比十万多一点</div>
+                        
+                    </div>
+                    
+                        
+                            
+                                <a class="links" href="/archives/">
+                                    
+                                        <i class="fa-regular fa-archive icon-space"></i>
+                                    
+                                    <span class="link-name">Archives</span>
+                                </a>
+                            
+                        
+                            
+                                <a class="links" href="/tags/">
+                                    
+                                        <i class="fa-regular fa-tags icon-space"></i>
+                                    
+                                    <span class="link-name">Tags</span>
+                                </a>
+                            
+                        
+                            
+                                <a class="links" href="/categories/">
+                                    
+                                        <i class="fa-regular fa-folder icon-space"></i>
+                                    
+                                    <span class="link-name">Categories</span>
+                                </a>
+                            
+                        
+                    
+                </div>
+            
+            <div class="sidebar-content"  marginTop >
+                <div class="avatar flex justify-center">
+    <img src="/images/avatar.jpeg">
+</div>
+                <div class="author flex flex-col justify-center my-2.5 mx-0">
+    <div class="name">alpha</div>
+    
+        <div class="label">Lv4</div>
+    
+</div>
+                <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+            </div>
+        
+
+    </div>
+</div>
+
+			
+
+			<div class="main-content">
+				<div class="home-content-container">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/filecoin-elliptic-and-sign/">
+                            FileCoin账户和离线签名
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            椭圆曲线的选择
+FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。
+比特币纯Go版本实现：btcec
+以太坊采用的C++版本：go-ethereum/crypto/secp256k1
+以及FileCoin使用的C版本：go-secp256k1
+💡 注意，FileCoin
+支持两种签名，一种是椭圆曲线签名，一种是bls签名。
+b...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Apr 19 2020 12:31:08 GMT+0800">
+                
+                    2020-04-19
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/blockchain/">blockchain</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/lotus/">lotus</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/filecoin-elliptic-and-sign/">阅读全文<span class="seo-reader-text">FileCoin账户和离线签名</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/" class="post-title-link" itemprop="url">水平垂直居中以及Codepen</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/golang-interface-pit/">
+                            Go语言interface的坑
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2020-03-14 15:43:27" itemprop="dateCreated datePublished" datetime="2020-03-14T15:43:27+08:00">2020-03-14</time>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            以下代码执行结果是什么
+1234567891011121314151617181920212223242526272829package mainimport &quot;fmt&quot;type Namespace interface &#123;	Value() string&#125;type MyNamespace struct &#123;	value string&#125;f...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Apr 10 2020 22:37:56 GMT+0800">
+                
+                    2020-04-10
+                
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/14/水平垂直居中以及Codepen/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="博客支持codepen的方法">博客支持CodePen的方法</h2>
-<p>https://www.npmjs.com/package/hexo-codepen</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D hexo-codepen</span><br></pre></td></tr></table></figure>
-<p>然后在Markdown中嵌入</p>
-<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name">codepen</span> userId|anonymous|anon slugHash theme [defaultTab [height [width]]] %&#125;</span></span><br></pre></td></tr></table></figure>
-<p>在CodePen编辑器右下角<code>Embed</code>按钮弹开后，复制HTML代码如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;codepen&quot;</span> <span class="attr">data-height</span>=<span class="string">&quot;265&quot;</span> <span class="attr">data-theme-id</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">data-default-tab</span>=<span class="string">&quot;html,result&quot;</span> <span class="attr">data-user</span>=<span class="string">&quot;alphaqiu&quot;</span> <span class="attr">data-slug-hash</span>=<span class="string">&quot;MWwVzar&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;&quot;</span> <span class="attr">data-pen-title</span>=<span class="string">&quot;水平垂直居中/Loading mask&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>See the Pen <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu/pen/MWwVzar&quot;</span>&gt;</span></span><br><span class="line">  水平垂直居中/Loading mask<span class="tag">&lt;/<span class="name">a</span>&gt;</span> by alphaqiu (<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu&quot;</span>&gt;</span>@alphaqiu<span class="tag">&lt;/<span class="name">a</span>&gt;</span>)</span><br><span class="line">  on <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io&quot;</span>&gt;</span>CodePen<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;https://static.codepen.io/assets/embed/ei.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>把<code>p</code>🏷️标签里对应的参数填到潜入代码对应位置：</p>
-<figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;%</span> <span class="name">codepen</span> alphaqiu MWwVzar dark <span class="string">&quot;result&quot;</span> <span class="number">500</span> <span class="template-tag">%&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="水平和垂直居中">水平和垂直居中</h2>
-<iframe id="cp_embed_MWwVzar" src="//codepen.io/alphaqiu/embed/MWwVzar?height=500&theme-id=dark&slug-hash=MWwVzar&default-tab=result" scrolling="no" frameborder="no" height="500" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-
-      
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/golang-interface-pit/">阅读全文<span class="seo-reader-text">Go语言interface的坑</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/webpack_scaffold/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/webpack_scaffold/" class="post-title-link" itemprop="url">Webpack脚手架</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/bandwidth">
+                            网络带宽的那点事
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2020-03-08 20:19:33" itemprop="dateCreated datePublished" datetime="2020-03-08T20:19:33+08:00">2020-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/webpack_scaffold/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/webpack_scaffold/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="webpack脚手架">Webpack脚手架</h1>
-<p>学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。</p>
-<p>下面就对环境的搭建逐一拆解。</p>
-<h2 id="初始化空项目">初始化空项目</h2>
-<p>基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> my-project &amp;&amp; <span class="built_in">cd</span> my-project</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
-<p>通过<code>npm init -y</code>来简单的创建一个<code>package.json</code>。需要简单修改一下其中的内容：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">-- 删除 <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span></span><br></pre></td></tr></table></figure>
-<p><code>private</code>为私有项目，不至于后续误操作上传到npm网站。</p>
-<p>这是个web前端项目，所以入口程序不必提供。</p>
-<h2 id="初始化webpack环境">初始化Webpack环境</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
+                    <div class="home-article-content markdown-body">
+                        
+                            <h2 id="起因">
+起因
+</h2>
+<p>
+一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。
+</p>
 <blockquote>
-<p>💡关于<code>npm install</code>参数</p>
-<p>npm install -D 等同于 <code>--save-dev</code> npm install -S 等同于
-<code>—save</code> npm install -O 等同于 <code>--save-optional</code>
-当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们</p>
-<p>（在模块根目录下npm install module-name），</p>
-<p>然后连同版本号手动将他们添加到模块配置文件package.json中的依赖里（dependencies）。</p>
-<p><code>--save</code>和<code>--save-dev</code>可以省掉你手动修改package.json文件的步骤。
+<p>
+有一种概念叫无线漫游，当网络环境存在多个相同SSID的AP，且它们的微单元互相有一定范围的重合时，无线用户可以在整个WLAN覆盖区内移动，无线网卡能够自动发现附近信号强度最大的AP，并通过这个AP收发数据，保持不间断的网络连接，这就称为无线漫游。
+</p>
+</blockquote>
+<p>
+华为路由器（荣耀路由2），它自带Bridge(AP)模式，这个模式非常棒，每个无线Wi-Fi信号源都设置相同的信号名称、相同的频段、相同的密码等全部相同的信号设置情况下，全屋就可以享受统一的Wi-Fi接入！再也不用忍受手动切换信号的痛苦了。然而华为路由器本身带有mesh功能，多个同类型路由器之间可以无缝切换。家用路由器几个型号不一致，无法享受mesh功能做无缝切换，只能算做“快速漫游”。
+</p>
+<p>
+快速漫游虽然可以通过同名Wi-Fi起到快速切换的作用，但可能会造成IP地址切换、网络断开重连。因此需要在上级路由器中绑定Mac地址为静态IP分配，保证在信号切换后IP地址不变。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Mar 20 2020 19:54:51 GMT+0800">
+                
+                    2020-03-20
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E4%BC%98%E5%8C%96/">优化</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%B8%A6%E5%AE%BD/">带宽</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/bandwidth">阅读全文<span class="seo-reader-text">网络带宽的那点事</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">
+                            水平垂直居中以及Codepen
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            博客支持CodePen的方法
+https://www.npmjs.com/package/hexo-codepen
+1npm i -D hexo-codepen
+然后在Markdown中嵌入
+1&#123;% codepen userId|anonymous|anon slugHash theme [defaultTab [height [width]]] %&#125;
+在CodePen编...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Mar 14 2020 15:43:27 GMT+0800">
+                
+                    2020-03-14
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Frontend/">Frontend</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/css/">css</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/codepen/">codepen</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">阅读全文<span class="seo-reader-text">水平垂直居中以及Codepen</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/webpack_scaffold/">
+                            Webpack脚手架
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <h1 id="webpack脚手架">
+Webpack脚手架
+</h1>
+<p>
+学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。
+</p>
+<p>
+下面就对环境的搭建逐一拆解。
+</p>
+<h2 id="初始化空项目">
+初始化空项目
+</h2>
+<p>
+基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="built_in">mkdir</span> my-project &amp;&amp; <span class="built_in">cd</span> my-project</span><br><span class="line">npm init -y</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+通过<code>npm init
+-y</code>来简单的创建一个<code>package.json</code>。需要简单修改一下其中的内容：
+</p>
+<figure class="highlight actionscript">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">-- 删除 <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+<code>private</code>为私有项目，不至于后续误操作上传到npm网站。
+</p>
+<p>
+这是个web前端项目，所以入口程序不必提供。
+</p>
+<h2 id="初始化webpack环境">
+初始化Webpack环境
+</h2>
+<figure class="highlight shell">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">npm install -D webpack webpack-cli</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<blockquote>
+<p>
+💡关于<code>npm install</code>参数
+</p>
+<p>
+npm install -D 等同于 <code>–save-dev</code> npm install -S 等同于
+<code>—save</code> npm install -O 等同于 <code>–save-optional</code>
+当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们
+</p>
+<p>
+（在模块根目录下npm install module-name），
+</p>
+<p>
+然后连同版本号手动将他们添加到模块配置文件package.json中的依赖里（dependencies）。
+</p>
+<p>
+<code>–save</code>和<code>–save-dev</code>可以省掉你手动修改package.json文件的步骤。
 spm install module-name -save
 自动把模块和版本号添加到<code>dependencies</code>部分 spm install
 module-name -save-dve
-自动把模块和版本号添加到<code>devdependencies</code>部分</p>
-<p>至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块，
+自动把模块和版本号添加到<code>devdependencies</code>部分
+</p>
+<p>
+至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块，
 以我见过的情况来看 devDepandencies主要是配置测试框架，
-例如jshint、mocha。</p>
-<p>通过这些命令，我们会得到一个新的<code>package.json</code>。然后再做一个试验就懂得了区别：</p>
-<p>删除node_modules目录，然后执行 npm install
+例如jshint、mocha。
+</p>
+<p>
+通过这些命令，我们会得到一个新的<code>package.json</code>。然后再做一个试验就懂得了区别：
+</p>
+<p>
+删除node_modules目录，然后执行 npm install
 –production，可以看到，npm只帮我们自动安装package.json中dependencies部分的模块；如果执行npm
 install
-，则package.json中指定的dependencies和devDependencies都会被自动安装进来。</p>
+，则package.json中指定的dependencies和devDependencies都会被自动安装进来。
+</p>
 </blockquote>
-<p>可以上官方网站查看具体使用说明：https://webpack.docschina.org/guides/installation/</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/webpack_scaffold/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+<p>
+可以上官方网站查看具体使用说明：https://webpack.docschina.org/guides/installation/
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Mar 08 2020 20:19:33 GMT+0800">
+                
+                    2020-03-08
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Frontend/">Frontend</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/webpack/">webpack</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/webpack_scaffold/">阅读全文<span class="seo-reader-text">Webpack脚手架</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/02/27/golang/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/27/golang/" class="post-title-link" itemprop="url">Go 为什么这么“快”</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/27/golang/">
+                            Go 为什么这么“快”
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2020-02-28 06:15:02" itemprop="dateCreated datePublished" datetime="2020-02-28T06:15:02+08:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/02/27/golang/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/27/golang/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>转载：https://mp.weixin.qq.com/s/ihJFa5Wir4ohhZUXVSBvMQ</p>
-<h2 id="怎么让我们的系统更快">怎么让我们的系统更快</h2>
-<p>随着信息技术的迅速发展，单台服务器处理能力越来越强，迫使编程模式由从前的串行模式升级到并发模型。</p>
-<p>并发模型包含 IO
-多路复用、多进程以及多线程，这几种模型都各有优劣，现代复杂的高并发架构大多是几种模型协同使用，不同场景应用不同模型，扬长避短，发挥服务器的最大性能。</p>
-<p>而<strong>多线程，因为其轻量和易用</strong>，成为并发编程中使用频率最高的并发模型，包括后衍生的协程等其他子产品，也都基于它。</p>
-<h2 id="并发-并行">并发 ≠ 并行</h2>
-<p><strong>并发 (concurrency) 和 并行 ( parallelism)
-是不同的。</strong></p>
-<p>在单个 CPU 核上，线程通过时间片或者让出控制权来实现任务切换，达到
-“同时”
-运行多个任务的目的，这就是所谓的并发。但实际上任何时刻都只有一个任务被执行，其他任务通过某种算法来排队。</p>
-<p>多核 CPU 可以让同一进程内的 “多个线程”
-做到真正意义上的同时运行，这才是并行。</p>
-<h2 id="进程线程协程">进程、线程、协程</h2>
-<p>进程：进程是系统进行资源分配的基本单位，有独立的内存空间。</p>
-<p>线程：线程是 CPU
-调度和分派的基本单位，线程依附于进程存在，每个线程会共享父进程的资源。</p>
-<p>协程：<strong>协程是一种用户态的轻量级线程，</strong>协程的调度完全由用户控制，协程间切换只需要保存任务的上下文，没有内核的开销。</p>
-<h2 id="线程上下文切换">线程上下文切换</h2>
-<p>由于中断处理，多任务处理，用户态切换等原因会导致 CPU
-从一个线程切换到另一个线程，切换过程需要保存当前进程的状态并恢复另一个进程的状态。</p>
-<p><strong>上下文切换的代价是高昂的</strong>，因为在核心上交换线程会花费很多时间。上下文切换的延迟取决于不同的因素，大概在在
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+转载：https://mp.weixin.qq.com/s/ihJFa5Wir4ohhZUXVSBvMQ
+</p>
+<h2 id="怎么让我们的系统更快">
+怎么让我们的系统更快
+</h2>
+<p>
+随着信息技术的迅速发展，单台服务器处理能力越来越强，迫使编程模式由从前的串行模式升级到并发模型。
+</p>
+<p>
+并发模型包含 IO
+多路复用、多进程以及多线程，这几种模型都各有优劣，现代复杂的高并发架构大多是几种模型协同使用，不同场景应用不同模型，扬长避短，发挥服务器的最大性能。
+</p>
+<p>
+而<strong>多线程，因为其轻量和易用</strong>，成为并发编程中使用频率最高的并发模型，包括后衍生的协程等其他子产品，也都基于它。
+</p>
+<h2 id="并发-并行">
+并发 ≠ 并行
+</h2>
+<p>
+<strong>并发 (concurrency) 和 并行 ( parallelism) 是不同的。</strong>
+</p>
+<p>
+在单个 CPU 核上，线程通过时间片或者让出控制权来实现任务切换，达到 “同时”
+运行多个任务的目的，这就是所谓的并发。但实际上任何时刻都只有一个任务被执行，其他任务通过某种算法来排队。
+</p>
+<p>
+多核 CPU 可以让同一进程内的 “多个线程”
+做到真正意义上的同时运行，这才是并行。
+</p>
+<h2 id="进程线程协程">
+进程、线程、协程
+</h2>
+<p>
+进程：进程是系统进行资源分配的基本单位，有独立的内存空间。
+</p>
+<p>
+线程：线程是 CPU
+调度和分派的基本单位，线程依附于进程存在，每个线程会共享父进程的资源。
+</p>
+<p>
+协程：<strong>协程是一种用户态的轻量级线程，</strong>协程的调度完全由用户控制，协程间切换只需要保存任务的上下文，没有内核的开销。
+</p>
+<h2 id="线程上下文切换">
+线程上下文切换
+</h2>
+<p>
+由于中断处理，多任务处理，用户态切换等原因会导致 CPU
+从一个线程切换到另一个线程，切换过程需要保存当前进程的状态并恢复另一个进程的状态。
+</p>
+<p>
+<strong>上下文切换的代价是高昂的</strong>，因为在核心上交换线程会花费很多时间。上下文切换的延迟取决于不同的因素，大概在在
 50 到 100 纳秒之间。考虑到硬件平均在每个核心上每纳秒执行 12
 条指令，那么一次上下文切换可能会花费 600 到 1200
-条指令的延迟时间。实际上，上下文切换占用了大量程序执行指令的时间。</p>
-<p>如果存在<strong>跨核上下文切换</strong>（Cross-Core Context
+条指令的延迟时间。实际上，上下文切换占用了大量程序执行指令的时间。
+</p>
+<p>
+如果存在<strong>跨核上下文切换</strong>（Cross-Core Context
 Switch），可能会导致 CPU 缓存失效（CPU 从缓存访问数据的成本大约 3 到 40
 个时钟周期，从主存访问数据的成本大约 100 到 300
-个时钟周期），这种场景的切换成本会更加昂贵。</p>
-<h2 id="golang-为并发而生">Golang 为并发而生</h2>
-<p>Golang 从 2009
+个时钟周期），这种场景的切换成本会更加昂贵。
+</p>
+<h2 id="golang-为并发而生">
+Golang 为并发而生
+</h2>
+<p>
+Golang 从 2009
 年正式发布以来，依靠其极高运行速度和高效的开发效率，迅速占据市场份额。Golang
-从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。</p>
-<p><strong>Goroutine 非常轻量</strong>，主要体现在以下两个方面：</p>
-<p><strong>上下文切换代价小：</strong> Goroutine
+从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。
+</p>
+<p>
+<strong>Goroutine 非常轻量</strong>，主要体现在以下两个方面：
+</p>
+<p>
+<strong>上下文切换代价小：</strong> Goroutine
 上下文切换只涉及到三个寄存器（PC / SP /
 DX）的值修改；而对比线程的上下文切换则需要涉及模式切换（从用户态切换到内核态）、以及
-16 个寄存器、PC、SP…等寄存器的刷新；</p>
-<p><strong>内存占用少：</strong>线程栈空间通常是 2M，Goroutine
-栈空间最小 2K；</p>
-<p>Golang 程序中可以轻松支持<strong>10w 级别</strong>的 Goroutine
-运行，而线程数量达到 1k 时，内存占用就已经达到 2G。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/27/golang/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/02/27/image_hosting/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/27/image_hosting/" class="post-title-link" itemprop="url">图床</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-28 03:41:02" itemprop="dateCreated datePublished" datetime="2020-02-28T03:41:02+08:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/02/27/image_hosting/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/27/image_hosting/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这里有介绍图床合集：https://zhuanlan.zhihu.com/p/58863378</p>
-<p>挑了其中一个 https://sm.ms/</p>
-<p>一次可以上传10张照片，每张照片限制在5M以内。一个注册账户有5G免费空间。</p>
-<p>支持API：https://doc.sm.ms/#api-_</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/02/27/graceful/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/27/graceful/" class="post-title-link" itemprop="url">Gong服务实现平滑重启分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-28 02:56:32" itemprop="dateCreated datePublished" datetime="2020-02-28T02:56:32+08:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/02/27/graceful/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/27/graceful/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>原文档出处：https://www.kancloud.cn/chase688/orange_framework/1448035</p>
-<p>平滑重启是指能让我们的程序在重启的过程不中断服务，新老进程无缝衔接，实现零停机时间(Zero-Downtime)部署；平滑重启是建立在优雅退出的基础之上的，目前实现平滑重启的主要策略有两种：</p>
-<p>方案一：我们的服务如果是多机器部署，可以通过网关程序，将即将重启服务的机器从网关下线，重启完成后再重新上线，该方案适合多机器部署的企业级应用；</p>
-<p>方案二：让我们的程序实现自启动，重启子进程来实现平滑重启，核心策略是通过拷贝文件描述符实现子进程和父进程切换，适合单机器部署应用；</p>
-<p>今天我们就主要介绍方案二，让我们的程序拥有平滑重启的功能，相关实现参考一个开源库：</p>
-<p>https://github.com/fvbock/endless</p>
+16 个寄存器、PC、SP…等寄存器的刷新；
+</p>
 <p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/27/graceful/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+<strong>内存占用少：</strong>线程栈空间通常是 2M，Goroutine 栈空间最小
+2K；
+</p>
+<p>
+Golang 程序中可以轻松支持<strong>10w 级别</strong>的 Goroutine
+运行，而线程数量达到 1k 时，内存占用就已经达到 2G。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Feb 28 2020 06:15:02 GMT+0800">
+                
+                    2020-02-28
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/2020/02/27/golang/">阅读全文<span class="seo-reader-text">Go 为什么这么“快”</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2020/02/24/letsencrypt/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/24/letsencrypt/" class="post-title-link" itemprop="url">Letsencrypt</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/27/image_hosting/">
+                            图床
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2020-02-24 12:48:21" itemprop="dateCreated datePublished" datetime="2020-02-24T12:48:21+08:00">2020-02-24</time>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            这里有介绍图床合集：https://zhuanlan.zhihu.com/p/58863378
+挑了其中一个 https://sm.ms/
+一次可以上传10张照片，每张照片限制在5M以内。一个注册账户有5G免费空间。
+支持API：https://doc.sm.ms/#api-_
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Feb 28 2020 03:41:02 GMT+0800">
+                
+                    2020-02-28
+                
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>&nbsp;
+                        </li>
+                    
+                </ul>
             </span>
+        
+    </div>
 
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/02/24/letsencrypt/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/24/letsencrypt/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
+    <a href="/2020/02/27/image_hosting/">阅读全文<span class="seo-reader-text">图床</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-        </div>
-      </header>
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+                
 
-      
-          <p>【转载】https://diamondfsd.com/lets-encrytp-hand-https/</p>
-<h2 id="lets-encrypt-简介">Let’s Encrypt 简介</h2>
-<p>如果要启用HTTPS，我们就需要从证书授权机构(以下简称CA)
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/27/graceful/">
+                            Gong服务实现平滑重启分析
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+原文档出处：https://www.kancloud.cn/chase688/orange_framework/1448035
+</p>
+<p>
+平滑重启是指能让我们的程序在重启的过程不中断服务，新老进程无缝衔接，实现零停机时间(Zero-Downtime)部署；平滑重启是建立在优雅退出的基础之上的，目前实现平滑重启的主要策略有两种：
+</p>
+<p>
+方案一：我们的服务如果是多机器部署，可以通过网关程序，将即将重启服务的机器从网关下线，重启完成后再重新上线，该方案适合多机器部署的企业级应用；
+</p>
+<p>
+方案二：让我们的程序实现自启动，重启子进程来实现平滑重启，核心策略是通过拷贝文件描述符实现子进程和父进程切换，适合单机器部署应用；
+</p>
+<p>
+今天我们就主要介绍方案二，让我们的程序拥有平滑重启的功能，相关实现参考一个开源库：
+</p>
+<p>
+https://github.com/fvbock/endless
+</p>
+<p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Feb 28 2020 02:56:32 GMT+0800">
+                
+                    2020-02-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">平滑重启</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/02/27/graceful/">阅读全文<span class="seo-reader-text">Gong服务实现平滑重启分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/24/letsencrypt/">
+                            Letsencrypt
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+【转载】https://diamondfsd.com/lets-encrytp-hand-https/
+</p>
+<h2 id="lets-encrypt-简介">
+Let’s Encrypt 简介
+</h2>
+<p>
+如果要启用HTTPS，我们就需要从证书授权机构(以下简称CA)
 处获取一个证书，Let’s Encrypt 就是一个 CA。我们可以从 Let’s Encrypt
 获得网站域名的免费的证书。这篇文章也主要讲的是通过 Let’s Encrypt + Nginx
-来让网站升级到HTTPS。</p>
-<h2 id="certbot-简介">Certbot 简介</h2>
-<p><a target="_blank" rel="noopener" href="https://certbot.eff.org/">Certbot</a> 是Let’s
-Encrypt官方推荐的获取证书的客户端，可以帮我们获取免费的Let’s Encrypt
-证书。Certbot 是支持所有 Unix
+来让网站升级到HTTPS。
+</p>
+<h2 id="certbot-简介">
+Certbot 简介
+</h2>
+<p>
+<a class="link"   target="_blank" rel="noopener" href="https://certbot.eff.org/" >Certbot<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+是Let’s Encrypt官方推荐的获取证书的客户端，可以帮我们获取免费的Let’s
+Encrypt 证书。Certbot 是支持所有 Unix
 内核的操作系统的，个人博客的服务器系统是CentOS
-7，这篇教程也是通过在个人博客上启用HTTPS的基础上完成的。</p>
-<h2 id="获取免费证书">获取免费证书</h2>
+7，这篇教程也是通过在个人博客上启用HTTPS的基础上完成的。
+</p>
+<h2 id="获取免费证书">
+获取免费证书
+</h2>
 <ol type="1">
-<li><p>安装Certbot客户端</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> certbot</span><br></pre></td></tr></table></figure></li>
-<li><p>获取证书</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --webroot -w /<span class="built_in">var</span>/www/<span class="built_in">example</span> -d <span class="built_in">example</span>.com -d www.<span class="built_in">example</span>.com</span><br></pre></td></tr></table></figure>
+<li>
+<p>
+安装Certbot客户端
+</p>
+<figure class="highlight cmake">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">yum <span class="keyword">install</span> certbot</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+</li>
+<li>
+<p>
+获取证书
+</p>
+<figure class="highlight maxima">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">certbot certonly --webroot -w /<span class="built_in">var</span>/www/<span class="built_in">example</span> -d <span class="built_in">example</span>.com -d www.<span class="built_in">example</span>.com</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
 <blockquote>
-<p>这个命令会为 example.com 和 www.example.com
-这两个域名生成一个证书，使用 <code>--webroot</code> 模式会在
-<code>/var/www/example</code> 中创建 <code>.well-known</code>
+<p>
+这个命令会为 example.com 和 www.example.com 这两个域名生成一个证书，使用
+<code>–webroot</code> 模式会在 <code>/var/www/example</code> 中创建
+<code>.well-known</code>
 文件夹，这个文件夹里面包含了一些验证文件，certbot 会通过访问
 example.com/.well-known/acme-challenge
-来验证你的域名是否绑定的这个服务器。这个命令在大多数情况下都可以满足需求，</p>
-</blockquote></li>
+来验证你的域名是否绑定的这个服务器。这个命令在大多数情况下都可以满足需求，
+</p>
+</blockquote>
+</li>
 </ol>
-<p>但是有些时候我们的一些服务并没有根目录，例如一些微服务，这时候使用
-<code>--webroot</code> 就走不通了。certbot 还有另外一种模式
-<code>--standalone</code> ，
-这种模式不需要指定网站根目录，他会自动启用服务器的443端口，来验证域名的归属。我们有其他服务（例如nginx）占用了443端口，就必须先停止这些服务，在证书生成完毕后，再启用。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly <span class="attr">--standalone</span> -d example<span class="selector-class">.com</span> -d www<span class="selector-class">.example</span>.com</span><br></pre></td></tr></table></figure>
-<p>证书生成完毕后，我们可以在 <code>/etc/letsencrypt/live/</code>
-目录下看到对应域名的文件夹，里面存放了指向证书的一些快捷方式。</p>
-<p>这时候我们的第一生成证书已经完成了，接下来就是配置我们的web服务器，启用HTTPS。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/24/letsencrypt/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+<p>
+但是有些时候我们的一些服务并没有根目录，例如一些微服务，这时候使用
+<code>–webroot</code> 就走不通了。certbot 还有另外一种模式
+<code>–standalone</code> ，
+这种模式不需要指定网站根目录，他会自动启用服务器的443端口，来验证域名的归属。我们有其他服务（例如nginx）占用了443端口，就必须先停止这些服务，在证书生成完毕后，再启用。
+</p>
+<figure class="highlight stylus">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">certbot certonly <span class="attr">--standalone</span> -d example<span class="selector-class">.com</span> -d www<span class="selector-class">.example</span>.com</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+证书生成完毕后，我们可以在 <code>/etc/letsencrypt/live/</code>
+目录下看到对应域名的文件夹，里面存放了指向证书的一些快捷方式。
+</p>
+<p>
+这时候我们的第一生成证书已经完成了，接下来就是配置我们的web服务器，启用HTTPS。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Feb 24 2020 12:48:21 GMT+0800">
+                
+                    2020-02-24
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/tls/">tls</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/2020/02/24/letsencrypt/">阅读全文<span class="seo-reader-text">Letsencrypt</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/12/25/bip39/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/25/bip39/" class="post-title-link" itemprop="url">助记词的生成原理</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2019/12/25/bip39/">
+                            助记词的生成原理
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2019-12-26 06:31:25" itemprop="dateCreated datePublished" datetime="2019-12-26T06:31:25+08:00">2019-12-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/12/25/bip39/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/25/bip39/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="助记词的实现">助记词的实现</h2>
-<p>fork了人家的源码，在此基础上增加了实用功能，保证通过助记词恢复和对助记词的校验。</p>
-<p>https://github.com/alphaqiu/mnemonic</p>
-<p>BIP39是助记词标准的实现，助记词是一个随机数的字序列，用来作为种子产生一个确定性的钱包。单词序列足以重新创建种子，然后再创建钱包和所有派生的密钥。一个实现带有助记词的确定性钱包应用程序在首次创建钱包时将向用户显示12到24个单词的序列。该单词序列是钱包备份，可用于恢复和重新创建相同或任何兼容的钱包应用程序中的所有密钥。记忆单词使用户更容易备份钱包，因为与随机数字序列相比，它们易于阅读和正确地转录。所有的助记词在这里可以查看：助记词词库。</p>
-<p>使用BIP39中定义的标准化过程，钱包自动生成助记词。钱包从一个熵源开始，添加一个校验和，然后将熵映射到一个单词列表，具体步骤如下:</p>
+                    <div class="home-article-content markdown-body">
+                        
+                            <h2 id="助记词的实现">
+助记词的实现
+</h2>
+<p>
+fork了人家的源码，在此基础上增加了实用功能，保证通过助记词恢复和对助记词的校验。
+</p>
+<p>
+https://github.com/alphaqiu/mnemonic
+</p>
+<p>
+BIP39是助记词标准的实现，助记词是一个随机数的字序列，用来作为种子产生一个确定性的钱包。单词序列足以重新创建种子，然后再创建钱包和所有派生的密钥。一个实现带有助记词的确定性钱包应用程序在首次创建钱包时将向用户显示12到24个单词的序列。该单词序列是钱包备份，可用于恢复和重新创建相同或任何兼容的钱包应用程序中的所有密钥。记忆单词使用户更容易备份钱包，因为与随机数字序列相比，它们易于阅读和正确地转录。所有的助记词在这里可以查看：助记词词库。
+</p>
+<p>
+使用BIP39中定义的标准化过程，钱包自动生成助记词。钱包从一个熵源开始，添加一个校验和，然后将熵映射到一个单词列表，具体步骤如下:
+</p>
 <ol type="1">
-<li>创建128到256位的随机序列（熵）。</li>
-<li>通过获取SHA256哈希的第一（熵长度/
-32）位来创建随机序列的校验和。</li>
-<li>将校验和添加到随机序列的末尾。</li>
-<li>将序列分成11位的部分。</li>
-<li>将每个11位值映射到来自2048个单词的预定义字典中的单词。</li>
-<li>助记词是单词序列。 生成助记词的步骤如下图。</li>
+<li>
+创建128到256位的随机序列（熵）。
+</li>
+<li>
+通过获取SHA256哈希的第一（熵长度/ 32）位来创建随机序列的校验和。
+</li>
+<li>
+将校验和添加到随机序列的末尾。
+</li>
+<li>
+将序列分成11位的部分。
+</li>
+<li>
+将每个11位值映射到来自2048个单词的预定义字典中的单词。
+</li>
+<li>
+助记词是单词序列。 生成助记词的步骤如下图。
+</li>
 </ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/25/bip39/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Dec 26 2019 06:31:25 GMT+0800">
+                
+                    2019-12-26
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/blockchain/">blockchain</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
+    <a href="/2019/12/25/bip39/">阅读全文<span class="seo-reader-text">助记词的生成原理</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator px-7 py-5">
+        <div class="paginator">
+	<a class="extend prev" rel="prev" href="/page/2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa-regular fa-angle-right"></i></a>
+</div>
   
-  
-  
+    </div>
+</div>
 
+			</div>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+			
+		</div>
 
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2019</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">alpha</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 49 篇文章
+                    </span>
+                    
+                </p>
+            
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+	
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="alpha"
-      src="/images/avatar.jpeg">
-  <p class="site-author-name" itemprop="name">alpha</p>
-  <div class="site-description" itemprop="description">记录,分享,备忘</div>
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">49</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">38</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
-      </span>
-  </div>
+
+
+	
+
+</main>
 
 
 
-      </div>
+<script src="/js/build/libs/Swup.min.js"></script>
 
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
 
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
 
-      </div>
-    </main>
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
 
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2026</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">alpha</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://alphaqiu.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
 </script>
 
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
 </body>
+
 </html>

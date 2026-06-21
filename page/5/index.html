@@ -1,696 +1,917 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="checkitout.dev">
+    
+    
+    <meta name="author" content="alpha">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
 
-<link rel="stylesheet" href="/css/main.css">
+                // Try immediately
+                if (addBodyClass()) return;
 
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="记录,分享,备忘">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://alpha.checkitout.dev/page/5/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="比十万多一点">
 <meta property="og:url" content="https://alpha.checkitout.dev/page/5/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="记录,分享,备忘">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="checkitout.dev">
 <meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://alpha.checkitout.dev/page/5/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>比十万多一点</title>
-  
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
-    <script>
-      if (CONFIG.hostname === location.hostname) {
+<meta name="twitter:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+        <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+
         gtag('config', 'UA-151212624-1');
-      }
-    </script>
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">比十万多一点</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">毕方</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-commonweal">
-
-    <a href="/404/404.html" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.jpeg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpeg">
+    <meta name="theme-color" content="#37c6c0">
+    <link rel="shortcut icon" href="/images/avatar.jpeg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            比十万多一点 - 毕方
+        
+    </title>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
+    <!--- Inject Part-->
+    
+        
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/05/23/%E7%94%A8%E4%BD%8D%E7%A7%BB%E6%9B%BF%E4%BB%A3%E4%B9%98%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/23/%E7%94%A8%E4%BD%8D%E7%A7%BB%E6%9B%BF%E4%BB%A3%E4%B9%98%E6%B3%95/" class="post-title-link" itemprop="url">用位移替代乘法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-23 15:36:54" itemprop="dateCreated datePublished" datetime="2019-05-23T15:36:54+08:00">2019-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
     
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
+            
     
-    <a title="disqus" href="/2019/05/23/%E7%94%A8%E4%BD%8D%E7%A7%BB%E6%9B%BF%E4%BB%A3%E4%B9%98%E6%B3%95/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/05/23/用位移替代乘法/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
+            
+                
+                    <a href="https://github.com/alphaqiu" class="github-corner" aria-label="View source on GitHub" target="_blank" rel="noopener"><svg width="70" height="70" viewBox="0 0 250 250" style="position:fixed; top:0; border:0; right:0; z-index:9999; fill:#000; color:#fff;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}@media (prefers-color-scheme: dark){.github-corner svg{fill:#fff;color:#000}}</style>
+                
+    
 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"alpha.checkitout.dev","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"atom-one-light","dark":"night-owl"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#37c6c0","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"UA-151212624-1"}},"home_banner":{"enable":false,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"比十万多一点","subtitle":{"text":["记录, 分享, 备忘"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/alphaqiu"},{"icon":"fa-solid fa-at","url":"mailto:alphaqiu@gmail.com"},{"icon":"fa-solid fa-at","url":""},{"icon":"fa-brands fa-telegram","url":""},{"icon":"/images/custom-icon.svg","url":""}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#37c6c0","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2019/04/20 00:00:00","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2019/04/20 00:00:00","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                <h1>
+                比十万多一点
+                </h1>
+            </a>
         </div>
-      </header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
 
-      
-          <p><strong>程序中的所有数在计算机内存中都是以二进制的形式储存的</strong>。而位运算，就是直接对在内存中的二进制位进行操作，跳过了
-程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。</p>
-<p>掌握位运算
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="active"
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives/"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives/"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+			<div class="home-sidebar-container">
+    <div class="sticky-container sticky">
+        
+        
+            
+                <div class="sidebar-links">
+                    <div class="site-info">
+                        <div class="site-name">比十万多一点</div>
+                        
+                    </div>
+                    
+                        
+                            
+                                <a class="links" href="/archives/">
+                                    
+                                        <i class="fa-regular fa-archive icon-space"></i>
+                                    
+                                    <span class="link-name">Archives</span>
+                                </a>
+                            
+                        
+                            
+                                <a class="links" href="/tags/">
+                                    
+                                        <i class="fa-regular fa-tags icon-space"></i>
+                                    
+                                    <span class="link-name">Tags</span>
+                                </a>
+                            
+                        
+                            
+                                <a class="links" href="/categories/">
+                                    
+                                        <i class="fa-regular fa-folder icon-space"></i>
+                                    
+                                    <span class="link-name">Categories</span>
+                                </a>
+                            
+                        
+                    
+                </div>
+            
+            <div class="sidebar-content"  marginTop >
+                <div class="avatar flex justify-center">
+    <img src="/images/avatar.jpeg">
+</div>
+                <div class="author flex flex-col justify-center my-2.5 mx-0">
+    <div class="name">alpha</div>
+    
+        <div class="label">Lv4</div>
+    
+</div>
+                <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+            </div>
+        
+
+    </div>
+</div>
+
+			
+
+			<div class="main-content">
+				<div class="home-content-container">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2019/05/23/%E7%94%A8%E4%BD%8D%E7%A7%BB%E6%9B%BF%E4%BB%A3%E4%B9%98%E6%B3%95/">
+                            用位移替代乘法
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            程序中的所有数在计算机内存中都是以二进制的形式储存的。而位运算，就是直接对在内存中的二进制位进行操作，跳过了
+程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。
+掌握位运算
 是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解
-位运算的大体方法以及一些基本的应用。</p>
-<h3 id="and-运算">and 运算</h3>
-<blockquote>
-<p>只有对应的两个 二进制数，均为 1，结果才为 1，否则为 0</p>
-</blockquote>
-<h4 id="section">&amp; 1</h4>
-<p><strong>判断 n 的第 m 位数</strong>。</p>
-<p>介绍两个重要应用，来证明其含义：</p>
-<ol type="1">
-<li>(n &gt;&gt;m ) &amp; 1 判断 整数 n 的二进制 第 m 位 是否 为 1 或者
-为 0 n 的第 m 位数，如果为 1 ，1&amp;1 就返回 1 ，如果为 0，0&amp;1
-就返回 0</li>
-<li>判断 奇偶性 如果 n 为奇数，辗转相除 2，最后的余数 必定为 1，如果 n
-为偶数，辗转相除 余数必定为 0 也就是说，n 为奇数，n&amp;1 等价于 1&amp;1
-，返回 1，n 为偶数，n&amp;1 等价于 0&amp;1，返回 0</li>
-</ol>
-<h4 id="section-1">&amp; 0</h4>
-<p><strong>将 n 的第 m 位数，重置为 0</strong> 基本应用：n &amp; ~(1
-&lt;&lt; m)</p>
-<ol type="1">
-<li>1 &lt;&lt; m 定位到 n 的第 m 位数</li>
-<li>~(1 &lt;&lt; m) 将 1 进行非运算，变为 0，其他剩下的 m 位，变成 1，而
-&amp;1，是无实际作用的</li>
-<li>n &amp; 0 ：&amp; 按位与运算 只有对应的两个数 全部为 1 时，结果才为
-1，而&amp;0，返回值一定为 0</li>
-</ol>
-<h3 id="or-运算">or 运算</h3>
-<blockquote>
-<p>只有对应的两个 二进制数，均为 0，结果才为 0，否则为 1</p>
-</blockquote>
-<h4 id="section-2">| 1</h4>
-<p><strong>将 n 的第 m 位数，重置为 1</strong></p>
-<p>基本应用：n | (1 &lt;&lt; m):</p>
-<ol type="1">
-<li>1 &lt;&lt; m 定位到 n 的第 m 位数</li>
-<li>n | 1 n 的第 m 位数 进行 |1 操作 其返回值必定为 1！
-因为|只有，两个数都为 0 时，结果才为 0</li>
-</ol>
-<h4 id="section-3">| 0</h4>
-<p>无实际作用</p>
-<p>一定要清楚， 是 n 的第 m 位数 在进行操作，其他 位数操作，根本无
-影响</p>
-<p>因为，其他位数，是 在进行 “| 0” 操作，而所谓的 |0 操作，与 &amp;1
-操作，毫无差别。</p>
-<p>假设 k=n 的第 m 位数，k = 1 ，k|0 = 1|0 = 1，k = 0，k|0 = 0|0 =
-0，所谓 无实际作用。</p>
-<p>但是要注意一点，我说的 0 是在二进制数中的 0，有实际含义的 0，不是补 0
-的 0</p>
-<p>所以，可以感性的认识到，| 0 与 &amp; 1 以及 下文的 ^
-0，都是无实际作用的</p>
-<h3 id="xor-运算">xor 运算</h3>
-<blockquote>
-<p>只有对应的两个 二进制数相等时，结果才为 0，否则为 1</p>
-</blockquote>
-<h4 id="section-4">^ 1</h4>
-<p><strong>将 n 的第 m 位数，取反</strong></p>
-<p>基本应用：n ^ (1 &lt;&lt; m)</p>
-<ol type="1">
-<li>1 &lt;&lt; m ： 定位到 n 的第 m 位数</li>
-<li>n ^ 1，我们要知道，^ (异或）：不相等为 1，相等为 0</li>
-</ol>
-<p>而 ^1：如果 n 的第 m 位数 为 1，1^1 返回值为 0，如果 n 的第 m 位数 为
-0，0^1 返回值 为 1</p>
-<p>所以，^1 的重要作用，就是 与之相反的作用</p>
-<h4 id="section-5">^ 0</h4>
-<p>无实际作用</p>
-<p>假定 整数 k 为 0，k^0 = 0^0 = 0 ; 假定整数 k 为 1，k^0 = 1^0 = 1</p>
-<p>所以说，无论怎么变化，^0 都是无实际作用的</p>
-<h3 id="shl-shr-运算">shl &amp; shr 运算</h3>
-<ol type="1">
-<li><p>左移运算符 “&lt;&lt;”</p>
-<p>表达式：a &lt;&lt; b a&lt;&lt;b 的值是：将 a 各二进位全部左移 b
-位后得到的值。左移时，高位丢弃，低位补 0。 实际上，左移 1
-位，就等于是乘以 2，左移 n 位，就等于是乘以 2n。
-而左移操作比乘法操作快得多。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">COPY例如:9</span> <span class="string">&lt;&lt;</span> <span class="number">4</span></span><br><span class="line"><span class="number">9</span><span class="string">的二进制形式：0000</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1001</span></span><br><span class="line"><span class="string">因此，表达式“9&lt;&lt;4”的值，就是将上面的二进制数左移4位，得：</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1001 </span><span class="number">0000</span></span><br><span class="line"><span class="string">即为十进制的144</span> <span class="string">,</span> <span class="string">而</span> <span class="number">9</span><span class="string">*2的4次幂</span> <span class="string">=</span> <span class="number">9</span><span class="string">*16</span> <span class="string">=</span> <span class="number">144</span><span class="string">.</span></span><br></pre></td></tr></table></figure></li>
-<li><p>右移运算符 “&gt;&gt;”</p>
-<p>表达式：a &gt;&gt; b a&gt;&gt;b 的值是：将 a 各二进位全部右移 b
-位后得到的值。右移时，移出最右边的位就被丢弃。 对于有符号数，如
-long,int,short,char
-类型变量，在右移时，符号位（即最高位）将一起移动，并且大多数
-C/C++编译器规定，如果原符号位为 1，则右移时高位就补充 1，原符号位为
-0，则右移时高位就补充 0。</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY实际上，右移 n 位，就相当于左操作数除以2n，并且将结果往小里取整。</span><br><span class="line">例如：<span class="string">-25</span> &gt;&gt; 4 = <span class="string">-2</span>   <span class="string">-2</span> &gt;&gt; 4 = <span class="string">-1</span>   18 &gt;&gt; 4 = 1</span><br></pre></td></tr></table></figure>
-<h3 id="应用">应用</h3>
-<h4 id="对-2-的整数幂进行模运算">对 2 的整数幂进行模运算</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,k;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;k))&#123;</span><br><span class="line">        n&lt;&lt;=k;<span class="comment">//相当于 n 乘以 2 的 k 次幂，并将结果赋给 n </span></span><br><span class="line">        </span><br><span class="line">        n&gt;&gt;=k;<span class="comment">//相当于 n 除以 2 的 k 次幂，并将结果赋给 n </span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="两数交换">两数交换</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m))&#123;</span><br><span class="line">        n^=m;</span><br><span class="line">        m^=n;</span><br><span class="line">        n^=m;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>,n,m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>按位异或 ^ : 不相同 为：1 ; 相同 为 ：0
-将参与运算的两操作数各对应的二进制位进行异或操作，
-即只有对应的两个二进位不相同时，结果的对应二进制位才是 1，否则为 0。</p>
-</blockquote></li>
-</ol>
-<p><strong>异或运算的特点是：如果 a^b=c，那么就有 c^b = a 以及
-c^a=b</strong></p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">COPY例如：表达式“21 ^<span class="number"> 18 </span>”的值是7(即二进制数111)。</span><br><span class="line">21：    10101</span><br><span class="line">18：    10010</span><br><span class="line">21^18:  00111</span><br><span class="line"></span><br><span class="line">假设 n = 5，m =<span class="number"> 6 </span></span><br><span class="line">5的二进制为：101</span><br><span class="line">6的二进制为：110 </span><br><span class="line"></span><br><span class="line">n^=m = 5^=6   =<span class="number"> 101 </span>^<span class="number"> 110 </span>=<span class="number"> 011 </span>,</span><br><span class="line">此时 n 的二进制为：011 </span><br><span class="line"></span><br><span class="line">m^=n = 6^=011 =<span class="number"> 110 </span>^<span class="number"> 011 </span>=<span class="number"> 101 </span>,</span><br><span class="line">此时 m 的二进制为：101，也正是 5的二进制数，也就是说 m ==开始的 n </span><br><span class="line"></span><br><span class="line">n^=m = 011^=5 =<span class="number"> 011 </span>^<span class="number"> 101 </span>=<span class="number"> 110 </span>,</span><br><span class="line">此时 n 的二进制位：110，也正是 6的二进制数，也就是说 n ==开始的 m</span><br></pre></td></tr></table></figure>
-<p>层次结构：A-&gt;B B-&gt;A A-&gt;B 正 反 正</p>
-<h4 id="判断-2-的正整数幂">判断 2 的正整数幂</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n))&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(n &amp; (n<span class="number">-1</span>)) &amp;&amp; n)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 为 2 的正整数幂\n&quot;</span>,n);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 不是 2 的正整数幂\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>给定整数 n 判断 n 是否为 2 的正整数幂 表达式：(! (n &amp; (n-1))
-&amp;&amp; n</p>
-</blockquote>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COPY举个例子： n =<span class="number"> 16 </span>= 10000，n-1 =<span class="number"> 15 </span>= 1111</span><br><span class="line">那么 ：10000 &amp;<span class="number"> 01111 </span>=<span class="number"> 00000 </span>=<span class="number"> 0 </span></span><br><span class="line">再举个例子： n =<span class="number"> 256 </span>=<span class="number"> 10000000 </span>,n-1 =<span class="number"> 255 </span>= 11111111</span><br><span class="line">那么：100000000 &amp;<span class="number"> 011111111 </span>=<span class="number"> 000000000 </span>= 0</span><br></pre></td></tr></table></figure>
-<p>是的，如果一个数 n 是 2 的正整数幂，那么 n 的二进制必定为 1000…. n-1
-的二进制必定为 1111…. <strong>即： n &amp; n-1 = 0 所以 (! (n &amp;
-(n-1)) 为 1 ; &amp;&amp; n ：判断 n 为正数</strong></p>
-<h4 id="判断奇偶性">判断奇偶性</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n))&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;<span class="number">1</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 是奇数\n&quot;</span>,n);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 是偶数\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>记住：在做位运算时，位数不够的数，自动在 前面补 0</strong>
-比如：21 &amp; 1 ：10101 &amp; 00001 = 00001 = 1 16 &amp; 1 ：10000
-&amp; 00001 = 00000 = 0 事实证明：偶数的二进制的末尾 为
-0，奇数的二进制的末尾 为 1</p>
-<p>十进制 m 转换 n 进制方法： m 一直除 n，每相除一次，m
-就等于商，直到商为 0，然后余数反排 即可。</p>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">COPY1的二进制：<span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">1</span>的二进制：<span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="number">6</span>的二进制：<span class="number">6</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">3</span> 余<span class="number">0</span></span><br><span class="line">          <span class="number">3</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">1</span> 余<span class="number">1</span></span><br><span class="line">          <span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span> </span><br><span class="line">余数反排 即是 <span class="number">6</span>的二进制：<span class="number">110</span></span><br><span class="line"></span><br><span class="line"><span class="number">15</span>的二进制：<span class="number">15</span>/<span class="number">2</span><span class="operator">=</span><span class="number">7</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">7</span>/<span class="number">2</span><span class="operator">=</span><span class="number">3</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">3</span>/<span class="number">2</span><span class="operator">=</span><span class="number">1</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">1</span>/<span class="number">2</span><span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">15</span>的二进制：<span class="number">1111</span> </span><br><span class="line"></span><br><span class="line"><span class="number">5</span>的二进制：<span class="number">5</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">2</span> 余<span class="number">1</span></span><br><span class="line">          <span class="number">2</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">1</span> 余<span class="number">0</span> </span><br><span class="line">          <span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">5</span>的二进制：<span class="number">101</span></span><br><span class="line"></span><br><span class="line"><span class="number">21</span>的二进制：<span class="number">21</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">10</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">10</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">5</span> 余<span class="number">0</span></span><br><span class="line">           <span class="number">5</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">2</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">2</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">1</span> 余<span class="number">0</span></span><br><span class="line">           <span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">21</span>的二进制：<span class="number">10101</span></span><br></pre></td></tr></table></figure>
-<h4 id="其他方面">其他方面</h4>
-<blockquote>
-<p>(n &gt;&gt; m) &amp; 1 == (n &gt;&gt; m) | 0 == (n &gt;&gt; m) ^
-0</p>
-<p>n &amp; ~(1 &lt;&lt; m) : 将 n 的第 m 位数，重置为 0</p>
-<p>n | (1 &lt;&lt; m) : 将 n 的第 m 位数，重置为 1</p>
-<p>n ^ (1 &lt;&lt; m) : 将 n 的第 m 位数，取其相反</p>
-</blockquote>
-<p>使用位移运算来避免乘法运算是一种技巧，乘数必须都是正整数，而且必须至少有一个是2的n次方，例如：2，4，6，8，16，32……移位运算的特点是速度快，而乘法运算速度较慢，把乘法运算转化为移位运算可以提高程序运算效率。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">12</span>*<span class="number">2</span> = <span class="number">12</span> &lt;&lt; <span class="number">1</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">3</span> = <span class="number">12</span>*(<span class="number">2</span>+<span class="number">1</span>) = <span class="number">12</span>*<span class="number">2</span> + <span class="number">12</span> = <span class="number">12</span> &lt;&lt; <span class="number">1</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">4</span> = <span class="number">12</span> &lt;&lt; <span class="number">2</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">5</span> = <span class="number">12</span>*(<span class="number">4</span>+<span class="number">1</span>) = <span class="number">12</span> &lt;&lt; <span class="number">2</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">6</span> = <span class="number">12</span>*(<span class="number">4</span>+<span class="number">2</span>) = <span class="number">12</span>*<span class="number">4</span> + <span class="number">12</span>*<span class="number">2</span> = <span class="number">12</span> &lt;&lt; <span class="number">2</span> + <span class="number">12</span> &lt;&lt; <span class="number">1</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">7</span> = <span class="number">12</span>*(<span class="number">4</span>+<span class="number">2</span>+<span class="number">1</span>) = <span class="number">12</span> &lt;&lt; <span class="number">2</span> + <span class="number">12</span> &lt;&lt; <span class="number">1</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">8</span> = <span class="number">12</span> &lt;&lt; <span class="number">3</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">9</span> = <span class="number">12</span>*(<span class="number">8</span>+<span class="number">1</span>) = <span class="number">12</span> &lt;&lt; <span class="number">3</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">10</span> = <span class="number">12</span>*(<span class="number">8</span>+<span class="number">2</span>) = <span class="number">12</span> &lt;&lt; <span class="number">3</span> + <span class="number">12</span> &lt;&lt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>位移也可以做除法</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">12</span>/<span class="number">2</span> = <span class="number">12</span> &gt;&gt; <span class="number">1</span></span><br><span class="line"><span class="attribute">12</span>/<span class="number">4</span> = <span class="number">12</span> &gt;&gt; <span class="number">2</span></span><br><span class="line"><span class="attribute">12</span>/<span class="number">8</span> = <span class="number">12</span> &gt;&gt; <span class="number">3</span></span><br></pre></td></tr></table></figure>
+位运算的大体方法以及一些基本的应用。
+and 运算
 
-      
-    </div>
+只有对应的两个 二进制数，均为 1，结果才为 1，...
+                        
+                    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/" class="post-title-link" itemprop="url">自签发双向证书认证的一种思路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-20 15:08:48" itemprop="dateCreated datePublished" datetime="2019-04-20T15:08:48+08:00">2019-04-20</time>
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu May 23 2019 15:36:54 GMT+0800">
+                
+                    2019-05-23
+                
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/20/自签发双向证书认证的一种思路/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>服务器双向认证，原理上就是相互交换公钥，双方通过公钥认证对方。不同的是服务器双向认证，有一方作为主导方，另一方作为连接方。所以网上讲的自签发证书需要生成CA证书，通过CA证书再分别分发服务器证书和客户端证书这件事情<strong>不是必须的</strong>。</p>
-<h2 id="生成证书的脚本">生成证书的脚本</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># call this script with an email address (valid or not). </span></span><br><span class="line"><span class="comment"># must install openssl before run this script. </span></span><br><span class="line"><span class="comment"># like: </span></span><br><span class="line"><span class="comment"># ./makecert.sh demo@random.com </span></span><br><span class="line"></span><br><span class="line">FULLPATH=<span class="variable">$1</span> </span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -f <span class="variable">$&#123;FULLPATH&#125;</span>/client.pem <span class="variable">$&#123;FULLPATH&#125;</span>/client.key </span><br><span class="line"></span><br><span class="line">SUBJECT_SERVER=<span class="string">&quot;/C=CN/ST=Shanghai/L=Earth/O=BOX/OU=DC/CN=192.168.10.189/emailAddress&quot;</span> </span><br><span class="line">SUBJECT_CLIENT=<span class="string">&quot;/C=CN/ST=Shanghai/L=Earth/O=BOX/OU=DC/CN=192.168.10.190/emailAddress&quot;</span> </span><br><span class="line"></span><br><span class="line">EMAIL=<span class="variable">$&#123;2:-develop@example.com&#125;</span> </span><br><span class="line">DAYS=<span class="variable">$&#123;3:-3650&#125;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成服务器证书对，pem和key </span></span><br><span class="line"></span><br><span class="line">openssl req -new -nodes -x509 -days <span class="variable">$&#123;DAYS&#125;</span> -out <span class="variable">$&#123;FULLPATH&#125;</span>/server.pem -keyout <span class="variable">$&#123;FULLPATH&#125;</span>/server.key -extensions v3_req -config openssl.cnf -subj <span class="string">&quot;<span class="variable">$&#123;SUBJECT_SERVER&#125;</span>=<span class="variable">$&#123;EMAIL&#125;</span>&quot;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成客户端证书对，pem和key </span></span><br><span class="line"></span><br><span class="line">openssl req -new -nodes -x509 -days <span class="variable">$&#123;DAYS&#125;</span> -out <span class="variable">$&#123;FULLPATH&#125;</span>/client.pem -keyout <span class="variable">$&#123;FULLPATH&#125;</span>/client.key -extensions v3_req -config openssl.cnf -subj <span class="string">&quot;<span class="variable">$&#123;SUBJECT_CLIENT&#125;</span>=<span class="variable">$&#123;EMAIL&#125;</span>&quot;</span> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+        </span>
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/go-build-tags/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/go-build-tags/" class="post-title-link" itemprop="url">使用go build -tags生成多种实现</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-26 11:14:12" itemprop="dateCreated datePublished" datetime="2019-03-26T11:14:12+08:00">2019-03-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/go-build-tags/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/go-build-tags/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="语法规则和构建约束">语法规则和构建约束</h2>
-<p><strong>构建约束</strong>（也称为构建标记）用注释行表示，格式如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build</span></span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li>构建约束以一行<code>+build</code>开始的注释。在<code>+build</code>之后列出了一些条件，在这些条件成立时，该文件应包含在编译的包中；</li>
-<li>约束可以出现在任何源文件中，不限于go文件；</li>
-<li><code>+build</code>必须出现在<code>package</code>语句之前，<code>+build</code>注释之后应要有一个空行。</li>
-<li>只允许字母数字或_</li>
-</ol>
-<p><strong>构建约束</strong>
-多个选项之间空格分隔表示为OR，多个选项之间逗号分隔表示为AND。 每个选项都是一个字母数字的单词，或者以！开头表示否定。也就是说，构建约束：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build linux,386 darwin,!cgo</span></span><br></pre></td></tr></table></figure>
-<p>等同于：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(linux AND <span class="number">386</span>) OR (darwin AND (NOT cgo))</span><br></pre></td></tr></table></figure>
-<p>一个文件可以包含多行<strong>构建约束</strong>。多行之间的约束表示为AND：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build linux darwin</span></span><br><span class="line"><span class="comment">// +build 386</span></span><br></pre></td></tr></table></figure>
-<p>等同于：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(linux OR darwin) AND <span class="number">386</span></span><br></pre></td></tr></table></figure>
-<p>以下单词支持特殊编译：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- the target operating system, as spelled by runtime.GOOS</span><br><span class="line">- the target architecture, as spelled by runtime.GOARCH</span><br><span class="line">- the compiler being used, either <span class="string">&quot;gc&quot;</span> or <span class="string">&quot;gccgo&quot;</span></span><br><span class="line">- <span class="string">&quot;cgo&quot;</span>, <span class="keyword">if</span> ctxt.CgoEnabled is <span class="literal">true</span></span><br><span class="line">- <span class="string">&quot;go1.1&quot;</span>, from Go version <span class="number">1.1</span> onward</span><br><span class="line">- <span class="string">&quot;go1.2&quot;</span>, from Go version <span class="number">1.2</span> onward</span><br><span class="line">- <span class="string">&quot;go1.3&quot;</span>, from Go version <span class="number">1.3</span> onward</span><br><span class="line">- <span class="string">&quot;go1.4&quot;</span>, from Go version <span class="number">1.4</span> onward</span><br><span class="line">- <span class="string">&quot;go1.5&quot;</span>, from Go version <span class="number">1.5</span> onward</span><br><span class="line">- <span class="string">&quot;go1.6&quot;</span>, from Go version <span class="number">1.6</span> onward</span><br><span class="line">- <span class="string">&quot;go1.7&quot;</span>, from Go version <span class="number">1.7</span> onward</span><br><span class="line">- <span class="string">&quot;go1.8&quot;</span>, from Go version <span class="number">1.8</span> onward</span><br><span class="line">- <span class="string">&quot;go1.9&quot;</span>, from Go version <span class="number">1.9</span> onward</span><br><span class="line">- <span class="string">&quot;go1.10&quot;</span>, from Go version <span class="number">1.10</span> onward</span><br><span class="line">- any additional words listed in ctxt.BuildTags</span><br></pre></td></tr></table></figure>
-<p>除去文件扩展名和_test后缀，符合以下文件名称格式的也将纳入构建约束：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*_GOOS</span><br><span class="line">*_GOARCH</span><br><span class="line">*_GOOS_GOARCH</span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line">hello_darwin.<span class="keyword">go</span></span><br><span class="line">hello_linux.<span class="keyword">go</span></span><br><span class="line">hello_windows.<span class="keyword">go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line">source_windows_amd64.<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
-<p><code>GOOS</code>和<code>GOARCH</code>表示为已知的操作系统和体系架构值，这类的文件被认为具有需要这些隐式构建约束。</p>
-<p>让文件不被用于构建，任何其他不满意的词也会起作用，但“忽略”是符合传统的。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build ignore</span></span><br></pre></td></tr></table></figure>
-<p>更多详细信息，可以查看<code>go/build/build.go</code>文件中<code>shouldBuild</code>和<code>match</code>方法。参考：https://golang.org/pkg/go/build/</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/go-build-tags/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
         
-      
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/2019/05/23/%E7%94%A8%E4%BD%8D%E7%A7%BB%E6%9B%BF%E4%BB%A3%E4%B9%98%E6%B3%95/">阅读全文<span class="seo-reader-text">用位移替代乘法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/macOS-port-before-1024/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/macOS-port-before-1024/" class="post-title-link" itemprop="url">在MacOS上使用1024以下端口</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/">
+                            自签发双向证书认证的一种思路
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2019-03-21 10:33:36" itemprop="dateCreated datePublished" datetime="2019-03-21T10:33:36+08:00">2019-03-21</time>
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+服务器双向认证，原理上就是相互交换公钥，双方通过公钥认证对方。不同的是服务器双向认证，有一方作为主导方，另一方作为连接方。所以网上讲的自签发证书需要生成CA证书，通过CA证书再分别分发服务器证书和客户端证书这件事情<strong>不是必须的</strong>。
+</p>
+<h2 id="生成证书的脚本">
+生成证书的脚本
+</h2>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="meta">#!/usr/bin/env bash </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># call this script with an email address (valid or not). </span></span><br><span class="line"><span class="comment"># must install openssl before run this script. </span></span><br><span class="line"><span class="comment"># like: </span></span><br><span class="line"><span class="comment"># ./makecert.sh demo@random.com </span></span><br><span class="line"></span><br><span class="line">FULLPATH=<span class="variable">$1</span> </span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -f <span class="variable">$&#123;FULLPATH&#125;</span>/client.pem <span class="variable">$&#123;FULLPATH&#125;</span>/client.key </span><br><span class="line"></span><br><span class="line">SUBJECT_SERVER=<span class="string">&quot;/C=CN/ST=Shanghai/L=Earth/O=BOX/OU=DC/CN=192.168.10.189/emailAddress&quot;</span> </span><br><span class="line">SUBJECT_CLIENT=<span class="string">&quot;/C=CN/ST=Shanghai/L=Earth/O=BOX/OU=DC/CN=192.168.10.190/emailAddress&quot;</span> </span><br><span class="line"></span><br><span class="line">EMAIL=<span class="variable">$&#123;2:-develop@example.com&#125;</span> </span><br><span class="line">DAYS=<span class="variable">$&#123;3:-3650&#125;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成服务器证书对，pem和key </span></span><br><span class="line"></span><br><span class="line">openssl req -new -nodes -x509 -days <span class="variable">$&#123;DAYS&#125;</span> -out <span class="variable">$&#123;FULLPATH&#125;</span>/server.pem -keyout <span class="variable">$&#123;FULLPATH&#125;</span>/server.key -extensions v3_req -config openssl.cnf -subj <span class="string">&quot;<span class="variable">$&#123;SUBJECT_SERVER&#125;</span>=<span class="variable">$&#123;EMAIL&#125;</span>&quot;</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成客户端证书对，pem和key </span></span><br><span class="line"></span><br><span class="line">openssl req -new -nodes -x509 -days <span class="variable">$&#123;DAYS&#125;</span> -out <span class="variable">$&#123;FULLPATH&#125;</span>/client.pem -keyout <span class="variable">$&#123;FULLPATH&#125;</span>/client.key -extensions v3_req -config openssl.cnf -subj <span class="string">&quot;<span class="variable">$&#123;SUBJECT_CLIENT&#125;</span>=<span class="variable">$&#123;EMAIL&#125;</span>&quot;</span> </span><br><span class="line"></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Apr 20 2019 15:08:48 GMT+0800">
+                
+                    2019-04-20
+                
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
-                </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Linux/">Linux</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/tls/">tls</a>&nbsp;
+                        </li>
+                    
+                </ul>
             </span>
+        
+    </div>
 
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/macOS-port-before-1024/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/macOS-port-before-1024/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
+    <a href="/2019/04/20/%E8%87%AA%E7%AD%BE%E5%8F%91%E5%8F%8C%E5%90%91%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E7%9A%84%E4%B8%80%E7%A7%8D%E6%80%9D%E8%B7%AF/">阅读全文<span class="seo-reader-text">自签发双向证书认证的一种思路</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-        </div>
-      </header>
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+                
 
-      
-          <h2 id="起因">起因</h2>
-<p>MacOS和Linux一样，需要root权限使用低于1024以下端口。因此要在Mac机器上监听80端口或443端口，要么以root用户启动应用，要么使用端口转发。</p>
-<p>在Linux系统中可以通过<code>sudo setcap cap_net_bind_service=+ep &lt;app name&gt;</code>来让非root用户使用1024以下端口（<app name>指要授权监听端口的程序）。</p>
-<p>MacOS没有<code>setcap</code>命令，所以需要通过端口转发来达到目的。新版的MacOS操作系统使用pf（packet
-filter）设置端口转发。</p>
-<h2 id="简单粗暴的解决方式">简单粗暴的解决方式</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;</span></span><br><span class="line"><span class="string">rdr pass inet proto tcp from any to any port 80 -&gt; 127.0.0.1 port 8080</span></span><br><span class="line"><span class="string">rdr pass inet proto tcp from any to any port 443 -&gt; 127.0.0.1 port 8443</span></span><br><span class="line"><span class="string">&quot;</span> | <span class="built_in">sudo</span> pfctl -ef -</span><br></pre></td></tr></table></figure>
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/go-build-tags/">
+                            使用go build -tags生成多种实现
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <h2 id="语法规则和构建约束">
+语法规则和构建约束
+</h2>
+<p>
+<strong>构建约束</strong>（也称为构建标记）用注释行表示，格式如下：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="comment">// +build</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<ol type="1">
+<li>
+构建约束以一行<code>+build</code>开始的注释。在<code>+build</code>之后列出了一些条件，在这些条件成立时，该文件应包含在编译的包中；
+</li>
+<li>
+约束可以出现在任何源文件中，不限于go文件；
+</li>
+<li>
+<code>+build</code>必须出现在<code>package</code>语句之前，<code>+build</code>注释之后应要有一个空行。
+</li>
+<li>
+只允许字母数字或_
+</li>
+</ol>
+<p>
+<strong>构建约束</strong>
+多个选项之间空格分隔表示为OR，多个选项之间逗号分隔表示为AND。 每个选项都是一个字母数字的单词，或者以！开头表示否定。也就是说，构建约束：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="comment">// +build linux,386 darwin,!cgo</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+等同于：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">(linux AND <span class="number">386</span>) OR (darwin AND (NOT cgo))</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+一个文件可以包含多行<strong>构建约束</strong>。多行之间的约束表示为AND：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="comment">// +build linux darwin</span></span><br><span class="line"><span class="comment">// +build 386</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+等同于：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">(linux OR darwin) AND <span class="number">386</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+以下单词支持特殊编译：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">- the target operating system, as spelled by runtime.GOOS</span><br><span class="line">- the target architecture, as spelled by runtime.GOARCH</span><br><span class="line">- the compiler being used, either <span class="string">&quot;gc&quot;</span> or <span class="string">&quot;gccgo&quot;</span></span><br><span class="line">- <span class="string">&quot;cgo&quot;</span>, <span class="keyword">if</span> ctxt.CgoEnabled is <span class="literal">true</span></span><br><span class="line">- <span class="string">&quot;go1.1&quot;</span>, from Go version <span class="number">1.1</span> onward</span><br><span class="line">- <span class="string">&quot;go1.2&quot;</span>, from Go version <span class="number">1.2</span> onward</span><br><span class="line">- <span class="string">&quot;go1.3&quot;</span>, from Go version <span class="number">1.3</span> onward</span><br><span class="line">- <span class="string">&quot;go1.4&quot;</span>, from Go version <span class="number">1.4</span> onward</span><br><span class="line">- <span class="string">&quot;go1.5&quot;</span>, from Go version <span class="number">1.5</span> onward</span><br><span class="line">- <span class="string">&quot;go1.6&quot;</span>, from Go version <span class="number">1.6</span> onward</span><br><span class="line">- <span class="string">&quot;go1.7&quot;</span>, from Go version <span class="number">1.7</span> onward</span><br><span class="line">- <span class="string">&quot;go1.8&quot;</span>, from Go version <span class="number">1.8</span> onward</span><br><span class="line">- <span class="string">&quot;go1.9&quot;</span>, from Go version <span class="number">1.9</span> onward</span><br><span class="line">- <span class="string">&quot;go1.10&quot;</span>, from Go version <span class="number">1.10</span> onward</span><br><span class="line">- any additional words listed in ctxt.BuildTags</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+除去文件扩展名和_test后缀，符合以下文件名称格式的也将纳入构建约束：
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">*_GOOS</span><br><span class="line">*_GOARCH</span><br><span class="line">*_GOOS_GOARCH</span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line">hello_darwin.<span class="keyword">go</span></span><br><span class="line">hello_linux.<span class="keyword">go</span></span><br><span class="line">hello_windows.<span class="keyword">go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// example</span></span><br><span class="line">source_windows_amd64.<span class="keyword">go</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+<code>GOOS</code>和<code>GOARCH</code>表示为已知的操作系统和体系架构值，这类的文件被认为具有需要这些隐式构建约束。
+</p>
+<p>
+让文件不被用于构建，任何其他不满意的词也会起作用，但“忽略”是符合传统的。
+</p>
+<figure class="highlight go">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="comment">// +build ignore</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+更多详细信息，可以查看<code>go/build/build.go</code>文件中<code>shouldBuild</code>和<code>match</code>方法。参考：https://golang.org/pkg/go/build/
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Mar 26 2019 11:14:12 GMT+0800">
+                
+                    2019-03-26
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/go-build-tags/">阅读全文<span class="seo-reader-text">使用go build -tags生成多种实现</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/macOS-port-before-1024/">
+                            在MacOS上使用1024以下端口
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <h2 id="起因">
+起因
+</h2>
+<p>
+MacOS和Linux一样，需要root权限使用低于1024以下端口。因此要在Mac机器上监听80端口或443端口，要么以root用户启动应用，要么使用端口转发。
+</p>
+<p>
+在Linux系统中可以通过<code>sudo setcap cap_net_bind_service=+ep &lt;app
+name&gt;</code>来让非root用户使用1024以下端口（<app name>指要授权监听端口的程序）。
+</p>
+<p>
+MacOS没有<code>setcap</code>命令，所以需要通过端口转发来达到目的。新版的MacOS操作系统使用pf（packet
+filter）设置端口转发。
+</p>
+<h2 id="简单粗暴的解决方式">
+简单粗暴的解决方式
+</h2>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;</span></span><br><span class="line"><span class="string">rdr pass inet proto tcp from any to any port 80 -&gt; 127.0.0.1 port 8080</span></span><br><span class="line"><span class="string">rdr pass inet proto tcp from any to any port 443 -&gt; 127.0.0.1 port 8443</span></span><br><span class="line"><span class="string">&quot;</span> | <span class="built_in">sudo</span> pfctl -ef -</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
 <blockquote>
-<p>rdr: The packet is redirected to another destination and possibly a
+<p>
+rdr: The packet is redirected to another destination and possibly a
 different port. 数据包被重定向到另一个目的地，可能还有一个不同的端口 rdr
 rules can optionally specify port ranges instead of single ports.
 规则可以选择指定端口范围而不是单个端口 rdr … port 2000:2999 -&gt; … port
@@ -698,763 +919,898 @@ rules can optionally specify port ranges instead of single ports.
 2000:2999 -&gt; … port 4000 重定向端口2000-2999（包含2999）到端口4000
 rdr … port 2000:2999 -&gt; … port 4000:* redirects port 2000 to 4000,
 2001 to 4001, …, 2999 to 4999. … port 2000:2999 -&gt; … port 4000:*
-重定向端口2000到端口4000，端口2001到端口4001，…，端口2999到4999</p>
+重定向端口2000到端口4000，端口2001到端口4001，…，端口2999到4999
+</p>
 </blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/macOS-port-before-1024/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Mar 21 2019 10:33:36 GMT+0800">
+                
+                    2019-03-21
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/MacOS/">MacOS</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/tcp/">tcp</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/macOS-port-before-1024/">阅读全文<span class="seo-reader-text">在MacOS上使用1024以下端口</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/icap-ios/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/icap-ios/" class="post-title-link" itemprop="url">ICAP互换客户端地址协议iOS实现示例</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-06-07 18:42:28" itemprop="dateCreated datePublished" datetime="2018-06-07T18:42:28+08:00">2018-06-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/icap-ios/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/icap-ios/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>之前我写了一篇关于<a
-target="_blank" rel="noopener" href="https://alphaqiu.github.io/2018/06/02/icap/">ICAP:
-互换客户端地址协议</a>的文章。文章中介绍和详细解析了关于ICAP协议算法，并给出Go语言版本的具体实现。实际上以太坊全节点<a
-target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum">Geth</a>提供了WEB3接口，来转换ICAP格式地址</p>
-<p>（<code>web3.fromICAP("XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO")</code>）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; web3</span><br><span class="line">&#123;</span><br><span class="line">  ... ...</span><br><span class="line">  BigNumber: <span class="keyword">function</span> a(e,n),</span><br><span class="line">  fromICAP: <span class="keyword">function</span>(icap),</span><br><span class="line">  isAddress: <span class="keyword">function</span>(address),</span><br><span class="line">  isChecksumAddress: <span class="keyword">function</span>(address),</span><br><span class="line">  sha3: <span class="keyword">function</span>(string, options),</span><br><span class="line">  toBigNumber: <span class="keyword">function</span>(number),</span><br><span class="line">  toChecksumAddress: <span class="keyword">function</span>(address)</span><br><span class="line">  ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt; web3.fromICAP(<span class="string">&quot;XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO&quot;</span>)</span><br><span class="line"><span class="string">&quot;8982b139b2fca9452eae977827fb12280a9a1bf0&quot;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>不过这种方式转换ICAP格式地址，在客户端与服务端交互上有些繁琐，特别是在手机端操作时。手机端完全可以利用每一台终端设备来处理这个转换工作，直接将ICAP格式地址发送给服务端处理全部转换逻辑显得没有必要。另外，<code>web3.fromICAP</code>只能转换出非含校验和的以太坊账户地址，仍需要调用<code>web3.toChecksumAddress</code>来完成剩余工作。</p>
-<p>因此，在这个大前提下，<a
-target="_blank" rel="noopener" href="https://github.com/boxproject/box-Staff-Manager">BOX企业数字资产保险箱
-员工版APP</a>开发了基于ICAP协议算法的一套iOS库。该库可以直接在手机端完成转换工作，不需要与后端web3接口交互。可能Geth已有iOS版本相关的库（<code>pod Geth</code>)，不过由于这个库太大，一直没有下载成功，也没有办法验证其功能是否包含ICAP功能。使用本库的还有一个好处是简单明了，不必依赖大型库，同时转换出的以太坊地址支持checksum。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/icap-ios/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+                </div>
+            </li>
         
-      
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/icap-ios/">
+                            ICAP互换客户端地址协议iOS实现示例
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+之前我写了一篇关于<a class="link" 
+ target="_blank" rel="noopener" href="https://alphaqiu.github.io/2018/06/02/icap/" >ICAP:
+互换客户端地址协议<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的文章。文章中介绍和详细解析了关于ICAP协议算法，并给出Go语言版本的具体实现。实际上以太坊全节点<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum" >Geth<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>提供了WEB3接口，来转换ICAP格式地址
+</p>
+<p>
+（<code>web3.fromICAP(“XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO”)</code>）。
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">&gt; web3</span><br><span class="line">&#123;</span><br><span class="line">  ... ...</span><br><span class="line">  BigNumber: <span class="keyword">function</span> a(e,n),</span><br><span class="line">  fromICAP: <span class="keyword">function</span>(icap),</span><br><span class="line">  isAddress: <span class="keyword">function</span>(address),</span><br><span class="line">  isChecksumAddress: <span class="keyword">function</span>(address),</span><br><span class="line">  sha3: <span class="keyword">function</span>(string, options),</span><br><span class="line">  toBigNumber: <span class="keyword">function</span>(number),</span><br><span class="line">  toChecksumAddress: <span class="keyword">function</span>(address)</span><br><span class="line">  ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt; web3.fromICAP(<span class="string">&quot;XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO&quot;</span>)</span><br><span class="line"><span class="string">&quot;8982b139b2fca9452eae977827fb12280a9a1bf0&quot;</span></span><br><span class="line">&gt;</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+不过这种方式转换ICAP格式地址，在客户端与服务端交互上有些繁琐，特别是在手机端操作时。手机端完全可以利用每一台终端设备来处理这个转换工作，直接将ICAP格式地址发送给服务端处理全部转换逻辑显得没有必要。另外，<code>web3.fromICAP</code>只能转换出非含校验和的以太坊账户地址，仍需要调用<code>web3.toChecksumAddress</code>来完成剩余工作。
+</p>
+<p>
+因此，在这个大前提下，<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/boxproject/box-Staff-Manager" >BOX企业数字资产保险箱
+员工版APP<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>开发了基于ICAP协议算法的一套iOS库。该库可以直接在手机端完成转换工作，不需要与后端web3接口交互。可能Geth已有iOS版本相关的库（<code>pod
+Geth</code>)，不过由于这个库太大，一直没有下载成功，也没有办法验证其功能是否包含ICAP功能。使用本库的还有一个好处是简单明了，不必依赖大型库，同时转换出的以太坊地址支持checksum。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Jun 07 2018 18:42:28 GMT+0800">
+                
+                    2018-06-07
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/blockchain/">blockchain</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/ICAP/">ICAP</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/iOS/">iOS</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/icap-ios/">阅读全文<span class="seo-reader-text">ICAP互换客户端地址协议iOS实现示例</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/clef/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/clef/" class="post-title-link" itemprop="url">初识Clef</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/clef/">
+                            初识Clef
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2018-06-03 17:06:23" itemprop="dateCreated datePublished" datetime="2018-06-03T17:06:23+08:00">2018-06-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/clef/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/clef/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以太坊版本1.8.4开始，增加了独立签名人Clef功能，该功能目前尚处在alpha阶段。它主要实现了签署交易、签署数据和管理账户。它的README中是这样描述的：</p>
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+以太坊版本1.8.4开始，增加了独立签名人Clef功能，该功能目前尚处在alpha阶段。它主要实现了签署交易、签署数据和管理账户。它的README中是这样描述的：
+</p>
 <blockquote>
-<p>Clef可以用来签署交易和数据，并且可以代替geth的账户管理。</p>
-<p>这使DApps不依赖于geth的账户管理。
+<p>
+Clef可以用来签署交易和数据，并且可以代替geth的账户管理。
+</p>
+<p>
+这使DApps不依赖于geth的账户管理。
 当DApp想要签署数据时，它可以将数据发送给签名者，然后签名者将向用户提供上下文并要求用户签署数据。
-如果用户授予签名请求，签名者将签名发送回DApp。</p>
-<p>此设置允许DApp连接到远程以太坊节点并发送本地签名的事务。
-这可以在DApp连接到远程节点的情况下提供帮助，因为本地以太坊节点不可用，不与同步链或没有内置（或有限）帐户管理的特定以太坊节点同步。</p>
-<p>Clef可以在同一台机器上作为守护进程运行，也可以在usb-stick（如usb
-armory）中运行，或者在QubesOS类型的os设置中运行单独的虚拟机。</p>
+如果用户授予签名请求，签名者将签名发送回DApp。
+</p>
+<p>
+此设置允许DApp连接到远程以太坊节点并发送本地签名的事务。
+这可以在DApp连接到远程节点的情况下提供帮助，因为本地以太坊节点不可用，不与同步链或没有内置（或有限）帐户管理的特定以太坊节点同步。
+</p>
+<p>
+Clef可以在同一台机器上作为守护进程运行，也可以在usb-stick（如usb
+armory）中运行，或者在QubesOS类型的os设置中运行单独的虚拟机。
+</p>
 </blockquote>
-<p>乍听起来好像没什么新鲜的，目前以太坊DApp通过web3接口就可以完成的功能。通过通读代码和文档说明后发现，其实它最大的亮点有两个：</p>
+<p>
+乍听起来好像没什么新鲜的，目前以太坊DApp通过web3接口就可以完成的功能。通过通读代码和文档说明后发现，其实它最大的亮点有两个：
+</p>
 <ol type="1">
-<li>人机交互，实现对一笔发起的交易进行另一方批准确认；</li>
-<li>规则引擎，实现自动化交易确认。</li>
+<li>
+人机交互，实现对一笔发起的交易进行另一方批准确认；
+</li>
+<li>
+规则引擎，实现自动化交易确认。
+</li>
 </ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/clef/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Jun 03 2018 17:06:23 GMT+0800">
+                
+                    2018-06-03
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/blockchain/">blockchain</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/ethereum/">ethereum</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/clef/">阅读全文<span class="seo-reader-text">初识Clef</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/icap/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/icap/" class="post-title-link" itemprop="url">ICAP: 互换客户端地址协议</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/icap/">
+                            ICAP: 互换客户端地址协议
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2018-06-02 12:30:54" itemprop="dateCreated datePublished" datetime="2018-06-02T12:30:54+08:00">2018-06-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/icap/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/icap/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>什么是ICAP</strong>？从以太坊Homestead指南的<a
-target="_blank" rel="noopener" href="https://github.com/ethereum/homestead-guide/blob/master/source/glossary.rst">词汇表</a>中可以看出：</p>
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+<strong>什么是ICAP</strong>？从以太坊Homestead指南的<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/ethereum/homestead-guide/blob/master/source/glossary.rst" >词汇表<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>中可以看出：
+</p>
 <blockquote>
-<p>Interexchange Client Address Protocol, an IBAN-compatible system for
+<p>
+Interexchange Client Address Protocol, an IBAN-compatible system for
 referencing and transacting to client accounts aimed to streamline the
 process of transferring funds, worry-free between exchanges and,
-ultimately, making KYC and AML concerns a thing of the past.</p>
+ultimately, making KYC and AML concerns a thing of the past.
+</p>
 </blockquote>
-<p>ICAP
-互换客户端地址协议，一种IBAN兼容系统，用于引用和处理客户帐户，旨在简化资金转移流程，在交易所之间无忧无虑，并最终使KYC和AML成为过去。</p>
-<p>这里有相关于以太坊对ICAP的<a
-target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol">介绍</a>：</p>
+<p>
+ICAP
+互换客户端地址协议，一种IBAN兼容系统，用于引用和处理客户帐户，旨在简化资金转移流程，在交易所之间无忧无虑，并最终使KYC和AML成为过去。
+</p>
+<p>
+这里有相关于以太坊对ICAP的<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol" >介绍<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>：
+</p>
 <blockquote>
-<p>在第三方账户之间（特别是交易所账户）之间转账资金给用户带来了相当大的负担，并且由于客户账户中的存款被识别的方式而容易出错。现有的银行业通过拥有一个被称为<em>IBAN</em>的通用代码解决了这个问题。该代码合并了机构和客户帐户以及错误检测机制，实际上消除了微不足道的错误并为用户提供了相当大的便利。不幸的是，这是一个严格监管和集中的服务，只有大型的，完善的机构才能使用。目前的议定书ICAP可被视为适用于以太坊系统中任何含有资金的机构的分散版本。</p>
+<p>
+在第三方账户之间（特别是交易所账户）之间转账资金给用户带来了相当大的负担，并且由于客户账户中的存款被识别的方式而容易出错。现有的银行业通过拥有一个被称为<em>IBAN</em>的通用代码解决了这个问题。该代码合并了机构和客户帐户以及错误检测机制，实际上消除了微不足道的错误并为用户提供了相当大的便利。不幸的是，这是一个严格监管和集中的服务，只有大型的，完善的机构才能使用。目前的议定书ICAP可被视为适用于以太坊系统中任何含有资金的机构的分散版本。
+</p>
 </blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/icap/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Jun 02 2018 12:30:54 GMT+0800">
+                
+                    2018-06-02
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/blockchain/">blockchain</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/ICAP/">ICAP</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%8D%8F%E8%AE%AE/">协议</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/icap/">阅读全文<span class="seo-reader-text">ICAP: 互换客户端地址协议</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/bash-sigterm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/bash-sigterm/" class="post-title-link" itemprop="url">如何将SIGTERM信号传播到Bash脚本中的子进程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-06-12 15:36:54" itemprop="dateCreated datePublished" datetime="2017-06-12T15:36:54+08:00">2017-06-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/bash-sigterm/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/bash-sigterm/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Supervisord
-要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。</p>
-<p>这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare the JVM command line</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clean up</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在这种情况下，TERM信号由shell进程接收，但是Bash不会将该信号转发给子进程。这意味着shell进程将停止，但JVM将继续运行。</p>
-<p>如果创建子进程的命令是shell脚本中的最后一个命令，则可以使用<code>exec</code>以下方法轻松解决问题：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br></pre></td></tr></table></figure>
-<p>而不是创建一个新进程，这将取代JVM中的shell进程。在这种情况下，TERM信号由JVM直接接收，问题得到解决。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/bash-sigterm/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+                </div>
+            </li>
         
-      
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/bash-sigterm/">
+                            如何将SIGTERM信号传播到Bash脚本中的子进程
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+Supervisord
+要求程序不能配置为守护进程，必须在前台运行并响应停止信号。只有由Supervisord或Docker直接创建的进程才能收到TERM信号，而且他们有责任正确地停止运行子进程。
+</p>
+<p>
+这是一个问题，如果实际的服务器进程是由shell脚本产生的，就像Java服务通常情况一样：
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare the JVM command line</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clean up</span></span><br><span class="line">...</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+在这种情况下，TERM信号由shell进程接收，但是Bash不会将该信号转发给子进程。这意味着shell进程将停止，但JVM将继续运行。
+</p>
+<p>
+如果创建子进程的命令是shell脚本中的最后一个命令，则可以使用<code>exec</code>以下方法轻松解决问题：
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$JAVA_EXECUTABLE</span> <span class="variable">$JAVA_ARGS</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+而不是创建一个新进程，这将取代JVM中的shell进程。在这种情况下，TERM信号由JVM直接接收，问题得到解决。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Jun 12 2017 15:36:54 GMT+0800">
+                
+                    2017-06-12
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Linux/">Linux</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/bash/">bash</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/SIGTERM/">SIGTERM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+    <a href="/bash-sigterm/">阅读全文<span class="seo-reader-text">如何将SIGTERM信号传播到Bash脚本中的子进程</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/elasticsearch-5-install-note/">
+                </div>
+            </li>
+        
+            <li class="home-article-item">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
+                
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/elasticsearch-5-install-note/" class="post-title-link" itemprop="url">Elasticsearch 5.0 笔记</a>
-        </h2>
+                
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/elasticsearch-5-install-note/">
+                            Elasticsearch 5.0 笔记
+                        </a>
+                    </h3>
 
-              <time title="创建时间：2016-11-15 18:42:51" itemprop="dateCreated datePublished" datetime="2016-11-15T18:42:51+08:00">2016-11-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/" itemprop="url" rel="index"><span itemprop="name">帮助手册</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/elasticsearch-5-install-note/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/elasticsearch-5-install-note/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装设置-elasticsearch">安装设置 Elasticsearch</h2>
-<h3 id="安装">安装</h3>
-<h4 id="安装-elasticsearch">安装 elasticsearch</h4>
-<p>具体可以参考官网，这里仅介绍通过rpm安装方法。</p>
-<p>下载安装签名公钥：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br></pre></td></tr></table></figure>
-<p>签名指纹：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">4609 </span><span class="number">5</span>ACC <span class="number">8548</span> <span class="number">582</span>C <span class="number">1</span>A26 <span class="number">99</span>A9 D27D <span class="number">666</span>C D88E <span class="number">42</span>B4</span><br></pre></td></tr></table></figure>
-<h5 id="从-rpm-仓库安装">从 rpm 仓库安装</h5>
-<p>在 RedHat 基本发行版系统的 /etc/yum.repos.d/ 目录下创建
-elasticsearch.repo 文件，内容包含：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[elasticsearch-5.x]</span></span><br><span class="line"><span class="attr">name</span>=Elasticsearch repository for <span class="number">5</span>.x packages</span><br><span class="line"><span class="attr">baseurl</span>=https://artifacts.elastic.co/packages/<span class="number">5</span>.x/yum</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">autorefresh</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">type</span>=rpm-md</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install elasticsearch</span><br></pre></td></tr></table></figure>
-<p>查看当前可用版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list --showduplicates elasticsearch</span><br></pre></td></tr></table></figure>
-<h5 id="手动下载-rpm-包">手动下载 rpm 包</h5>
-<p>请参见<a
-target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#install-rpm">官网</a></p>
-<h5 id="sysv-init-和-systemd">SysV init 和 systemd</h5>
-<p>Elasticsearch
+                    <div class="home-article-content markdown-body">
+                        
+                            <h2 id="安装设置-elasticsearch">
+安装设置 Elasticsearch
+</h2>
+<h3 id="安装">
+安装
+</h3>
+<h4 id="安装-elasticsearch">
+安装 elasticsearch
+</h4>
+<p>
+具体可以参考官网，这里仅介绍通过rpm安装方法。
+</p>
+<p>
+下载安装签名公钥：
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+签名指纹：
+</p>
+<figure class="highlight basic">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="symbol">4609 </span><span class="number">5</span>ACC <span class="number">8548</span> <span class="number">582</span>C <span class="number">1</span>A26 <span class="number">99</span>A9 D27D <span class="number">666</span>C D88E <span class="number">42</span>B4</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<h5 id="从-rpm-仓库安装">
+从 rpm 仓库安装
+</h5>
+<p>
+在 RedHat 基本发行版系统的 /etc/yum.repos.d/ 目录下创建
+elasticsearch.repo 文件，内容包含：
+</p>
+<figure class="highlight ini">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="section">[elasticsearch-5.x]</span></span><br><span class="line"><span class="attr">name</span>=Elasticsearch repository for <span class="number">5</span>.x packages</span><br><span class="line"><span class="attr">baseurl</span>=https://artifacts.elastic.co/packages/<span class="number">5</span>.x/yum</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">autorefresh</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">type</span>=rpm-md</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="built_in">sudo</span> yum install elasticsearch</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+查看当前可用版本
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">yum list --showduplicates elasticsearch</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<h5 id="手动下载-rpm-包">
+手动下载 rpm 包
+</h5>
+<p>
+请参见<a class="link" 
+ target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#install-rpm" >官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+</p>
+<h5 id="sysv-init-和-systemd">
+SysV init 和 systemd
+</h5>
+<p>
+Elasticsearch
 安装好以后不会自动启动，如何启动和停止它取决于系统使用了哪种 SysV
-.查看方法</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -p 1</span><br></pre></td></tr></table></figure>
-<p>具体设置参见<a
-target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#_sysv_literal_init_literal_vs_literal_systemd_literal_2">官网</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/elasticsearch-5-install-note/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+.查看方法
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">ps -p 1</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+具体设置参见<a class="link" 
+ target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html#_sysv_literal_init_literal_vs_literal_systemd_literal_2" >官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Nov 15 2016 18:42:51 GMT+0800">
+                
+                    2016-11-15
+                
+            </span>
+        </span>
         
-      
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/">帮助手册</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/elastic/">elastic</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/search-engine/">search engine</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
+    <a href="/elasticsearch-5-install-note/">阅读全文<span class="seo-reader-text">Elasticsearch 5.0 笔记</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator px-7 py-5">
+        <div class="paginator">
+	<a class="extend prev" rel="prev" href="/page/4/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+</div>
   
-  
-  
+    </div>
+</div>
 
+			</div>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
-  </nav>
+			
+		</div>
 
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2019</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">alpha</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 49 篇文章
+                    </span>
+                    
+                </p>
+            
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+	
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="alpha"
-      src="/images/avatar.jpeg">
-  <p class="site-author-name" itemprop="name">alpha</p>
-  <div class="site-description" itemprop="description">记录,分享,备忘</div>
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">49</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">38</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
-      </span>
-  </div>
+
+
+	
+
+</main>
 
 
 
-      </div>
+<script src="/js/build/libs/Swup.min.js"></script>
 
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
 
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
 
-      </div>
-    </main>
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
 
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2026</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">alpha</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://alphaqiu.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
 </script>
 
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
 </body>
+
 </html>

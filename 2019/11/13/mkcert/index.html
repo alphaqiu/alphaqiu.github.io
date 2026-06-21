@@ -1,254 +1,522 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="checkitout.dev">
+    
+    
+    <meta name="author" content="alpha">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
 
-<link rel="stylesheet" href="/css/main.css">
+                // Try immediately
+                if (addBodyClass()) return;
 
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="​ 2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。 　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而这样做就需要开">
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://alpha.checkitout.dev/2019/11/13/mkcert/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="本地HTTPS证书工具">
 <meta property="og:url" content="https://alpha.checkitout.dev/2019/11/13/mkcert/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="​ 2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。 　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而这样做就需要开">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alpha.checkitout.dev/images/mkcert1.png">
+<meta property="og:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
 <meta property="article:published_time" content="2019-11-13T21:27:43.000Z">
-<meta property="article:modified_time" content="2026-06-21T10:11:29.469Z">
+<meta property="article:modified_time" content="2026-06-21T11:21:04.898Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="mkcert">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://alpha.checkitout.dev/images/mkcert1.png">
-
-<link rel="canonical" href="https://alpha.checkitout.dev/2019/11/13/mkcert/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>本地HTTPS证书工具 | 比十万多一点</title>
-  
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
-    <script>
-      if (CONFIG.hostname === location.hostname) {
+<meta name="twitter:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+        <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+
         gtag('config', 'UA-151212624-1');
-      }
-    </script>
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">比十万多一点</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">毕方</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-commonweal">
-
-    <a href="/404/404.html" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.jpeg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpeg">
+    <meta name="theme-color" content="#37c6c0">
+    <link rel="shortcut icon" href="/images/avatar.jpeg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            本地HTTPS证书工具 | 比十万多一点
+        
+    </title>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <a href="https://github.com/alphaqiu" class="github-corner" aria-label="View source on GitHub" target="_blank" rel="noopener"><svg width="70" height="70" viewBox="0 0 250 250" style="position:fixed; top:0; border:0; right:0; z-index:9999; fill:#000; color:#fff;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}@media (prefers-color-scheme: dark){.github-corner svg{fill:#fff;color:#000}}</style>
+                
+    
 
-          <div class="content post posts-expand">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"alpha.checkitout.dev","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"atom-one-light","dark":"night-owl"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#37c6c0","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"UA-151212624-1"}},"home_banner":{"enable":false,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"比十万多一点","subtitle":{"text":["记录, 分享, 备忘"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/alphaqiu"},{"icon":"fa-solid fa-at","url":"mailto:alphaqiu@gmail.com"},{"icon":"fa-solid fa-at","url":""},{"icon":"fa-brands fa-telegram","url":""},{"icon":"/images/custom-icon.svg","url":""}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#37c6c0","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2019/04/20 00:00:00","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2019/04/20 00:00:00","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                比十万多一点
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives/"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives/"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
             
 
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/11/13/mkcert/">
+            
+            
+                
+                    
+                    
+                    
+            
+        </ul>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          本地HTTPS证书工具
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-14 05:27:43" itemprop="dateCreated datePublished" datetime="2019-11-14T05:27:43+08:00">2019-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/11/13/mkcert/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/13/mkcert/" itemprop="commentCount"></span>
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="label text-third-text-color text-sm">标签</div>
     </a>
-  </span>
-  
-  
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
 
-        </div>
-      </header>
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">本地HTTPS证书工具</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpeg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">alpha</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2019-11-14 05:27:43</span>
+        <span class="mobile">2019-11-14 05:27:43</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-06-21 19:21:04</span>
+            <span class="mobile">2026-06-21 19:21:04</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/mkcert/">mkcert</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    
+</div>
 
-      
-        <blockquote>
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<blockquote>
 <p>​
 2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo
 Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。</p>
@@ -267,51 +535,56 @@ Valsorda使用Golang开发的一个开源工具，使用非常简单，不需要
 <h2 id="安装">安装</h2>
 <h3 id="macos">MacOS</h3>
 <p>Mac上面我们可以使用Homebrew来进行安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install mkcert</span><br><span class="line">brew install nss # 如果你使用Firefox的话</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install mkcert</span><br><span class="line">brew install nss # 如果你使用Firefox的话</span><br></pre></td></tr></table></figure></div>
 <h3 id="linux">Linux</h3>
 <p>在Linux上面，首先需要安装<code>certutil</code>。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libnss3-tools</span><br><span class="line">    -or-</span><br><span class="line">sudo yum install nss-tools</span><br><span class="line">    -or-</span><br><span class="line">sudo pacman -S nss</span><br><span class="line">    -or-</span><br><span class="line">sudo zypper install mozilla-nss-tools</span><br></pre></td></tr></table></figure>
-<p>然后你可以使用<a
-target="_blank" rel="noopener" href="http://linuxbrew.sh/">Linuxbrew</a>来安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mkcert</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libnss3-tools</span><br><span class="line">    -or-</span><br><span class="line">sudo yum install nss-tools</span><br><span class="line">    -or-</span><br><span class="line">sudo pacman -S nss</span><br><span class="line">    -or-</span><br><span class="line">sudo zypper install mozilla-nss-tools</span><br></pre></td></tr></table></figure></div>
+<p>然后你可以使用<a class="link" 
+ target="_blank" rel="noopener" href="http://linuxbrew.sh/" >Linuxbrew<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>来安装：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install mkcert</span><br></pre></td></tr></table></figure></div>
 <p>你也可以直接从源代码进行编译（依赖Go 1.10+）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/FiloSottile/mkcert</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">(go <span class="built_in">env</span> GOPATH)/bin/mkcert</span></span><br></pre></td></tr></table></figure>
-<p>你也可以直接使用编译好的<a
-target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert/releases">二进制文件</a>。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/FiloSottile/mkcert</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">(go <span class="built_in">env</span> GOPATH)/bin/mkcert</span></span><br></pre></td></tr></table></figure></div>
+<p>你也可以直接使用编译好的<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert/releases" >二进制文件<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <p>如果你使用的是Arch Linux：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://aur.archlinux.org/mkcert.git</span><br><span class="line">cd mkcert</span><br><span class="line">makepkg -si</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://aur.archlinux.org/mkcert.git</span><br><span class="line">cd mkcert</span><br><span class="line">makepkg -si</span><br></pre></td></tr></table></figure></div>
 <h3 id="windows">Windows</h3>
 <p>在Windows上面，你可以使用Chocolatey来进行安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install mkcert</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install mkcert</span><br></pre></td></tr></table></figure></div>
 <p>你也可以使用Scoop来进行安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add extras</span><br><span class="line">scoop install mkcert</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scoop bucket add extras</span><br><span class="line">scoop install mkcert</span><br></pre></td></tr></table></figure></div>
 <h2 id="使用">使用</h2>
 <p>首先，我们要创建并安装一个本地的CA证书到本地信任库中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkcert -install</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/alpha/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line">Sudo password:</span><br><span class="line">The <span class="built_in">local</span> CA is now installed <span class="keyword">in</span> the system trust store! ⚡️</span><br><span class="line">Warning: <span class="string">&quot;certutil&quot;</span> is not available, so the CA can<span class="string">&#x27;t be automatically installed in Firefox! ⚠️</span></span><br><span class="line"><span class="string">Install &quot;certutil&quot; with &quot;brew install nss&quot; and re-run &quot;mkcert -install&quot; 👈</span></span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkcert -install</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/alpha/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line">Sudo password:</span><br><span class="line">The <span class="built_in">local</span> CA is now installed <span class="keyword">in</span> the system trust store! ⚡️</span><br><span class="line">Warning: <span class="string">&quot;certutil&quot;</span> is not available, so the CA can<span class="string">&#x27;t be automatically installed in Firefox! ⚠️</span></span><br><span class="line"><span class="string">Install &quot;certutil&quot; with &quot;brew install nss&quot; and re-run &quot;mkcert -install&quot; 👈</span></span><br></pre></td></tr></table></figure></div>
 <p>如果没有安装nss 会提示以上信息。安装好
 nss后，再次执行<code>mkcert -install</code>。
 执行<code>mkcert -install</code>需要管理员密码，安装到系统keychain中。</p>
 <figure>
-<img src="/images/mkcert1.png" alt="keychain" />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mkcert1.png"
+                      alt="keychain" 
+                >
 <figcaption aria-hidden="true">keychain</figcaption>
 </figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkcert -install</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/alpha/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line">Sudo password:</span><br><span class="line">The <span class="built_in">local</span> CA is now installed <span class="keyword">in</span> the system trust store! ⚡️</span><br><span class="line">Warning: <span class="string">&quot;certutil&quot;</span> is not available, so the CA can<span class="string">&#x27;t be automatically installed in Firefox! ⚠️</span></span><br><span class="line"><span class="string">Install &quot;certutil&quot; with &quot;brew install nss&quot; and re-run &quot;mkcert -install&quot; 👈</span></span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkcert -install</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/alpha/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line">Sudo password:</span><br><span class="line">The <span class="built_in">local</span> CA is now installed <span class="keyword">in</span> the system trust store! ⚡️</span><br><span class="line">Warning: <span class="string">&quot;certutil&quot;</span> is not available, so the CA can<span class="string">&#x27;t be automatically installed in Firefox! ⚠️</span></span><br><span class="line"><span class="string">Install &quot;certutil&quot; with &quot;brew install nss&quot; and re-run &quot;mkcert -install&quot; 👈</span></span><br></pre></td></tr></table></figure></div>
 <p>再次执行<code>mkcert -install</code>会检测本地CA证书是否安装过了，安装过了就不会再安装；之前未安装的firefox证书会被安装。然后我们就可以直接生成我们自己的证书了。</p>
 <p>完成后，您可以开始为您的域生成SSL证书。比如我们要生成example.com,*.example.com,example.test,localhost,127.0.0.1,::1这几个地址的证书，那么使用mkcert直接跟上这些地址就可以了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ mkcert example.com <span class="string">&quot;*.example.com&quot;</span> example.test localhost 127.0.0.1 ::1</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/wangjunfeng/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line"></span><br><span class="line">Created a new certificate valid <span class="keyword">for</span> the following names 📜</span><br><span class="line"> - <span class="string">&quot;example.com&quot;</span></span><br><span class="line"> - <span class="string">&quot;*.example.com&quot;</span></span><br><span class="line"> - <span class="string">&quot;example.test&quot;</span></span><br><span class="line"> - <span class="string">&quot;localhost&quot;</span></span><br><span class="line"> - <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line"> - <span class="string">&quot;::1&quot;</span></span><br><span class="line"></span><br><span class="line">Reminder: X.509 wildcards only go one level deep, so this won<span class="string">&#x27;t match a.b.example.com ℹ️</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The certificate is at &quot;./example.com+5.pem&quot; and the key at &quot;./example.com+5-key.pem&quot; ✅</span></span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ mkcert example.com <span class="string">&quot;*.example.com&quot;</span> example.test localhost 127.0.0.1 ::1</span><br><span class="line">Using the <span class="built_in">local</span> CA at <span class="string">&quot;/Users/wangjunfeng/Library/Application Support/mkcert&quot;</span> ✨</span><br><span class="line"></span><br><span class="line">Created a new certificate valid <span class="keyword">for</span> the following names 📜</span><br><span class="line"> - <span class="string">&quot;example.com&quot;</span></span><br><span class="line"> - <span class="string">&quot;*.example.com&quot;</span></span><br><span class="line"> - <span class="string">&quot;example.test&quot;</span></span><br><span class="line"> - <span class="string">&quot;localhost&quot;</span></span><br><span class="line"> - <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line"> - <span class="string">&quot;::1&quot;</span></span><br><span class="line"></span><br><span class="line">Reminder: X.509 wildcards only go one level deep, so this won<span class="string">&#x27;t match a.b.example.com ℹ️</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The certificate is at &quot;./example.com+5.pem&quot; and the key at &quot;./example.com+5-key.pem&quot; ✅</span></span><br></pre></td></tr></table></figure></div>
 <p>剩下的，我们直接在nginx或者其他程序内配置使用这个生成的证书就可以了，比起自己手动添加证书的方式，真的是太简单，太好用了。</p>
 <h2 id="高级使用方法">高级使用方法</h2>
 <h3 id="高级参数">高级参数</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-cert-file FILE, -key-file FILE, -p12-file FILE</span><br><span class="line">	    Customize the output paths.</span><br><span class="line"></span><br><span class="line">	-client</span><br><span class="line">	    Generate a certificate <span class="keyword">for</span> client authentication.</span><br><span class="line"></span><br><span class="line">	-ecdsa</span><br><span class="line">	    Generate a certificate with an ECDSA key.</span><br><span class="line"></span><br><span class="line">	-pkcs12</span><br><span class="line">	    Generate a <span class="string">&quot;.p12&quot;</span> PKCS <span class="comment">#12 file, also know as a &quot;.pfx&quot; file,</span></span><br><span class="line">	    containing certificate and key <span class="keyword">for</span> legacy applications.</span><br><span class="line"></span><br><span class="line">	-csr CSR</span><br><span class="line">	    Generate a certificate based on the supplied CSR. Conflicts with</span><br><span class="line">	    all other flags and arguments except -install and -cert-file.</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-cert-file FILE, -key-file FILE, -p12-file FILE</span><br><span class="line">	    Customize the output paths.</span><br><span class="line"></span><br><span class="line">	-client</span><br><span class="line">	    Generate a certificate <span class="keyword">for</span> client authentication.</span><br><span class="line"></span><br><span class="line">	-ecdsa</span><br><span class="line">	    Generate a certificate with an ECDSA key.</span><br><span class="line"></span><br><span class="line">	-pkcs12</span><br><span class="line">	    Generate a <span class="string">&quot;.p12&quot;</span> PKCS <span class="comment">#12 file, also know as a &quot;.pfx&quot; file,</span></span><br><span class="line">	    containing certificate and key <span class="keyword">for</span> legacy applications.</span><br><span class="line"></span><br><span class="line">	-csr CSR</span><br><span class="line">	    Generate a certificate based on the supplied CSR. Conflicts with</span><br><span class="line">	    all other flags and arguments except -install and -cert-file.</span><br></pre></td></tr></table></figure></div>
 <h3 id="smime">S/MIME</h3>
 <p>如果你想要生成一个S/MIME邮件证书，那么直接在生成证书的时候名字写成你的邮箱就可以了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert filippo@example.com</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert filippo@example.com</span><br></pre></td></tr></table></figure></div>
 <h3 id="移动设备">移动设备</h3>
 <p>如果你想让你的证书在移动设备上面受信任，那么就必须安装rootCA。你可以使用<code>mkcert -CAROOT</code>来生成一个<code>rootCA.pem</code>的文件。</p>
 <p>在iOS设备上，你可以使用AirDrop、邮件将CA发送给自己，也可以放在http服务器上。安装后，你必须先设置信任该证书。</p>
 <p>对于安卓设备，同样你必须安装这个rootCA，并启用它。</p>
-<p>其他更多高级用法，可以直接在<a
-target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert">Github</a>上面查看。</p>
+<p>其他更多高级用法，可以直接在<a class="link" 
+ target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert" >Github<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>上面查看。</p>
 <h2 id="https最佳配置实践">HTTPS最佳配置实践</h2>
 <h3 id="https-证书选择">HTTPS 证书选择</h3>
 <p>HTTPS
@@ -319,8 +592,8 @@ target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert">Gith
 <p>证书有免费和付费两种，这里主要说免费的，常用免费证书主要有：</p>
 <ul>
 <li>与百度云、腾讯云、阿里云合作的赛门铁克签署的证书，一年免费，申请和使用都很简单，一年到期重新申请即可。</li>
-<li>现在很火的 <a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s
-Encrypt</a>，今年它还支持了通配符证书申请，可以说是非常亲民。但是缺点就是证书有效期只有90天，当然这个可以通过技术实现自动续期。对于我们这些小站，可以说是很不错的选择了。</li>
+<li>现在很火的 <a class="link"   target="_blank" rel="noopener" href="https://letsencrypt.org/" >Let’s
+Encrypt<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，今年它还支持了通配符证书申请，可以说是非常亲民。但是缺点就是证书有效期只有90天，当然这个可以通过技术实现自动续期。对于我们这些小站，可以说是很不错的选择了。</li>
 </ul>
 <h3 id="openssl版本">OpenSSL版本</h3>
 <p>首先要了解自己服务器的OpenSSL版本号，如果你是用的nginx可以通过<code>nginx -V</code>查看版本号，也可以通过<code>openssl version</code>查看（适用于非自己通过openssl源码编译的）。</p>
@@ -350,8 +623,8 @@ v1.2。</p>
 提供了现代的加密算法。</li>
 </ul>
 <blockquote>
-<p>注意： 2017年6月30号PCI安全标准委员会官方发表<a
-target="_blank" rel="noopener" href="https://blog.pcisecuritystandards.org/are-you-ready-for-30-june-2018-sayin-goodbye-to-ssl-early-tls">博文</a>将于2018年6月30号（最晚）禁用早期SSL/TLS，并实施更安全的加密协议(TLS
+<p>注意： 2017年6月30号PCI安全标准委员会官方发表<a class="link" 
+ target="_blank" rel="noopener" href="https://blog.pcisecuritystandards.org/are-you-ready-for-30-june-2018-sayin-goodbye-to-ssl-early-tls" >博文<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>将于2018年6月30号（最晚）禁用早期SSL/TLS，并实施更安全的加密协议(TLS
 v1.1或更高版本,强烈建议使用TLS
 v1.2)以满足PCI数据安全标准的要求，从而保护支付数据。</p>
 </blockquote>
@@ -359,7 +632,7 @@ v1.2)以满足PCI数据安全标准的要求，从而保护支付数据。</p>
 v1.2应该作为您的主要协议，现在TLS1.3已经出来了，未来主流应该是TLS v1.2 +
 TLS v1.3。</p>
 <p>nginx配置代码如下：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssl_protocols</span>   TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span> TLSv1.<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Apache"><figure class="iseeu highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssl_protocols</span>   TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span> TLSv1.<span class="number">3</span>;</span><br></pre></td></tr></table></figure></div>
 <h3 id="使用-hsts-http-strict-transport-security">使用 HSTS (HTTP Strict
 Transport Security)</h3>
 <p>指示浏览器只使用 HTTPS
@@ -373,7 +646,7 @@ SSL 证书的过期时间。</p>
 <p>建议设置 HSTS header
 长的生命周期，最好是半年及以上(即不能小于15552000)。</p>
 <p>nginx配置如下：</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_header <span class="keyword">Strict</span>-Transport-<span class="keyword">Security</span> &quot;max-age=31536000&quot;;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Pgsql"><figure class="iseeu highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_header <span class="keyword">Strict</span>-Transport-<span class="keyword">Security</span> &quot;max-age=31536000&quot;;</span><br></pre></td></tr></table></figure></div>
 <h3 id="选择安全的加密套件">选择安全的加密套件</h3>
 <p>为了安全通信，您必须首先确定您正在与所需方（而不是通过将窃听的其他人）直接沟通并安全地交换数据。在
 SSL 和 TLS 中，密码套件定义了如何进行安全通信。</p>
@@ -387,283 +660,510 @@ SSL 和 TLS 中，密码套件定义了如何进行安全通信。</p>
 <li>3DES 缓慢而虚弱。</li>
 </ul>
 <p>推荐的nginx配置：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssl_ciphers <span class="variable constant_">EECDH</span>+<span class="variable constant_">CHACHA20</span><span class="symbol">:EECDH+CHACHA20-draft</span><span class="symbol">:EECDH+AES128</span><span class="symbol">:RSA+AES128</span><span class="symbol">:EECDH+AES256</span><span class="symbol">:RSA+AES256</span><span class="symbol">:</span><span class="symbol">:</span>!<span class="variable constant_">MD5</span>;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Ruby"><figure class="iseeu highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssl_ciphers <span class="variable constant_">EECDH</span>+<span class="variable constant_">CHACHA20</span><span class="symbol">:EECDH+CHACHA20-draft</span><span class="symbol">:EECDH+AES128</span><span class="symbol">:RSA+AES128</span><span class="symbol">:EECDH+AES256</span><span class="symbol">:RSA+AES256</span><span class="symbol">:</span><span class="symbol">:</span>!<span class="variable constant_">MD5</span>;</span><br></pre></td></tr></table></figure></div>
 <h3 id="更多安全加固策略">更多安全加固策略</h3>
-<p>请参考文章<a
-target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices/">HTTPS
-安全最佳实践（二）之安全加固</a></p>
+<p>请参考文章<a class="link" 
+ target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices/" >HTTPS
+安全最佳实践（二）之安全加固<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <h3 id="nginx配置demo">nginx配置Demo</h3>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">server</span> &#123;</span><br><span class="line">    <span class="keyword">listen</span>       <span class="number">443</span> ssl http2; # 开启http2</span><br><span class="line">    server_name  www.test.com; # 站点域名</span><br><span class="line">    root         /path_to_webroot; # 网站目录</span><br><span class="line">    <span class="keyword">index</span>        <span class="keyword">index</span>.html;</span><br><span class="line"></span><br><span class="line">    ssl <span class="keyword">on</span>;</span><br><span class="line">    ssl_certificate &quot;/path_tocert/server.crt&quot;;</span><br><span class="line">    ssl_certificate_key &quot;/path_tocert/server.key&quot;;</span><br><span class="line">    ssl_session_cache shared:SSL:<span class="number">1</span>m;</span><br><span class="line">    ssl_session_timeout  <span class="number">10</span>m;</span><br><span class="line">    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256::!MD5;</span><br><span class="line">    ssl_protocols TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span>;</span><br><span class="line">    ssl_prefer_server_ciphers <span class="keyword">on</span>;</span><br><span class="line"></span><br><span class="line">    add_header <span class="keyword">Strict</span>-Transport-<span class="keyword">Security</span> &quot;max-age=31536000&quot;;</span><br><span class="line"></span><br><span class="line">    error_page <span class="number">404</span> /<span class="number">404.</span>html;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">server</span>&#123;</span><br><span class="line">    <span class="keyword">listen</span> <span class="number">80</span>;</span><br><span class="line">    server_name www.test.com;</span><br><span class="line">    rewrite ^(.*)$  https://$server_name$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="code-container" data-rel="Pgsql"><figure class="iseeu highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">server</span> &#123;</span><br><span class="line">    <span class="keyword">listen</span>       <span class="number">443</span> ssl http2; # 开启http2</span><br><span class="line">    server_name  www.test.com; # 站点域名</span><br><span class="line">    root         /path_to_webroot; # 网站目录</span><br><span class="line">    <span class="keyword">index</span>        <span class="keyword">index</span>.html;</span><br><span class="line"></span><br><span class="line">    ssl <span class="keyword">on</span>;</span><br><span class="line">    ssl_certificate &quot;/path_tocert/server.crt&quot;;</span><br><span class="line">    ssl_certificate_key &quot;/path_tocert/server.key&quot;;</span><br><span class="line">    ssl_session_cache shared:SSL:<span class="number">1</span>m;</span><br><span class="line">    ssl_session_timeout  <span class="number">10</span>m;</span><br><span class="line">    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256::!MD5;</span><br><span class="line">    ssl_protocols TLSv1<span class="number">.1</span> TLSv1<span class="number">.2</span>;</span><br><span class="line">    ssl_prefer_server_ciphers <span class="keyword">on</span>;</span><br><span class="line"></span><br><span class="line">    add_header <span class="keyword">Strict</span>-Transport-<span class="keyword">Security</span> &quot;max-age=31536000&quot;;</span><br><span class="line"></span><br><span class="line">    error_page <span class="number">404</span> /<span class="number">404.</span>html;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">server</span>&#123;</span><br><span class="line">    <span class="keyword">listen</span> <span class="number">80</span>;</span><br><span class="line">    server_name www.test.com;</span><br><span class="line">    rewrite ^(.*)$  https://$server_name$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h3 id="https-安全监测工具">HTTPS 安全监测工具</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://myssl.com/">MySSL</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.ssllabs.com/ssltest/index.html">Qualys SSL
-Test</a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://myssl.com/" >MySSL<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.ssllabs.com/ssltest/index.html" >Qualys SSL
+Test<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 <h3 id="参考资料">参考资料</h3>
 <ul>
-<li><a
-target="_blank" rel="noopener" href="https://blog.myssl.com/ssl-and-tls-deployment-best-practices/">HTTPS
-安全最佳实践（一）之SSL/TLS部署</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices/">HTTPS
-安全最佳实践（二）之安全加固</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices-2/">HTTPS
-安全最佳实践（三）之服务器软件</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-compatibility-best-practices/">HTTPS安全与兼容性配置指南</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.myssl.com/pci-dss/">更严格的PCI
-DSS合规标准</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://www.myfreax.com/how-to-create-locally-trusted-ssl-certificates-on-linux-and-macos-with-mkcert/">如何使用mkcert在Linux和macOS上创建本地受信任的SSL证书</a></li>
+<li><a class="link" 
+ target="_blank" rel="noopener" href="https://blog.myssl.com/ssl-and-tls-deployment-best-practices/" >HTTPS
+安全最佳实践（一）之SSL/TLS部署<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link" 
+ target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices/" >HTTPS
+安全最佳实践（二）之安全加固<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link" 
+ target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-best-practices-2/" >HTTPS
+安全最佳实践（三）之服务器软件<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link" 
+ target="_blank" rel="noopener" href="https://blog.myssl.com/https-security-compatibility-best-practices/" >HTTPS安全与兼容性配置指南<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.myssl.com/pci-dss/" >更严格的PCI
+DSS合规标准<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link" 
+ target="_blank" rel="noopener" href="https://www.myfreax.com/how-to-create-locally-trusted-ssl-certificates-on-linux-and-macos-with-mkcert/" >如何使用mkcert在Linux和macOS上创建本地受信任的SSL证书<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 本地HTTPS证书工具</li>
+        <li><strong>作者:</strong> alpha</li>
+        <li><strong>创建于
+                :</strong> 2019-11-14 05:27:43</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-06-21 19:21:04
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://alpha.checkitout.dev/2019/11/13/mkcert/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/mkcert/">#mkcert</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2019/12/25/bip39/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">助记词的生成原理</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2019/11/05/untrusted_cert_title/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Mac重新安装显示 untrusted_cert_title</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
     </div>
-
     
-    
-    
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/mkcert/" rel="tag"><i class="fa fa-tag"></i> mkcert</a>
-          </div>
 
         
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "pathname";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "alphaqiu/alphaqiu.github.io",
+                    "data-repo-id": "R_kgDONo4dgg",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDONo4dgs4C_l1q",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();
+    </script>
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/12/25/bip39/" rel="prev" title="助记词的生成原理">
-      <i class="fa fa-chevron-left"></i> 助记词的生成原理
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/11/05/untrusted_cert_title/" rel="next" title="Mac重新安装显示 untrusted_cert_title">
-      Mac重新安装显示 untrusted_cert_title <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
     
-  </article>
-  
-  
-  
+</div>
 
+		</div>
+		
+	</div>
 
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">本地HTTPS证书工具</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#macos"><span class="nav-text">MacOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows"><span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-text">高级使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8F%82%E6%95%B0"><span class="nav-text">高级参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#smime"><span class="nav-text">S&#x2F;MIME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87"><span class="nav-text">移动设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https%E6%9C%80%E4%BD%B3%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5"><span class="nav-text">HTTPS最佳配置实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#https-%E8%AF%81%E4%B9%A6%E9%80%89%E6%8B%A9"><span class="nav-text">HTTPS 证书选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openssl%E7%89%88%E6%9C%AC"><span class="nav-text">OpenSSL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-text">使用安全的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-hsts-http-strict-transport-security"><span class="nav-text">使用 HSTS (HTTP Strict
+Transport Security)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E5%A5%97%E4%BB%B6"><span class="nav-text">选择安全的加密套件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA%E7%AD%96%E7%95%A5"><span class="nav-text">更多安全加固策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AEdemo"><span class="nav-text">nginx配置Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#https-%E5%AE%89%E5%85%A8%E7%9B%91%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="nav-text">HTTPS 安全监测工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol></li></ol>
 
-          </div>
-          
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
+	</div>
+</div>
+	</div>
+	
+</div>
 
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
+			</div>
 
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2019</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">alpha</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 49 篇文章
+                    </span>
+                    
+                </p>
+            
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#macos"><span class="nav-number">1.1.</span> <span class="nav-text">MacOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-number">1.2.</span> <span class="nav-text">Linux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows"><span class="nav-number">1.3.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">高级使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">高级参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#smime"><span class="nav-number">3.2.</span> <span class="nav-text">S&#x2F;MIME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87"><span class="nav-number">3.3.</span> <span class="nav-text">移动设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https%E6%9C%80%E4%BD%B3%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5"><span class="nav-number">4.</span> <span class="nav-text">HTTPS最佳配置实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#https-%E8%AF%81%E4%B9%A6%E9%80%89%E6%8B%A9"><span class="nav-number">4.1.</span> <span class="nav-text">HTTPS 证书选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openssl%E7%89%88%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">OpenSSL版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.3.</span> <span class="nav-text">使用安全的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-hsts-http-strict-transport-security"><span class="nav-number">4.4.</span> <span class="nav-text">使用 HSTS (HTTP Strict
-Transport Security)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E5%A5%97%E4%BB%B6"><span class="nav-number">4.5.</span> <span class="nav-text">选择安全的加密套件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA%E7%AD%96%E7%95%A5"><span class="nav-number">4.6.</span> <span class="nav-text">更多安全加固策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AEdemo"><span class="nav-number">4.7.</span> <span class="nav-text">nginx配置Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#https-%E5%AE%89%E5%85%A8%E7%9B%91%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="nav-number">4.8.</span> <span class="nav-text">HTTPS 安全监测工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.9.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="alpha"
-      src="/images/avatar.jpeg">
-  <p class="site-author-name" itemprop="name">alpha</p>
-  <div class="site-description" itemprop="description">记录,分享,备忘</div>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">49</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">38</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
-      </span>
-  </div>
+	</div>
 
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2026</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">alpha</span>
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
 
 
+	
 
+</main>
 
 
 
+<script src="/js/build/libs/Swup.min.js"></script>
 
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
 
-      </div>
-    </footer>
-  </div>
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
 
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://alphaqiu.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "https://alpha.checkitout.dev/2019/11/13/mkcert/";
-    this.page.identifier = "2019/11/13/mkcert/";
-    this.page.title = "本地HTTPS证书工具";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://alphaqiu.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
 </script>
 
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
 </body>
+
 </html>

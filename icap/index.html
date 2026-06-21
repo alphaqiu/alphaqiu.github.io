@@ -28,7 +28,7 @@
 <meta property="og:description" content="什么是ICAP？从以太坊Homestead指南的词汇表中可以看出：  Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring f">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-06-02T04:30:54.000Z">
-<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
+<meta property="article:modified_time" content="2026-06-21T10:11:29.468Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="ICAP">
 <meta property="article:tag" content="协议">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,60 +247,95 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>什么是ICAP</strong>？从以太坊Homestead指南的<a target="_blank" rel="noopener" href="https://github.com/ethereum/homestead-guide/blob/master/source/glossary.rst">词汇表</a>中可以看出：</p>
+        <p><strong>什么是ICAP</strong>？从以太坊Homestead指南的<a
+target="_blank" rel="noopener" href="https://github.com/ethereum/homestead-guide/blob/master/source/glossary.rst">词汇表</a>中可以看出：</p>
 <blockquote>
-<p>Interexchange Client Address Protocol, an IBAN-compatible system for referencing and transacting to client accounts aimed to streamline the process of transferring funds, worry-free between exchanges and, ultimately, making KYC and AML concerns a thing of the past.</p>
+<p>Interexchange Client Address Protocol, an IBAN-compatible system for
+referencing and transacting to client accounts aimed to streamline the
+process of transferring funds, worry-free between exchanges and,
+ultimately, making KYC and AML concerns a thing of the past.</p>
 </blockquote>
-<p>ICAP 互换客户端地址协议，一种IBAN兼容系统，用于引用和处理客户帐户，旨在简化资金转移流程，在交易所之间无忧无虑，并最终使KYC和AML成为过去。</p>
-<p>这里有相关于以太坊对ICAP的<a target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol">介绍</a>：</p>
+<p>ICAP
+互换客户端地址协议，一种IBAN兼容系统，用于引用和处理客户帐户，旨在简化资金转移流程，在交易所之间无忧无虑，并最终使KYC和AML成为过去。</p>
+<p>这里有相关于以太坊对ICAP的<a
+target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol">介绍</a>：</p>
 <blockquote>
 <p>在第三方账户之间（特别是交易所账户）之间转账资金给用户带来了相当大的负担，并且由于客户账户中的存款被识别的方式而容易出错。现有的银行业通过拥有一个被称为<em>IBAN</em>的通用代码解决了这个问题。该代码合并了机构和客户帐户以及错误检测机制，实际上消除了微不足道的错误并为用户提供了相当大的便利。不幸的是，这是一个严格监管和集中的服务，只有大型的，完善的机构才能使用。目前的议定书ICAP可被视为适用于以太坊系统中任何含有资金的机构的分散版本。</p>
 </blockquote>
 <span id="more"></span>
-
-<h2 id="IBAN介绍"><a href="#IBAN介绍" class="headerlink" title="IBAN介绍"></a>IBAN介绍</h2><p><strong>国际银行账户号码</strong><del>[1]</del> (International Bank Account Number，简称<strong>IBAN</strong>)是各国各<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%8A%80%E8%A1%8C">银行</a>之间互相定立的标识号码，可降低国际间金融操作的失误。它最初是由欧洲银行标准委员会（ECBS）通过，后来被采纳为国际标准 ISO 13616:1997。目前的标准是ISO 13616:2007，表明<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/SWIFT%E4%BB%A3%E7%A2%BC">SWIFT代码</a>（ISO 9362）为正式的格式。最初开发是为了促进<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%AD%90%E7%9B%9F">欧盟</a>范围内的支付，但现在也已经实施到大多数欧洲国家和其他国家，尤其是在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9D%B1">中东</a>和<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%8A%A0%E5%8B%92%E6%AF%94%E5%9C%B0%E5%8C%BA">加勒比海地区</a>。IBAN最多包含34个字母和数字字符：首两个字母是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1α-2</a>国家代码，然后两个校验位，校验位可检查完整性。最后一个是特定国家的基本银行账户号码（BBAN）。BBAN格式的决定是由每个国家的银行界的约束下，它必须是一个固定长度的不区分大小写的英数字。它包括国内银行账户号码，银行分行的号码，和潜在的路由信息。</p>
-<h3 id="基本银行账户号码"><a href="#基本银行账户号码" class="headerlink" title="基本银行账户号码"></a>基本银行账户号码</h3><p>基本银行账户号码（The Basic Bank Account Number，简称<strong>BBAN</strong>）的格式是由国家中央银行或相应机关所订定，格式并没有强制性。一国的基本银行账户号码须为固定长度且由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E5%B0%8F%E5%86%99%E6%95%8F%E6%84%9F%E6%80%A7">大小写不敏感</a>的英数字组成。其包括本国账户号码，子分支辨识码与路径资讯。各国皆可拥有不同的编号系统，最多三十字。</p>
-<h3 id="IBAN结构"><a href="#IBAN结构" class="headerlink" title="IBAN结构"></a>IBAN结构</h3><p>IBAN代码由多达34个不区分大小写的字母数字字符组成，其字符取值范围为0-9和A-Z。它包含三个信息：</p>
+<h2 id="iban介绍">IBAN介绍</h2>
+<p><strong>国际银行账户号码</strong><sub>[1]</sub> (International Bank
+Account Number，简称<strong>IBAN</strong>)是各国各<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%8A%80%E8%A1%8C">银行</a>之间互相定立的标识号码，可降低国际间金融操作的失误。它最初是由欧洲银行标准委员会（ECBS）通过，后来被采纳为国际标准
+ISO 13616:1997。目前的标准是ISO 13616:2007，表明<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/SWIFT%E4%BB%A3%E7%A2%BC">SWIFT代码</a>（ISO
+9362）为正式的格式。最初开发是为了促进<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%AD%90%E7%9B%9F">欧盟</a>范围内的支付，但现在也已经实施到大多数欧洲国家和其他国家，尤其是在<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9D%B1">中东</a>和<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%8A%A0%E5%8B%92%E6%AF%94%E5%9C%B0%E5%8C%BA">加勒比海地区</a>。IBAN最多包含34个字母和数字字符：首两个字母是<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ISO_3166-1">ISO
+3166-1α-2</a>国家代码，然后两个校验位，校验位可检查完整性。最后一个是特定国家的基本银行账户号码（BBAN）。BBAN格式的决定是由每个国家的银行界的约束下，它必须是一个固定长度的不区分大小写的英数字。它包括国内银行账户号码，银行分行的号码，和潜在的路由信息。</p>
+<h3 id="基本银行账户号码">基本银行账户号码</h3>
+<p>基本银行账户号码（The Basic Bank Account
+Number，简称<strong>BBAN</strong>）的格式是由国家中央银行或相应机关所订定，格式并没有强制性。一国的基本银行账户号码须为固定长度且由<a
+target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%A4%A7%E5%B0%8F%E5%86%99%E6%95%8F%E6%84%9F%E6%80%A7">大小写不敏感</a>的英数字组成。其包括本国账户号码，子分支辨识码与路径资讯。各国皆可拥有不同的编号系统，最多三十字。</p>
+<h3 id="iban结构">IBAN结构</h3>
+<p>IBAN代码由多达34个不区分大小写的字母数字字符组成，其字符取值范围为0-9和A-Z。它包含三个信息：</p>
 <ul>
 <li>国家代码; 以下内容的顶级标识符（ISO 3166-1 alpha-2）;</li>
-<li>错误检测代码; 使用<em>mod-97-10</em>校验和协议（ISO &#x2F; IEC 7064：2003）;</li>
-<li>基本银行账号（BBAN）; 该机构，分支和客户账户的标识符，其组成取决于上述国家。</li>
+<li>错误检测代码; 使用<em>mod-97-10</em>校验和协议（ISO / IEC
+7064：2003）;</li>
+<li>基本银行账号（BBAN）;
+该机构，分支和客户账户的标识符，其组成取决于上述国家。</li>
 </ul>
 <p>举例来说，从维基百科可以得知，英国的IBAN格式定义为：</p>
 <table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 39%" />
+<col style="width: 52%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>国家</th>
 <th>格式</th>
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>英国🇬🇧</td>
 <td><code>GBkk bbbb ssss sscc cccc cc</code></td>
-<td>b &#x3D; 银行代码 s &#x3D; 银行分类代码 c &#x3D; 账号</td>
+<td>b = 银行代码 s = 银行分类代码 c = 账号</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>该 <code>GBkk bbbb ssss sscc cccc cc</code> 格式解读为：</p>
 <p><code>[国家代码:GB][错误校验码:kk][基本银行账号:bbbb ssss sscc cccc cc]</code></p>
 <p>对于英国来说，BBAN由以下部分组成：</p>
 <ul>
-<li>机构标识符，4个字符的字母，例如 <code>MIDL</code> 代表汇丰银行。</li>
+<li>机构标识符，4个字符的字母，例如 <code>MIDL</code>
+代表汇丰银行。</li>
 <li>分类代码（机构内的分行标识符），一个6位十进制数字，例如<code>402702</code>汇丰银行的Lancaster分行。</li>
 <li>帐号（分支机构内的客户标识符），一个8位十进制数字。</li>
 </ul>
-<h2 id="以太坊ICAP设计"><a href="#以太坊ICAP设计" class="headerlink" title="以太坊ICAP设计"></a>以太坊ICAP设计</h2><p>以太坊引入了新的IBAN国家代码：XE，X前缀为扩展的意思，E表示为以太坊（Ethereum），制定为非法定货币（例如XBOX, XEOS）。以太坊在IBAN基础上设计了ICAP，其设计思路与IBAN兼容。目的是为了方便各大公链之间转账？它有三种BBAN代码类型：直接类型，基本类型和间接类型。</p>
-<h3 id="直接类型"><a href="#直接类型" class="headerlink" title="直接类型"></a>直接类型</h3><p>此代码的直接BBAN为30个字符，将包含一个字段：</p>
+<h2 id="以太坊icap设计">以太坊ICAP设计</h2>
+<p>以太坊引入了新的IBAN国家代码：XE，X前缀为扩展的意思，E表示为以太坊（Ethereum），制定为非法定货币（例如XBOX,
+XEOS）。以太坊在IBAN基础上设计了ICAP，其设计思路与IBAN兼容。目的是为了方便各大公链之间转账？它有三种BBAN代码类型：直接类型，基本类型和间接类型。</p>
+<h3 id="直接类型">直接类型</h3>
+<p>此代码的直接BBAN为30个字符，将包含一个字段：</p>
 <ul>
 <li>帐户标识符，30个字母数字（&lt;155位）。这将被解释为表示160位以太坊地址的最低有效位的大端编码的36进制整数。因此，这些以太坊地址通常以零字节开始。</li>
 </ul>
 <p>例如XE 73 38O073KYGTWWZN0F2WZ0R8PX5ZPPZS，它的对应的地址</p>
 <p><code>00c5496aee77c1ba1f0854206a26dda82a81d6d8</code></p>
-<h3 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h3><p>与直接编码相同，但代码为31个字符（与IBAN不兼容）并组成相同的单个字段：</p>
+<h3 id="基本类型">基本类型</h3>
+<p>与直接编码相同，但代码为31个字符（与IBAN不兼容）并组成相同的单个字段：</p>
 <ul>
 <li>帐户标识符，31个字符字母数字（&lt;161位）。这将被解释为一个代表160位以太坊地址的大端编码的36进制整数。</li>
 </ul>
-<h3 id="间接类型"><a href="#间接类型" class="headerlink" title="间接类型"></a>间接类型</h3><p>该代码的BBAN在间接时将为16个字符，并将包含三个字段：</p>
+<h3 id="间接类型">间接类型</h3>
+<p>该代码的BBAN在间接时将为16个字符，并将包含三个字段：</p>
 <ul>
 <li>资产标识符，3个字符的字母数字（&lt;16位）;</li>
 <li>机构标识符，4个字符的字母数字（&lt;21位）;</li>
@@ -308,73 +343,95 @@
 </ul>
 <p>包括四个首字符，这导致最终的客户帐户地址长度为20个字符，格式为：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XE81ETHXREGGAVOFYORK</span><br></pre></td></tr></table></figure>
-
 <p>分成：</p>
 <ul>
 <li><code>XE</code> 以太坊的国家代码;</li>
 <li><code>81</code> 校验和;</li>
-<li><code>ETH</code> 客户账户中的资产标识符 - 在这种情况下，“ETH”是唯一有效的资产标识符，因为以太坊的基础注册管理机构合同仅支持该资产;</li>
-<li><code>XREG</code> 账户的机构代码 - 在这种情况下，以太坊的基础注册管理机构合同;</li>
-<li><code>GAVOFYORK</code> 该机构内的客户标识符 - 在这种情况下，直接支付且无任何主要地址的额外数据与以太坊基础注册合同中的名称“GAVOFYORK”相关联;</li>
+<li><code>ETH</code> 客户账户中的资产标识符 -
+在这种情况下，“ETH”是唯一有效的资产标识符，因为以太坊的基础注册管理机构合同仅支持该资产;</li>
+<li><code>XREG</code> 账户的机构代码 -
+在这种情况下，以太坊的基础注册管理机构合同;</li>
+<li><code>GAVOFYORK</code> 该机构内的客户标识符 -
+在这种情况下，直接支付且无任何主要地址的额外数据与以太坊基础注册合同中的名称“GAVOFYORK”相关联;</li>
 </ul>
-<h3 id="URI表示形式"><a href="#URI表示形式" class="headerlink" title="URI表示形式"></a>URI表示形式</h3><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">iban:</span>XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="具体实现：以太坊地址转换成ICAP格式"><a href="#具体实现：以太坊地址转换成ICAP格式" class="headerlink" title="具体实现：以太坊地址转换成ICAP格式"></a>具体实现：以太坊地址转换成ICAP格式</h2><h3 id="转换函数"><a href="#转换函数" class="headerlink" title="转换函数"></a>转换函数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ConvertAddressToICAP 将以太坊地址转换为ICAP格式的地址</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ConvertAddressToICAP</span><span class="params">(a common.Address)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	enc := base36Encode(a.Big())</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(enc) &lt; <span class="number">30</span> &#123;</span><br><span class="line">		enc = join(strings.Repeat(<span class="string">&quot;0&quot;</span>, <span class="number">30</span>-<span class="built_in">len</span>(enc)), enc)</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 以太坊国家代码XE + 校验码 + 账号</span></span><br><span class="line">	icap := join(<span class="string">&quot;XE&quot;</span>, checkDigits(enc), enc)</span><br><span class="line">	<span class="keyword">return</span> icap, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="36进制编码"><a href="#36进制编码" class="headerlink" title="36进制编码"></a>36进制编码</h3><p>其规则如同十进制数转十六进制数，其算法如下：</p>
-<p>十六进制数取值范围表示s&#x3D;”0123456789ABCDEF”。其字符串数组下标范围为0-15，其中对应的下标：A&#x3D;11，B&#x3D;12… F&#x3D;15。</p>
+<h3 id="uri表示形式">URI表示形式</h3>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">iban:</span>XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS</span><br></pre></td></tr></table></figure>
+<h2
+id="具体实现以太坊地址转换成icap格式">具体实现：以太坊地址转换成ICAP格式</h2>
+<h3 id="转换函数">转换函数</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ConvertAddressToICAP 将以太坊地址转换为ICAP格式的地址</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ConvertAddressToICAP</span><span class="params">(a common.Address)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	enc := base36Encode(a.Big())</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(enc) &lt; <span class="number">30</span> &#123;</span><br><span class="line">		enc = join(strings.Repeat(<span class="string">&quot;0&quot;</span>, <span class="number">30</span>-<span class="built_in">len</span>(enc)), enc)</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 以太坊国家代码XE + 校验码 + 账号</span></span><br><span class="line">	icap := join(<span class="string">&quot;XE&quot;</span>, checkDigits(enc), enc)</span><br><span class="line">	<span class="keyword">return</span> icap, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="进制编码">36进制编码</h3>
+<p>其规则如同十进制数转十六进制数，其算法如下：</p>
+<p>十六进制数取值范围表示s=“0123456789ABCDEF”。其字符串数组下标范围为0-15，其中对应的下标：A=11，B=12…
+F=15。</p>
 <p>记余数数组a，</p>
-<ol>
+<ol type="1">
 <li>把10进制数除以16，获取整数商和余数，记下余数和整数商，并把余数放入余数数组a；</li>
 <li>整数商不为0时，再次执行第一个步骤，整数商为0时停止，并记录下此时的余数；</li>
 <li>倒排余数数组a，同时影射每个位置值到s字符串数组下标对应的值。</li>
 </ol>
-<p>例如：十进制数505，500&#x2F;16 得31余9，将9放入余数数组a，由于31不为0，再次用31&#x2F;16 得1余15，将15放入a，1不为0，再次用1&#x2F;16 得0余1，将1放入a，倒排a，得[s[1],s[15],s[9]] &#x3D; [‘1’, ‘F’, ‘9’] &#x3D; “0x1F9” &#x3D; 505。</p>
-<p>36进制编码也是采用了如上算法，只是s&#x3D;”0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ”。</p>
+<p>例如：十进制数505，500/16
+得31余9，将9放入余数数组a，由于31不为0，再次用31/16
+得1余15，将15放入a，1不为0，再次用1/16
+得0余1，将1放入a，倒排a，得[s[1],s[15],s[9]] = [‘1’, ‘F’, ‘9’] = “0x1F9”
+= 505。</p>
+<p>36进制编码也是采用了如上算法，只是s=“0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ”。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    Base36Chars = <span class="string">&quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span></span><br><span class="line">    Big36 = big.NewInt(<span class="number">36</span>)</span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">base36Encode</span><span class="params">(i *big.Int)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> chars []<span class="type">rune</span></span><br><span class="line">	x := <span class="built_in">new</span>(big.Int)</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		x.Mod(i, Big36)</span><br><span class="line">		chars = <span class="built_in">append</span>(chars, <span class="type">rune</span>(Base36Chars[x.Uint64()]))</span><br><span class="line">		i.Div(i, Big36)</span><br><span class="line">		<span class="keyword">if</span> i.Cmp(Big0) == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// reverse slice</span></span><br><span class="line">	<span class="keyword">for</span> i, j := <span class="number">0</span>, <span class="built_in">len</span>(chars)<span class="number">-1</span>; i &lt; j; i, j = i+<span class="number">1</span>, j<span class="number">-1</span> &#123;</span><br><span class="line">		chars[i], chars[j] = chars[j], chars[i]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="type">string</span>(chars)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="校验码"><a href="#校验码" class="headerlink" title="校验码"></a>校验码</h3><p>校验码使用了<em>mod-97-10</em>校验和<a target="_blank" rel="noopener" href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7064:ed-1:v1:en">协议</a> (ISO &#x2F; IEC 7064：2003)，查看ISO具体<a target="_blank" rel="noopener" href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7064:ed-1:v1:en">协议</a>需要8,800瑞士法郎。</p>
+<h3 id="校验码">校验码</h3>
+<p>校验码使用了<em>mod-97-10</em>校验和<a
+target="_blank" rel="noopener" href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7064:ed-1:v1:en">协议</a>
+(ISO / IEC 7064：2003)，查看ISO具体<a
+target="_blank" rel="noopener" href="https://www.iso.org/obp/ui/#iso:std:iso-iec:7064:ed-1:v1:en">协议</a>需要8,800瑞士法郎。</p>
 <p>举例，对于字符串794，其算法步骤为：</p>
-<p>步骤1：追加两个零占据校验字符位置：79400;<br>步骤2：除以97，得到商818和整数余数54;<br>步骤3：将校验字符值确定为（97 + 1） - 54 &#x3D; 44并将其附加到原始字符串以给出79444。</p>
+<p>步骤1：追加两个零占据校验字符位置：79400;
+步骤2：除以97，得到商818和整数余数54; 步骤3：将校验字符值确定为（97 +
+1） - 54 = 44并将其附加到原始字符串以给出79444。</p>
 <p>为了检查，将字符串除以97; 如果提醒是1，则校验通过。</p>
-<p><strong>计算国际银行帐号（IBAN）的校验位（xx yyy zzzzzzzz kk）</strong></p>
+<p><strong>计算国际银行帐号（IBAN）的校验位（xx yyy zzzzzzzz
+kk）</strong></p>
 <ul>
 <li><em>余数不等于0的计算。</em></li>
 </ul>
 <blockquote>
 <p>不包括支票号码的银行账号：06 000 01234567。</p>
-<p>a：06 000 01234567 <strong>00</strong><br>b：060000123456700：97 &#x3D; 618557973780余数&#x3D; 40<br>c：（97 + 1） - 40 &#x3D; 58结果：06 000 01234567 <strong>58</strong></p>
-<p>校验和：06000123456758：97 &#x3D; 618557973781其余&#x3D; 1</p>
+<p>a：06 000 01234567 <strong>00</strong> b：060000123456700：97 =
+618557973780余数= 40 c：（97 + 1） - 40 = 58结果：06 000 01234567
+<strong>58</strong></p>
+<p>校验和：06000123456758：97 = 618557973781其余= 1</p>
 </blockquote>
 <ul>
 <li><em>无余数计算或余数等于0。</em></li>
 </ul>
 <blockquote>
 <p>不包括支票号码的银行账号：06 000 01234586。</p>
-<p>a：06 000 01234586 <strong>00</strong><br>b：060000123458600：97 &#x3D; 618557973800其余&#x3D; 00<br>c：（97 + 1） - 00 &#x3D; 98结果：06 000 01234586 <strong>98</strong>。</p>
-<p>校验和：06000123458698：97 &#x3D; 618557973801余数&#x3D; 1。</p>
+<p>a：06 000 01234586 <strong>00</strong> b：060000123458600：97 =
+618557973800其余= 00 c：（97 + 1） - 00 = 98结果：06 000 01234586
+<strong>98</strong>。</p>
+<p>校验和：06000123458698：97 = 618557973801余数= 1。</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">checkDigits</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	expanded, _ := iso13616Expand(strings.Join([]<span class="type">string</span>&#123;s, <span class="string">&quot;XE00&quot;</span>&#125;, <span class="string">&quot;&quot;</span>))</span><br><span class="line">	num, _ := <span class="built_in">new</span>(big.Int).SetString(expanded, <span class="number">10</span>)</span><br><span class="line">    <span class="comment">//mod-97-10</span></span><br><span class="line">	num.Sub(Big98, num.Mod(num, Big97))</span><br><span class="line"></span><br><span class="line">	checkDigits := num.String()</span><br><span class="line">	<span class="comment">// zero padd checksum</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(checkDigits) == <span class="number">1</span> &#123;</span><br><span class="line">		checkDigits = join(<span class="string">&quot;0&quot;</span>, checkDigits)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> checkDigits</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// not base-36, but expansion to decimal literal: A = 10, B = 11, ... Z = 35</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">iso13616Expand</span><span class="params">(s <span class="type">string</span>)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> parts []<span class="type">string</span></span><br><span class="line">	<span class="keyword">if</span> !validBase36(s) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;&quot;</span>, errICAPEncoding</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, c := <span class="keyword">range</span> s &#123;</span><br><span class="line">		i := <span class="type">uint64</span>(c)</span><br><span class="line">		<span class="keyword">if</span> i &gt;= <span class="number">65</span> &#123;</span><br><span class="line">            <span class="comment">//字符A-Z在ASCII码表中分别对应10进制值为65，66...</span></span><br><span class="line">            <span class="comment">//字符A-Z的36进制字符串索引分别是A=10,B=11...</span></span><br><span class="line">            <span class="comment">//字符的码表值-字符的索引值=55</span></span><br><span class="line">            <span class="comment">//字符码表值-55=字符的索引值</span></span><br><span class="line">			parts = <span class="built_in">append</span>(parts, strconv.FormatUint(<span class="type">uint64</span>(c)<span class="number">-55</span>, <span class="number">10</span>))</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			parts = <span class="built_in">append</span>(parts, <span class="type">string</span>(c))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> join(parts...), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="具体实现：ICAP格式转换成以太坊地址"><a href="#具体实现：ICAP格式转换成以太坊地址" class="headerlink" title="具体实现：ICAP格式转换成以太坊地址"></a>具体实现：ICAP格式转换成以太坊地址</h2><h3 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">validCheckSum</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	s = join(s[<span class="number">4</span>:], s[:<span class="number">4</span>])</span><br><span class="line">	expanded, err := iso13616Expand(s)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	checkSumNum, _ := <span class="built_in">new</span>(big.Int).SetString(expanded, <span class="number">10</span>)</span><br><span class="line">	<span class="keyword">if</span> checkSumNum.Mod(checkSumNum, Big97).Cmp(Big1) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errICAPChecksum</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parseICAP</span><span class="params">(s <span class="type">string</span>)</span></span> (common.Address, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> !strings.HasPrefix(s, <span class="string">&quot;XE&quot;</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Address&#123;&#125;, errICAPCountryCode</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := validCheckSum(s); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Address&#123;&#125;, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// checksum is ISO13616, Ethereum address is base-36</span></span><br><span class="line">	bigAddr, _ := <span class="built_in">new</span>(big.Int).SetString(s[<span class="number">4</span>:], <span class="number">36</span>)</span><br><span class="line">	<span class="keyword">return</span> common.BigToAddress(bigAddr), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>imToken钱包二维码使用了ICAP格式，扫码之后出现的格式为：</p>
+<h2
+id="具体实现icap格式转换成以太坊地址">具体实现：ICAP格式转换成以太坊地址</h2>
+<h3 id="校验">校验</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">validCheckSum</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	s = join(s[<span class="number">4</span>:], s[:<span class="number">4</span>])</span><br><span class="line">	expanded, err := iso13616Expand(s)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	checkSumNum, _ := <span class="built_in">new</span>(big.Int).SetString(expanded, <span class="number">10</span>)</span><br><span class="line">	<span class="keyword">if</span> checkSumNum.Mod(checkSumNum, Big97).Cmp(Big1) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errICAPChecksum</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="转换">转换</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parseICAP</span><span class="params">(s <span class="type">string</span>)</span></span> (common.Address, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> !strings.HasPrefix(s, <span class="string">&quot;XE&quot;</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Address&#123;&#125;, errICAPCountryCode</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := validCheckSum(s); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> common.Address&#123;&#125;, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// checksum is ISO13616, Ethereum address is base-36</span></span><br><span class="line">	bigAddr, _ := <span class="built_in">new</span>(big.Int).SetString(s[<span class="number">4</span>:], <span class="number">36</span>)</span><br><span class="line">	<span class="keyword">return</span> common.BigToAddress(bigAddr), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="用途">用途</h2>
+<p>imToken钱包二维码使用了ICAP格式，扫码之后出现的格式为：</p>
 <p><code>iban:XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO?account=100&amp;type=ETH</code></p>
 <p>其中<code>XE86G29C8IV34UOJMYWHGDSGME33YKEC3QO</code>是转账的地址，<code>account</code>是转账的数额，<code>type</code>是转账的类型，这里代表转ETH。</p>
-<p><a target="_blank" rel="noopener" href="https://box.la/">BOX</a>将兼容imToken格式。</p>
+<p><a target="_blank" rel="noopener" href="https://box.la">BOX</a>将兼容imToken格式。</p>
 <p>完整的代码片段可以在这里找到：</p>
-<p><a target="_blank" rel="noopener" href="https://gist.github.com/alphaqiu/646d45fc5c2b1f42d8529d55b52f58d2">https://gist.github.com/alphaqiu/646d45fc5c2b1f42d8529d55b52f58d2</a></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.)  <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia: International Bank Account Number</a></p>
-<p>2.)  <a target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol">ICAP: Inter exchange Client Address Protocol</a></p>
-<p>3.)  <a target="_blank" rel="noopener" href="https://github.com/boxproject/">Open source: BOX a business wallet solution</a></p>
+<p>https://gist.github.com/alphaqiu/646d45fc5c2b1f42d8529d55b52f58d2</p>
+<h2 id="参考">参考</h2>
+<p>1.) <a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">Wikipedia:
+International Bank Account Number</a></p>
+<p>2.) <a
+target="_blank" rel="noopener" href="https://github.com/ethereum/wiki/wiki/ICAP:-Inter-exchange-Client-Address-Protocol">ICAP:
+Inter exchange Client Address Protocol</a></p>
+<p>3.) <a target="_blank" rel="noopener" href="https://github.com/boxproject/">Open source: BOX a
+business wallet solution</a></p>
 
     </div>
 
@@ -467,7 +524,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IBAN%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">IBAN介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%93%B6%E8%A1%8C%E8%B4%A6%E6%88%B7%E5%8F%B7%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">基本银行账户号码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IBAN%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">IBAN结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8AICAP%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">以太坊ICAP设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">直接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">间接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URI%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">URI表示形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%EF%BC%9A%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%88%90ICAP%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">具体实现：以太坊地址转换成ICAP格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">转换函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">36进制编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">校验码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%EF%BC%9AICAP%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%88%90%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9C%B0%E5%9D%80"><span class="nav-number">4.</span> <span class="nav-text">具体实现：ICAP格式转换成以太坊地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C"><span class="nav-number">4.1.</span> <span class="nav-text">校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">5.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iban%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">IBAN介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%93%B6%E8%A1%8C%E8%B4%A6%E6%88%B7%E5%8F%B7%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">基本银行账户号码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iban%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">IBAN结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8Aicap%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">以太坊ICAP设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">直接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">间接类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uri%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">URI表示形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%88%90icap%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">具体实现：以太坊地址转换成ICAP格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">转换函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%88%B6%E7%BC%96%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">36进制编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">校验码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0icap%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%E6%88%90%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%9C%B0%E5%9D%80"><span class="nav-number">4.</span> <span class="nav-text">具体实现：ICAP格式转换成以太坊地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C"><span class="nav-number">4.1.</span> <span class="nav-text">校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">5.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

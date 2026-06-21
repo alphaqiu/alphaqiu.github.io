@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="人工智能求职助手🤖  有针对性的调整简历，助你快速找到心仪的工作。 🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly. Features More aligned with practices within China Analyzes the 3 most importa">
+  <meta name="description" content="人工智能求职助手 🤖 有针对性的调整简历，助你快速找到心仪的工作。 🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly. Features  More aligned with practices within China Analyzes the 3 most import">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Curriculum Vitae AI Agent">
 <meta property="og:url" content="https://alpha.checkitout.dev/curriculum_vitae_ai_agent">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="人工智能求职助手🤖  有针对性的调整简历，助你快速找到心仪的工作。 🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly. Features More aligned with practices within China Analyzes the 3 most importa">
+<meta property="og:description" content="人工智能求职助手 🤖 有针对性的调整简历，助你快速找到心仪的工作。 🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly. Features  More aligned with practices within China Analyzes the 3 most import">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alpha.checkitout.dev/images/cv_example.png">
 <meta property="article:published_time" content="2025-01-22T06:34:54.000Z">
-<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
+<meta property="article:modified_time" content="2026-06-21T10:11:29.468Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="求职">
@@ -212,7 +212,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,11 +249,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="人工智能求职助手"><a href="#人工智能求职助手" class="headerlink" title="人工智能求职助手"></a>人工智能求职助手</h1><p>🤖  有针对性的调整简历，助你快速找到心仪的工作。</p>
-<p>🤖 AI Resume Assistant, helping you tailor your resume and find your ideal job quickly.</p>
-<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
+        <h1 id="人工智能求职助手">人工智能求职助手</h1>
+<p>🤖 有针对性的调整简历，助你快速找到心仪的工作。</p>
+<p>🤖 AI Resume Assistant, helping you tailor your resume and find your
+ideal job quickly.</p>
+<h2 id="features">Features</h2>
+<ul>
 <li>More aligned with practices <strong>within China</strong></li>
-<li>Analyzes the 3 most important responsibilities from the input job posting link</li>
+<li>Analyzes the 3 most important responsibilities from the input job
+posting link</li>
 <li>Strategically highlights key personal strengths</li>
 <li>Quantifies past work achievements</li>
 <li>ATS (Applicant Tracking System) friendly format</li>
@@ -263,59 +267,73 @@
 <li>Supports langsmith observability</li>
 <li>Generate HTML file and PDF file</li>
 </ul>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>To set up the project locally, follow these steps:</p>
-<ol>
+<h2 id="installation">Installation</h2>
+<p>To set up the project locally, follow these steps:</p>
+<ol type="1">
 <li><p><strong>Clone the repository:</strong></p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/alphaqiu/curriculum_vitae_ai_agent.git</span><br><span class="line"><span class="built_in">cd</span> curriculum_vitae_ai_agent</span><br></pre></td></tr></table></figure>
-</li>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/alphaqiu/curriculum_vitae_ai_agent.git</span><br><span class="line"><span class="built_in">cd</span> curriculum_vitae_ai_agent</span><br></pre></td></tr></table></figure></p></li>
 <li><p><strong>Create a virtual environment:</strong></p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv venv</span><br></pre></td></tr></table></figure>
-</li>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv venv</span><br></pre></td></tr></table></figure></p></li>
 <li><p><strong>Activate the virtual environment:</strong></p>
 <ul>
 <li><p>On Windows:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">venv\Scripts\activate</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">venv\Scripts\activate</span><br></pre></td></tr></table></figure></li>
 <li><p>On macOS and Linux:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
+</ul></li>
 <li><p><strong>Install the required packages:</strong></p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure></li>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Create a <code>.env</code> file in the same directory as <code>main.py</code>. The content of the <code>.env</code> file should be as follows:</p>
+<h2 id="usage">Usage</h2>
+<p>Create a <code>.env</code> file in the same directory as
+<code>main.py</code>. The content of the <code>.env</code> file should
+be as follows:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> dashscope, uncomment the following line</span></span><br><span class="line">DASHSCOPE_API_KEY=&quot;your-aliyun-tongyi-key&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> openai, uncomment the following line</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">OPENAI_API_KEY=<span class="string">&quot;openai-api-key or deepseek-api-key&quot;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">if</span> <span class="built_in">enable</span> langsmith, uncomment the following lines</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_API_KEY=<span class="string">&quot;langchain-api-key&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_TRACING_V2=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">LANGCHAIN_ENDPOINT=<span class="string">&quot;https://api.smith.langchain.com&quot;</span></span></span><br></pre></td></tr></table></figure>
-
 <p>To generate a resume, use the following command:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py --<span class="built_in">link</span> <span class="string">&quot;https://example.com/job-description&quot;</span> --config <span class="string">&quot;./data/config.yml&quot;</span></span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><code>--link</code> or <code>-l</code>: The URL of the job description (required).</li>
-<li><code>--config</code> or <code>-c</code>: Path to the configuration file (optional, defaults to <code>./data/config.yml</code>).</li>
+<li><code>--link</code> or <code>-l</code>: The URL of the job
+description (required).</li>
+<li><code>--config</code> or <code>-c</code>: Path to the configuration
+file (optional, defaults to <code>./data/config.yml</code>).</li>
 </ul>
-<h2 id="Generate-Example"><a href="#Generate-Example" class="headerlink" title="Generate Example"></a>Generate Example</h2><p>The resume template has been modified based on<br><a target="_blank" rel="noopener" href="https://github.com/hoochanlon/jsonresume-theme-mix">https://github.com/hoochanlon/jsonresume-theme-mix</a></p>
-<p><img src="/images/cv_example.png" alt="example"></p>
-<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>The configuration file (<code>config.yml</code>) contains settings for the resume generation process, including model usage and file paths. Customize it according to your needs.</p>
-<p>The <code>config.yml</code> file supports the following key parameters:</p>
+<h2 id="generate-example">Generate Example</h2>
+<p>The resume template has been modified based on
+https://github.com/hoochanlon/jsonresume-theme-mix</p>
+<figure>
+<img src="/images/cv_example.png" alt="example" />
+<figcaption aria-hidden="true">example</figcaption>
+</figure>
+<h2 id="configuration">Configuration</h2>
+<p>The configuration file (<code>config.yml</code>) contains settings
+for the resume generation process, including model usage and file paths.
+Customize it according to your needs.</p>
+<p>The <code>config.yml</code> file supports the following key
+parameters:</p>
 <ul>
-<li><p><code>model</code>: Specifies the AI model to use for resume generation</p>
+<li><code>model</code>: Specifies the AI model to use for resume
+generation
 <ul>
-<li>Currently supports: <code>qwen-plus</code> (Alibaba Cloud’s Tongyi Qianwen model)</li>
-<li>This parameter determines which AI service will process your resume</li>
-</ul>
-</li>
-<li><p><code>task_path</code>: Specifies the directory path for task-related files</p>
+<li>Currently supports: <code>qwen-plus</code> (Alibaba Cloud’s Tongyi
+Qianwen model)</li>
+<li>This parameter determines which AI service will process your
+resume</li>
+</ul></li>
+<li><code>task_path</code>: Specifies the directory path for
+task-related files
 <ul>
 <li>Default value: <code>./data</code></li>
-<li>This directory contains necessary files like templates, configurations, and resume information</li>
+<li>This directory contains necessary files like templates,
+configurations, and resume information</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p>Example configuration:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model:</span> <span class="string">qwen-plus</span></span><br><span class="line"><span class="attr">task_path:</span> <span class="string">./data</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Resume-Information"><a href="#Resume-Information" class="headerlink" title="Resume Information"></a>Resume Information</h3><p>Resume information file is located at <code>data/info.yml</code>, you can customize it or use the default information.</p>
-<h4 id="Basic-Profile-resume-profile"><a href="#Basic-Profile-resume-profile" class="headerlink" title="Basic Profile (resume_profile)"></a>Basic Profile (<code>resume_profile</code>)</h4><ul>
+<p>Example configuration: <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">model:</span> <span class="string">qwen-plus</span></span><br><span class="line"><span class="attr">task_path:</span> <span class="string">./data</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="resume-information">Resume Information</h3>
+<p>Resume information file is located at <code>data/info.yml</code>, you
+can customize it or use the default information.</p>
+<h4 id="basic-profile-resume_profile">Basic Profile
+(<code>resume_profile</code>)</h4>
+<ul>
 <li><code>name</code>: Your full name</li>
 <li><code>gender</code>: Your gender</li>
 <li><code>age</code>: Your age</li>
@@ -327,73 +345,87 @@
 <li><code>awards</code>: Notable achievements or awards</li>
 <li><code>mobile_phone</code>: Contact phone number</li>
 <li><code>job_seeking_status</code>: Current employment status</li>
-<li><code>desired_positions</code>: List of target positions<ul>
+<li><code>desired_positions</code>: List of target positions
+<ul>
 <li><code>position</code>: Job title</li>
 <li><code>location</code>: Preferred location</li>
 <li><code>salary</code>: Expected salary range</li>
 <li><code>industry</code>: Target industry</li>
-<li><code>employment_type</code>: Type of employment (e.g., full-time, part-time)</li>
+<li><code>employment_type</code>: Type of employment (e.g., full-time,
+part-time)</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h4 id="Personal-Advantages-personal-advantage"><a href="#Personal-Advantages-personal-advantage" class="headerlink" title="Personal Advantages (personal_advantage)"></a>Personal Advantages (<code>personal_advantage</code>)</h4><p>List of key strengths and competencies that make you stand out</p>
-<h4 id="Education-Details-education-details"><a href="#Education-Details-education-details" class="headerlink" title="Education Details (education_details)"></a>Education Details (<code>education_details</code>)</h4><ul>
+<h4 id="personal-advantages-personal_advantage">Personal Advantages
+(<code>personal_advantage</code>)</h4>
+<p>List of key strengths and competencies that make you stand out</p>
+<h4 id="education-details-education_details">Education Details
+(<code>education_details</code>)</h4>
+<ul>
 <li><code>school</code>: Institution name</li>
 <li><code>major</code>: Field of study</li>
 <li><code>degree</code>: Degree type</li>
 <li><code>start_date</code>: Start date (YYYY-MM format)</li>
 <li><code>graduation_date</code>: End date (YYYY-MM format)</li>
-<li><code>school_experience</code>: Notable activities during education</li>
+<li><code>school_experience</code>: Notable activities during
+education</li>
 <li><code>graduation_project_topic</code>: Final project title</li>
-<li><code>graduation_project_description</code>: Project description</li>
+<li><code>graduation_project_description</code>: Project
+description</li>
 </ul>
-<h4 id="Work-Experience-work-experience"><a href="#Work-Experience-work-experience" class="headerlink" title="Work Experience (work_experience)"></a>Work Experience (<code>work_experience</code>)</h4><p>For each position:</p>
+<h4 id="work-experience-work_experience">Work Experience
+(<code>work_experience</code>)</h4>
+<p>For each position: - <code>company</code>: Company name -
+<code>position</code>: Job title - <code>start_date</code>: Start date
+(YYYY-MM format) - <code>end_date</code>: End date (YYYY-MM format) -
+<code>work_experience</code>: Overall experience summary -
+<code>work_experience_description</code>: Detailed role description -
+<code>work_experience_achievements</code>: Key accomplishments -
+<code>work_experience_skills</code>: Skills utilized -
+<code>work_experience_projects</code>: Projects involved -
+<code>work_experience_awards</code>: Awards received -
+<code>tags</code>: Relevant skill tags</p>
+<h4 id="project-experience-project_experience">Project Experience
+(<code>project_experience</code>)</h4>
+<p>For each project: - <code>project_name</code>: Project title -
+<code>project_role</code>: Your role - <code>project_start_date</code>:
+Start date - <code>project_end_date</code>: End date -
+<code>project_description</code>: Project overview -
+<code>project_achievements</code>: Key accomplishments -
+<code>project_link</code>: Project URL (if applicable) -
+<code>project_skills</code>: Technologies used</p>
+<h4 id="certifications-qualification_certificate">Certifications
+(<code>qualification_certificate</code>)</h4>
 <ul>
-<li><code>company</code>: Company name</li>
-<li><code>position</code>: Job title</li>
-<li><code>start_date</code>: Start date (YYYY-MM format)</li>
-<li><code>end_date</code>: End date (YYYY-MM format)</li>
-<li><code>work_experience</code>: Overall experience summary</li>
-<li><code>work_experience_description</code>: Detailed role description</li>
-<li><code>work_experience_achievements</code>: Key accomplishments</li>
-<li><code>work_experience_skills</code>: Skills utilized</li>
-<li><code>work_experience_projects</code>: Projects involved</li>
-<li><code>work_experience_awards</code>: Awards received</li>
-<li><code>tags</code>: Relevant skill tags</li>
-</ul>
-<h4 id="Project-Experience-project-experience"><a href="#Project-Experience-project-experience" class="headerlink" title="Project Experience (project_experience)"></a>Project Experience (<code>project_experience</code>)</h4><p>For each project:</p>
-<ul>
-<li><code>project_name</code>: Project title</li>
-<li><code>project_role</code>: Your role</li>
-<li><code>project_start_date</code>: Start date</li>
-<li><code>project_end_date</code>: End date</li>
-<li><code>project_description</code>: Project overview</li>
-<li><code>project_achievements</code>: Key accomplishments</li>
-<li><code>project_link</code>: Project URL (if applicable)</li>
-<li><code>project_skills</code>: Technologies used</li>
-</ul>
-<h4 id="Certifications-qualification-certificate"><a href="#Certifications-qualification-certificate" class="headerlink" title="Certifications (qualification_certificate)"></a>Certifications (<code>qualification_certificate</code>)</h4><ul>
 <li><code>certificate_name</code>: Name of certification</li>
 <li><code>certificate_date</code>: Date obtained</li>
 <li><code>certificate_link</code>: Verification link</li>
 </ul>
-<h4 id="Volunteer-Experience-volunteer-experience"><a href="#Volunteer-Experience-volunteer-experience" class="headerlink" title="Volunteer Experience (volunteer_experience)"></a>Volunteer Experience (<code>volunteer_experience</code>)</h4><ul>
+<h4 id="volunteer-experience-volunteer_experience">Volunteer Experience
+(<code>volunteer_experience</code>)</h4>
+<ul>
 <li><code>volunteer_experience_name</code>: Activity name</li>
 <li><code>start_date</code>: Start date</li>
 <li><code>end_date</code>: End date</li>
 <li><code>service_duration</code>: Duration of service</li>
-<li><code>volunteer_experience_description</code>: Description of activities</li>
+<li><code>volunteer_experience_description</code>: Description of
+activities</li>
 </ul>
-<h4 id="Hobbies-and-Interests-hobbies-and-interests"><a href="#Hobbies-and-Interests-hobbies-and-interests" class="headerlink" title="Hobbies and Interests (hobbies_and_interests)"></a>Hobbies and Interests (<code>hobbies_and_interests</code>)</h4><ul>
+<h4 id="hobbies-and-interests-hobbies_and_interests">Hobbies and
+Interests (<code>hobbies_and_interests</code>)</h4>
+<ul>
 <li><code>hobbies_and_interests_name</code>: Interest category</li>
-<li><code>hobbies_and_interests_description</code>: Detailed descriptions</li>
+<li><code>hobbies_and_interests_description</code>: Detailed
+descriptions</li>
 </ul>
-<p>Example:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resume_profile:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&#x27;John Doe&#x27;</span></span><br><span class="line">  <span class="attr">gender:</span> <span class="string">&#x27;Male&#x27;</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">email:</span> <span class="string">&#x27;john.doe@example.com&#x27;</span></span><br><span class="line">  <span class="attr">education_background:</span> <span class="string">&#x27;Shanghai Jiao Tong University&#x27;</span></span><br><span class="line">  <span class="attr">work_experience:</span> <span class="string">&#x27;2 years&#x27;</span></span><br><span class="line">  <span class="attr">skills:</span> <span class="string">&#x27;Python, Java, C++, Machine Learning, Deep Learning&#x27;</span></span><br><span class="line">  <span class="comment"># ... other fields ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Additional sections follow the same structure as shown above</span></span><br></pre></td></tr></table></figure>
-
-<p>All fields support both English and Chinese content. Customize the information according to your background and target position.</p>
-<h3 id="Resume-Template"><a href="#Resume-Template" class="headerlink" title="Resume Template"></a>Resume Template</h3><p>Resume template file is located at <code>data/resume_templates/resume_template.tpl</code>, you can customize it or use the default template.</p>
-<p>The resume template is a simple HTML file that uses Tailwind CSS for styling.</p>
+<p>Example: <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resume_profile:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">&#x27;John Doe&#x27;</span></span><br><span class="line">  <span class="attr">gender:</span> <span class="string">&#x27;Male&#x27;</span></span><br><span class="line">  <span class="attr">age:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">email:</span> <span class="string">&#x27;john.doe@example.com&#x27;</span></span><br><span class="line">  <span class="attr">education_background:</span> <span class="string">&#x27;Shanghai Jiao Tong University&#x27;</span></span><br><span class="line">  <span class="attr">work_experience:</span> <span class="string">&#x27;2 years&#x27;</span></span><br><span class="line">  <span class="attr">skills:</span> <span class="string">&#x27;Python, Java, C++, Machine Learning, Deep Learning&#x27;</span></span><br><span class="line">  <span class="comment"># ... other fields ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Additional sections follow the same structure as shown above</span></span><br></pre></td></tr></table></figure></p>
+<p>All fields support both English and Chinese content. Customize the
+information according to your background and target position.</p>
+<h3 id="resume-template">Resume Template</h3>
+<p>Resume template file is located at
+<code>data/resume_templates/resume_template.tpl</code>, you can
+customize it or use the default template.</p>
+<p>The resume template is a simple HTML file that uses Tailwind CSS for
+styling.</p>
 
     </div>
 
@@ -486,7 +518,15 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%B1%82%E8%81%8C%E5%8A%A9%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">人工智能求职助手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.1.</span> <span class="nav-text">Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">1.2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.3.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generate-Example"><span class="nav-number">1.4.</span> <span class="nav-text">Generate Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">1.5.</span> <span class="nav-text">Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Resume-Information"><span class="nav-number">1.5.1.</span> <span class="nav-text">Resume Information</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-Profile-resume-profile"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Basic Profile (resume_profile)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Personal-Advantages-personal-advantage"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">Personal Advantages (personal_advantage)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Education-Details-education-details"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">Education Details (education_details)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Work-Experience-work-experience"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">Work Experience (work_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Project-Experience-project-experience"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">Project Experience (project_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Certifications-qualification-certificate"><span class="nav-number">1.5.1.6.</span> <span class="nav-text">Certifications (qualification_certificate)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Volunteer-Experience-volunteer-experience"><span class="nav-number">1.5.1.7.</span> <span class="nav-text">Volunteer Experience (volunteer_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hobbies-and-Interests-hobbies-and-interests"><span class="nav-number">1.5.1.8.</span> <span class="nav-text">Hobbies and Interests (hobbies_and_interests)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resume-Template"><span class="nav-number">1.5.2.</span> <span class="nav-text">Resume Template</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%B1%82%E8%81%8C%E5%8A%A9%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">人工智能求职助手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#features"><span class="nav-number">1.1.</span> <span class="nav-text">Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#installation"><span class="nav-number">1.2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usage"><span class="nav-number">1.3.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-example"><span class="nav-number">1.4.</span> <span class="nav-text">Generate Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#configuration"><span class="nav-number">1.5.</span> <span class="nav-text">Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#resume-information"><span class="nav-number">1.5.1.</span> <span class="nav-text">Resume Information</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#basic-profile-resume_profile"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Basic Profile
+(resume_profile)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#personal-advantages-personal_advantage"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">Personal Advantages
+(personal_advantage)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#education-details-education_details"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">Education Details
+(education_details)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#work-experience-work_experience"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">Work Experience
+(work_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#project-experience-project_experience"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">Project Experience
+(project_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#certifications-qualification_certificate"><span class="nav-number">1.5.1.6.</span> <span class="nav-text">Certifications
+(qualification_certificate)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#volunteer-experience-volunteer_experience"><span class="nav-number">1.5.1.7.</span> <span class="nav-text">Volunteer Experience
+(volunteer_experience)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hobbies-and-interests-hobbies_and_interests"><span class="nav-number">1.5.1.8.</span> <span class="nav-text">Hobbies and
+Interests (hobbies_and_interests)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resume-template"><span class="nav-number">1.5.2.</span> <span class="nav-text">Resume Template</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

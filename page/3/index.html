@@ -319,7 +319,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -356,55 +356,70 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="椭圆曲线的选择"><a href="#椭圆曲线的选择" class="headerlink" title="椭圆曲线的选择"></a>椭圆曲线的选择</h2><p>FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。</p>
-<p>比特币纯Go版本实现：<a target="_blank" rel="noopener" href="https://github.com/btcsuite/btcd/tree/master/btcec">btcec</a></p>
-<p>以太坊采用的C++版本：<a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum/tree/master/crypto/secp256k1">go-ethereum&#x2F;crypto&#x2F;secp256k1</a></p>
-<p>以及FileCoin使用的C版本：<a href="github.com/ipsn/go-secp256k1">go-secp256k1</a></p>
-<p>💡 注意，FileCoin 支持两种签名，一种是椭圆曲线签名，一种是bls签名。</p>
-<p>bls签名库使用了rust版本的实现：<a target="_blank" rel="noopener" href="https://github.com/filecoin-project/filecoin-ffi">Filecoin Proofs FFI</a></p>
+          <h2 id="椭圆曲线的选择">椭圆曲线的选择</h2>
+<p>FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。</p>
+<p>比特币纯Go版本实现：<a
+target="_blank" rel="noopener" href="https://github.com/btcsuite/btcd/tree/master/btcec">btcec</a></p>
+<p>以太坊采用的C++版本：<a
+target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum/tree/master/crypto/secp256k1">go-ethereum/crypto/secp256k1</a></p>
+<p>以及FileCoin使用的C版本：<a
+href="github.com/ipsn/go-secp256k1">go-secp256k1</a></p>
+<p>💡 注意，FileCoin
+支持两种签名，一种是椭圆曲线签名，一种是bls签名。</p>
+<p>bls签名库使用了rust版本的实现：<a
+target="_blank" rel="noopener" href="https://github.com/filecoin-project/filecoin-ffi">Filecoin Proofs
+FFI</a></p>
 <blockquote>
-<p>BLS 签名算法是一种可以实现签名聚合和密钥聚合的算法（即可以将多个密钥聚合成一把密钥，将多个签名聚合成一个签名）。在以太坊未来的 Casper 实现中，有非常多的验证者都要对区块签名，要保证系统的安全性，同时节约存储空间，就需要用到这类签名聚合的算法。</p>
-<p><a target="_blank" rel="noopener" href="https://www.iacr.org/archive/asiacrypt2001/22480516.pdf">Boneh-Lynn-Shacham</a></p>
+<p>BLS
+签名算法是一种可以实现签名聚合和密钥聚合的算法（即可以将多个密钥聚合成一把密钥，将多个签名聚合成一个签名）。在以太坊未来的
+Casper
+实现中，有非常多的验证者都要对区块签名，要保证系统的安全性，同时节约存储空间，就需要用到这类签名聚合的算法。</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.iacr.org/archive/asiacrypt2001/22480516.pdf">Boneh-Lynn-Shacham</a></p>
 </blockquote>
 <p>我们使用椭圆曲线签名来生成私钥。</p>
-<h2 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h2><p>以比特币<code>btcec</code>为例，生成符合FileCoin的私钥：</p>
+<h2 id="生成私钥">生成私钥</h2>
+<p>以比特币<code>btcec</code>为例，生成符合FileCoin的私钥：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sk, _ := btcec.NewPrivateKey(btcec.S256())</span><br></pre></td></tr></table></figure>
-
-<h2 id="生成地址"><a href="#生成地址" class="headerlink" title="生成地址"></a>生成地址</h2><h3 id="获得公钥"><a href="#获得公钥" class="headerlink" title="获得公钥"></a>获得公钥</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;crypto/elliptic&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化椭圆曲线上的坐标点为未压缩格式的公钥</span></span><br><span class="line">pub := elliptic.Marshal(btcec.S256(), sk.PublicKey.X, sk.PublicKey.Y)</span><br></pre></td></tr></table></figure>
-
-<h3 id="获得地址"><a href="#获得地址" class="headerlink" title="获得地址"></a>获得地址</h3><h4 id="对公钥做哈希运算"><a href="#对公钥做哈希运算" class="headerlink" title="对公钥做哈希运算"></a>对公钥做哈希运算</h4><p>FileCoin中有一个通用的哈希函数，使用blake2b快速哈希。如下：</p>
+<h2 id="生成地址">生成地址</h2>
+<h3 id="获得公钥">获得公钥</h3>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;crypto/elliptic&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化椭圆曲线上的坐标点为未压缩格式的公钥</span></span><br><span class="line">pub := elliptic.Marshal(btcec.S256(), sk.PublicKey.X, sk.PublicKey.Y)</span><br></pre></td></tr></table></figure>
+<h3 id="获得地址">获得地址</h3>
+<h4 id="对公钥做哈希运算">对公钥做哈希运算</h4>
+<p>FileCoin中有一个通用的哈希函数，使用blake2b快速哈希。如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hash</span><span class="params">(ingest []<span class="type">byte</span>, cfg *blake2b.Config)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	hasher, err := blake2b.New(cfg)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// If this happens sth is very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;invalid address hash configuration: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> _, err := hasher.Write(ingest); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// blake2bs Write implementation never returns an error in its current</span></span><br><span class="line">		<span class="comment">// setup. So if this happens sth went very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;blake2b is unable to process hashes: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>对公钥进行一次哈希运算：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash(pub, &amp;blake2b.Config&#123;Size: <span class="number">20</span>&#125;)</span><br></pre></td></tr></table></figure>
 <p>原文注释里是这样说的：</p>
 <blockquote>
-<p>PayloadHashLength defines the hash length taken over addresses using the Actor and SECP256K1 protocols.</p>
+<p>PayloadHashLength defines the hash length taken over addresses using
+the Actor and SECP256K1 protocols.</p>
 </blockquote>
 <p>这里的<code>PayloadHashLength</code>等于20。</p>
-<h4 id="生成地址格式"><a href="#生成地址格式" class="headerlink" title="生成地址格式"></a>生成地址格式</h4><p>然后拼接地址格式：</p>
+<h4 id="生成地址格式">生成地址格式</h4>
+<p>然后拼接地址格式：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">explen := <span class="number">1</span> + <span class="built_in">len</span>(payload)</span><br><span class="line">buf := <span class="built_in">make</span>([]<span class="type">byte</span>, explen)</span><br><span class="line"></span><br><span class="line">buf[<span class="number">0</span>] = protocol</span><br><span class="line"><span class="built_in">copy</span>(buf[<span class="number">1</span>:], payload)</span><br></pre></td></tr></table></figure>
-
 <p>上面的<code>protocol</code>值固定为1，<code>payload</code>为<code>hash(pub)</code>。</p>
-<h4 id="对地址编码"><a href="#对地址编码" class="headerlink" title="对地址编码"></a>对地址编码</h4><p>FileCoin 内有这样一个函数，将生成编码后我们看到的地址格式如：<code>t1qecjxje6yjq2yatfgj3noapi5fa3cr7vmrw6xti</code></p>
+<h4 id="对地址编码">对地址编码</h4>
+<p>FileCoin
+内有这样一个函数，将生成编码后我们看到的地址格式如：<code>t1qecjxje6yjq2yatfgj3noapi5fa3cr7vmrw6xti</code></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(network Network, addr Address)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> addr == Undef &#123;</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> ntwk <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> network &#123;</span><br><span class="line">	<span class="keyword">case</span> Mainnet:</span><br><span class="line">		ntwk = MainnetPrefix</span><br><span class="line">	<span class="keyword">case</span> Testnet:</span><br><span class="line">		ntwk = TestnetPrefix</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownNetwork</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> strAddr <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> addr.Protocol() &#123;</span><br><span class="line">	<span class="keyword">case</span> SECP256K1, Actor, BLS:</span><br><span class="line">		cksm := Checksum(<span class="built_in">append</span>([]<span class="type">byte</span>&#123;addr.Protocol()&#125;, addr.Payload()...))</span><br><span class="line">		strAddr = ntwk + fmt.Sprintf(<span class="string">&quot;%d&quot;</span>, addr.Protocol()) + AddressEncoding.WithPadding(<span class="number">-1</span>).EncodeToString(<span class="built_in">append</span>(addr.Payload(), cksm[:]...))</span><br><span class="line">	<span class="keyword">case</span> ID:</span><br><span class="line">		i, n, err := varint.FromUvarint(addr.Payload())</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;could not decode varint: %w&quot;</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> n != <span class="built_in">len</span>(addr.Payload()) &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;payload contains additional bytes&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		strAddr = fmt.Sprintf(<span class="string">&quot;%s%d%d&quot;</span>, ntwk, addr.Protocol(), i)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownProtocol</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> strAddr, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><code>Network</code>看作是枚举，<code>0</code>代表<code>Mainnet</code>，<code>1</code>代表<code>Testnet</code>。<code>TestnetPrefix = “t”</code>，<code>MainnetPrefix = “f”</code>。</p>
 <p>对地址格式再次做哈希，作为地址摘要</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cksm := hash(buf, &amp;blake2b.Config&#123;Size: <span class="number">4</span>&#125;)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>ChecksumHashLength defines the hash length used for calculating address checksums.</p>
+<p>ChecksumHashLength defines the hash length used for calculating
+address checksums.</p>
 </blockquote>
 <p><code>ChecksumHashLength</code>等于4。</p>
 <p>对<code>hash(pub)</code>+<code>cksum</code>做base32转换。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> encodeStd = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz234567&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// AddressEncoding defines the base32 config used for address encoding and decoding.</span></span><br><span class="line"><span class="keyword">var</span> AddressEncoding = base32.NewEncoding(encodeStd)</span><br></pre></td></tr></table></figure>
-
 <p>最终地址等于<code>网络前缀</code>+<code>椭圆曲线类型</code>+<code>base32(hash(pub)+cksum)</code></p>
-<h2 id="离线签名"><a href="#离线签名" class="headerlink" title="离线签名"></a>离线签名</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用secp256k1签名</span></span><br><span class="line"><span class="comment">// 签名前使用blake2哈希算法对要签名的消息做信息摘要，统一签名消息的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(secpSigner)</span></span> Sign(pk []<span class="type">byte</span>, msg []<span class="type">byte</span>) ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	b2sum := blake2b.Sum256(msg)</span><br><span class="line">	sig, err := crypto.Sign(pk, b2sum[:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> sig, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="离线签名">离线签名</h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用secp256k1签名</span></span><br><span class="line"><span class="comment">// 签名前使用blake2哈希算法对要签名的消息做信息摘要，统一签名消息的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(secpSigner)</span></span> Sign(pk []<span class="type">byte</span>, msg []<span class="type">byte</span>) ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	b2sum := blake2b.Sum256(msg)</span><br><span class="line">	sig, err := crypto.Sign(pk, b2sum[:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> sig, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>crypto.Sign</code></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sign signs the given message, which must be 32 bytes long.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sign</span><span class="params">(sk, msg []<span class="type">byte</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">  <span class="comment">// secp256k1 就是最终的椭圆曲线签名，这个签名可以替换成secp256k1不同语言版本的实现</span></span><br><span class="line">	<span class="keyword">return</span> secp256k1.Sign(msg, sk)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -454,7 +469,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -493,21 +508,20 @@ mjx-container[display="true"] + br {
       
           <p>以下代码执行结果是什么</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Namespace <span class="keyword">interface</span> &#123;</span><br><span class="line">	Value() <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyNamespace <span class="keyword">struct</span> &#123;</span><br><span class="line">	value <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n *MyNamespace)</span></span> Value() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> n.value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> n *MyNamespace = <span class="literal">nil</span></span><br><span class="line">	show(n)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>结果是报错。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">panic: runtime error: invalid memory <span class="selector-tag">address</span> or nil pointer dereference</span><br><span class="line"><span class="selector-attr">[signal SIGSEGV: segmentation violation code=0xffffffff addr=0x0 pc=0xe01c6]</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> <span class="selector-attr">[running]</span>:</span><br><span class="line"><span class="selector-tag">main</span>.(*MyNamespace)<span class="selector-class">.Value</span>(<span class="number">0</span>x0, <span class="number">0</span>x5bf2, <span class="number">0</span>x119bf8, <span class="number">0</span>x1d)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">16</span> +<span class="number">0</span>x6</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.show</span>(<span class="number">0</span>x15d910, <span class="number">0</span>x0)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">21</span> +<span class="number">0</span>x40</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.main</span>()</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">30</span> +<span class="number">0</span>x40</span><br><span class="line"></span><br><span class="line">Program exited.</span><br></pre></td></tr></table></figure>
-
 <p>报一个空指针错误。<code>n != nil</code>的判断在这里无效。</p>
 <p>原因是Go语言中，<code>interface&#123;&#125;</code>类型的变量包含了2个指针，一个指针指向值的类型，一个指针指向实际的值。<code>MyNamespace</code>实现了<code>Namespace</code>接口，<code>n</code>在传入<code>Show(n)</code>函数时被自动转型成为<code>Namespace</code>。<code>var n *MyNameSpace = nil</code>只是声明了该接口类型的实际值为nil，虽然我们把一个nil值赋值给它，但是实际上interface里依然存了指向类型的指针，所以拿这个interface变量去和nil常量进行比较的话就会返回<code>false</code>。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> asStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	pt <span class="type">uintptr</span></span><br><span class="line">	pv <span class="type">uintptr</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;👉👉 %p\n&quot;</span>, n)</span><br><span class="line">	x := *(*asStruct)(unsafe.Pointer(&amp;n))</span><br><span class="line">	spew.Dump(x)</span><br><span class="line">	spew.Println(<span class="string">&quot;n == nil ?&quot;</span>, n == <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &amp;&amp; !reflect.ValueOf(n).IsNil() &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output：</span></span><br><span class="line"><span class="comment">// 👉👉 0x0</span></span><br><span class="line"><span class="comment">// (main.asStruct) &#123;</span></span><br><span class="line"><span class="comment">//  pt: (uintptr) 0x1125f80,</span></span><br><span class="line"><span class="comment">//  pv: (uintptr) &lt;nil&gt;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// n == nil ? false</span></span><br><span class="line"><span class="comment">// Hello World!</span></span><br></pre></td></tr></table></figure>
-
 <p>我们看到传入的参数指针值为0，但<code>interface&#123;&#125;</code>类型的变量的两个指针，值的类型是有值的，实际值为nil。因此接口传入的不是实际的nil的情况下，<code>n==nil</code>就为false。可以使用<code>reflect.ValueOf(n).IsNil()</code>来判断是否实际值为nil。</p>
 <p><code>reflect.ValueOf</code>只接受指针类型，否则会<code>panic</code>。</p>
-<p>如果显式传入<code>show(nil)</code>，<code>interface&#123;&#125;</code>类型变量的两个指针都为nil，则<code>n == nil </code>判断生效。</p>
+<p>如果显式传入<code>show(nil)</code>，<code>interface&#123;&#125;</code>类型变量的两个指针都为nil，则<code>n == nil</code>判断生效。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//show(nil)</span></span><br><span class="line">(main.asStruct) &#123;</span><br><span class="line"> pt: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;,</span><br><span class="line"> pv: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line">n == <span class="literal">nil</span> ? <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/10635">Go语言第一深坑 - interface 与 nil 的比较</a></p>
-<p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/5955">golang中interface判断nil问题</a></p>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/10635">Go语言第一深坑 -
+interface 与 nil 的比较</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://studygolang.com/articles/5955">golang中interface判断nil问题</a></p>
 
       
     </div>
@@ -558,7 +572,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -595,7 +609,8 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。</p>
+          <h2 id="起因">起因</h2>
+<p>一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。</p>
 <blockquote>
 <p>有一种概念叫无线漫游，当网络环境存在多个相同SSID的AP，且它们的微单元互相有一定范围的重合时，无线用户可以在整个WLAN覆盖区内移动，无线网卡能够自动发现附近信号强度最大的AP，并通过这个AP收发数据，保持不间断的网络连接，这就称为无线漫游。</p>
 </blockquote>
@@ -658,7 +673,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -695,20 +710,17 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="博客支持CodePen的方法"><a href="#博客支持CodePen的方法" class="headerlink" title="博客支持CodePen的方法"></a>博客支持CodePen的方法</h2><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/hexo-codepen">https://www.npmjs.com/package/hexo-codepen</a></p>
+          <h2 id="博客支持codepen的方法">博客支持CodePen的方法</h2>
+<p>https://www.npmjs.com/package/hexo-codepen</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D hexo-codepen</span><br></pre></td></tr></table></figure>
-
 <p>然后在Markdown中嵌入</p>
 <figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;% <span class="name">codepen</span> userId|anonymous|anon slugHash theme [defaultTab [height [width]]] %&#125;</span></span><br></pre></td></tr></table></figure>
-
 <p>在CodePen编辑器右下角<code>Embed</code>按钮弹开后，复制HTML代码如：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;codepen&quot;</span> <span class="attr">data-height</span>=<span class="string">&quot;265&quot;</span> <span class="attr">data-theme-id</span>=<span class="string">&quot;dark&quot;</span> <span class="attr">data-default-tab</span>=<span class="string">&quot;html,result&quot;</span> <span class="attr">data-user</span>=<span class="string">&quot;alphaqiu&quot;</span> <span class="attr">data-slug-hash</span>=<span class="string">&quot;MWwVzar&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;&quot;</span> <span class="attr">data-pen-title</span>=<span class="string">&quot;水平垂直居中/Loading mask&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>See the Pen <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu/pen/MWwVzar&quot;</span>&gt;</span></span><br><span class="line">  水平垂直居中/Loading mask<span class="tag">&lt;/<span class="name">a</span>&gt;</span> by alphaqiu (<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io/alphaqiu&quot;</span>&gt;</span>@alphaqiu<span class="tag">&lt;/<span class="name">a</span>&gt;</span>)</span><br><span class="line">  on <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://codepen.io&quot;</span>&gt;</span>CodePen<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">&quot;https://static.codepen.io/assets/embed/ei.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>把<code>p</code>🏷️标签里对应的参数填到潜入代码对应位置：</p>
 <figure class="highlight twig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="template-tag">&#123;%</span> <span class="name">codepen</span> alphaqiu MWwVzar dark <span class="string">&quot;result&quot;</span> <span class="number">500</span> <span class="template-tag">%&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="水平和垂直居中"><a href="#水平和垂直居中" class="headerlink" title="水平和垂直居中"></a>水平和垂直居中</h2><iframe id="cp_embed_MWwVzar" src="//codepen.io/alphaqiu/embed/MWwVzar?height=500&theme-id=dark&slug-hash=MWwVzar&default-tab=result" scrolling="no" frameborder="no" height="500" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
-
+<h2 id="水平和垂直居中">水平和垂直居中</h2>
+<iframe id="cp_embed_MWwVzar" src="//codepen.io/alphaqiu/embed/MWwVzar?height=500&theme-id=dark&slug-hash=MWwVzar&default-tab=result" scrolling="no" frameborder="no" height="500" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
 
       
     </div>
@@ -759,7 +771,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -796,29 +808,40 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Webpack脚手架"><a href="#Webpack脚手架" class="headerlink" title="Webpack脚手架"></a>Webpack脚手架</h1><p>学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。</p>
+          <h1 id="webpack脚手架">Webpack脚手架</h1>
+<p>学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。</p>
 <p>下面就对环境的搭建逐一拆解。</p>
-<h2 id="初始化空项目"><a href="#初始化空项目" class="headerlink" title="初始化空项目"></a>初始化空项目</h2><p>基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。</p>
+<h2 id="初始化空项目">初始化空项目</h2>
+<p>基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> my-project &amp;&amp; <span class="built_in">cd</span> my-project</span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
-
 <p>通过<code>npm init -y</code>来简单的创建一个<code>package.json</code>。需要简单修改一下其中的内容：</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">-- 删除 <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p><code>private</code>为私有项目，不至于后续误操作上传到npm网站。</p>
 <p>这是个web前端项目，所以入口程序不必提供。</p>
-<h2 id="初始化Webpack环境"><a href="#初始化Webpack环境" class="headerlink" title="初始化Webpack环境"></a>初始化Webpack环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
-
+<h2 id="初始化webpack环境">初始化Webpack环境</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack webpack-cli</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>💡关于<code>npm install</code>参数</p>
-<p>npm install -D 等同于 <code>--save-dev</code><br>npm install -S 等同于 <code>—save</code><br>npm install -O 等同于 <code>--save-optional</code><br>当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们</p>
+<p>npm install -D 等同于 <code>--save-dev</code> npm install -S 等同于
+<code>—save</code> npm install -O 等同于 <code>--save-optional</code>
+当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们</p>
 <p>（在模块根目录下npm install module-name），</p>
 <p>然后连同版本号手动将他们添加到模块配置文件package.json中的依赖里（dependencies）。</p>
-<p><code>--save</code>和<code>--save-dev</code>可以省掉你手动修改package.json文件的步骤。<br>spm install module-name -save 自动把模块和版本号添加到<code>dependencies</code>部分<br>spm install module-name -save-dve 自动把模块和版本号添加到<code>devdependencies</code>部分</p>
-<p>至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块， 以我见过的情况来看 devDepandencies主要是配置测试框架， 例如jshint、mocha。</p>
+<p><code>--save</code>和<code>--save-dev</code>可以省掉你手动修改package.json文件的步骤。
+spm install module-name -save
+自动把模块和版本号添加到<code>dependencies</code>部分 spm install
+module-name -save-dve
+自动把模块和版本号添加到<code>devdependencies</code>部分</p>
+<p>至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块，
+以我见过的情况来看 devDepandencies主要是配置测试框架，
+例如jshint、mocha。</p>
 <p>通过这些命令，我们会得到一个新的<code>package.json</code>。然后再做一个试验就懂得了区别：</p>
-<p>删除node_modules目录，然后执行<br>npm install –production，可以看到，npm只帮我们自动安装package.json中dependencies部分的模块；如果执行npm install ，则package.json中指定的dependencies和devDependencies都会被自动安装进来。</p>
+<p>删除node_modules目录，然后执行 npm install
+–production，可以看到，npm只帮我们自动安装package.json中dependencies部分的模块；如果执行npm
+install
+，则package.json中指定的dependencies和devDependencies都会被自动安装进来。</p>
 </blockquote>
-<p>可以上官方网站查看具体使用说明：<a target="_blank" rel="noopener" href="https://webpack.docschina.org/guides/installation/">https://webpack.docschina.org/guides/installation/</a></p>
+<p>可以上官方网站查看具体使用说明：https://webpack.docschina.org/guides/installation/</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/webpack_scaffold/#more" rel="contents">
@@ -876,7 +899,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -913,24 +936,49 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>转载：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ihJFa5Wir4ohhZUXVSBvMQ">https://mp.weixin.qq.com/s/ihJFa5Wir4ohhZUXVSBvMQ</a></p>
-<h2 id="怎么让我们的系统更快"><a href="#怎么让我们的系统更快" class="headerlink" title="怎么让我们的系统更快"></a>怎么让我们的系统更快</h2><p>随着信息技术的迅速发展，单台服务器处理能力越来越强，迫使编程模式由从前的串行模式升级到并发模型。</p>
-<p>并发模型包含 IO 多路复用、多进程以及多线程，这几种模型都各有优劣，现代复杂的高并发架构大多是几种模型协同使用，不同场景应用不同模型，扬长避短，发挥服务器的最大性能。</p>
+          <p>转载：https://mp.weixin.qq.com/s/ihJFa5Wir4ohhZUXVSBvMQ</p>
+<h2 id="怎么让我们的系统更快">怎么让我们的系统更快</h2>
+<p>随着信息技术的迅速发展，单台服务器处理能力越来越强，迫使编程模式由从前的串行模式升级到并发模型。</p>
+<p>并发模型包含 IO
+多路复用、多进程以及多线程，这几种模型都各有优劣，现代复杂的高并发架构大多是几种模型协同使用，不同场景应用不同模型，扬长避短，发挥服务器的最大性能。</p>
 <p>而<strong>多线程，因为其轻量和易用</strong>，成为并发编程中使用频率最高的并发模型，包括后衍生的协程等其他子产品，也都基于它。</p>
-<h2 id="并发-≠-并行"><a href="#并发-≠-并行" class="headerlink" title="并发 ≠ 并行"></a>并发 ≠ 并行</h2><p><strong>并发 (concurrency) 和 并行 ( parallelism) 是不同的。</strong></p>
-<p>在单个  CPU  核上，线程通过时间片或者让出控制权来实现任务切换，达到  “同时”  运行多个任务的目的，这就是所谓的并发。但实际上任何时刻都只有一个任务被执行，其他任务通过某种算法来排队。</p>
-<p>多核  CPU  可以让同一进程内的  “多个线程”  做到真正意义上的同时运行，这才是并行。</p>
-<h2 id="进程、线程、协程"><a href="#进程、线程、协程" class="headerlink" title="进程、线程、协程"></a>进程、线程、协程</h2><p>进程：进程是系统进行资源分配的基本单位，有独立的内存空间。</p>
-<p>线程：线程是 CPU 调度和分派的基本单位，线程依附于进程存在，每个线程会共享父进程的资源。</p>
-<p>协程：**协程是一种用户态的轻量级线程，**协程的调度完全由用户控制，协程间切换只需要保存任务的上下文，没有内核的开销。</p>
-<h2 id="线程上下文切换"><a href="#线程上下文切换" class="headerlink" title="线程上下文切换"></a>线程上下文切换</h2><p>由于中断处理，多任务处理，用户态切换等原因会导致 CPU 从一个线程切换到另一个线程，切换过程需要保存当前进程的状态并恢复另一个进程的状态。</p>
-<p><strong>上下文切换的代价是高昂的</strong>，因为在核心上交换线程会花费很多时间。上下文切换的延迟取决于不同的因素，大概在在  50  到  100  纳秒之间。考虑到硬件平均在每个核心上每纳秒执行  12  条指令，那么一次上下文切换可能会花费  600  到  1200  条指令的延迟时间。实际上，上下文切换占用了大量程序执行指令的时间。</p>
-<p>如果存在<strong>跨核上下文切换</strong>（Cross-Core Context Switch），可能会导致 CPU 缓存失效（CPU 从缓存访问数据的成本大约  3  到  40  个时钟周期，从主存访问数据的成本大约  100  到  300  个时钟周期），这种场景的切换成本会更加昂贵。</p>
-<h2 id="Golang-为并发而生"><a href="#Golang-为并发而生" class="headerlink" title="Golang 为并发而生"></a>Golang 为并发而生</h2><p>Golang 从 2009 年正式发布以来，依靠其极高运行速度和高效的开发效率，迅速占据市场份额。Golang 从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。</p>
+<h2 id="并发-并行">并发 ≠ 并行</h2>
+<p><strong>并发 (concurrency) 和 并行 ( parallelism)
+是不同的。</strong></p>
+<p>在单个 CPU 核上，线程通过时间片或者让出控制权来实现任务切换，达到
+“同时”
+运行多个任务的目的，这就是所谓的并发。但实际上任何时刻都只有一个任务被执行，其他任务通过某种算法来排队。</p>
+<p>多核 CPU 可以让同一进程内的 “多个线程”
+做到真正意义上的同时运行，这才是并行。</p>
+<h2 id="进程线程协程">进程、线程、协程</h2>
+<p>进程：进程是系统进行资源分配的基本单位，有独立的内存空间。</p>
+<p>线程：线程是 CPU
+调度和分派的基本单位，线程依附于进程存在，每个线程会共享父进程的资源。</p>
+<p>协程：<strong>协程是一种用户态的轻量级线程，</strong>协程的调度完全由用户控制，协程间切换只需要保存任务的上下文，没有内核的开销。</p>
+<h2 id="线程上下文切换">线程上下文切换</h2>
+<p>由于中断处理，多任务处理，用户态切换等原因会导致 CPU
+从一个线程切换到另一个线程，切换过程需要保存当前进程的状态并恢复另一个进程的状态。</p>
+<p><strong>上下文切换的代价是高昂的</strong>，因为在核心上交换线程会花费很多时间。上下文切换的延迟取决于不同的因素，大概在在
+50 到 100 纳秒之间。考虑到硬件平均在每个核心上每纳秒执行 12
+条指令，那么一次上下文切换可能会花费 600 到 1200
+条指令的延迟时间。实际上，上下文切换占用了大量程序执行指令的时间。</p>
+<p>如果存在<strong>跨核上下文切换</strong>（Cross-Core Context
+Switch），可能会导致 CPU 缓存失效（CPU 从缓存访问数据的成本大约 3 到 40
+个时钟周期，从主存访问数据的成本大约 100 到 300
+个时钟周期），这种场景的切换成本会更加昂贵。</p>
+<h2 id="golang-为并发而生">Golang 为并发而生</h2>
+<p>Golang 从 2009
+年正式发布以来，依靠其极高运行速度和高效的开发效率，迅速占据市场份额。Golang
+从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。</p>
 <p><strong>Goroutine 非常轻量</strong>，主要体现在以下两个方面：</p>
-<p><strong>上下文切换代价小：</strong> Goroutine 上下文切换只涉及到三个寄存器（PC &#x2F; SP &#x2F; DX）的值修改；而对比线程的上下文切换则需要涉及模式切换（从用户态切换到内核态）、以及 16 个寄存器、PC、SP…等寄存器的刷新；</p>
-<p>**内存占用少：**线程栈空间通常是 2M，Goroutine 栈空间最小 2K；</p>
-<p>Golang 程序中可以轻松支持<strong>10w 级别</strong>的 Goroutine 运行，而线程数量达到 1k 时，内存占用就已经达到 2G。</p>
+<p><strong>上下文切换代价小：</strong> Goroutine
+上下文切换只涉及到三个寄存器（PC / SP /
+DX）的值修改；而对比线程的上下文切换则需要涉及模式切换（从用户态切换到内核态）、以及
+16 个寄存器、PC、SP…等寄存器的刷新；</p>
+<p><strong>内存占用少：</strong>线程栈空间通常是 2M，Goroutine
+栈空间最小 2K；</p>
+<p>Golang 程序中可以轻松支持<strong>10w 级别</strong>的 Goroutine
+运行，而线程数量达到 1k 时，内存占用就已经达到 2G。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/27/golang/#more" rel="contents">
@@ -988,7 +1036,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1025,10 +1073,10 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这里有介绍图床合集：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58863378">https://zhuanlan.zhihu.com/p/58863378</a></p>
-<p>挑了其中一个 <a target="_blank" rel="noopener" href="https://sm.ms/">https://sm.ms/</a></p>
+          <p>这里有介绍图床合集：https://zhuanlan.zhihu.com/p/58863378</p>
+<p>挑了其中一个 https://sm.ms/</p>
 <p>一次可以上传10张照片，每张照片限制在5M以内。一个注册账户有5G免费空间。</p>
-<p>支持API：<a target="_blank" rel="noopener" href="https://doc.sm.ms/#api-">https://doc.sm.ms/#api-</a>_</p>
+<p>支持API：https://doc.sm.ms/#api-_</p>
 
       
     </div>
@@ -1079,7 +1127,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1116,12 +1164,13 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>原文档出处：<a target="_blank" rel="noopener" href="https://www.kancloud.cn/chase688/orange_framework/1448035">https://www.kancloud.cn/chase688/orange_framework/1448035</a></p>
+          <p>原文档出处：https://www.kancloud.cn/chase688/orange_framework/1448035</p>
 <p>平滑重启是指能让我们的程序在重启的过程不中断服务，新老进程无缝衔接，实现零停机时间(Zero-Downtime)部署；平滑重启是建立在优雅退出的基础之上的，目前实现平滑重启的主要策略有两种：</p>
 <p>方案一：我们的服务如果是多机器部署，可以通过网关程序，将即将重启服务的机器从网关下线，重启完成后再重新上线，该方案适合多机器部署的企业级应用；</p>
 <p>方案二：让我们的程序实现自启动，重启子进程来实现平滑重启，核心策略是通过拷贝文件描述符实现子进程和父进程切换，适合单机器部署应用；</p>
 <p>今天我们就主要介绍方案二，让我们的程序拥有平滑重启的功能，相关实现参考一个开源库：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/fvbock/endless">https://github.com/fvbock/endless</a></p>
+<p>https://github.com/fvbock/endless</p>
+<p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/27/graceful/#more" rel="contents">
@@ -1179,7 +1228,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1216,25 +1265,40 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>【转载】<a target="_blank" rel="noopener" href="https://diamondfsd.com/lets-encrytp-hand-https/">https://diamondfsd.com/lets-encrytp-hand-https/</a></p>
-<h2 id="Let’s-Encrypt-简介"><a href="#Let’s-Encrypt-简介" class="headerlink" title="Let’s Encrypt 简介"></a>Let’s Encrypt 简介</h2><p>如果要启用HTTPS，我们就需要从证书授权机构(以下简称CA) 处获取一个证书，Let’s Encrypt 就是一个 CA。我们可以从 Let’s Encrypt 获得网站域名的免费的证书。这篇文章也主要讲的是通过 Let’s Encrypt + Nginx 来让网站升级到HTTPS。</p>
-<h2 id="Certbot-简介"><a href="#Certbot-简介" class="headerlink" title="Certbot 简介"></a>Certbot 简介</h2><p><a target="_blank" rel="noopener" href="https://certbot.eff.org/">Certbot</a> 是Let’s Encrypt官方推荐的获取证书的客户端，可以帮我们获取免费的Let’s Encrypt 证书。Certbot 是支持所有 Unix 内核的操作系统的，个人博客的服务器系统是CentOS 7，这篇教程也是通过在个人博客上启用HTTPS的基础上完成的。</p>
-<h2 id="获取免费证书"><a href="#获取免费证书" class="headerlink" title="获取免费证书"></a>获取免费证书</h2><ol>
+          <p>【转载】https://diamondfsd.com/lets-encrytp-hand-https/</p>
+<h2 id="lets-encrypt-简介">Let’s Encrypt 简介</h2>
+<p>如果要启用HTTPS，我们就需要从证书授权机构(以下简称CA)
+处获取一个证书，Let’s Encrypt 就是一个 CA。我们可以从 Let’s Encrypt
+获得网站域名的免费的证书。这篇文章也主要讲的是通过 Let’s Encrypt + Nginx
+来让网站升级到HTTPS。</p>
+<h2 id="certbot-简介">Certbot 简介</h2>
+<p><a target="_blank" rel="noopener" href="https://certbot.eff.org/">Certbot</a> 是Let’s
+Encrypt官方推荐的获取证书的客户端，可以帮我们获取免费的Let’s Encrypt
+证书。Certbot 是支持所有 Unix
+内核的操作系统的，个人博客的服务器系统是CentOS
+7，这篇教程也是通过在个人博客上启用HTTPS的基础上完成的。</p>
+<h2 id="获取免费证书">获取免费证书</h2>
+<ol type="1">
 <li><p>安装Certbot客户端</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> certbot</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> certbot</span><br></pre></td></tr></table></figure></li>
 <li><p>获取证书</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --webroot -w /<span class="built_in">var</span>/www/<span class="built_in">example</span> -d <span class="built_in">example</span>.com -d www.<span class="built_in">example</span>.com</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>这个命令会为 example.com 和 <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> 这两个域名生成一个证书，使用 <code>--webroot</code> 模式会在 <code>/var/www/example</code> 中创建 <code>.well-known</code> 文件夹，这个文件夹里面包含了一些验证文件，certbot 会通过访问 example.com&#x2F;.well-known&#x2F;acme-challenge 来验证你的域名是否绑定的这个服务器。这个命令在大多数情况下都可以满足需求，</p>
-</blockquote>
-</li>
+<p>这个命令会为 example.com 和 www.example.com
+这两个域名生成一个证书，使用 <code>--webroot</code> 模式会在
+<code>/var/www/example</code> 中创建 <code>.well-known</code>
+文件夹，这个文件夹里面包含了一些验证文件，certbot 会通过访问
+example.com/.well-known/acme-challenge
+来验证你的域名是否绑定的这个服务器。这个命令在大多数情况下都可以满足需求，</p>
+</blockquote></li>
 </ol>
-<p>但是有些时候我们的一些服务并没有根目录，例如一些微服务，这时候使用 <code>--webroot</code> 就走不通了。certbot 还有另外一种模式 <code>--standalone</code> ， 这种模式不需要指定网站根目录，他会自动启用服务器的443端口，来验证域名的归属。我们有其他服务（例如nginx）占用了443端口，就必须先停止这些服务，在证书生成完毕后，再启用。</p>
+<p>但是有些时候我们的一些服务并没有根目录，例如一些微服务，这时候使用
+<code>--webroot</code> 就走不通了。certbot 还有另外一种模式
+<code>--standalone</code> ，
+这种模式不需要指定网站根目录，他会自动启用服务器的443端口，来验证域名的归属。我们有其他服务（例如nginx）占用了443端口，就必须先停止这些服务，在证书生成完毕后，再启用。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly <span class="attr">--standalone</span> -d example<span class="selector-class">.com</span> -d www<span class="selector-class">.example</span>.com</span><br></pre></td></tr></table></figure>
-
-<p>证书生成完毕后，我们可以在 <code>/etc/letsencrypt/live/</code> 目录下看到对应域名的文件夹，里面存放了指向证书的一些快捷方式。</p>
+<p>证书生成完毕后，我们可以在 <code>/etc/letsencrypt/live/</code>
+目录下看到对应域名的文件夹，里面存放了指向证书的一些快捷方式。</p>
 <p>这时候我们的第一生成证书已经完成了，接下来就是配置我们的web服务器，启用HTTPS。</p>
           <!--noindex-->
             <div class="post-button">
@@ -1293,7 +1357,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1330,13 +1394,15 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="助记词的实现"><a href="#助记词的实现" class="headerlink" title="助记词的实现"></a>助记词的实现</h2><p>fork了人家的源码，在此基础上增加了实用功能，保证通过助记词恢复和对助记词的校验。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/alphaqiu/mnemonic">https://github.com/alphaqiu/mnemonic</a></p>
+          <h2 id="助记词的实现">助记词的实现</h2>
+<p>fork了人家的源码，在此基础上增加了实用功能，保证通过助记词恢复和对助记词的校验。</p>
+<p>https://github.com/alphaqiu/mnemonic</p>
 <p>BIP39是助记词标准的实现，助记词是一个随机数的字序列，用来作为种子产生一个确定性的钱包。单词序列足以重新创建种子，然后再创建钱包和所有派生的密钥。一个实现带有助记词的确定性钱包应用程序在首次创建钱包时将向用户显示12到24个单词的序列。该单词序列是钱包备份，可用于恢复和重新创建相同或任何兼容的钱包应用程序中的所有密钥。记忆单词使用户更容易备份钱包，因为与随机数字序列相比，它们易于阅读和正确地转录。所有的助记词在这里可以查看：助记词词库。</p>
 <p>使用BIP39中定义的标准化过程，钱包自动生成助记词。钱包从一个熵源开始，添加一个校验和，然后将熵映射到一个单词列表，具体步骤如下:</p>
-<ol>
+<ol type="1">
 <li>创建128到256位的随机序列（熵）。</li>
-<li>通过获取SHA256哈希的第一（熵长度&#x2F; 32）位来创建随机序列的校验和。</li>
+<li>通过获取SHA256哈希的第一（熵长度/
+32）位来创建随机序列的校验和。</li>
 <li>将校验和添加到随机序列的末尾。</li>
 <li>将序列分成11位的部分。</li>
 <li>将每个11位值映射到来自2048个单词的预定义字典中的单词。</li>

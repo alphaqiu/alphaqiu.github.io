@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="安装 TCP BBR拥塞算法 https:&#x2F;&#x2F;www.williamlong.info&#x2F;archives&#x2F;5586.html 月光博客 TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用">
+  <meta name="description" content="安装 TCP BBR拥塞算法  https:&#x2F;&#x2F;www.williamlong.info&#x2F;archives&#x2F;5586.html 月光博客 TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安装 TCP BBR拥塞算法">
 <meta property="og:url" content="https://alpha.checkitout.dev/2021/04/09/%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="安装 TCP BBR拥塞算法 https:&#x2F;&#x2F;www.williamlong.info&#x2F;archives&#x2F;5586.html 月光博客 TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用">
+<meta property="og:description" content="安装 TCP BBR拥塞算法  https:&#x2F;&#x2F;www.williamlong.info&#x2F;archives&#x2F;5586.html 月光博客 TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-09T22:15:02.000Z">
-<meta property="article:modified_time" content="2026-06-21T09:33:27.881Z">
+<meta property="article:modified_time" content="2026-06-21T10:11:29.470Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="checkitout.dev">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,49 +246,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="安装-TCP-BBR拥塞算法"><a href="#安装-TCP-BBR拥塞算法" class="headerlink" title="安装 TCP BBR拥塞算法"></a>安装 TCP BBR拥塞算法</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.williamlong.info/archives/5586.html">https://www.williamlong.info/archives/5586.html</a> 月光博客</p>
-<p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来创建网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。</p>
-<p>Google在<a target="_blank" rel="noopener" href="https://www.williamlong.info/tag/YouTube.html">YouTube</a>上应用该算法，将全球平均的YouTube网络吞吐量提高了4%，在一些国家超过了14%。根据实地测试，在部署了最新版内核并开启了 TCP BBR 的机器上，网速甚至可以提升好几个数量级。</p>
-<p>　　从 4.9 开始，Linux 内核已经用上了该算法，并且对于QUIC可用。如果想在Linux使用BBR，那么首先就是判断内核版本是否大于4.9，如果符合版本标准，那么直接启动BBR就可以了，如果低于4.9，升级内核之后启动就行了。</p>
+        <h1 id="安装-tcp-bbr拥塞算法">安装 TCP BBR拥塞算法</h1>
+<blockquote>
+<p>https://www.williamlong.info/archives/5586.html 月光博客</p>
+<p>TCP BBR（Bottleneck Bandwidth and Round-trip propagation
+time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该算法使用网络最近出站数据分组当时的最大带宽和往返时间来创建网络的显式模型。数据包传输的每个累积或选择性确认用于生成记录在数据包传输过程和确认返回期间的时间内所传送数据量的采样率。</p>
+<p>Google在<a
+target="_blank" rel="noopener" href="https://www.williamlong.info/tag/YouTube.html">YouTube</a>上应用该算法，将全球平均的YouTube网络吞吐量提高了4%，在一些国家超过了14%。根据实地测试，在部署了最新版内核并开启了
+TCP BBR 的机器上，网速甚至可以提升好几个数量级。</p>
+<p>　　从 4.9 开始，Linux
+内核已经用上了该算法，并且对于QUIC可用。如果想在Linux使用BBR，那么首先就是判断内核版本是否大于4.9，如果符合版本标准，那么直接启动BBR就可以了，如果低于4.9，升级内核之后启动就行了。</p>
 </blockquote>
-<h2 id="CentOS-7-3上安装TCP-BBR的方法"><a href="#CentOS-7-3上安装TCP-BBR的方法" class="headerlink" title="CentOS 7.3上安装TCP BBR的方法"></a>CentOS 7.3上安装TCP BBR的方法</h2><p>首先将Centos系统更新，更新到7.3版本。</p>
+<h2 id="centos-7.3上安装tcp-bbr的方法">CentOS 7.3上安装TCP
+BBR的方法</h2>
+<p>首先将Centos系统更新，更新到7.3版本。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure>
-
 <p>查看系统版本，输出的release数值大于7.3即可。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-release</span><br></pre></td></tr></table></figure>
-
 <p>对于某些机器来说，安装一下wget</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> wget</span><br></pre></td></tr></table></figure>
-
 <p>使用下面命令安装elrepo并升级内核</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml -y</span><br><span class="line">grub2-set-default 0</span><br><span class="line">grub2-mkconfig -o /etc/grub2.cfg</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
-
 <p>更新grub文件并重启（reboot后，ssh会断开，稍等一会儿重新连接）开机后查看内核是否已更换.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
-
 <p>启动BBR。依次执行下面命令就可以了。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;net.core.default_qdisc = fq&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">echo &quot;net.ipv4.tcp_congestion_control = bbr&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p </span><br></pre></td></tr></table></figure>
-
 <p>验证bbr是否已经开启</p>
 <p>A，验证当前TCP控制算法的命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
-
 <p>返回值一般为：</p>
-<p><code>net.ipv4.tcp_available_congestion_control = bbr cubic reno</code> 或者为：</p>
+<p><code>net.ipv4.tcp_available_congestion_control = bbr cubic reno</code>
+或者为：</p>
 <p><code>net.ipv4.tcp_available_congestion_control = reno cubic bbr</code></p>
 <p>B，验证BBR是否已经启动。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure>
-
 <p>返回值一般为：<code>net.ipv4.tcp_congestion_control = bbr</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>
-
 <p>返回值有 tcp_bbr 模块即说明 bbr 已启动。</p>
-<h2 id="CentOS8上启用TCP-BBR方法"><a href="#CentOS8上启用TCP-BBR方法" class="headerlink" title="CentOS8上启用TCP BBR方法"></a>CentOS8上启用TCP BBR方法</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">LSB</span> Version:	:core-<span class="number">4</span>.<span class="number">1</span>-amd64:core-<span class="number">4</span>.<span class="number">1</span>-noarch</span><br><span class="line"><span class="attribute">Distributor</span> ID:	CentOS</span><br><span class="line"><span class="attribute">Description</span>:	CentOS Linux release <span class="number">8</span>.<span class="number">1</span>.<span class="number">1911</span> (Core)</span><br><span class="line"><span class="attribute">Release</span>:	<span class="number">8</span>.<span class="number">1</span>.<span class="number">1911</span></span><br><span class="line"><span class="attribute">Codename</span>:	Core</span><br></pre></td></tr></table></figure>
-
+<h2 id="centos8上启用tcp-bbr方法">CentOS8上启用TCP BBR方法</h2>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">LSB</span> Version:	:core-<span class="number">4</span>.<span class="number">1</span>-amd64:core-<span class="number">4</span>.<span class="number">1</span>-noarch</span><br><span class="line"><span class="attribute">Distributor</span> ID:	CentOS</span><br><span class="line"><span class="attribute">Description</span>:	CentOS Linux release <span class="number">8</span>.<span class="number">1</span>.<span class="number">1911</span> (Core)</span><br><span class="line"><span class="attribute">Release</span>:	<span class="number">8</span>.<span class="number">1</span>.<span class="number">1911</span></span><br><span class="line"><span class="attribute">Codename</span>:	Core</span><br></pre></td></tr></table></figure>
 <p>已经自带了BBR</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">加载BBR算法</span></span><br><span class="line">/sbin/modprobe tcp_bbr</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">编辑系统配置文件</span></span><br><span class="line">sudo vi /etc/sysctl.conf</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">结尾添加两行</span></span><br><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp_congestion_control=bbr</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">使修改生效</span></span><br><span class="line">sysctl -p</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看已加载算法模块</span></span><br><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -376,7 +374,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">安装 TCP BBR拥塞算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-7-3%E4%B8%8A%E5%AE%89%E8%A3%85TCP-BBR%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">CentOS 7.3上安装TCP BBR的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS8%E4%B8%8A%E5%90%AF%E7%94%A8TCP-BBR%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">CentOS8上启用TCP BBR方法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-tcp-bbr%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">安装 TCP BBR拥塞算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#centos-7.3%E4%B8%8A%E5%AE%89%E8%A3%85tcp-bbr%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">CentOS 7.3上安装TCP
+BBR的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#centos8%E4%B8%8A%E5%90%AF%E7%94%A8tcp-bbr%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">CentOS8上启用TCP BBR方法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

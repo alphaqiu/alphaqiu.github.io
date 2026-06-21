@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="oak-keyring 上手指南：从安装到日常使用第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。 如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。 你需要准备什么 一台 Mac，Apple Silicon 或 Intel 均可">
+  <meta name="description" content="oak-keyring 上手指南：从安装到日常使用 第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。 如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。 你需要准备什么  一台 Mac，Apple Silicon 或 Intel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="oak-keyring 上手指南：从安装到日常使用">
 <meta property="og:url" content="https://alpha.checkitout.dev/2026/06/20/getting-started-zh/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="oak-keyring 上手指南：从安装到日常使用第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。 如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。 你需要准备什么 一台 Mac，Apple Silicon 或 Intel 均可">
+<meta property="og:description" content="oak-keyring 上手指南：从安装到日常使用 第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。 如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。 你需要准备什么  一台 Mac，Apple Silicon 或 Intel">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-21T09:33:27.879Z">
+<meta property="article:modified_time" content="2026-06-21T10:11:29.468Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="checkitout.dev">
 <meta name="twitter:card" content="summary">
@@ -203,7 +203,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2026-06-21 00:00:00 / 修改时间：17:33:27" itemprop="dateCreated datePublished" datetime="2026-06-21T00:00:00+08:00">2026-06-21</time>
+              <time title="创建时间：2026-06-21 00:00:00 / 修改时间：18:11:29" itemprop="dateCreated datePublished" datetime="2026-06-21T00:00:00+08:00">2026-06-21</time>
             </span>
 
           
@@ -231,50 +231,76 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="oak-keyring-上手指南：从安装到日常使用"><a href="#oak-keyring-上手指南：从安装到日常使用" class="headerlink" title="oak-keyring 上手指南：从安装到日常使用"></a>oak-keyring 上手指南：从安装到日常使用</h1><p>第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。</p>
+        <h1 id="oak-keyring-上手指南从安装到日常使用">oak-keyring
+上手指南：从安装到日常使用</h1>
+<p>第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。</p>
 <p>如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。</p>
-<h2 id="你需要准备什么"><a href="#你需要准备什么" class="headerlink" title="你需要准备什么"></a>你需要准备什么</h2><ul>
-<li>一台 Mac，Apple Silicon 或 Intel 均可。Linux 和 Windows 在形态上很适合这类工具，但预览版目前只支持 macOS。</li>
-<li>一个你信任的终端模拟器。iTerm2、Kitty、Alacritty、WezTerm、Apple Terminal 都可以。</li>
-<li>终端里装好 Nerd Font（推荐）。oak-keyring 在侧边栏和列表里用了图标，没有 Nerd Font 的话部分图标会显示成方框或问号，但布局不受影响。</li>
+<h2 id="你需要准备什么">你需要准备什么</h2>
+<ul>
+<li>一台 Mac，Apple Silicon 或 Intel 均可。Linux 和 Windows
+在形态上很适合这类工具，但预览版目前只支持 macOS。</li>
+<li>一个你信任的终端模拟器。iTerm2、Kitty、Alacritty、WezTerm、Apple
+Terminal 都可以。</li>
+<li>终端里装好 Nerd Font（推荐）。oak-keyring
+在侧边栏和列表里用了图标，没有 Nerd Font
+的话部分图标会显示成方框或问号，但布局不受影响。</li>
 </ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>有三种方式，选适合你的就行。</p>
-<h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap openkeyring/oak-keyring</span><br><span class="line">brew install ok</span><br></pre></td></tr></table></figure>
-
-<h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @openkeyring/ok</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
-
-<p>npm 包内置了 macOS 预编译二进制。如果你的架构暂时没覆盖到，改用 GitHub Release。</p>
-<h3 id="GitHub-Release"><a href="#GitHub-Release" class="headerlink" title="GitHub Release"></a>GitHub Release</h3><ol>
-<li>打开 <a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/releases">releases 页面</a>。</li>
+<h2 id="安装">安装</h2>
+<p>有三种方式，选适合你的就行。</p>
+<h3 id="homebrew">Homebrew</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap openkeyring/oak-keyring</span><br><span class="line">brew install ok</span><br></pre></td></tr></table></figure>
+<h3 id="npm">npm</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @openkeyring/ok</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
+<p>npm 包内置了 macOS 预编译二进制。如果你的架构暂时没覆盖到，改用
+GitHub Release。</p>
+<h3 id="github-release">GitHub Release</h3>
+<ol type="1">
+<li>打开 <a
+target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/releases">releases
+页面</a>。</li>
 <li>下载与你的 Mac 架构匹配的 tar 包（Apple Silicon 或 Intel）。</li>
 <li>用 <code>checksums.txt</code> 校验文件完整性。</li>
-<li>解压后把 <code>ok</code> 二进制移到 <code>PATH</code> 里的目录：</li>
+<li>解压后把 <code>ok</code> 二进制移到 <code>PATH</code>
+里的目录：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xzf ok-*.tar.gz</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> ok /usr/local/bin/</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
-
-<p>预览版二进制未签名、未公证，macOS Gatekeeper 可能拦截首次启动。如果你确认是从官方 GitHub Release 下载且校验过 checksum，可以在「系统设置 &gt; 隐私与安全性」里允许运行，或者执行：</p>
+<p>预览版二进制未签名、未公证，macOS Gatekeeper
+可能拦截首次启动。如果你确认是从官方 GitHub Release 下载且校验过
+checksum，可以在「系统设置 &gt; 隐私与安全性」里允许运行，或者执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xattr -d com.apple.quarantine /usr/local/bin/ok</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建你的-Vault"><a href="#创建你的-Vault" class="headerlink" title="创建你的 Vault"></a>创建你的 Vault</h2><p>启动应用：</p>
+<h2 id="创建你的-vault">创建你的 Vault</h2>
+<p>启动应用：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ok</span><br></pre></td></tr></table></figure>
-
 <p>首次运行时，oak-keyring 会引导你创建新 vault。需要设置两样东西。</p>
-<p>第一项是主密码。每次启动 <code>ok</code> 都要输入它解锁 vault，选一个强且好记的。oak-keyring 不提供托管账户恢复，主密码和恢复词都丢了的话，谁都帮不了你。</p>
-<p>第二项是恢复词。oak-keyring 会生成一组 BIP-39 助记词，抄在纸上，存在和电脑分开的安全地方。这是主密码丢失后的最后兜底，重要程度等同于加密货币钱包的种子短语。</p>
+<p>第一项是主密码。每次启动 <code>ok</code> 都要输入它解锁
+vault，选一个强且好记的。oak-keyring
+不提供托管账户恢复，主密码和恢复词都丢了的话，谁都帮不了你。</p>
+<p>第二项是恢复词。oak-keyring 会生成一组 BIP-39
+助记词，抄在纸上，存在和电脑分开的安全地方。这是主密码丢失后的最后兜底，重要程度等同于加密货币钱包的种子短语。</p>
 <p>设置完成后，你就进入了 TUI 主界面。</p>
-<h2 id="界面导览"><a href="#界面导览" class="headerlink" title="界面导览"></a>界面导览</h2><p>整个屏幕分成三个区域：</p>
+<h2 id="界面导览">界面导览</h2>
+<p>整个屏幕分成三个区域：</p>
 <ul>
 <li>左边是侧边栏，在「全部凭证」「安全笔记」「标签」「回收站」之间切换，每项带数量徽标。</li>
 <li>中间是记录列表，显示当前分类下的记录，包含名称、用户名和时间戳。</li>
 <li>右边是详情面板，列出选中记录的字段和可用操作。</li>
 </ul>
-<p>用 <code>Tab</code> 和 <code>Shift+Tab</code> 在区域之间切换，用 <code>j</code>&#x2F;<code>k</code> 或方向键在区域内移动。整个界面完全键盘驱动，不需要动鼠标。</p>
-<h2 id="创建第一条记录"><a href="#创建第一条记录" class="headerlink" title="创建第一条记录"></a>创建第一条记录</h2><p>按 <code>n</code> 新建记录。表单包含标题、用户名、密码、网址、标签和备注等字段。</p>
+<p>用 <code>Tab</code> 和 <code>Shift+Tab</code> 在区域之间切换，用
+<code>j</code>/<code>k</code>
+或方向键在区域内移动。整个界面完全键盘驱动，不需要动鼠标。</p>
+<h2 id="创建第一条记录">创建第一条记录</h2>
+<p>按 <code>n</code>
+新建记录。表单包含标题、用户名、密码、网址、标签和备注等字段。</p>
 <p>密码字段可以手动输入，也可以用内置生成器。光标停在密码字段时调用生成器，可以按可配置的长度和字符集生成强密码。</p>
-<p>用标签来组织记录（比如 <code>工作</code>、<code>个人</code>、<code>银行</code>）。标签是自由文本，之后可以从侧边栏按标签筛选。</p>
+<p>用标签来组织记录（比如
+<code>工作</code>、<code>个人</code>、<code>银行</code>）。标签是自由文本，之后可以从侧边栏按标签筛选。</p>
 <p>保存后，记录立刻出现在列表里。</p>
-<h2 id="搜索和复制"><a href="#搜索和复制" class="headerlink" title="搜索和复制"></a>搜索和复制</h2><p>这是最高频的日常操作：找到凭证，复制，粘贴到需要的地方。</p>
-<p>按 <code>Ctrl+K</code> 进入搜索模式，输入记录名称的几个字符，列表实时过滤。按 <code>Enter</code> 确认搜索（过滤后的列表保留），或按 <code>Esc</code> 取消搜索恢复之前的列表。</p>
+<h2 id="搜索和复制">搜索和复制</h2>
+<p>这是最高频的日常操作：找到凭证，复制，粘贴到需要的地方。</p>
+<p>按 <code>Ctrl+K</code>
+进入搜索模式，输入记录名称的几个字符，列表实时过滤。按
+<code>Enter</code> 确认搜索（过滤后的列表保留），或按 <code>Esc</code>
+取消搜索恢复之前的列表。</p>
 <p>选中记录后，在详情面板里用这些快捷键：</p>
 <ul>
 <li><code>c</code> 复制密码到剪贴板。</li>
@@ -282,129 +308,165 @@
 <li><code>p</code> 显示或隐藏密码。</li>
 </ul>
 <p>剪贴板内容会在短时间后自动清除，降低粘贴到错误位置的风险。</p>
-<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><table>
+<h2 id="快捷键参考">快捷键参考</h2>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>按键</th>
 <th>上下文</th>
 <th>操作</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><code>Ctrl+K</code></td>
 <td>主列表</td>
 <td>进入搜索模式</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>Enter</code></td>
 <td>搜索模式</td>
 <td>确认搜索结果</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>Esc</code></td>
 <td>搜索模式</td>
 <td>取消搜索，恢复列表</td>
 </tr>
-<tr>
-<td><code>j</code> &#x2F; <code>Down</code></td>
+<tr class="even">
+<td><code>j</code> / <code>Down</code></td>
 <td>侧边栏、列表、详情</td>
 <td>向下移动</td>
 </tr>
-<tr>
-<td><code>k</code> &#x2F; <code>Up</code></td>
+<tr class="odd">
+<td><code>k</code> / <code>Up</code></td>
 <td>侧边栏、列表、详情</td>
 <td>向上移动</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>n</code></td>
 <td>主界面（回收站外）</td>
 <td>新建记录</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>e</code></td>
 <td>选中记录</td>
 <td>编辑记录</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>c</code></td>
 <td>详情面板</td>
 <td>复制密码</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>u</code></td>
 <td>详情面板</td>
 <td>复制用户名</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>p</code></td>
 <td>详情面板</td>
-<td>显示&#x2F;隐藏密码</td>
+<td>显示/隐藏密码</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>Ctrl+G</code></td>
 <td>主界面</td>
 <td>打开密码生成器</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>Ctrl+P</code></td>
 <td>主界面</td>
 <td>打开设置</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>Ctrl+R</code></td>
 <td>主界面</td>
 <td>触发同步</td>
 </tr>
-<tr>
-<td><code>?</code> &#x2F; <code>F1</code></td>
+<tr class="even">
+<td><code>?</code> / <code>F1</code></td>
 <td>主界面</td>
 <td>打开帮助</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>q</code></td>
 <td>主界面</td>
 <td>退出</td>
 </tr>
-<tr>
-<td><code>Tab</code> &#x2F; <code>Shift+Tab</code></td>
+<tr class="even">
+<td><code>Tab</code> / <code>Shift+Tab</code></td>
 <td>设置页</td>
 <td>在区域间切换焦点</td>
 </tr>
-</tbody></table>
-<p>在应用里随时按 <code>?</code> 或 <code>F1</code> 可以查看当前上下文的帮助。</p>
-<h2 id="密码生成器"><a href="#密码生成器" class="headerlink" title="密码生成器"></a>密码生成器</h2><p>在主界面按 <code>Ctrl+G</code> 可以打开独立的密码生成器。生成前可以配置长度、字符集（大写、小写、数字、符号）和排除规则。</p>
+</tbody>
+</table>
+<p>在应用里随时按 <code>?</code> 或 <code>F1</code>
+可以查看当前上下文的帮助。</p>
+<h2 id="密码生成器">密码生成器</h2>
+<p>在主界面按 <code>Ctrl+G</code>
+可以打开独立的密码生成器。生成前可以配置长度、字符集（大写、小写、数字、符号）和排除规则。</p>
 <p>生成器也内嵌在记录表单里。创建或编辑记录需要密码时，可以直接在表单里生成，不需要跳出去。</p>
-<h2 id="标签、回收站和恢复"><a href="#标签、回收站和恢复" class="headerlink" title="标签、回收站和恢复"></a>标签、回收站和恢复</h2><p>标签显示在侧边栏里，导航到某个标签可以筛选列表。vault 里记录多到搜索不够用时，标签能帮你分层组织。</p>
+<h2 id="标签回收站和恢复">标签、回收站和恢复</h2>
+<p>标签显示在侧边栏里，导航到某个标签可以筛选列表。vault
+里记录多到搜索不够用时，标签能帮你分层组织。</p>
 <p>回收站是软删除。删除记录时，它先进入回收站而不是直接消失，你可以从侧边栏浏览回收站、改主意就恢复。只有你明确清空回收站时，记录才会被永久删除。对一个保管凭证的工具来说，误删可挽回是底线。</p>
-<h2 id="导入和导出"><a href="#导入和导出" class="headerlink" title="导入和导出"></a>导入和导出</h2><p>oak-keyring 通过 TUI 支持导入和导出。常见场景有两个：从其他密码管理器迁移（从当前工具导出，再导入 oak-keyring），以及创建加密备份（把 vault 导出成文件，加密后存到安全的地方）。</p>
+<h2 id="导入和导出">导入和导出</h2>
+<p>oak-keyring 通过 TUI
+支持导入和导出。常见场景有两个：从其他密码管理器迁移（从当前工具导出，再导入
+oak-keyring），以及创建加密备份（把 vault
+导出成文件，加密后存到安全的地方）。</p>
 <p>导出文件包含你的凭证明文。请当作高度敏感数据对待，不要放在临时目录、未加密的云盘文件夹或邮件附件里。</p>
-<h2 id="可选：Google-Drive-同步"><a href="#可选：Google-Drive-同步" class="headerlink" title="可选：Google Drive 同步"></a>可选：Google Drive 同步</h2><p>在 TUI 里通过 <code>Ctrl+P</code>（设置）配置同步。Google Drive 用作加密传输通道，不是托管 vault。你的 vault 数据在本地加密后才上传到 Google 服务器。</p>
+<h2 id="可选google-drive-同步">可选：Google Drive 同步</h2>
+<p>在 TUI 里通过 <code>Ctrl+P</code>（设置）配置同步。Google Drive
+用作加密传输通道，不是托管 vault。你的 vault 数据在本地加密后才上传到
+Google 服务器。</p>
 <p>配置好后，在主界面按 <code>Ctrl+R</code> 手动触发同步。</p>
-<p>同步是预览功能，默认关闭，完全是可选项。如果你不需要跨设备访问，可以彻底忽略它，保持 vault 纯本地。</p>
-<h2 id="自动锁定"><a href="#自动锁定" class="headerlink" title="自动锁定"></a>自动锁定</h2><p>Vault 会在一段时间不活动后自动锁定。这防止你离开终端后别人翻看你的凭证。</p>
+<p>同步是预览功能，默认关闭，完全是可选项。如果你不需要跨设备访问，可以彻底忽略它，保持
+vault 纯本地。</p>
+<h2 id="自动锁定">自动锁定</h2>
+<p>Vault
+会在一段时间不活动后自动锁定。这防止你离开终端后别人翻看你的凭证。</p>
 <p>锁定后需要重新输入主密码解锁。超时时间可以在设置里调整。</p>
-<h2 id="密码健康检查"><a href="#密码健康检查" class="headerlink" title="密码健康检查"></a>密码健康检查</h2><p>oak-keyring 内置密码健康检查。泄漏密码指示器会标记出现在已知数据泄露中的凭证，省得你手动逐条审查找出需要更新的密码。</p>
-<h2 id="实用建议"><a href="#实用建议" class="headerlink" title="实用建议"></a>实用建议</h2><ul>
-<li>装 Nerd Font。没有它，侧边栏和列表里的图标显示不出来。JetBrains Mono Nerd Font、FiraCode Nerd Font、Hack Nerd Font 都可以。</li>
+<h2 id="密码健康检查">密码健康检查</h2>
+<p>oak-keyring
+内置密码健康检查。泄漏密码指示器会标记出现在已知数据泄露中的凭证，省得你手动逐条审查找出需要更新的密码。</p>
+<h2 id="实用建议">实用建议</h2>
+<ul>
+<li>装 Nerd Font。没有它，侧边栏和列表里的图标显示不出来。JetBrains Mono
+Nerd Font、FiraCode Nerd Font、Hack Nerd Font 都可以。</li>
 <li>恢复词离线保存。纸质、金属刻字、锁起来的抽屉，别用云笔记、截图或者发给自己的聊天消息。</li>
-<li>升级前先导出。预览版可能改变数据格式，更新到新预览版之前先导出 vault，万一出问题可以重新导入。</li>
-<li>保持终端可信。oak-keyring 运行在你的终端里，如果终端会话被入侵，vault 也会受威胁。不要在共享或不受信任的环境里运行 <code>ok</code>。</li>
+<li>升级前先导出。预览版可能改变数据格式，更新到新预览版之前先导出
+vault，万一出问题可以重新导入。</li>
+<li>保持终端可信。oak-keyring
+运行在你的终端里，如果终端会话被入侵，vault
+也会受威胁。不要在共享或不受信任的环境里运行 <code>ok</code>。</li>
 </ul>
-<h2 id="目前还不支持什么"><a href="#目前还不支持什么" class="headerlink" title="目前还不支持什么"></a>目前还不支持什么</h2><ul>
+<h2 id="目前还不支持什么">目前还不支持什么</h2>
+<ul>
 <li>Linux 和 Windows 暂不可用，在这些平台上需要再等一等。</li>
-<li>浏览器自动填充不在产品范围内。oak-keyring 是终端原生的，浏览器登录时需要从 TUI 复制凭证。</li>
-<li>没有移动端。Google Drive 同步预览是目前的数据通道，但没有移动端客户端来消费它。</li>
+<li>浏览器自动填充不在产品范围内。oak-keyring
+是终端原生的，浏览器登录时需要从 TUI 复制凭证。</li>
+<li>没有移动端。Google Drive
+同步预览是目前的数据通道，但没有移动端客户端来消费它。</li>
 <li>签名二进制还在路上，目前需要手动校验 checksum。</li>
 </ul>
-<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><ul>
-<li><strong>完整文档</strong>：<a target="_blank" rel="noopener" href="https://openkeyring.com/zh/docs/">openkeyring.com&#x2F;zh&#x2F;docs&#x2F;</a></li>
-<li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">github.com&#x2F;OpenKeyring&#x2F;oak-keyring</a></li>
-<li><strong>Discord</strong>：<a target="_blank" rel="noopener" href="https://discord.gg/3xnuu2bQz">加入社区</a></li>
-<li><strong>安全模型</strong>：阅读 <a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/blob/develop/THREAT_MODEL.md">THREAT_MODEL.md</a> 了解正式的安全假设和边界。</li>
+<h2 id="接下来">接下来</h2>
+<ul>
+<li><strong>完整文档</strong>：<a
+target="_blank" rel="noopener" href="https://openkeyring.com/zh/docs/">openkeyring.com/zh/docs/</a></li>
+<li><strong>GitHub</strong>：<a
+target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">github.com/OpenKeyring/oak-keyring</a></li>
+<li><strong>Discord</strong>：<a
+target="_blank" rel="noopener" href="https://discord.gg/3xnuu2bQz">加入社区</a></li>
+<li><strong>安全模型</strong>：阅读 <a
+target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/blob/develop/THREAT_MODEL.md">THREAT_MODEL.md</a>
+了解正式的安全假设和边界。</li>
 </ul>
-<p>遇到问题可以在 GitHub 提 issue。工作流方面的反馈对项目尤其有用，项目还处于早期，真实使用场景会直接影响优先级。</p>
-<hr>
-<p>oak-keyring 不想面面俱到，只想让你不用离开终端就能管理凭证。如果这就是你的工作方式，试试看。</p>
+<p>遇到问题可以在 GitHub 提
+issue。工作流方面的反馈对项目尤其有用，项目还处于早期，真实使用场景会直接影响优先级。</p>
+<hr />
+<p>oak-keyring
+不想面面俱到，只想让你不用离开终端就能管理凭证。如果这就是你的工作方式，试试看。</p>
 
     </div>
 
@@ -489,7 +551,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#oak-keyring-%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E5%AE%89%E8%A3%85%E5%88%B0%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">oak-keyring 上手指南：从安装到日常使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">你需要准备什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Homebrew"><span class="nav-number">1.2.1.</span> <span class="nav-text">Homebrew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">1.2.2.</span> <span class="nav-text">npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub-Release"><span class="nav-number">1.2.3.</span> <span class="nav-text">GitHub Release</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BD%A0%E7%9A%84-Vault"><span class="nav-number">1.3.</span> <span class="nav-text">创建你的 Vault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%95%8C%E9%9D%A2%E5%AF%BC%E8%A7%88"><span class="nav-number">1.4.</span> <span class="nav-text">界面导览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E6%9D%A1%E8%AE%B0%E5%BD%95"><span class="nav-number">1.5.</span> <span class="nav-text">创建第一条记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%92%8C%E5%A4%8D%E5%88%B6"><span class="nav-number">1.6.</span> <span class="nav-text">搜索和复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%82%E8%80%83"><span class="nav-number">1.7.</span> <span class="nav-text">快捷键参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">密码生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E3%80%81%E5%9B%9E%E6%94%B6%E7%AB%99%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="nav-number">1.9.</span> <span class="nav-text">标签、回收站和恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA"><span class="nav-number">1.10.</span> <span class="nav-text">导入和导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%EF%BC%9AGoogle-Drive-%E5%90%8C%E6%AD%A5"><span class="nav-number">1.11.</span> <span class="nav-text">可选：Google Drive 同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E9%94%81%E5%AE%9A"><span class="nav-number">1.12.</span> <span class="nav-text">自动锁定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5"><span class="nav-number">1.13.</span> <span class="nav-text">密码健康检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.14.</span> <span class="nav-text">实用建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E8%BF%98%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BB%80%E4%B9%88"><span class="nav-number">1.15.</span> <span class="nav-text">目前还不支持什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5"><span class="nav-number">1.16.</span> <span class="nav-text">接下来</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#oak-keyring-%E4%B8%8A%E6%89%8B%E6%8C%87%E5%8D%97%E4%BB%8E%E5%AE%89%E8%A3%85%E5%88%B0%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">oak-keyring
+上手指南：从安装到日常使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text">你需要准备什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#homebrew"><span class="nav-number">1.2.1.</span> <span class="nav-text">Homebrew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">1.2.2.</span> <span class="nav-text">npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github-release"><span class="nav-number">1.2.3.</span> <span class="nav-text">GitHub Release</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BD%A0%E7%9A%84-vault"><span class="nav-number">1.3.</span> <span class="nav-text">创建你的 Vault</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%95%8C%E9%9D%A2%E5%AF%BC%E8%A7%88"><span class="nav-number">1.4.</span> <span class="nav-text">界面导览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E6%9D%A1%E8%AE%B0%E5%BD%95"><span class="nav-number">1.5.</span> <span class="nav-text">创建第一条记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%92%8C%E5%A4%8D%E5%88%B6"><span class="nav-number">1.6.</span> <span class="nav-text">搜索和复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%82%E8%80%83"><span class="nav-number">1.7.</span> <span class="nav-text">快捷键参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">密码生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E5%9B%9E%E6%94%B6%E7%AB%99%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="nav-number">1.9.</span> <span class="nav-text">标签、回收站和恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA"><span class="nav-number">1.10.</span> <span class="nav-text">导入和导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%80%89google-drive-%E5%90%8C%E6%AD%A5"><span class="nav-number">1.11.</span> <span class="nav-text">可选：Google Drive 同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E9%94%81%E5%AE%9A"><span class="nav-number">1.12.</span> <span class="nav-text">自动锁定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5"><span class="nav-number">1.13.</span> <span class="nav-text">密码健康检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.14.</span> <span class="nav-text">实用建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E8%BF%98%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BB%80%E4%B9%88"><span class="nav-number">1.15.</span> <span class="nav-text">目前还不支持什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5"><span class="nav-number">1.16.</span> <span class="nav-text">接下来</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

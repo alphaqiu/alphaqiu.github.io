@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="程序中的所有数在计算机内存中都是以二进制的形式储存的。而位运算，就是直接对在内存中的二进制位进行操作，跳过了 程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。 掌握位运算 是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解 位运算的大体方法以及一些基本的应用。 and 运算 只有对应的两个 二进制数，均为 1，结果才为 1，否则为">
+  <meta name="description" content="程序中的所有数在计算机内存中都是以二进制的形式储存的。而位运算，就是直接对在内存中的二进制位进行操作，跳过了 程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。 掌握位运算 是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解 位运算的大体方法以及一些基本的应用。 and 运算  只有对应的两个 二进制数，均为 1，结果才为 1，否则为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用位移替代乘法">
 <meta property="og:url" content="https://alpha.checkitout.dev/2019/05/23/%E7%94%A8%E4%BD%8D%E7%A7%BB%E6%9B%BF%E4%BB%A3%E4%B9%98%E6%B3%95/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="程序中的所有数在计算机内存中都是以二进制的形式储存的。而位运算，就是直接对在内存中的二进制位进行操作，跳过了 程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。 掌握位运算 是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解 位运算的大体方法以及一些基本的应用。 and 运算 只有对应的两个 二进制数，均为 1，结果才为 1，否则为">
+<meta property="og:description" content="程序中的所有数在计算机内存中都是以二进制的形式储存的。而位运算，就是直接对在内存中的二进制位进行操作，跳过了 程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。 掌握位运算 是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解 位运算的大体方法以及一些基本的应用。 and 运算  只有对应的两个 二进制数，均为 1，结果才为 1，否则为">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-23T07:36:54.000Z">
-<meta property="article:modified_time" content="2026-06-21T09:33:27.882Z">
+<meta property="article:modified_time" content="2026-06-21T10:11:29.470Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,102 +246,140 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>程序中的所有数在计算机内存中都是以二进制的形式储存的</strong>。而位运算，就是直接对在内存中的二进制位进行操作，跳过了 程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。</p>
-<p>掌握位运算 是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解 位运算的大体方法以及一些基本的应用。</p>
-<h3 id="and-运算"><a href="#and-运算" class="headerlink" title="and 运算"></a>and 运算</h3><blockquote>
+        <p><strong>程序中的所有数在计算机内存中都是以二进制的形式储存的</strong>。而位运算，就是直接对在内存中的二进制位进行操作，跳过了
+程序转义成二进制的这一步骤，对编译时间有所提高，但带来的缺点也很明显，程序的可读性变低了。</p>
+<p>掌握位运算
+是一位程序员的基本素养，位运算在计算机领域的作用可谓举足轻重。下面我将讲解
+位运算的大体方法以及一些基本的应用。</p>
+<h3 id="and-运算">and 运算</h3>
+<blockquote>
 <p>只有对应的两个 二进制数，均为 1，结果才为 1，否则为 0</p>
 </blockquote>
-<h4 id="1"><a href="#1" class="headerlink" title="&amp; 1"></a>&amp; 1</h4><p><strong>判断 n 的第 m 位数</strong>。</p>
+<h4 id="section">&amp; 1</h4>
+<p><strong>判断 n 的第 m 位数</strong>。</p>
 <p>介绍两个重要应用，来证明其含义：</p>
-<ol>
-<li>(n &gt;&gt;m ) &amp; 1 判断 整数 n 的二进制 第 m 位 是否 为 1 或者 为 0 n 的第 m 位数，如果为 1 ，1&amp;1 就返回 1 ，如果为 0，0&amp;1 就返回 0</li>
-<li>判断 奇偶性 如果 n 为奇数，辗转相除 2，最后的余数 必定为 1，如果 n 为偶数，辗转相除 余数必定为 0 也就是说，n 为奇数，n&amp;1 等价于 1&amp;1 ，返回 1，n 为偶数，n&amp;1 等价于 0&amp;1，返回 0</li>
+<ol type="1">
+<li>(n &gt;&gt;m ) &amp; 1 判断 整数 n 的二进制 第 m 位 是否 为 1 或者
+为 0 n 的第 m 位数，如果为 1 ，1&amp;1 就返回 1 ，如果为 0，0&amp;1
+就返回 0</li>
+<li>判断 奇偶性 如果 n 为奇数，辗转相除 2，最后的余数 必定为 1，如果 n
+为偶数，辗转相除 余数必定为 0 也就是说，n 为奇数，n&amp;1 等价于 1&amp;1
+，返回 1，n 为偶数，n&amp;1 等价于 0&amp;1，返回 0</li>
 </ol>
-<h4 id="0"><a href="#0" class="headerlink" title="&amp; 0"></a>&amp; 0</h4><p><strong>将 n 的第 m 位数，重置为 0</strong> 基本应用：n &amp; ~(1 &lt;&lt; m)</p>
-<ol>
+<h4 id="section-1">&amp; 0</h4>
+<p><strong>将 n 的第 m 位数，重置为 0</strong> 基本应用：n &amp; ~(1
+&lt;&lt; m)</p>
+<ol type="1">
 <li>1 &lt;&lt; m 定位到 n 的第 m 位数</li>
-<li>~(1 &lt;&lt; m) 将 1 进行非运算，变为 0，其他剩下的 m 位，变成 1，而 &amp;1，是无实际作用的</li>
-<li>n &amp; 0 ：&amp; 按位与运算 只有对应的两个数 全部为 1 时，结果才为 1，而&amp;0，返回值一定为 0</li>
+<li>~(1 &lt;&lt; m) 将 1 进行非运算，变为 0，其他剩下的 m 位，变成 1，而
+&amp;1，是无实际作用的</li>
+<li>n &amp; 0 ：&amp; 按位与运算 只有对应的两个数 全部为 1 时，结果才为
+1，而&amp;0，返回值一定为 0</li>
 </ol>
-<h3 id="or-运算"><a href="#or-运算" class="headerlink" title="or 运算"></a>or 运算</h3><blockquote>
+<h3 id="or-运算">or 运算</h3>
+<blockquote>
 <p>只有对应的两个 二进制数，均为 0，结果才为 0，否则为 1</p>
 </blockquote>
-<h4 id="1-1"><a href="#1-1" class="headerlink" title="| 1"></a>| 1</h4><p><strong>将 n 的第 m 位数，重置为 1</strong></p>
+<h4 id="section-2">| 1</h4>
+<p><strong>将 n 的第 m 位数，重置为 1</strong></p>
 <p>基本应用：n | (1 &lt;&lt; m):</p>
-<ol>
-<li>1 &lt;&lt; m<br>定位到 n 的第 m 位数</li>
-<li>n | 1<br>n 的第 m 位数 进行 |1 操作 其返回值必定为 1！ 因为|只有，两个数都为 0 时，结果才为 0</li>
+<ol type="1">
+<li>1 &lt;&lt; m 定位到 n 的第 m 位数</li>
+<li>n | 1 n 的第 m 位数 进行 |1 操作 其返回值必定为 1！
+因为|只有，两个数都为 0 时，结果才为 0</li>
 </ol>
-<h4 id="0-1"><a href="#0-1" class="headerlink" title="| 0"></a>| 0</h4><p>无实际作用</p>
-<p>一定要清楚， 是 n 的第 m 位数 在进行操作，其他 位数操作，根本无 影响</p>
-<p>因为，其他位数，是 在进行 “| 0” 操作，而所谓的 |0 操作，与 &amp;1 操作，毫无差别。</p>
-<p>假设 k&#x3D;n 的第 m 位数，k &#x3D; 1 ，k|0 &#x3D; 1|0 &#x3D; 1，k &#x3D; 0，k|0 &#x3D; 0|0 &#x3D; 0，所谓 无实际作用。</p>
-<p>但是要注意一点，我说的 0 是在二进制数中的 0，有实际含义的 0，不是补 0 的 0</p>
-<p>所以，可以感性的认识到，| 0 与 &amp; 1 以及 下文的 ^ 0，都是无实际作用的</p>
-<h3 id="xor-运算"><a href="#xor-运算" class="headerlink" title="xor 运算"></a>xor 运算</h3><blockquote>
+<h4 id="section-3">| 0</h4>
+<p>无实际作用</p>
+<p>一定要清楚， 是 n 的第 m 位数 在进行操作，其他 位数操作，根本无
+影响</p>
+<p>因为，其他位数，是 在进行 “| 0” 操作，而所谓的 |0 操作，与 &amp;1
+操作，毫无差别。</p>
+<p>假设 k=n 的第 m 位数，k = 1 ，k|0 = 1|0 = 1，k = 0，k|0 = 0|0 =
+0，所谓 无实际作用。</p>
+<p>但是要注意一点，我说的 0 是在二进制数中的 0，有实际含义的 0，不是补 0
+的 0</p>
+<p>所以，可以感性的认识到，| 0 与 &amp; 1 以及 下文的 ^
+0，都是无实际作用的</p>
+<h3 id="xor-运算">xor 运算</h3>
+<blockquote>
 <p>只有对应的两个 二进制数相等时，结果才为 0，否则为 1</p>
 </blockquote>
-<h4 id="1-2"><a href="#1-2" class="headerlink" title="^ 1"></a>^ 1</h4><p><strong>将 n 的第 m 位数，取反</strong></p>
+<h4 id="section-4">^ 1</h4>
+<p><strong>将 n 的第 m 位数，取反</strong></p>
 <p>基本应用：n ^ (1 &lt;&lt; m)</p>
-<ol>
+<ol type="1">
 <li>1 &lt;&lt; m ： 定位到 n 的第 m 位数</li>
 <li>n ^ 1，我们要知道，^ (异或）：不相等为 1，相等为 0</li>
 </ol>
-<p>而 ^1：如果 n 的第 m 位数 为 1，1^1 返回值为 0，如果 n 的第 m 位数 为 0，0^1 返回值 为 1</p>
+<p>而 ^1：如果 n 的第 m 位数 为 1，1^1 返回值为 0，如果 n 的第 m 位数 为
+0，0^1 返回值 为 1</p>
 <p>所以，^1 的重要作用，就是 与之相反的作用</p>
-<h4 id="0-2"><a href="#0-2" class="headerlink" title="^ 0"></a>^ 0</h4><p>无实际作用</p>
-<p>假定 整数 k 为 0，k^0 &#x3D; 0^0 &#x3D; 0 ; 假定整数 k 为 1，k^0 &#x3D; 1^0 &#x3D; 1</p>
+<h4 id="section-5">^ 0</h4>
+<p>无实际作用</p>
+<p>假定 整数 k 为 0，k^0 = 0^0 = 0 ; 假定整数 k 为 1，k^0 = 1^0 = 1</p>
 <p>所以说，无论怎么变化，^0 都是无实际作用的</p>
-<h3 id="shl-shr-运算"><a href="#shl-shr-运算" class="headerlink" title="shl &amp; shr 运算"></a>shl &amp; shr 运算</h3><ol>
+<h3 id="shl-shr-运算">shl &amp; shr 运算</h3>
+<ol type="1">
 <li><p>左移运算符 “&lt;&lt;”</p>
-<p>表达式：a &lt;&lt; b a&lt;&lt;b 的值是：将 a 各二进位全部左移 b 位后得到的值。左移时，高位丢弃，低位补 0。 实际上，左移 1 位，就等于是乘以 2，左移 n 位，就等于是乘以 2n。 而左移操作比乘法操作快得多。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">COPY例如:9</span> <span class="string">&lt;&lt;</span> <span class="number">4</span></span><br><span class="line"><span class="number">9</span><span class="string">的二进制形式：0000</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1001</span></span><br><span class="line"><span class="string">因此，表达式“9&lt;&lt;4”的值，就是将上面的二进制数左移4位，得：</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1001 </span><span class="number">0000</span></span><br><span class="line"><span class="string">即为十进制的144</span> <span class="string">,</span> <span class="string">而</span> <span class="number">9</span><span class="string">*2的4次幂</span> <span class="string">=</span> <span class="number">9</span><span class="string">*16</span> <span class="string">=</span> <span class="number">144</span><span class="string">.</span></span><br></pre></td></tr></table></figure>
-</li>
+<p>表达式：a &lt;&lt; b a&lt;&lt;b 的值是：将 a 各二进位全部左移 b
+位后得到的值。左移时，高位丢弃，低位补 0。 实际上，左移 1
+位，就等于是乘以 2，左移 n 位，就等于是乘以 2n。
+而左移操作比乘法操作快得多。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">COPY例如:9</span> <span class="string">&lt;&lt;</span> <span class="number">4</span></span><br><span class="line"><span class="number">9</span><span class="string">的二进制形式：0000</span> <span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1001</span></span><br><span class="line"><span class="string">因此，表达式“9&lt;&lt;4”的值，就是将上面的二进制数左移4位，得：</span></span><br><span class="line"><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">0000 </span><span class="number">1001 </span><span class="number">0000</span></span><br><span class="line"><span class="string">即为十进制的144</span> <span class="string">,</span> <span class="string">而</span> <span class="number">9</span><span class="string">*2的4次幂</span> <span class="string">=</span> <span class="number">9</span><span class="string">*16</span> <span class="string">=</span> <span class="number">144</span><span class="string">.</span></span><br></pre></td></tr></table></figure></li>
 <li><p>右移运算符 “&gt;&gt;”</p>
-<p>表达式：a &gt;&gt; b a&gt;&gt;b 的值是：将 a 各二进位全部右移 b 位后得到的值。右移时，移出最右边的位就被丢弃。 对于有符号数，如 long,int,short,char 类型变量，在右移时，符号位（即最高位）将一起移动，并且大多数 C&#x2F;C++编译器规定，如果原符号位为 1，则右移时高位就补充 1，原符号位为 0，则右移时高位就补充 0。</p>
+<p>表达式：a &gt;&gt; b a&gt;&gt;b 的值是：将 a 各二进位全部右移 b
+位后得到的值。右移时，移出最右边的位就被丢弃。 对于有符号数，如
+long,int,short,char
+类型变量，在右移时，符号位（即最高位）将一起移动，并且大多数
+C/C++编译器规定，如果原符号位为 1，则右移时高位就补充 1，原符号位为
+0，则右移时高位就补充 0。</p>
 <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY实际上，右移 n 位，就相当于左操作数除以2n，并且将结果往小里取整。</span><br><span class="line">例如：<span class="string">-25</span> &gt;&gt; 4 = <span class="string">-2</span>   <span class="string">-2</span> &gt;&gt; 4 = <span class="string">-1</span>   18 &gt;&gt; 4 = 1</span><br></pre></td></tr></table></figure>
-
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h4 id="对-2-的整数幂进行模运算"><a href="#对-2-的整数幂进行模运算" class="headerlink" title="对 2 的整数幂进行模运算"></a>对 2 的整数幂进行模运算</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,k;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;k))&#123;</span><br><span class="line">        n&lt;&lt;=k;<span class="comment">//相当于 n 乘以 2 的 k 次幂，并将结果赋给 n </span></span><br><span class="line">        </span><br><span class="line">        n&gt;&gt;=k;<span class="comment">//相当于 n 除以 2 的 k 次幂，并将结果赋给 n </span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="两数交换"><a href="#两数交换" class="headerlink" title="两数交换"></a>两数交换</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m))&#123;</span><br><span class="line">        n^=m;</span><br><span class="line">        m^=n;</span><br><span class="line">        n^=m;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>,n,m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="应用">应用</h3>
+<h4 id="对-2-的整数幂进行模运算">对 2 的整数幂进行模运算</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,k;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;k))&#123;</span><br><span class="line">        n&lt;&lt;=k;<span class="comment">//相当于 n 乘以 2 的 k 次幂，并将结果赋给 n </span></span><br><span class="line">        </span><br><span class="line">        n&gt;&gt;=k;<span class="comment">//相当于 n 除以 2 的 k 次幂，并将结果赋给 n </span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="两数交换">两数交换</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m))&#123;</span><br><span class="line">        n^=m;</span><br><span class="line">        m^=n;</span><br><span class="line">        n^=m;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>,n,m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>按位异或 ^ : 不相同 为：1 ; 相同 为 ：0 将参与运算的两操作数各对应的二进制位进行异或操作， 即只有对应的两个二进位不相同时，结果的对应二进制位才是 1，否则为 0。</p>
-</blockquote>
-</li>
+<p>按位异或 ^ : 不相同 为：1 ; 相同 为 ：0
+将参与运算的两操作数各对应的二进制位进行异或操作，
+即只有对应的两个二进位不相同时，结果的对应二进制位才是 1，否则为 0。</p>
+</blockquote></li>
 </ol>
-<p><strong>异或运算的特点是：如果 a^b&#x3D;c，那么就有 c^b &#x3D; a 以及 c^a&#x3D;b</strong></p>
+<p><strong>异或运算的特点是：如果 a^b=c，那么就有 c^b = a 以及
+c^a=b</strong></p>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">COPY例如：表达式“21 ^<span class="number"> 18 </span>”的值是7(即二进制数111)。</span><br><span class="line">21：    10101</span><br><span class="line">18：    10010</span><br><span class="line">21^18:  00111</span><br><span class="line"></span><br><span class="line">假设 n = 5，m =<span class="number"> 6 </span></span><br><span class="line">5的二进制为：101</span><br><span class="line">6的二进制为：110 </span><br><span class="line"></span><br><span class="line">n^=m = 5^=6   =<span class="number"> 101 </span>^<span class="number"> 110 </span>=<span class="number"> 011 </span>,</span><br><span class="line">此时 n 的二进制为：011 </span><br><span class="line"></span><br><span class="line">m^=n = 6^=011 =<span class="number"> 110 </span>^<span class="number"> 011 </span>=<span class="number"> 101 </span>,</span><br><span class="line">此时 m 的二进制为：101，也正是 5的二进制数，也就是说 m ==开始的 n </span><br><span class="line"></span><br><span class="line">n^=m = 011^=5 =<span class="number"> 011 </span>^<span class="number"> 101 </span>=<span class="number"> 110 </span>,</span><br><span class="line">此时 n 的二进制位：110，也正是 6的二进制数，也就是说 n ==开始的 m</span><br></pre></td></tr></table></figure>
-
 <p>层次结构：A-&gt;B B-&gt;A A-&gt;B 正 反 正</p>
-<h4 id="判断-2-的正整数幂"><a href="#判断-2-的正整数幂" class="headerlink" title="判断 2 的正整数幂"></a>判断 2 的正整数幂</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n))&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(n &amp; (n<span class="number">-1</span>)) &amp;&amp; n)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 为 2 的正整数幂\n&quot;</span>,n);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 不是 2 的正整数幂\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h4 id="判断-2-的正整数幂">判断 2 的正整数幂</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n))&#123;</span><br><span class="line">        <span class="keyword">if</span>(!(n &amp; (n<span class="number">-1</span>)) &amp;&amp; n)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 为 2 的正整数幂\n&quot;</span>,n);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 不是 2 的正整数幂\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>给定整数 n 判断 n 是否为 2 的正整数幂 表达式：(! (n &amp; (n-1)) &amp;&amp; n</p>
+<p>给定整数 n 判断 n 是否为 2 的正整数幂 表达式：(! (n &amp; (n-1))
+&amp;&amp; n</p>
 </blockquote>
 <figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COPY举个例子： n =<span class="number"> 16 </span>= 10000，n-1 =<span class="number"> 15 </span>= 1111</span><br><span class="line">那么 ：10000 &amp;<span class="number"> 01111 </span>=<span class="number"> 00000 </span>=<span class="number"> 0 </span></span><br><span class="line">再举个例子： n =<span class="number"> 256 </span>=<span class="number"> 10000000 </span>,n-1 =<span class="number"> 255 </span>= 11111111</span><br><span class="line">那么：100000000 &amp;<span class="number"> 011111111 </span>=<span class="number"> 000000000 </span>= 0</span><br></pre></td></tr></table></figure>
-
-<p>是的，如果一个数 n 是 2 的正整数幂，那么 n 的二进制必定为 1000…. n-1 的二进制必定为 1111…. <strong>即： n &amp; n-1 &#x3D; 0 所以 (! (n &amp; (n-1)) 为 1 ; &amp;&amp; n ：判断 n 为正数</strong></p>
-<h4 id="判断奇偶性"><a href="#判断奇偶性" class="headerlink" title="判断奇偶性"></a>判断奇偶性</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n))&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;<span class="number">1</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 是奇数\n&quot;</span>,n);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 是偶数\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>记住：在做位运算时，位数不够的数，自动在 前面补 0</strong> 比如：21 &amp; 1 ：10101 &amp; 00001 &#x3D; 00001 &#x3D; 1 16 &amp; 1 ：10000 &amp; 00001 &#x3D; 00000 &#x3D; 0 事实证明：偶数的二进制的末尾 为 0，奇数的二进制的末尾 为 1</p>
-<p>十进制 m 转换 n 进制方法： m 一直除 n，每相除一次，m 就等于商，直到商为 0，然后余数反排 即可。</p>
+<p>是的，如果一个数 n 是 2 的正整数幂，那么 n 的二进制必定为 1000…. n-1
+的二进制必定为 1111…. <strong>即： n &amp; n-1 = 0 所以 (! (n &amp;
+(n-1)) 为 1 ; &amp;&amp; n ：判断 n 为正数</strong></p>
+<h4 id="判断奇偶性">判断奇偶性</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">COPY<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n))&#123;</span><br><span class="line">        <span class="keyword">if</span>(n&amp;<span class="number">1</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 是奇数\n&quot;</span>,n);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d 是偶数\n&quot;</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>记住：在做位运算时，位数不够的数，自动在 前面补 0</strong>
+比如：21 &amp; 1 ：10101 &amp; 00001 = 00001 = 1 16 &amp; 1 ：10000
+&amp; 00001 = 00000 = 0 事实证明：偶数的二进制的末尾 为
+0，奇数的二进制的末尾 为 1</p>
+<p>十进制 m 转换 n 进制方法： m 一直除 n，每相除一次，m
+就等于商，直到商为 0，然后余数反排 即可。</p>
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">COPY1的二进制：<span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">1</span>的二进制：<span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="number">6</span>的二进制：<span class="number">6</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">3</span> 余<span class="number">0</span></span><br><span class="line">          <span class="number">3</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">1</span> 余<span class="number">1</span></span><br><span class="line">          <span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span> </span><br><span class="line">余数反排 即是 <span class="number">6</span>的二进制：<span class="number">110</span></span><br><span class="line"></span><br><span class="line"><span class="number">15</span>的二进制：<span class="number">15</span>/<span class="number">2</span><span class="operator">=</span><span class="number">7</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">7</span>/<span class="number">2</span><span class="operator">=</span><span class="number">3</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">3</span>/<span class="number">2</span><span class="operator">=</span><span class="number">1</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">1</span>/<span class="number">2</span><span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">15</span>的二进制：<span class="number">1111</span> </span><br><span class="line"></span><br><span class="line"><span class="number">5</span>的二进制：<span class="number">5</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">2</span> 余<span class="number">1</span></span><br><span class="line">          <span class="number">2</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">1</span> 余<span class="number">0</span> </span><br><span class="line">          <span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">5</span>的二进制：<span class="number">101</span></span><br><span class="line"></span><br><span class="line"><span class="number">21</span>的二进制：<span class="number">21</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">10</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">10</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">5</span> 余<span class="number">0</span></span><br><span class="line">           <span class="number">5</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">2</span> 余<span class="number">1</span></span><br><span class="line">           <span class="number">2</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">1</span> 余<span class="number">0</span></span><br><span class="line">           <span class="number">1</span>/<span class="number">2</span> <span class="operator">=</span><span class="number">0</span> 余<span class="number">1</span></span><br><span class="line">余数反排 即是 <span class="number">21</span>的二进制：<span class="number">10101</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="其他方面"><a href="#其他方面" class="headerlink" title="其他方面"></a>其他方面</h4><blockquote>
-<p>(n &gt;&gt; m) &amp; 1 &#x3D;&#x3D; (n &gt;&gt; m) | 0 &#x3D;&#x3D; (n &gt;&gt; m) ^ 0</p>
+<h4 id="其他方面">其他方面</h4>
+<blockquote>
+<p>(n &gt;&gt; m) &amp; 1 == (n &gt;&gt; m) | 0 == (n &gt;&gt; m) ^
+0</p>
 <p>n &amp; ~(1 &lt;&lt; m) : 将 n 的第 m 位数，重置为 0</p>
 <p>n | (1 &lt;&lt; m) : 将 n 的第 m 位数，重置为 1</p>
 <p>n ^ (1 &lt;&lt; m) : 将 n 的第 m 位数，取其相反</p>
 </blockquote>
 <p>使用位移运算来避免乘法运算是一种技巧，乘数必须都是正整数，而且必须至少有一个是2的n次方，例如：2，4，6，8，16，32……移位运算的特点是速度快，而乘法运算速度较慢，把乘法运算转化为移位运算可以提高程序运算效率。</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">12</span>*<span class="number">2</span> = <span class="number">12</span> &lt;&lt; <span class="number">1</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">3</span> = <span class="number">12</span>*(<span class="number">2</span>+<span class="number">1</span>) = <span class="number">12</span>*<span class="number">2</span> + <span class="number">12</span> = <span class="number">12</span> &lt;&lt; <span class="number">1</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">4</span> = <span class="number">12</span> &lt;&lt; <span class="number">2</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">5</span> = <span class="number">12</span>*(<span class="number">4</span>+<span class="number">1</span>) = <span class="number">12</span> &lt;&lt; <span class="number">2</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">6</span> = <span class="number">12</span>*(<span class="number">4</span>+<span class="number">2</span>) = <span class="number">12</span>*<span class="number">4</span> + <span class="number">12</span>*<span class="number">2</span> = <span class="number">12</span> &lt;&lt; <span class="number">2</span> + <span class="number">12</span> &lt;&lt; <span class="number">1</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">7</span> = <span class="number">12</span>*(<span class="number">4</span>+<span class="number">2</span>+<span class="number">1</span>) = <span class="number">12</span> &lt;&lt; <span class="number">2</span> + <span class="number">12</span> &lt;&lt; <span class="number">1</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">8</span> = <span class="number">12</span> &lt;&lt; <span class="number">3</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">9</span> = <span class="number">12</span>*(<span class="number">8</span>+<span class="number">1</span>) = <span class="number">12</span> &lt;&lt; <span class="number">3</span> + <span class="number">12</span></span><br><span class="line"><span class="attribute">12</span>*<span class="number">10</span> = <span class="number">12</span>*(<span class="number">8</span>+<span class="number">2</span>) = <span class="number">12</span> &lt;&lt; <span class="number">3</span> + <span class="number">12</span> &lt;&lt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-
-
 <p>位移也可以做除法</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">12</span>/<span class="number">2</span> = <span class="number">12</span> &gt;&gt; <span class="number">1</span></span><br><span class="line"><span class="attribute">12</span>/<span class="number">4</span> = <span class="number">12</span> &gt;&gt; <span class="number">2</span></span><br><span class="line"><span class="attribute">12</span>/<span class="number">8</span> = <span class="number">12</span> &gt;&gt; <span class="number">3</span></span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -433,7 +471,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#and-%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">and 运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.1.</span> <span class="nav-text">&amp; 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0"><span class="nav-number">1.2.</span> <span class="nav-text">&amp; 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#or-%E8%BF%90%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">or 运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1"><span class="nav-number">2.1.</span> <span class="nav-text">| 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-1"><span class="nav-number">2.2.</span> <span class="nav-text">| 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xor-%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">xor 运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2"><span class="nav-number">3.1.</span> <span class="nav-text">^ 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0-2"><span class="nav-number">3.2.</span> <span class="nav-text">^ 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shl-shr-%E8%BF%90%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">shl &amp; shr 运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9-2-%E7%9A%84%E6%95%B4%E6%95%B0%E5%B9%82%E8%BF%9B%E8%A1%8C%E6%A8%A1%E8%BF%90%E7%AE%97"><span class="nav-number">5.1.</span> <span class="nav-text">对 2 的整数幂进行模运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%95%B0%E4%BA%A4%E6%8D%A2"><span class="nav-number">5.2.</span> <span class="nav-text">两数交换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD-2-%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E5%B9%82"><span class="nav-number">5.3.</span> <span class="nav-text">判断 2 的正整数幂</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%A5%87%E5%81%B6%E6%80%A7"><span class="nav-number">5.4.</span> <span class="nav-text">判断奇偶性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E9%9D%A2"><span class="nav-number">5.5.</span> <span class="nav-text">其他方面</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#and-%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">and 运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">1.1.</span> <span class="nav-text">&amp; 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">1.2.</span> <span class="nav-text">&amp; 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#or-%E8%BF%90%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">or 运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.1.</span> <span class="nav-text">| 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.2.</span> <span class="nav-text">| 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xor-%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">xor 运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">3.1.</span> <span class="nav-text">^ 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-5"><span class="nav-number">3.2.</span> <span class="nav-text">^ 0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shl-shr-%E8%BF%90%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">shl &amp; shr 运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9-2-%E7%9A%84%E6%95%B4%E6%95%B0%E5%B9%82%E8%BF%9B%E8%A1%8C%E6%A8%A1%E8%BF%90%E7%AE%97"><span class="nav-number">5.1.</span> <span class="nav-text">对 2 的整数幂进行模运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%95%B0%E4%BA%A4%E6%8D%A2"><span class="nav-number">5.2.</span> <span class="nav-text">两数交换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD-2-%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E5%B9%82"><span class="nav-number">5.3.</span> <span class="nav-text">判断 2 的正整数幂</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%A5%87%E5%81%B6%E6%80%A7"><span class="nav-number">5.4.</span> <span class="nav-text">判断奇偶性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E9%9D%A2"><span class="nav-number">5.5.</span> <span class="nav-text">其他方面</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

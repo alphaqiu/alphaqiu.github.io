@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="我为什么做了一个跑在终端里的密码管理器oak-keyring 开源快半个月了。 它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？ 说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为">
+  <meta name="description" content="我为什么做了一个跑在终端里的密码管理器 oak-keyring 开源快半个月了。 它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？ 说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么做了一个跑在终端里的密码管理器">
 <meta property="og:url" content="https://alpha.checkitout.dev/2026/06/15/why-terminal-password-manager-zh/index.html">
 <meta property="og:site_name" content="比十万多一点">
-<meta property="og:description" content="我为什么做了一个跑在终端里的密码管理器oak-keyring 开源快半个月了。 它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？ 说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为">
+<meta property="og:description" content="我为什么做了一个跑在终端里的密码管理器 oak-keyring 开源快半个月了。 它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？ 说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-21T09:33:27.880Z">
+<meta property="article:modified_time" content="2026-06-21T10:11:29.469Z">
 <meta property="article:author" content="alpha">
 <meta property="article:tag" content="checkitout.dev">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-06-21 17:33:27" itemprop="dateModified" datetime="2026-06-21T17:33:27+08:00">2026-06-21</time>
+                <time title="修改时间：2026-06-21 18:11:29" itemprop="dateModified" datetime="2026-06-21T18:11:29+08:00">2026-06-21</time>
               </span>
 
           
@@ -237,18 +237,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="我为什么做了一个跑在终端里的密码管理器"><a href="#我为什么做了一个跑在终端里的密码管理器" class="headerlink" title="我为什么做了一个跑在终端里的密码管理器"></a>我为什么做了一个跑在终端里的密码管理器</h1><p>oak-keyring 开源快半个月了。</p>
-<p>它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？</p>
+        <h1
+id="我为什么做了一个跑在终端里的密码管理器">我为什么做了一个跑在终端里的密码管理器</h1>
+<p>oak-keyring 开源快半个月了。</p>
+<p>它开始收到一些
+star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？</p>
 <p>说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为什么值得被做”。</p>
-<p>后来我想清楚了一件事：oak-keyring 的重点不是重新发明密码管理器，是把密码管理器放回终端工作流。</p>
-<h2 id="密码管理器很多，但终端里的不多"><a href="#密码管理器很多，但终端里的不多" class="headerlink" title="密码管理器很多，但终端里的不多"></a>密码管理器很多，但终端里的不多</h2><p>今天主流密码管理器大多围绕浏览器、手机 App、桌面 GUI 和云账户设计。这没什么问题，大多数人的登录行为就发生在浏览器和手机里。</p>
-<p>但有一类人，他们每天大量时间在终端里度过：写代码、跑测试、部署服务，用 SSH、Git、各种数据库客户端和 CLI，在远程机器、容器、开发环境之间切来切去。最近这两年，越来越多的人开始让 Codex、Claude Code、Gemini CLI、Copilot CLI 这类 coding agent 直接操作自己的工作环境。</p>
+<p>后来我想清楚了一件事：oak-keyring
+的重点不是重新发明密码管理器，是把密码管理器放回终端工作流。</p>
+<h2
+id="密码管理器很多但终端里的不多">密码管理器很多，但终端里的不多</h2>
+<p>今天主流密码管理器大多围绕浏览器、手机 App、桌面 GUI
+和云账户设计。这没什么问题，大多数人的登录行为就发生在浏览器和手机里。</p>
+<p>但有一类人，他们每天大量时间在终端里度过：写代码、跑测试、部署服务，用
+SSH、Git、各种数据库客户端和
+CLI，在远程机器、容器、开发环境之间切来切去。最近这两年，越来越多的人开始让
+Codex、Claude Code、Gemini CLI、Copilot CLI 这类 coding agent
+直接操作自己的工作环境。</p>
 <p>对这类人，密码、token、API key 的管理一直处在很尴尬的位置。</p>
-<p>纯 CLI 适合脚本化，但日常管理密码库不只是敲命令。你要浏览、搜索、选条目、确认、编辑、从回收站恢复、看状态，还得避免手抖。GUI 能做这些，但代价是你得从终端工作流里跳出去。</p>
-<p>TUI 卡在两者中间。它不是把 GUI 搬进终端，也不是把所有操作压成命令行参数。交互界面还在，但同时仍然是键盘驱动、终端原生、本地可控。</p>
+<p>纯 CLI
+适合脚本化，但日常管理密码库不只是敲命令。你要浏览、搜索、选条目、确认、编辑、从回收站恢复、看状态，还得避免手抖。GUI
+能做这些，但代价是你得从终端工作流里跳出去。</p>
+<p>TUI 卡在两者中间。它不是把 GUI
+搬进终端，也不是把所有操作压成命令行参数。交互界面还在，但同时仍然是键盘驱动、终端原生、本地可控。</p>
 <p>我做 oak-keyring 就是从这里开始的。</p>
-<h2 id="它不是“另一个云密码库”"><a href="#它不是“另一个云密码库”" class="headerlink" title="它不是“另一个云密码库”"></a>它不是“另一个云密码库”</h2><p>oak-keyring 的定位说起来很简单：privacy-first、local-first、keyboard-driven 的终端 TUI。</p>
-<p>命令行二进制叫 <code>ok</code>。启动后是一个全屏 TUI。可以浏览、创建、编辑、删除凭证和安全笔记；可以生成密码、复制 secret；有标签和回收站；也支持导入导出、BIP-39 恢复词、自动锁定、密码健康检查。Google Drive 同步还在预览阶段。</p>
+<h2 id="它不是另一个云密码库">它不是“另一个云密码库”</h2>
+<p>oak-keyring
+的定位说起来很简单：privacy-first、local-first、keyboard-driven 的终端
+TUI。</p>
+<p>命令行二进制叫 <code>ok</code>。启动后是一个全屏
+TUI。可以浏览、创建、编辑、删除凭证和安全笔记；可以生成密码、复制
+secret；有标签和回收站；也支持导入导出、BIP-39
+恢复词、自动锁定、密码健康检查。Google Drive 同步还在预览阶段。</p>
 <p>但我更在意的不是功能清单，而是它的默认边界：</p>
 <ul>
 <li>vault 默认属于用户，保存在本机；</li>
@@ -257,34 +277,58 @@
 <li>没有托管账户恢复；</li>
 <li>同步按当前实现范围理解，不包装成托管保管。</li>
 </ul>
-<p>这不是说云服务不好。很多人需要跨设备体验、团队管理、浏览器自动填充、托管恢复。oak-keyring 不打算替代这些。</p>
+<p>这不是说云服务不好。很多人需要跨设备体验、团队管理、浏览器自动填充、托管恢复。oak-keyring
+不打算替代这些。</p>
 <p>它想服务的是另一种场景：我在终端里工作，我希望密码库也长在终端里，秘密默认留在本地，大部分操作能用键盘完成，工具简单、可审查、开源，最好不要求我先注册一个云账户。</p>
-<h2 id="AI-CLI-时代，secret-更不该随手乱放"><a href="#AI-CLI-时代，secret-更不该随手乱放" class="headerlink" title="AI CLI 时代，secret 更不该随手乱放"></a>AI CLI 时代，secret 更不该随手乱放</h2><p>过去几年，越来越多开发工作被搬进了 AI CLI 和 coding agent 的上下文。我们在终端里让 agent 读代码、改文件、跑命令、查日志、解释报错。</p>
-<p>这带出一个新问题：工作流越来越自动化、越来越围绕终端和 agent 展开，secret 管理应该更谨慎，不是更随意。</p>
-<p>最糟糕的习惯就是把密码、token、恢复词、API key 随手贴进 prompt、shell history、临时文本、issue、聊天记录或者环境变量里。短期方便，长期是坑。</p>
-<p>我希望 oak-keyring 能慢慢变成一种更合理的默认选择：需要人判断的时候，进 TUI 浏览确认；需要复制的时候，走受控的剪贴板流程；以后真要支持更多自动化，也得围绕明确边界设计，不能让 secret 到处散落。</p>
-<p>terminal-native password manager 吸引我的地方就在这里。不是为了炫技，是因为终端已经是很多开发者的工作台。密码管理器如果能自然地待在这个工作台上，能省掉很多没必要的摩擦。</p>
-<h2 id="为什么别人没有做，而我做了？"><a href="#为什么别人没有做，而我做了？" class="headerlink" title="为什么别人没有做，而我做了？"></a>为什么别人没有做，而我做了？</h2><p>我不觉得答案是”别人做不了”。更可能是：这个需求太垂直。</p>
+<h2 id="ai-cli-时代secret-更不该随手乱放">AI CLI 时代，secret
+更不该随手乱放</h2>
+<p>过去几年，越来越多开发工作被搬进了 AI CLI 和 coding agent
+的上下文。我们在终端里让 agent
+读代码、改文件、跑命令、查日志、解释报错。</p>
+<p>这带出一个新问题：工作流越来越自动化、越来越围绕终端和 agent
+展开，secret 管理应该更谨慎，不是更随意。</p>
+<p>最糟糕的习惯就是把密码、token、恢复词、API key 随手贴进 prompt、shell
+history、临时文本、issue、聊天记录或者环境变量里。短期方便，长期是坑。</p>
+<p>我希望 oak-keyring
+能慢慢变成一种更合理的默认选择：需要人判断的时候，进 TUI
+浏览确认；需要复制的时候，走受控的剪贴板流程；以后真要支持更多自动化，也得围绕明确边界设计，不能让
+secret 到处散落。</p>
+<p>terminal-native password manager
+吸引我的地方就在这里。不是为了炫技，是因为终端已经是很多开发者的工作台。密码管理器如果能自然地待在这个工作台上，能省掉很多没必要的摩擦。</p>
+<h2 id="为什么别人没有做而我做了">为什么别人没有做，而我做了？</h2>
+<p>我不觉得答案是”别人做不了”。更可能是：这个需求太垂直。</p>
 <p>密码管理器的增长主要来自普通用户、家庭、企业、浏览器扩展、移动端、团队协作。相比之下，全屏终端密码管理器的目标用户小得多，也不太符合典型商业软件的分发路径。</p>
 <p>但开源项目不一定要从最大市场开始。</p>
-<p>Git、Vim、tmux、fzf、ripgrep、lazygit 这类工具不是因为”所有人都需要终端体验”才有价值。它们的价值在于：对终端用户来说，它们足够贴合工作方式。</p>
+<p>Git、Vim、tmux、fzf、ripgrep、lazygit
+这类工具不是因为”所有人都需要终端体验”才有价值。它们的价值在于：对终端用户来说，它们足够贴合工作方式。</p>
 <p>oak-keyring 也想从这里开始。</p>
-<p>如果你主要在终端里工作，你关心 local-first，你不想把密码管理完全交给一个远端账户，你希望密码库能和 CLI、SSH、编辑器、coding agent 更顺地待在一起，那 oak-keyring 可能值得你试一下。</p>
-<h2 id="现在它还只是预览版"><a href="#现在它还只是预览版" class="headerlink" title="现在它还只是预览版"></a>现在它还只是预览版</h2><p>我不想把它说得比实际状态更成熟。</p>
-<p>oak-keyring 还在 pre-1.0 预览阶段。当前公开构建只面向 macOS Apple Silicon 和 Intel Mac。Linux、Windows PowerShell 这类环境形态上很适合 TUI 密码管理器，但还不能算正式支持的发布目标。</p>
-<p>预览版也意味着一些限制：二进制还没签名和 notarize；数据格式和打包方式在稳定版之前可能变；没有正式 SLA。</p>
+<p>如果你主要在终端里工作，你关心
+local-first，你不想把密码管理完全交给一个远端账户，你希望密码库能和
+CLI、SSH、编辑器、coding agent 更顺地待在一起，那 oak-keyring
+可能值得你试一下。</p>
+<h2 id="现在它还只是预览版">现在它还只是预览版</h2>
+<p>我不想把它说得比实际状态更成熟。</p>
+<p>oak-keyring 还在 pre-1.0 预览阶段。当前公开构建只面向 macOS Apple
+Silicon 和 Intel Mac。Linux、Windows PowerShell 这类环境形态上很适合 TUI
+密码管理器，但还不能算正式支持的发布目标。</p>
+<p>预览版也意味着一些限制：二进制还没签名和
+notarize；数据格式和打包方式在稳定版之前可能变；没有正式 SLA。</p>
 <p>如果你愿意试，把它当成一个还在长大的开源工具，不是已经兑现所有承诺的商业密码管理器。</p>
-<h2 id="我希望收到什么反馈"><a href="#我希望收到什么反馈" class="headerlink" title="我希望收到什么反馈"></a>我希望收到什么反馈</h2><p>现在我最想知道的不是”这个项目能不能做大”。是几个具体问题：</p>
+<h2 id="我希望收到什么反馈">我希望收到什么反馈</h2>
+<p>现在我最想知道的不是”这个项目能不能做大”。是几个具体问题：</p>
 <ul>
 <li>你会不会在终端里用密码管理器？</li>
 <li>TUI 相比纯 CLI 或 GUI，对你的工作流有没有真实帮助？</li>
 <li>你希望它怎么和 AI CLI 工具配合？</li>
 <li>哪些 secret 管理场景现在最容易被做得很糟？</li>
-<li>你愿意信任一个 local-first、开源、预览阶段的终端密码库到什么程度？</li>
+<li>你愿意信任一个
+local-first、开源、预览阶段的终端密码库到什么程度？</li>
 </ul>
-<p>如果你对这些问题有感觉，欢迎试用，提 issue，star，或者直接告诉我你现在是怎么在终端里管 secret 的。</p>
+<p>如果你对这些问题有感觉，欢迎试用，提
+issue，star，或者直接告诉我你现在是怎么在终端里管 secret 的。</p>
 <p>项目地址：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">https://github.com/OpenKeyring/oak-keyring</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring"
+class="uri">https://github.com/OpenKeyring/oak-keyring</a></p>
 <p>oak-keyring 不是为了证明密码管理器有多难。</p>
 <p>它只是想回答一个更小的问题：如果一个人的工作台就是终端，密码管理器应该是什么样子？</p>
 
@@ -374,7 +418,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E8%B7%91%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E7%9A%84%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">我为什么做了一个跑在终端里的密码管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%99%A8%E5%BE%88%E5%A4%9A%EF%BC%8C%E4%BD%86%E7%BB%88%E7%AB%AF%E9%87%8C%E7%9A%84%E4%B8%8D%E5%A4%9A"><span class="nav-number">1.1.</span> <span class="nav-text">密码管理器很多，但终端里的不多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%83%E4%B8%8D%E6%98%AF%E2%80%9C%E5%8F%A6%E4%B8%80%E4%B8%AA%E4%BA%91%E5%AF%86%E7%A0%81%E5%BA%93%E2%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">它不是“另一个云密码库”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AI-CLI-%E6%97%B6%E4%BB%A3%EF%BC%8Csecret-%E6%9B%B4%E4%B8%8D%E8%AF%A5%E9%9A%8F%E6%89%8B%E4%B9%B1%E6%94%BE"><span class="nav-number">1.3.</span> <span class="nav-text">AI CLI 时代，secret 更不该随手乱放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%AB%E4%BA%BA%E6%B2%A1%E6%9C%89%E5%81%9A%EF%BC%8C%E8%80%8C%E6%88%91%E5%81%9A%E4%BA%86%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">为什么别人没有做，而我做了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E5%9C%A8%E5%AE%83%E8%BF%98%E5%8F%AA%E6%98%AF%E9%A2%84%E8%A7%88%E7%89%88"><span class="nav-number">1.5.</span> <span class="nav-text">现在它还只是预览版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%B8%8C%E6%9C%9B%E6%94%B6%E5%88%B0%E4%BB%80%E4%B9%88%E5%8F%8D%E9%A6%88"><span class="nav-number">1.6.</span> <span class="nav-text">我希望收到什么反馈</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E8%B7%91%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E7%9A%84%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">我为什么做了一个跑在终端里的密码管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%99%A8%E5%BE%88%E5%A4%9A%E4%BD%86%E7%BB%88%E7%AB%AF%E9%87%8C%E7%9A%84%E4%B8%8D%E5%A4%9A"><span class="nav-number">1.1.</span> <span class="nav-text">密码管理器很多，但终端里的不多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%83%E4%B8%8D%E6%98%AF%E5%8F%A6%E4%B8%80%E4%B8%AA%E4%BA%91%E5%AF%86%E7%A0%81%E5%BA%93"><span class="nav-number">1.2.</span> <span class="nav-text">它不是“另一个云密码库”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ai-cli-%E6%97%B6%E4%BB%A3secret-%E6%9B%B4%E4%B8%8D%E8%AF%A5%E9%9A%8F%E6%89%8B%E4%B9%B1%E6%94%BE"><span class="nav-number">1.3.</span> <span class="nav-text">AI CLI 时代，secret
+更不该随手乱放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%AB%E4%BA%BA%E6%B2%A1%E6%9C%89%E5%81%9A%E8%80%8C%E6%88%91%E5%81%9A%E4%BA%86"><span class="nav-number">1.4.</span> <span class="nav-text">为什么别人没有做，而我做了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E5%9C%A8%E5%AE%83%E8%BF%98%E5%8F%AA%E6%98%AF%E9%A2%84%E8%A7%88%E7%89%88"><span class="nav-number">1.5.</span> <span class="nav-text">现在它还只是预览版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%B8%8C%E6%9C%9B%E6%94%B6%E5%88%B0%E4%BB%80%E4%B9%88%E5%8F%8D%E9%A6%88"><span class="nav-number">1.6.</span> <span class="nav-text">我希望收到什么反馈</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

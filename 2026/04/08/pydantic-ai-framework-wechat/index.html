@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="checkitout.dev">
+    
+    
+    <meta name="author" content="alpha">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://alpha.checkitout.dev/2026/04/08/pydantic-ai-framework-wechat/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？">
+<meta property="og:url" content="https://alpha.checkitout.dev/2026/04/08/pydantic-ai-framework-wechat/index.html">
+<meta property="og:site_name" content="比十万多一点">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-04-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-21T12:23:09.286Z">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="PydanticAI">
+<meta property="article:tag" content="开发者工具包">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://alpha.checkitout.dev/images/redefine-og.webp">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151212624-1');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/avatar.jpeg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.jpeg">
+    <meta name="theme-color" content="#37c6c0">
+    <link rel="shortcut icon" href="/images/avatar.jpeg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？ | 比十万多一点
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+            
+                
+                    <a href="https://github.com/alphaqiu" class="github-corner" aria-label="View source on GitHub" target="_blank" rel="noopener"><svg width="70" height="70" viewBox="0 0 250 250" style="position:fixed; top:0; border:0; right:0; z-index:9999; fill:#000; color:#fff;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}@media (prefers-color-scheme: dark){.github-corner svg{fill:#fff;color:#000}}</style>
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"alpha.checkitout.dev","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"atom-one-light","dark":"night-owl"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#37c6c0","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":false,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":true,"id":"UA-151212624-1"}},"home_banner":{"enable":false,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"比十万多一点","subtitle":{"text":["记录, 分享, 备忘"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/alphaqiu"},{"icon":"fa-solid fa-at","url":"mailto:alphaqiu@gmail.com"},{"icon":"fa-solid fa-at","url":""},{"icon":"fa-brands fa-telegram","url":""},{"icon":"/images/custom-icon.svg","url":""}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#37c6c0","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives/","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags/","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories/","icon":"fa-regular fa-folder"},"帛书本":{"path":"https://book-excerpts.checkitout.dev/","icon":"fa-solid fa-book"},"OpenKeyring":{"path":"https://openkeyring.com/","icon":"fa-solid fa-key"}}},"article_date_format":"YYYY-MM-DD","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2019/04/20 00:00:00","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2019/04/20 00:00:00","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                比十万多一点
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives/"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags/"
+                                        >
+                                    <i class="fa-regular fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories/"
+                                        >
+                                    <i class="fa-regular fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives/"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags/"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories/"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           target="_blank" rel="noopener" href="https://book-excerpts.checkitout.dev/"
+                        >
+                            <span>帛书本</span>
+                            <i class="fa-solid fa-book fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           target="_blank" rel="noopener" href="https://openkeyring.com/"
+                        >
+                            <span>OpenKeyring</span>
+                            <i class="fa-solid fa-key fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">85</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">61</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpeg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">alpha</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-04-09</span>
+        <span class="mobile">2026-04-09</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-06-21 20:23:09</span>
+            <span class="mobile">2026-06-21 20:23:09</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/AI/">AI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/PydanticAI/">PydanticAI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E5%8C%85/">开发者工具包</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1
+id="为什么-openaianthropicgoogle-都在用的底层库自己跑出来做-agent-框架了">为什么
+OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent
+框架了？</h1>
+<p>上周翻 GitHub
+Trending，一个熟悉的名字又冲上了热榜——<strong>pydantic-ai</strong>，目前
+<strong>14,000+ Star</strong>，月下载量突破 <strong>220
+万次</strong>，在 2026 年 Top AI Agent 框架榜单中稳居前十。</p>
+<p>让我意外的不是它火了，而是它的作者。这个框架背后的团队，正是 Pydantic
+的原班人马。如果你写过 Python，大概率绕不开他们：OpenAI SDK
+的数据验证层是他们写的，Anthropic SDK、Google
+ADK、LangChain、CrewAI、LlamaIndex……几乎你能想到的所有 Python AI
+项目，底层都用 Pydantic 做数据校验。</p>
+<p><strong>现在，这群造轮子的人决定自己造一整车。</strong></p>
+<h2 id="它和-pydantic-本身的类型系统是怎么打通的">它和 Pydantic
+本身的类型系统是怎么打通的？</h2>
+<p>要理解 PydanticAI，先得理解 Pydantic 的核心逻辑。</p>
+<p>Pydantic 做的事情很简单：<strong>在 Python
+类型提示的基础上，自动校验数据类型</strong>。你定义一个
+<code>class User(BaseModel)</code>，它会自动把
+<code>&#123;"name": "Tom", "age": 25&#125;</code> 转换成带类型的 Python
+对象。如果数据类型不对，它会在进入函数之前就报错，而不是等到运行时才爆炸。</p>
+<p>PydanticAI 把这套逻辑搬进了 Agent 开发。核心机制是这样的：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"><span class="keyword">from</span> pydantic_ai <span class="keyword">import</span> Agent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输出结构 - 这里就是&quot;契约&quot;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SupportOutput</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    support_advice: <span class="built_in">str</span> = Field(description=<span class="string">&#x27;给客户的建议&#x27;</span>)</span><br><span class="line">    block_card: <span class="built_in">bool</span> = Field(description=<span class="string">&#x27;是否冻结卡片&#x27;</span>)</span><br><span class="line">    risk: <span class="built_in">int</span> = Field(description=<span class="string">&#x27;风险等级&#x27;</span>, ge=<span class="number">0</span>, le=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Agent 输出会被自动验证</span></span><br><span class="line">support_agent = Agent(</span><br><span class="line">    <span class="string">&#x27;openai:gpt-5.2&#x27;</span>,</span><br><span class="line">    output_type=SupportOutput,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<p>LLM 每次返回数据后，PydanticAI 会： 1. <strong>解析</strong>：把 LLM
+的输出解析成结构化数据 2. <strong>验证</strong>：用你定义的 Pydantic
+Model 校验每一个字段 3. <strong>重试</strong>：如果验证失败，自动让 LLM
+重试（框架会自动把错误信息喂给模型）</p>
+<p>这就是他们说的”Validation
+机制”——<strong>数据不符合约束？不好意思，退回去重做</strong>。</p>
+<h2 id="模型是统一抽象层还是各玩各的">30+
+模型是统一抽象层还是各玩各的？</h2>
+<p>PydanticAI
+的模型层不是”各玩各的”。它定义了一个标准接口，任何模型提供商只需要实现这个接口，就能无缝接入：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Model</span>(<span class="title class_ inherited__">Protocol</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">generate</span>(<span class="params">self, messages, tools, ...</span>): ...</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">count_tokens</span>(<span class="params">self, messages</span>): ...</span><br></pre></td></tr></table></figure></div>
+<p>这意味着： - 换模型不用改业务逻辑 - 工具定义是模型无关的 -
+同一套代码可以从 OpenAI 切换到 DeepSeek</p>
+<p>当前支持 <strong>30+
+提供商</strong>：OpenAI、Anthropic、Gemini、DeepSeek、Groq、Ollama、通义千问、GLM、KIMI……对国内开发者非常友好。</p>
+<h2 id="到底比-langchain-好在哪里直接上对比">到底比 LangChain
+好在哪里？直接上对比</h2>
+<h3
+id="代码量对比同一个功能谁更简洁">代码量对比：同一个功能，谁更简洁？</h3>
+<p><strong>LangChain 实现同样的结构化输出：</strong></p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.output_parsers <span class="keyword">import</span> PydanticOutputParser</span><br><span class="line"><span class="keyword">from</span> langchain.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SupportOutput</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    advice: <span class="built_in">str</span></span><br><span class="line">    block_card: <span class="built_in">bool</span></span><br><span class="line">    risk: <span class="built_in">int</span></span><br><span class="line"></span><br><span class="line">parser = PydanticOutputParser(pydantic_object=SupportOutput)</span><br><span class="line"></span><br><span class="line">prompt = PromptTemplate(</span><br><span class="line">    template=<span class="string">&quot;回答用户问题&#123;question&#125;\n&#123;format_instructions&#125;&quot;</span>,</span><br><span class="line">    input_variables=[<span class="string">&quot;question&quot;</span>],</span><br><span class="line">    partial_variables=&#123;<span class="string">&quot;format_instructions&quot;</span>: parser.get_format_instructions()&#125;,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 还要自己处理解析、验证、重试...</span></span><br><span class="line">chain = prompt | llm | parser</span><br></pre></td></tr></table></figure></div>
+<p><strong>PydanticAI：</strong></p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"><span class="keyword">from</span> pydantic_ai <span class="keyword">import</span> Agent</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SupportOutput</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    support_advice: <span class="built_in">str</span> = Field(description=<span class="string">&#x27;建议&#x27;</span>)</span><br><span class="line">    block_card: <span class="built_in">bool</span></span><br><span class="line">    risk: <span class="built_in">int</span> = Field(ge=<span class="number">0</span>, le=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">agent = Agent(<span class="string">&#x27;openai:gpt-5.2&#x27;</span>, output_type=SupportOutput)</span><br><span class="line">result = agent.run_sync(<span class="string">&#x27;我的卡丢了&#x27;</span>)</span><br><span class="line"><span class="comment"># 直接拿到 SupportOutput 实例，不需要额外解析</span></span><br></pre></td></tr></table></figure></div>
+<p><strong>一个 class 解决，vs 需要 4 个组件 + 手动拼接。</strong></p>
+<h3 id="类型安全对比">类型安全对比</h3>
+<table>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>LangChain</th>
+<th>PydanticAI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>输出类型</td>
+<td><code>Any</code> 或手动 parsing</td>
+<td><code>Agent[Dep, OutputType]</code> 泛型绑定</td>
+</tr>
+<tr class="even">
+<td>运行时验证</td>
+<td>手动写</td>
+<td>自动，验证失败自动重试</td>
+</tr>
+<tr class="odd">
+<td>IDE 补全</td>
+<td>有限</td>
+<td>完整，因为类型在 Agent 定义时就确定</td>
+</tr>
+<tr class="even">
+<td>编译时检查</td>
+<td>无</td>
+<td>有（部分）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="端到端示例5-分钟搭一个客服-agent">端到端示例：5 分钟搭一个客服
+Agent</h2>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field</span><br><span class="line"><span class="keyword">from</span> pydantic_ai <span class="keyword">import</span> Agent, RunContext</span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SupportDeps</span>:</span><br><span class="line">    customer_id: <span class="built_in">int</span></span><br><span class="line">    db: <span class="string">&quot;DatabaseConn&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SupportOutput</span>(<span class="title class_ inherited__">BaseModel</span>):</span><br><span class="line">    advice: <span class="built_in">str</span></span><br><span class="line">    block_card: <span class="built_in">bool</span> = <span class="literal">False</span></span><br><span class="line">    risk: <span class="built_in">int</span> = Field(ge=<span class="number">0</span>, le=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">support_agent = Agent(</span><br><span class="line">    <span class="string">&#x27;openai:gpt-4o&#x27;</span>,</span><br><span class="line">    deps_type=SupportDeps,</span><br><span class="line">    output_type=SupportOutput,</span><br><span class="line">    instructions=<span class="string">&#x27;你是银行客服，根据客户描述判断风险等级。&#x27;</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="meta">@support_agent.tool</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">check_balance</span>(<span class="params">ctx: RunContext[SupportDeps]</span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;查询账户余额&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">await</span> ctx.deps.db.balance(ctx.deps.customer_id)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line">deps = SupportDeps(customer_id=<span class="number">123</span>, db=DatabaseConn())</span><br><span class="line">result = <span class="keyword">await</span> support_agent.run(<span class="string">&#x27;我卡丢了&#x27;</span>, deps=deps)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result.output)  </span><br><span class="line"><span class="comment"># SupportOutput(advice=&#x27;已临时冻结卡片...&#x27;, block_card=True, risk=8)</span></span><br></pre></td></tr></table></figure></div>
+<p>从定义到运行，<strong>5 分钟完整可用</strong>。这在 LangChain
+里需要更长的时间搭建。</p>
+<h2 id="它到底解决了什么痛点">它到底解决了什么痛点？</h2>
+<h3
+id="痛点一类型安全终于不是空话了">痛点一：类型安全终于不是空话了</h3>
+<p>在 LangChain 或原生 SDK 里写
+Agent，你经常面对的是 <code>Any</code> 类型的返回值。运行时才发现 JSON
+结构不对，是家常便饭。PydanticAI 从接口层面就绑定了类型：</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel, Field  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SupportOutput</span>(<span class="title class_ inherited__">BaseModel</span>):  </span><br><span class="line">    support_advice: <span class="built_in">str</span> = Field(description=<span class="string">&#x27;给客户的建议&#x27;</span>)  </span><br><span class="line">    block_card: <span class="built_in">bool</span> = Field(description=<span class="string">&#x27;是否冻结卡片&#x27;</span>)  </span><br><span class="line">    risk: <span class="built_in">int</span> = Field(description=<span class="string">&#x27;风险等级&#x27;</span>, ge=<span class="number">0</span>, le=<span class="number">10</span>)  </span><br><span class="line">  </span><br><span class="line">support_agent = Agent(    <span class="string">&#x27;openai:gpt-5.2&#x27;</span>,  </span><br><span class="line">    output_type=SupportOutput,  <span class="comment"># 输出结构完全确定  </span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<p>如果 LLM
+返回的数据不符合 <code>SupportOutput</code> 的约束，框架会自动提示模型重试。<strong>编译时就能发现的错误，不会拖到线上才爆炸。</strong>这种”如果编译通过就能跑”的体验，团队直说是在模仿
+Rust 的哲学。</p>
+<h3 id="痛点二agent-不是写不出是写出来没人敢上线">痛点二：Agent
+不是写不出，是写出来没人敢上线</h3>
+<p>生产环境 Agent 最怕什么？<strong>黑盒</strong>。LLM
+调了三轮工具、做了两次反思、中间某个参数还写错了——你事后根本还原不了过程。</p>
+<p>PydanticAI 深度集成了自家的 Logfire 可观测性平台（基于
+OpenTelemetry），每一步工具调用、模型推理、数据校验都被记录和追踪。用他们官方的话说：</p>
+<blockquote>
+<p>“即使只有几个工具的简单 Agent，也可能与 LLM
+产生大量来回交互，光看代码根本无法确认到底发生了什么。”</p>
+</blockquote>
+<h3 id="痛点三框架绑架模型">痛点三：框架绑架模型</h3>
+<p>2024 年不少团队被 LangChain 绑定，换模型痛苦不堪。PydanticAI
+从第一天就做了模型无关设计，当前支持 <strong>30+
+模型提供商</strong>：OpenAI、Anthropic、Gemini、DeepSeek、Groq、Ollama、通义千问……甚至自定义模型只需实现一个接口。</p>
+<p>对国内开发者来说，DeepSeek、KIMI、GLM 等国产模型都能通过 OpenAI
+兼容协议直接接入，知乎上已有开发者用 DeepSeek V3 + PydanticAI
+搭建了完整的客服系统，代码量比原生 SDK 少了将近一半。</p>
+<h2 id="年势头为什么这么猛">2026 年势头为什么这么猛？</h2>
+<ul>
+<li><strong>迭代速度惊人</strong>：最新版本 v1.77.0，发布于 2026 年 4 月
+2 日。平均每周发布一次，项目从 2024 年底公开发布到现在，版本号已经逼近
+V2（V1 正式版于 2025 年 9 月发布）</li>
+<li><strong>功能覆盖全面</strong>：MCP 协议支持、A2A（Agent 到 Agent
+通信）、Durable Execution（持久化执行）、评估系统、Human-in-the-Loop
+审批流程——这些功能在其他框架里通常要拼凑多个库才能实现</li>
+<li><strong>月下载量 220 万+</strong>：说明真实开发者在用</li>
+<li><strong>中文生态友好</strong>：Pydantic 官方维护了完整的中文文档站
+ai.pydantic.org.cn，火山引擎（字节跳动云平台）开发者社区也在推广这个框架</li>
+<li><strong>企业采纳信号</strong>：腾讯云社区文章提到，某金融科技公司采用后数据相关错误减少
+<strong>95%</strong>，开发周期缩短 <strong>60%</strong></li>
+</ul>
+<h2 id="但它不是银弹">但它不是银弹</h2>
+<p>客观讲几个不足：</p>
+<p><strong>生态还不够厚。</strong> LangChain 有 80,000+ Star
+和庞大的插件生态，PydanticAI 的第三方集成还比较有限。 <strong>V2
+大版本即将到来。</strong> 根据官方版本策略，V2 最早 2026 年 4
+月发布，可能引入 Breaking Changes。现在上生产的话，需要关注迁移成本。
+<strong>学习资源以英文为主。</strong> 虽然有中文官方文档，但深度教程和踩坑经验仍然集中在英文社区。</p>
+<h2 id="v2-来了现在上生产要注意什么">V2
+来了：现在上生产要注意什么？</h2>
+<p>PydanticAI V2 预计 <strong>2026 年 4
+月</strong>发布。根据官方文档，V2 会有 Breaking Changes，但会提供至少
+<strong>6 个月</strong>的 V1 安全维护期。</p>
+<p><strong>我的建议：</strong> - 如果是新项目，直接上 PydanticAI，用 V1
+- 如果已有 LangChain 项目，评估迁移成本后再决定 -
+关注官方升级指南，他们会提供平滑迁移路径</p>
+<h2 id="我对-pydanticai-的判断">我对 PydanticAI 的判断</h2>
+<p><strong>它能撼动 LangChain 吗？短期内不能，长期有可能。</strong>
+PydanticAI 的核心竞争力不在功能数量——论功能丰富度它暂时还追不上
+LangChain。 它的核心优势是<strong>工程可信度</strong>。</p>
+<p>理由： - <strong>LangChain 生态太强</strong>：80,000+
+Star，插件无数，教程铺天盖地 - <strong>PydanticAI
+定位不同</strong>：它不是要做”另一个 LangChain”，而是做”生产级的
+LangChain”</p>
+<p><strong>我的选型建议：</strong></p>
+<p>Pydantic 团队过去几年证明了一件事：他们能把数据验证做到 Python
+生态的基础设施级别。现在他们把同样的严谨性带到 Agent
+开发领域。如果你的项目对数据准确性有硬性要求（金融、医疗、法律），这个框架值得认真评估。</p>
+<table>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>金融/医疗/法律等强数据准确性要求</td>
+<td><strong>PydanticAI</strong></td>
+</tr>
+<tr class="even">
+<td>快速原型/POC/周末项目</td>
+<td>LangChain / OpenAI Agents SDK</td>
+</tr>
+<tr class="odd">
+<td>多 Agent 协作复杂场景</td>
+<td>LangGraph（更成熟）</td>
+</tr>
+<tr class="even">
+<td>个人开发者/中小团队</td>
+<td>PydanticAI（学习曲线平缓，文档好）</td>
+</tr>
+<tr class="odd">
+<td>低延迟实时对话</td>
+<td>两者性能接近，但 PydanticAI 可观测性更强</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>如果你只是想快速搭个 Demo 或者做个周末项目，LangChain 或 OpenAI
+Agents SDK 可能上手更快。但如果你在构建一个<strong>需要上线的生产级
+Agent 系统</strong>，PydanticAI
+提供的类型安全、可观测性和评估体系，是目前最完整的工程化方案之一。</p>
+<p><strong>你现在在 Agent 开发中遇到过最头疼的问题是什么？</strong> 是
+JSON 解析失败？LLM 返回格式不稳定？还是上线后完全看不清 Agent
+在做什么？</p>
+<p>在评论区聊聊，<strong>点赞最高的三个问题，我下期专门写解决方案</strong>。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？</li>
+        <li><strong>作者:</strong> alpha</li>
+        <li><strong>创建于
+                :</strong> 2026-04-09 00:00:00</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-06-21 20:23:09
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://alpha.checkitout.dev/2026/04/08/pydantic-ai-framework-wechat/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/AI%E7%BC%96%E7%A8%8B/">#AI编程</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/PydanticAI/">#PydanticAI</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E5%8C%85/">#开发者工具包</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/04/08/claude-code-complex-engineering-limit/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">76000 行代码、118 个慢 446 倍的函数：Claude Code 写的代码你敢直接上线吗？</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/04/07/quantum-cryptography-migration-wechat/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Q-Day 可能只有 33 个月了</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "pathname";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "alphaqiu/alphaqiu.github.io",
+                    "data-repo-id": "R_kgDONo4dgg",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDONo4dgs4C_l1q",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();
+    </script>
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-openaianthropicgoogle-%E9%83%BD%E5%9C%A8%E7%94%A8%E7%9A%84%E5%BA%95%E5%B1%82%E5%BA%93%E8%87%AA%E5%B7%B1%E8%B7%91%E5%87%BA%E6%9D%A5%E5%81%9A-agent-%E6%A1%86%E6%9E%B6%E4%BA%86"><span class="nav-text">为什么
+OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent
+框架了？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%83%E5%92%8C-pydantic-%E6%9C%AC%E8%BA%AB%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%93%E9%80%9A%E7%9A%84"><span class="nav-text">它和 Pydantic
+本身的类型系统是怎么打通的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%98%AF%E7%BB%9F%E4%B8%80%E6%8A%BD%E8%B1%A1%E5%B1%82%E8%BF%98%E6%98%AF%E5%90%84%E7%8E%A9%E5%90%84%E7%9A%84"><span class="nav-text">30+
+模型是统一抽象层还是各玩各的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B0%E5%BA%95%E6%AF%94-langchain-%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C%E7%9B%B4%E6%8E%A5%E4%B8%8A%E5%AF%B9%E6%AF%94"><span class="nav-text">到底比 LangChain
+好在哪里？直接上对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8F%E5%AF%B9%E6%AF%94%E5%90%8C%E4%B8%80%E4%B8%AA%E5%8A%9F%E8%83%BD%E8%B0%81%E6%9B%B4%E7%AE%80%E6%B4%81"><span class="nav-text">代码量对比：同一个功能，谁更简洁？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E5%AF%B9%E6%AF%94"><span class="nav-text">类型安全对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%A4%BA%E4%BE%8B5-%E5%88%86%E9%92%9F%E6%90%AD%E4%B8%80%E4%B8%AA%E5%AE%A2%E6%9C%8D-agent"><span class="nav-text">端到端示例：5 分钟搭一个客服
+Agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%83%E5%88%B0%E5%BA%95%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E7%97%9B%E7%82%B9"><span class="nav-text">它到底解决了什么痛点？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%9B%E7%82%B9%E4%B8%80%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E7%BB%88%E4%BA%8E%E4%B8%8D%E6%98%AF%E7%A9%BA%E8%AF%9D%E4%BA%86"><span class="nav-text">痛点一：类型安全终于不是空话了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%9B%E7%82%B9%E4%BA%8Cagent-%E4%B8%8D%E6%98%AF%E5%86%99%E4%B8%8D%E5%87%BA%E6%98%AF%E5%86%99%E5%87%BA%E6%9D%A5%E6%B2%A1%E4%BA%BA%E6%95%A2%E4%B8%8A%E7%BA%BF"><span class="nav-text">痛点二：Agent
+不是写不出，是写出来没人敢上线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%9B%E7%82%B9%E4%B8%89%E6%A1%86%E6%9E%B6%E7%BB%91%E6%9E%B6%E6%A8%A1%E5%9E%8B"><span class="nav-text">痛点三：框架绑架模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B4%E5%8A%BF%E5%A4%B4%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%8C%9B"><span class="nav-text">2026 年势头为什么这么猛？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%86%E5%AE%83%E4%B8%8D%E6%98%AF%E9%93%B6%E5%BC%B9"><span class="nav-text">但它不是银弹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v2-%E6%9D%A5%E4%BA%86%E7%8E%B0%E5%9C%A8%E4%B8%8A%E7%94%9F%E4%BA%A7%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88"><span class="nav-text">V2
+来了：现在上生产要注意什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%AF%B9-pydanticai-%E7%9A%84%E5%88%A4%E6%96%AD"><span class="nav-text">我对 PydanticAI 的判断</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2019</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">alpha</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 61 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>

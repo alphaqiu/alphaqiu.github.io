@@ -188,7 +188,119 @@
     
     
     
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -424,15 +536,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">85</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">61</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -519,15 +631,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">85</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">61</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -552,27 +664,640 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/filecoin-provesector-aggregate/">
-                            一种推断何时启用FileCoin区块链网络聚合复制证明消息的方法
+                        <a href="/2026/04/08/pydantic-ai-framework-wechat/">
+                            为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            UTC时间 2021-06-30T22:00:00Z FileCoin 区块链主网络升级到 Hyper Drive
-版本。
-https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-ama-1-recap/
-https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-network-upgr...
+                            为什么
+OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent
+框架了？
+上周翻 GitHub
+Trending，一个熟悉的名字又冲上了热榜——pydantic-ai，目前
+14,000+ Star，月下载量突破 220
+万次，在 2026 年 Top AI Agent 框架榜单中稳居前十。
+让我意外的不是它火了，而是它的作者。这个框架背后的团队，正是 Py...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Jul 13 2021 15:36:54 GMT+0800">
+            <span class="home-article-date" data-date="Thu Apr 09 2026 00:00:00 GMT+0800">
                 
-                    2021-07-13
+                    2026-04-09
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/AI/">AI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/PydanticAI/">PydanticAI</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E5%8C%85/">开发者工具包</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2026/04/08/pydantic-ai-framework-wechat/">阅读全文<span class="seo-reader-text">为什么 OpenAI、Anthropic、Google 都在用的底层库，自己跑出来做 Agent 框架了？</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/04/07/quantum-cryptography-migration-wechat/">
+                            Q-Day 可能只有 33 个月了
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Q-Day 可能只有 33 个月了
+上个月底，Google 把内部后量子密码迁移的死线悄悄改成了 2029
+年。
+不是 2035，不是 2040，是 2029。掐指一算，大概还有 33 个月。
+这件事在密码学圈炸开了锅。起因是 Google 和一家叫 Oratomic
+的创业公司各自发了一篇论文，结论相当吓人：破解主流加密算法所需的量子比特数量，在几个月内下降了一个数量级。
+发生了什么
+简单...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Apr 08 2026 00:00:00 GMT+0800">
+                
+                    2026-04-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Google/">Google</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%90%8E%E9%87%8F%E5%AD%90%E5%AF%86%E7%A0%81/">后量子密码</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2026/04/07/quantum-cryptography-migration-wechat/">阅读全文<span class="seo-reader-text">Q-Day 可能只有 33 个月了</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/04/06/yazi-pane-setting/">
+                            Yazi 三栏布局与快捷键配置指南
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Yazi
+三栏布局与快捷键配置指南
+Yazi 是一个用 Rust
+编写的终端文件管理器，默认采用三栏布局：父目录、当前目录、预览窗口。本文介绍如何调整各栏宽度比例，以及如何通过快捷键动态切换布局。
+布局比例配置
+默认比例
+Yazi 默认的布局比例为 [1, 4, 3]，即：
+
+父目录：1/8（约 12.5%）
+当前目录：4/8（50%）
+预览窗口：3/8（约 37.5%）
+
+修改默认比例
+在...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Apr 07 2026 00:00:00 GMT+0800">
+                
+                    2026-04-07
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/yazi/">yazi</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/terminal/">terminal</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/file-manager/">file-manager</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2026/04/06/yazi-pane-setting/">阅读全文<span class="seo-reader-text">Yazi 三栏布局与快捷键配置指南</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2026/04/01/claude-code-env/">
+                            CLAUDE_CODE_NO_FLICKER 环境变量详解
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            CLAUDE_CODE_NO_FLICKER
+环境变量详解
+是什么
+CLAUDE_CODE_NO_FLICKER=1 启用 Claude Code 的
+fullscreen（全屏）渲染模式——一种替代渲染路径，使用终端的
+alternate screen buffer 来绘制界面（类似 vim 或
+htop 的工作方式）。
+解决什么问题
+在默认渲染模式下，很多终端（特别是 VS Code
+内...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Thu Apr 02 2026 00:00:00 GMT+0800">
+                
+                    2026-04-02
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/AI/">AI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/ClaudeCode/">ClaudeCode</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">环境变量</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E7%BB%88%E7%AB%AF/">终端</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2026/04/01/claude-code-env/">阅读全文<span class="seo-reader-text">CLAUDE_CODE_NO_FLICKER 环境变量详解</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/curriculum_vitae_ai_agent">
+                            Curriculum Vitae AI Agent
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            人工智能求职助手
+🤖 有针对性的调整简历，助你快速找到心仪的工作。
+🤖 AI Resume Assistant, helping you tailor your resume and find your
+ideal job quickly.
+Features
+
+More aligned with practices within China
+Analyzes the 3 most imp...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Jan 22 2025 14:34:54 GMT+0800">
+                
+                    2025-01-22
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/AI/">AI</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/AI/">AI</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E6%B1%82%E8%81%8C/">求职</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/curriculum_vitae_ai_agent">阅读全文<span class="seo-reader-text">Curriculum Vitae AI Agent</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2024/12/31/macOS-%E8%A7%A3%E5%86%B3-too-many-open-files/">
+                            macOS 解决 too many open files
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            报错 too many open files 大致有以下三种可能 [1] [2] [3]： \1.
+操作系统打开的文件句柄数过多（内核的限制） \2. launchd 对进程进行了限制
+\3. shell 对进程进行了限制
+内核的限制
+整个操作系统可以打开的文件数受内核参数影响，可以通过以下命令查看
+12$ sysctl kern.maxfiles$ sysctl kern.maxfiles...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Dec 31 2024 12:48:21 GMT+0800">
+                
+                    2024-12-31
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2024/12/31/macOS-%E8%A7%A3%E5%86%B3-too-many-open-files/">阅读全文<span class="seo-reader-text">macOS 解决 too many open files</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/12/31/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E7%9F%BF%E5%B7%A5%E8%B7%91%E8%B7%AF/">
+                            如何判断矿工跑路
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            7月5日，FileCoin网络在一段时间内显示的算力增量较前一日相比，下降很明显，全网掉了48P的算力。需要检查全网终止的扇区、故障的扇区和总扇区数的变化。
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Dec 31 2023 12:48:21 GMT+0800">
+                
+                    2023-12-31
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2023/12/31/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E7%9F%BF%E5%B7%A5%E8%B7%91%E8%B7%AF/">阅读全文<span class="seo-reader-text">如何判断矿工跑路</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/10/18/ntp%E5%AE%A2%E6%88%B7%E7%AB%AF/">
+                            ntp客户端
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            https://github.com/vladimirvivien/go-ntp-client
+这个仓库在指导一个最简单的ntp时间同步客户端该如何操作。下面是作者的博客说明：
+https://medium.com/learning-the-go-programming-language/lets-make-an-ntp-client-in-go-287c4b9a969f
+给了这个仓库 ht...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Oct 18 2023 15:51:48 GMT+0800">
+                
+                    2023-10-18
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2023/10/18/ntp%E5%AE%A2%E6%88%B7%E7%AB%AF/">阅读全文<span class="seo-reader-text">ntp客户端</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/">
+                            并行访问最快返回
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            设想这样一个场景：服务器需要同步时间服务，希望访问若干个时间同步服务，取最快且正确返回结果的服务作为结果。通过Go并行访问这若干个服务器，只取最快返回且正确的，其它结果统统丢弃。下面是这样的示例代码：
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Oct 18 2023 15:44:06 GMT+0800">
+                
+                    2023-10-18
+                
+            </span>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Go/">Go</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2023/10/18/%E5%B9%B6%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%9C%80%E5%BF%AB%E8%BF%94%E5%9B%9E/">阅读全文<span class="seo-reader-text">并行访问最快返回</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/proxy-re-encrypt/">
+                            谈谈我对代理重加密的理解
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            公钥直接加密法
+我们先来看看如果直接进行数据分享，有没有什么简单的方法。下面以Alice（数据拥有者）向Bob（数据接收者）分享一份文件为例，说明公钥直接加密法。
+1、Alice使用Bob的公钥对文件进行加密。
+2、将数据分享给Bob。
+3、Bob解密文件，获取信息。
+这个过程简单而直接，这就是公钥直接加密法。但如果面对使用存储网络进行数据分享的情况公钥直接加密法有没有优势呢？
+由于数据存储...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Wed Oct 04 2023 20:28:45 GMT+0800">
+                
+                    2023-10-04
                 
             </span>
         </span>
@@ -603,128 +1328,9 @@ https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-network-upgr...
                             <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
                         </li>
                     
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/filecoin-provesector-aggregate/">阅读全文<span class="seo-reader-text">一种推断何时启用FileCoin区块链网络聚合复制证明消息的方法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/filecoin-bitfield-format/">
-                            BitField格式化
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>
-维基百科上对于BitField是这样解释的：
-</p>
-<blockquote>
-<p>
-https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%AE%B5
-</p>
-<p>
-<strong>位段</strong>（或称“位域”，Bit field）为一种<a class="link" 
- target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/数据结构" >数据结构<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，可以把数据以<a class="link" 
- target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/位" >位<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的形式紧凑的储存，并允许程序员对此结构的位进行操作。这种数据结构的好处：
-</p>
-<ul>
-<li>
-可以使数据单元节省储存空间，当程序需要成千上万个数据单元时，这种方法就显得尤为重要。
-</li>
-<li>
-位段可以很方便的访问一个<a class="link" 
- target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/整數" >整数<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>值的部分内容从而可以简化程序源代码。
-</li>
-</ul>
-</blockquote>
-<p>
-FileCoin 有一个
-具体的实现：[Go-bitfield][https://github.com/filecoin-project/go-bitfield]
-</p>
-<blockquote>
-<p>
-Advanced RLE+ implementation
-</p>
-</blockquote>
-<p>
-Features iterator based primitives that scale with number of runs
-instead of number of bits.
-</p>
-<p>
-这个实现包含一个Run-length-encoder(RLE)。援引维基百科上面的解释：
-</p>
-<blockquote>
-<p>
-<strong>游程编码</strong>（英语：run-length
-encoding，缩写RLE），又称<strong>行程长度编码</strong>或<strong>变动长度编码法</strong>，是一种与资料性质无关的<a class="link" 
- target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/无损数据压缩" >无损数据压缩<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>技术，基于“使用变动长度的码来取代连续重复出现的原始资料”来实现压缩。
-</p>
-<h4 id="说明">
-说明
-</h4>
-<p>
-举例来说，一组资料串”AAAABBBCCDEEEE”，由4个A、3个B、2个C、1个D、4个E组成，经过<strong>变动长度编码法</strong>可将资料压缩为4A3B2C1D4E（由14个单位转成10个单位）。
-</p>
-<p>
-简言之，其优点在于将重复性高的资料量压缩成小单位；然而，其缺点在于─若该资料出现频率不高，可能导致压缩结果资料量比原始资料大，例如：原始资料”ABCDE”，压缩结果为”1A1B1C1D1E”（由5个单位转成10个单位）。
-</p>
-</blockquote>
-<p>
-知道了以上大体的功能和说明，针对FileCoin其对BitField的实现版本，目标要将保存在BitField内的数据以JSON格式化形式表示出来。
-</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Jul 04 2021 17:06:23 GMT+0800">
-                
-                    2021-07-04
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
                         <li>
-                            <a href="/categories/FileCoin/">FileCoin</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/BitField/">BitField</a>&nbsp;
+                            | 
+                            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -732,580 +1338,7 @@ encoding，缩写RLE），又称<strong>行程长度编码</strong>或<strong>�
         
     </div>
 
-    <a href="/filecoin-bitfield-format/">阅读全文<span class="seo-reader-text">BitField格式化</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2021/07/03/PostgreSQL-%E5%88%86%E5%8C%BA%E8%A1%A8%E7%9A%84%E5%9D%91/">
-                            PostgreSQL 分区表的坑
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            某君A
-需要在另外一套PostgreSQL数据库中部署一样的数据库表结构。为了偷懒，直接通过图形界面的查询分析器从源数据库中捞出表结构，并在新数据库中创建。数据在新服务器上创建后，发现新服务器无法插入数据，遂找原因，发现是没有找到表索引。查询是查询一张分区表，由于没有在主表上建唯一索引，插入时就找不到相关约束，导致插入失败。在主表上创建唯一索引约束后，插入语句正常工作。
-– 2022-02-...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 03 2021 14:06:23 GMT+0800">
-                
-                    2021-07-03
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Database/">Database</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/PostgreSQL/">PostgreSQL</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2021/07/03/PostgreSQL-%E5%88%86%E5%8C%BA%E8%A1%A8%E7%9A%84%E5%9D%91/">阅读全文<span class="seo-reader-text">PostgreSQL 分区表的坑</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/publish-go-mod-version/">
-                            Go mod 发布版本
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            版本号发布
-Go模块版本只要分为三个部分如&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;，例如对于v1.0.1,主版本&lt;major&gt;是1，次版本&lt;minor&gt;是0，补丁版本&lt;patch&gt;是1
-v0版本为项目的初始版本，版本不保证稳定行，可以通过git tag来标记版本，将tag推送至仓库即可
-v1版本为稳定版本，当你的项...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 03 2021 13:32:23 GMT+0800">
-                
-                    2021-07-03
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/go/">go</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/publish-go-mod-version/">阅读全文<span class="seo-reader-text">Go mod 发布版本</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/multi-git-accounts/">
-                            本地支持多Github账号
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <h2 id="创建非默认本地ssh密钥">
-创建非默认本地SSH密钥
-</h2>
-<p>
-GitHub不支持相同SSH
-Key在不同GitHub账户下使用。所以除默认账户外，需要单独为新GitHub账号建立一个SSH
-Key。注意，使用<code>ssh-keygen</code>生成新key，出现提示输入文件名的时候(<code>Enter
-file in which to save the key (~/.ssh/id_rsa):
-id_rsa_new</code>)要输入与默认配置不一样的文件名，比如：我这里填的是
-<code>id_rsa_new</code>。否则会覆盖之前生成的默认key。并用<code>ssh-add</code>命令将新创建的Key添加到由<code>ssh-agent</code>
-维护的列表中。
-</p>
-<blockquote>
-<p>
-ssh-agent 是用于管理SSH private keys的,
-长时间持续运行的守护进程（daemon）.
-唯一目的就是对解密的私钥进行高速缓存。
-</p>
-<p>
-ssh-add 提示并将用户的使用的私钥添加到由ssh-agent 维护的列表中. 此后,
-当使用公钥连接到远程 SSH 或 SCP 主机时,不再提示相关信息.
-</p>
-</blockquote>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;xxx@xxx.com&quot;</span></span><br><span class="line">ssh-add ~/.ssh/id_rsa_new</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-如果出现 <strong>Could not open a connection to your authentication
-agent</strong> 的错误，就试着用以下命令：
-</p>
-<figure class="highlight crystal">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="variable">$ </span>ssh-agent bash</span><br><span class="line"><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_new</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 03 2021 12:06:23 GMT+0800">
-                
-                    2021-07-03
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/">帮助手册</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/git/">git</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/multi-git-accounts/">阅读全文<span class="seo-reader-text">本地支持多Github账号</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2021/04/21/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/">
-                            PostgreSQL 12支持 Generated Columns 特性
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            PostgreSQL 12: 支持
-Generated Columns 特性
-PostgreSQL 12 一个给力SQL特性是增加了对 Generated Columns
-的支持，这个特性并不陌生，MySQL 已经支持这个特性。
-这个特性对分析类场景比较有用，本文简单测试下 PostgreSQL
-的这个特性。
-发行说明
-
-Add support for generated columns (...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Apr 22 2021 06:15:02 GMT+0800">
-                
-                    2021-04-22
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/database/">database</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/pg/">pg</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2021/04/21/PostgreSQL%2012%20%E6%94%AF%E6%8C%81%20Generated%20Columns%20%E7%89%B9%E6%80%A7/">阅读全文<span class="seo-reader-text">PostgreSQL 12支持 Generated Columns 特性</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2021/04/09/%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/">
-                            安装 TCP BBR拥塞算法
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            安装 TCP BBR拥塞算法
-
-https://www.williamlong.info/archives/5586.html 月光博客
-TCP BBR（Bottleneck Bandwidth and Round-trip propagation
-time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥塞算法是基于丢包来作为降低传输速率的信号，而BBR则基于模型主动探测。该...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Apr 10 2021 06:15:02 GMT+0800">
-                
-                    2021-04-10
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Linux/">Linux</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2021/04/09/%E5%AE%89%E8%A3%85-TCP-BBR%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/">阅读全文<span class="seo-reader-text">安装 TCP BBR拥塞算法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2020/05/02/%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97/">
-                            切割日志
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            一些程序会输出很多的日志，但是都输出到一个文件中。随着文件尺寸越来越大，会占用很多空间。同时超大文件也不便于操作。需要对日志文件做切割。切割日志有很多方案，这里选用logrotate。
-程序启动命令
-1nohup lotus daemon &gt;&gt; logs/lotus.log &amp;
-让程序在后台运行，并将日志重定向并追加在日志文件之后。把
-&gt; 替换成 &gt;&gt;
-...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat May 02 2020 12:57:52 GMT+0800">
-                
-                    2020-05-02
-                
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/logrotate/">logrotate</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2020/05/02/%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97/">阅读全文<span class="seo-reader-text">切割日志</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/how-to-force-reset-local-branch/">
-                            强制使用远程分支覆盖本地分支
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            12git fetch --allgit reset --hard origin/xxx
-这里origin/xxx是本地的远程分支副本。
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat May 02 2020 10:50:35 GMT+0800">
-                
-                    2020-05-02
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B8%AE%E5%8A%A9%E6%89%8B%E5%86%8C/">帮助手册</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/git/">git</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/how-to-force-reset-local-branch/">阅读全文<span class="seo-reader-text">强制使用远程分支覆盖本地分支</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/">
-                            日志库打印行号问题
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            golang提供运行时堆栈调用接口runtime.Caller。所有的日志库都是基于该接口实现日志中打印日志输出所在文件、行号。
-123456789101112131415161718192021222324252627282930package mainimport (	&quot;fmt&quot;	&quot;os&quot;	&quot;path&quot;	&quot;runtim...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Apr 20 2020 11:41:03 GMT+0800">
-                
-                    2020-04-20
-                
-            </span>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">日志库打印行号问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/proxy-re-encrypt/">阅读全文<span class="seo-reader-text">谈谈我对代理重加密的理解</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1315,7 +1348,7 @@ time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1341,7 +1374,7 @@ time）是由Google设计，于2016年发布的拥塞算法。以往大部分拥
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 49 篇文章
+                        共撰写了 61 篇文章
                     </span>
                     
                 </p>

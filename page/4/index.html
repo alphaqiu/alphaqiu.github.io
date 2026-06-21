@@ -188,7 +188,119 @@
     
     
     
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -424,15 +536,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">85</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">61</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -519,15 +631,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">38</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">85</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">15</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">18</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">49</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">61</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -552,44 +664,16 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2019/11/13/mkcert/">
-                            本地HTTPS证书工具
+                        <a href="/how-to-force-reset-local-branch/">
+                            强制使用远程分支覆盖本地分支
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
-                            <blockquote>
-<p>
-​
-2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo
-Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。
-</p>
-<p>
-　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而这样做就需要开发者在本地安装TLS/SSL证书，部署HTTPS环境，但实际操作起来并不那么简单，需要开发人员先生成自签名证书再进行安装，整个过较为程繁琐也容易出错。
-</p>
-<p>
-　　mkcert则是一个让网站通过自动发布证书和安装来处理HTTPS流量的工具。Valsorda介绍称，通过不安全的HTTP环境测试Web应用程序，可能会掩盖HTTP
-和HTTPS混合内容问题，而这些问题可能降低站点的安全性。
-</p>
-<p>
-　　据称，mkcert是一个简单的设计工具，它隐藏了生成有效TLS证书所需的难懂知识，并且适用于包括本地主机在内的任何主机名或IP。mkcert并不是创建自签名证书，而是生成由用户的私有证书颁发机构（CA）签名的证书，并计算机在运行时会自动配置为证书可信任状态。因此，当您的浏览器加载由您的mkcert实例生成的证书时，它将显示绿色锁！
-</p>
-<p>
-　　mkcert适用的系统包括Linux、macOS、 Windows，同时支持Firefox、
-Chrome和Chromium。通过一些额外的步骤，该工具还可以支持Android和iOS系统。
-</p>
-</blockquote>
-<p>
-mkcert地址： https://github.com/FiloSottile/mkcert
-</p>
-<p>
-mkcert是由谷歌的Filippo
-Valsorda使用Golang开发的一个开源工具，使用非常简单，不需要进行任何配置，就可以生成任何你喜欢的域名的本地可信赖的开发证书。
-</p>
-<p>
-这个开源库不仅展示了生成证书的用法，也展示了在各个平台上调用证书导入的办法。值得学习。
-</p>
+                            
+                            12git fetch --allgit reset --hard origin/xxx
+这里origin/xxx是本地的远程分支副本。
 
                         
                     </div>
@@ -597,926 +681,9 @@ Valsorda使用Golang开发的一个开源工具，使用非常简单，不需要
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Nov 14 2019 05:27:43 GMT+0800">
+            <span class="home-article-date" data-date="Sat May 02 2020 10:50:35 GMT+0800">
                 
-                    2019-11-14
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/mkcert/">mkcert</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/11/13/mkcert/">阅读全文<span class="seo-reader-text">本地HTTPS证书工具</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/11/05/untrusted_cert_title/">
-                            Mac重新安装显示 untrusted_cert_title
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            转载至 https://www.jianshu.com/p/7fadd5c722c1
-出现
-UNTRUSTED_CERT_TITLE原因在于系统时间太旧，只要将待重装的机器系统时间调整至当前时间即可。
-Step1
-首先打开MacBook，按下电源按钮后，下一步就是按住⌘ + R.
-Step2
-1.接下来你要做的就是去Utilities然后点击Terminal。
-
-
-img
-
-2.命令行输入 ...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Nov 06 2019 05:19:10 GMT+0800">
-                
-                    2019-11-06
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/MacOS/">MacOS</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2019/11/05/untrusted_cert_title/">阅读全文<span class="seo-reader-text">Mac重新安装显示 untrusted_cert_title</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/11/04/gitlab/">
-                            安装Gitlab
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            安装
-安装Gitlab 社区版本。选择操作系统，并选择安装源。
-安装源及安装方法参考https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/
-如迁移，需要相同版本的Gitlab。故在选择安时指定版本。
-Ubuntu 列举出安装的软件版本，
-1234apt-cache policy &lt;&lt;package name&gt;&gt;apt-g...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Nov 05 2019 01:30:54 GMT+0800">
-                
-                    2019-11-05
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/gitlab/">gitlab</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/11/04/gitlab/">阅读全文<span class="seo-reader-text">安装Gitlab</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/10/30/go_playground/">
-                            Go Playground
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <h2 id="支持多文件形式">
-支持多文件形式
-</h2>
-<p>
-https://play.golang.org/p/KLZR7NlVZNX
-</p>
-<figure class="highlight go">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"> <span class="string">&quot;play.ground/foo&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    foo.Bar()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-- <span class="keyword">go</span>.mod --</span><br><span class="line">module play.ground</span><br><span class="line"></span><br><span class="line">-- foo/foo.<span class="keyword">go</span> --</span><br><span class="line"><span class="keyword">package</span> foo</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Bar</span><span class="params">()</span></span> &#123;</span><br><span class="line">   fmt.Println(<span class="string">&quot;The Go playground now has support for multiple files!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-// Output:
-</p>
-<figure class="highlight elm">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="type">The</span> <span class="type">Go</span> playground now has sup<span class="keyword">port</span> for multiple files!</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<h2 id="支持远程库导入">
-支持远程库导入
-</h2>
-<figure class="highlight go">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"> <span class="string">&quot;fmt&quot;</span></span><br><span class="line">   <span class="string">&quot;github.com/alphaqiu/EventEmitter/event&quot;</span> <span class="comment">//我是远程库</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    fireEvent event.EventType = <span class="string">&quot;fire&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   fmt.Println(<span class="string">&quot;Hello, playground&quot;</span>)</span><br><span class="line">    emitter := event.NewEmitter(<span class="number">2</span>)</span><br><span class="line">    emitter.On(fireEvent, doEvent())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doEvent</span><span class="params">()</span></span> event.Callback &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(event event.Event)</span></span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<h2 id="支持测试用例">
-支持测试用例
-</h2>
-<figure class="highlight go">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"> <span class="string">&quot;testing&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestUnit</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    t.Log(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">&#125;</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<h2 id="playground-源码">
-Playground 源码
-</h2>
-<p>
-https://github.com/golang/playground
-</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Oct 30 2019 09:32:30 GMT+0800">
-                
-                    2019-10-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/golang/">golang</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-    </div>
-
-    <a href="/2019/10/30/go_playground/">阅读全文<span class="seo-reader-text">Go Playground</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/10/29/brew/">
-                            玩转Homebrew
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <h3 id="搜索软件">
-搜索软件
-</h3>
-<p>
-<code>brew search
-[TEXT|/REGEX/]</code>用于搜索软件，支持使用正则表达式进行复杂的搜索。
-</p>
-<p>
-例如，查询静态博客生成工具 hugo：
-</p>
-<figure class="highlight php">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">$ brew search hugo</span><br><span class="line"></span><br><span class="line">==&gt; Searching local taps...</span><br><span class="line">hugo ✔</span><br><span class="line">==&gt; Searching taps on GitHub...</span><br><span class="line">==&gt; Searching blacklisted, migrated <span class="keyword">and</span> deleted formulae...</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<h3 id="查看安装的包">
-查看安装的包
-</h3>
-<p>
-查看已经安装的包
-</p>
-<figure class="highlight ebnf">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="attribute">brew list</span></span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<h3 id="查看包相关信息">
-查看包相关信息
-</h3>
-<p>
-brew info 可以查看包的相关信息，最有用的应该是包依赖和相应的命令。比如
-Nginx 会提醒你怎么加 launchctl ，PostgreSQL
-会告诉你如何迁移数据库。这些信息会在包安装完成后自动显示，如果忘了的话可以用这个命令很方便地查看。
-</p>
-<figure class="highlight php">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">brew info <span class="variable">$FORMULA</span>    <span class="comment"># 显示某个包的信息</span></span><br><span class="line">brew info             <span class="comment"># 显示安装了包数量，文件数量，和总占用空间</span></span><br><span class="line">brew deps 可以显示包的依赖关系，我常用它来查看已安装的包的依赖，然后判断哪些包是可以安全删除的。</span><br><span class="line"></span><br><span class="line">brew deps --installed --tree <span class="comment"># 查看已安装的包的依赖，树形显示</span></span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<h3 id="更新-homebrew">
-更新 Homebrew
-</h3>
-<p>
-要获取最新的包的列表，首先得更新 Homebrew 自己。这可以用 brew update
-办到。
-</p>
-<p>
-<code>brew update</code>
-完后会显示可以更新的包列表，其中打钩的是已经安装的包。
-</p>
-<h3 id="更新包-formula">
-更新包 (formula)
-</h3>
-<p>
-更新之前，我会用 brew outdated 查看哪些包可以更新。
-</p>
-<p>
-<code>brew outdated</code> 然后就可以用 brew upgrade 去更新了。Homebrew
-会安装新版本的包，但旧版本仍然会保留
-</p>
-<p>
-<code>brew upgrade</code> # 更新所有的包
-</p>
-<p>
-<code>brew upgrade $FORMULA</code> # 更新指定的包
-</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Oct 30 2019 03:33:54 GMT+0800">
-                
-                    2019-10-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/brew/">brew</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/10/29/brew/">阅读全文<span class="seo-reader-text">玩转Homebrew</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/10/29/crates-mirror/">
-                            Rust Crates 镜像
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            在 $HOME/.cargo/config 中添加如下内容
-12[registry]index = &quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;
-如果所处的环境中不允许使用 git 协议, 可以把上述地址改为
-1index = &quot;http://mirrors.ustc.edu.cn/crates.io-index&quo...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Oct 29 2019 08:41:10 GMT+0800">
-                
-                    2019-10-29
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/crates/">crates</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/rust/">rust</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/10/29/crates-mirror/">阅读全文<span class="seo-reader-text">Rust Crates 镜像</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/10/28/goswagger/">
-                            GoSwagger
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <h2 id="swagger">
-Swagger
-</h2>
-<p>
-一个一键生成API文档的工具。GoSwagger，Golang版本的Swagger，支持在代码中编写注释，通过Swagger编译后生成API文档。
-</p>
-<blockquote>
-<p>
-<a class="link" 
- target="_blank" rel="noopener" href="https://swagger.io" >Swagger<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>是一个简单但功能强大的API表达工具。它具有地球上最大的API工具生态系统，数以千计的开发人员，使用几乎所有的现代编程语言，都在支持和使用Swagger。使用Swagger生成API，我们可以得到交互式文档，自动生成代码的SDK以及API的发现特性等。
-</p>
-<p>
-——《<a class="link" 
- target="_blank" rel="noopener" href="https://juejin.im/post/5b05138cf265da0ba7701a37" >使用go-swagger为golang
-API自动生成swagger文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>》
-</p>
-</blockquote>
-<h2 id="安装方式">
-安装方式
-</h2>
-<p>
-通过<code>brew</code>安装
-</p>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">brew tap go-swagger/go-swagger</span><br><span class="line">brew install go-swagger</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-其余的安装方式请移步：<a class="link" 
- target="_blank" rel="noopener" href="https://goswagger.io/install.html" >Install
-goswagger<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>
-</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Oct 29 2019 06:50:03 GMT+0800">
-                
-                    2019-10-29
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/swagger/">swagger</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/10/28/goswagger/">阅读全文<span class="seo-reader-text">GoSwagger</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2019/08/08/find_large_file_or_dir/">
-                            查找大文件或大目录
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            1find . -type f -size +10M
-查找大于10M的文件。
-1find . -size +10M -print0|xargs -0 ls -l
-查看大于10M的文件的信息。
-1find . -size +10M -print0|xargs -0 du -h
-只列举大于10M的文件的具体尺寸。
-1find . -size +10M -print0|xargs -0 du -h...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Aug 09 2019 06:44:19 GMT+0800">
-                
-                    2019-08-09
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/bash/">bash</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2019/08/08/find_large_file_or_dir/">阅读全文<span class="seo-reader-text">查找大文件或大目录</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/how-to-make-project-doc/">
-                            为你的项目添加文档
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <h2 id="vuepress">
-VuePress
-</h2>
-<p>
-https://vuepress.vuejs.org/zh/
-</p>
-<p>
-Vue驱动静态网站生成器，非常不错哟,支持Markdown
-</p>
-<h2 id="readthedocs">
-ReadTheDocs
-</h2>
-<p>
-<a class="link" 
- target="_blank" rel="noopener" href="https://readthedocs.org/" >readthedocs<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>是一个文档托管网站。它可以连接GitHub帮助你编译项目文档。编译好的文档会自动的发布在<code>http://项目名称.readthedocs.io</code>上。
-</p>
-<h2 id="sphinx">
-Sphinx
-</h2>
-<p>
-<code>Sphinx</code> 是 <code>readthedocs</code>
-网站首推的文档生成工具。它的作用是把rst或者markdown文件编译成html或者pdf。这边使用它的原因是需要用它生成文档脚手架，在本地查看编译后的效果。
-</p>
-<h2 id="安装">
-安装
-</h2>
-<p>
-<code>Sphinx</code>支持<code>python2.7</code>或<code>3.7</code>。我在本机使用了<code>python3.7</code>的版本。因此使用<code>pip3</code>作为下载器。由于需要用到<code>sphinx_rtd_theme</code>这样的插件，macOS下不建议使用<code>brew
-install sphinx</code>。
-</p>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">pip3 install sphinx sphinx_rtd_theme recommonmark sphinx-markdown-tables</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Jul 25 2019 23:17:54 GMT+0800">
-                
-                    2019-07-25
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/ReadTheDocs/">ReadTheDocs</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/how-to-make-project-doc/">阅读全文<span class="seo-reader-text">为你的项目添加文档</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/how-to-make-git-mirror/">
-                            如何制作git镜像
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            <p>
-远程的镜像库往往非常慢，此时需要有一个快速的镜像库会加速下载效率。下面讲讲创建镜像库的步骤：
-</p>
-<p>
-创建一个本地的克隆
-</p>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">git <span class="built_in">clone</span> --mirror https://github.com/cocoapods/Specs.git</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-然后设定镜像仓库的地址
-</p>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line"><span class="built_in">cd</span> Specs.git</span><br><span class="line">git remote set-url --push origin &lt;your-mirror-localtion&gt;</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-设定一个脚本
-</p>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">git fetch -p origin</span><br><span class="line">git push --mirror</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-设定一个cronjob定时脚本
-</p>
-<figure class="highlight bash">
-<table>
-<tr>
-<td class="gutter">
-<pre><span class="line">1</span><br></pre>
-</td>
-<td class="code">
-<pre><span class="line">* 2 * * * /path/your/script.sh &gt; /var/log/specssync.log 2&gt;&amp;1</span><br></pre>
-</td>
-</tr>
-</table>
-</figure>
-<p>
-遇到推送失败？
-</p>
-
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jun 01 2019 00:17:54 GMT+0800">
-                
-                    2019-06-01
+                    2020-05-02
                 
             </span>
         </span>
@@ -1552,7 +719,818 @@ install sphinx</code>。
         
     </div>
 
-    <a href="/how-to-make-git-mirror/">阅读全文<span class="seo-reader-text">如何制作git镜像</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/how-to-force-reset-local-branch/">阅读全文<span class="seo-reader-text">强制使用远程分支覆盖本地分支</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/">
+                            日志库打印行号问题
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            golang提供运行时堆栈调用接口runtime.Caller。所有的日志库都是基于该接口实现日志中打印日志输出所在文件、行号。
+123456789101112131415161718192021222324252627282930package mainimport (	&quot;fmt&quot;	&quot;os&quot;	&quot;path&quot;	&quot;runtim...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Apr 20 2020 11:41:03 GMT+0800">
+                
+                    2020-04-20
+                
+            </span>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2020/04/20/%E6%97%A5%E5%BF%97%E5%BA%93%E6%89%93%E5%8D%B0%E8%A1%8C%E5%8F%B7%E9%97%AE%E9%A2%98/">阅读全文<span class="seo-reader-text">日志库打印行号问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/filecoin-elliptic-and-sign/">
+                            FileCoin账户和离线签名
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            椭圆曲线的选择
+FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。
+比特币纯Go版本实现：btcec
+以太坊采用的C++版本：go-ethereum/crypto/secp256k1
+以及FileCoin使用的C版本：go-secp256k1
+💡 注意，FileCoin
+支持两种签名，一种是椭圆曲线签名，一种是bls签名。
+b...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Apr 19 2020 12:31:08 GMT+0800">
+                
+                    2020-04-19
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/blockchain/">blockchain</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/lotus/">lotus</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/filecoin-elliptic-and-sign/">阅读全文<span class="seo-reader-text">FileCoin账户和离线签名</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/golang-interface-pit/">
+                            Go语言interface的坑
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            以下代码执行结果是什么
+1234567891011121314151617181920212223242526272829package mainimport &quot;fmt&quot;type Namespace interface &#123;	Value() string&#125;type MyNamespace struct &#123;	value string&#125;f...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Apr 10 2020 22:37:56 GMT+0800">
+                
+                    2020-04-10
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/golang-interface-pit/">阅读全文<span class="seo-reader-text">Go语言interface的坑</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/bandwidth">
+                            网络带宽的那点事
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <h2 id="起因">
+起因
+</h2>
+<p>
+一般家庭内受房间布局影响，通常都会在房间的几个角落布置多个Wi-Fi设备。真难想象，如果每个Wi-Fi设备相互独立工作，需要忍受着信号差时需要手动切换Wi-Fi信号的痛苦。
+</p>
+<blockquote>
+<p>
+有一种概念叫无线漫游，当网络环境存在多个相同SSID的AP，且它们的微单元互相有一定范围的重合时，无线用户可以在整个WLAN覆盖区内移动，无线网卡能够自动发现附近信号强度最大的AP，并通过这个AP收发数据，保持不间断的网络连接，这就称为无线漫游。
+</p>
+</blockquote>
+<p>
+华为路由器（荣耀路由2），它自带Bridge(AP)模式，这个模式非常棒，每个无线Wi-Fi信号源都设置相同的信号名称、相同的频段、相同的密码等全部相同的信号设置情况下，全屋就可以享受统一的Wi-Fi接入！再也不用忍受手动切换信号的痛苦了。然而华为路由器本身带有mesh功能，多个同类型路由器之间可以无缝切换。家用路由器几个型号不一致，无法享受mesh功能做无缝切换，只能算做“快速漫游”。
+</p>
+<p>
+快速漫游虽然可以通过同名Wi-Fi起到快速切换的作用，但可能会造成IP地址切换、网络断开重连。因此需要在上级路由器中绑定Mac地址为静态IP分配，保证在信号切换后IP地址不变。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Mar 20 2020 19:54:51 GMT+0800">
+                
+                    2020-03-20
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%BD%91%E7%BB%9C/">网络</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E4%BC%98%E5%8C%96/">优化</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/%E5%B8%A6%E5%AE%BD/">带宽</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/bandwidth">阅读全文<span class="seo-reader-text">网络带宽的那点事</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">
+                            水平垂直居中以及Codepen
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            博客支持CodePen的方法
+https://www.npmjs.com/package/hexo-codepen
+1npm i -D hexo-codepen
+然后在Markdown中嵌入
+1&#123;% codepen userId|anonymous|anon slugHash theme [defaultTab [height [width]]] %&#125;
+在CodePen编...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Mar 14 2020 15:43:27 GMT+0800">
+                
+                    2020-03-14
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Frontend/">Frontend</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/css/">css</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/codepen/">codepen</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/03/14/%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%BB%A5%E5%8F%8ACodepen/">阅读全文<span class="seo-reader-text">水平垂直居中以及Codepen</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/webpack_scaffold/">
+                            Webpack脚手架
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <h1 id="webpack脚手架">
+Webpack脚手架
+</h1>
+<p>
+学习以来，对Webpack有所理解。对于前端开发来说，他在开发过程中需要关注<code>js</code>、<code>css</code>、<code>assets</code>等相关资源。这些内容分别分散在各个目录下。<code>Webpack</code>把他们统一视作资源，在开发过程中通过<code>import</code>或者其他形式关联起来，并进行加工处理。可以减少前端开发的精力。
+</p>
+<p>
+下面就对环境的搭建逐一拆解。
+</p>
+<h2 id="初始化空项目">
+初始化空项目
+</h2>
+<p>
+基础环境的构建依赖Nodejs。我们通过npm来构建一个项目。
+</p>
+<figure class="highlight bash">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="built_in">mkdir</span> my-project &amp;&amp; <span class="built_in">cd</span> my-project</span><br><span class="line">npm init -y</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+通过<code>npm init
+-y</code>来简单的创建一个<code>package.json</code>。需要简单修改一下其中的内容：
+</p>
+<figure class="highlight actionscript">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br><span class="line">2</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line"><span class="string">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">-- 删除 <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span></span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<p>
+<code>private</code>为私有项目，不至于后续误操作上传到npm网站。
+</p>
+<p>
+这是个web前端项目，所以入口程序不必提供。
+</p>
+<h2 id="初始化webpack环境">
+初始化Webpack环境
+</h2>
+<figure class="highlight shell">
+<table>
+<tr>
+<td class="gutter">
+<pre><span class="line">1</span><br></pre>
+</td>
+<td class="code">
+<pre><span class="line">npm install -D webpack webpack-cli</span><br></pre>
+</td>
+</tr>
+</table>
+</figure>
+<blockquote>
+<p>
+💡关于<code>npm install</code>参数
+</p>
+<p>
+npm install -D 等同于 <code>–save-dev</code> npm install -S 等同于
+<code>—save</code> npm install -O 等同于 <code>–save-optional</code>
+当你为你的模块安装一个依赖模块时，正常情况下你得先安装他们
+</p>
+<p>
+（在模块根目录下npm install module-name），
+</p>
+<p>
+然后连同版本号手动将他们添加到模块配置文件package.json中的依赖里（dependencies）。
+</p>
+<p>
+<code>–save</code>和<code>–save-dev</code>可以省掉你手动修改package.json文件的步骤。
+spm install module-name -save
+自动把模块和版本号添加到<code>dependencies</code>部分 spm install
+module-name -save-dve
+自动把模块和版本号添加到<code>devdependencies</code>部分
+</p>
+<p>
+至于配置文件区分这俩部分， 是用于区别开发依赖模块和产品依赖模块，
+以我见过的情况来看 devDepandencies主要是配置测试框架，
+例如jshint、mocha。
+</p>
+<p>
+通过这些命令，我们会得到一个新的<code>package.json</code>。然后再做一个试验就懂得了区别：
+</p>
+<p>
+删除node_modules目录，然后执行 npm install
+–production，可以看到，npm只帮我们自动安装package.json中dependencies部分的模块；如果执行npm
+install
+，则package.json中指定的dependencies和devDependencies都会被自动安装进来。
+</p>
+</blockquote>
+<p>
+可以上官方网站查看具体使用说明：https://webpack.docschina.org/guides/installation/
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Mar 08 2020 20:19:33 GMT+0800">
+                
+                    2020-03-08
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Frontend/">Frontend</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/webpack/">webpack</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/webpack_scaffold/">阅读全文<span class="seo-reader-text">Webpack脚手架</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/27/golang/">
+                            Go 为什么这么“快”
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+转载：https://mp.weixin.qq.com/s/ihJFa5Wir4ohhZUXVSBvMQ
+</p>
+<h2 id="怎么让我们的系统更快">
+怎么让我们的系统更快
+</h2>
+<p>
+随着信息技术的迅速发展，单台服务器处理能力越来越强，迫使编程模式由从前的串行模式升级到并发模型。
+</p>
+<p>
+并发模型包含 IO
+多路复用、多进程以及多线程，这几种模型都各有优劣，现代复杂的高并发架构大多是几种模型协同使用，不同场景应用不同模型，扬长避短，发挥服务器的最大性能。
+</p>
+<p>
+而<strong>多线程，因为其轻量和易用</strong>，成为并发编程中使用频率最高的并发模型，包括后衍生的协程等其他子产品，也都基于它。
+</p>
+<h2 id="并发-并行">
+并发 ≠ 并行
+</h2>
+<p>
+<strong>并发 (concurrency) 和 并行 ( parallelism) 是不同的。</strong>
+</p>
+<p>
+在单个 CPU 核上，线程通过时间片或者让出控制权来实现任务切换，达到 “同时”
+运行多个任务的目的，这就是所谓的并发。但实际上任何时刻都只有一个任务被执行，其他任务通过某种算法来排队。
+</p>
+<p>
+多核 CPU 可以让同一进程内的 “多个线程”
+做到真正意义上的同时运行，这才是并行。
+</p>
+<h2 id="进程线程协程">
+进程、线程、协程
+</h2>
+<p>
+进程：进程是系统进行资源分配的基本单位，有独立的内存空间。
+</p>
+<p>
+线程：线程是 CPU
+调度和分派的基本单位，线程依附于进程存在，每个线程会共享父进程的资源。
+</p>
+<p>
+协程：<strong>协程是一种用户态的轻量级线程，</strong>协程的调度完全由用户控制，协程间切换只需要保存任务的上下文，没有内核的开销。
+</p>
+<h2 id="线程上下文切换">
+线程上下文切换
+</h2>
+<p>
+由于中断处理，多任务处理，用户态切换等原因会导致 CPU
+从一个线程切换到另一个线程，切换过程需要保存当前进程的状态并恢复另一个进程的状态。
+</p>
+<p>
+<strong>上下文切换的代价是高昂的</strong>，因为在核心上交换线程会花费很多时间。上下文切换的延迟取决于不同的因素，大概在在
+50 到 100 纳秒之间。考虑到硬件平均在每个核心上每纳秒执行 12
+条指令，那么一次上下文切换可能会花费 600 到 1200
+条指令的延迟时间。实际上，上下文切换占用了大量程序执行指令的时间。
+</p>
+<p>
+如果存在<strong>跨核上下文切换</strong>（Cross-Core Context
+Switch），可能会导致 CPU 缓存失效（CPU 从缓存访问数据的成本大约 3 到 40
+个时钟周期，从主存访问数据的成本大约 100 到 300
+个时钟周期），这种场景的切换成本会更加昂贵。
+</p>
+<h2 id="golang-为并发而生">
+Golang 为并发而生
+</h2>
+<p>
+Golang 从 2009
+年正式发布以来，依靠其极高运行速度和高效的开发效率，迅速占据市场份额。Golang
+从语言级别支持并发，通过轻量级协程 Goroutine 来实现程序并发运行。
+</p>
+<p>
+<strong>Goroutine 非常轻量</strong>，主要体现在以下两个方面：
+</p>
+<p>
+<strong>上下文切换代价小：</strong> Goroutine
+上下文切换只涉及到三个寄存器（PC / SP /
+DX）的值修改；而对比线程的上下文切换则需要涉及模式切换（从用户态切换到内核态）、以及
+16 个寄存器、PC、SP…等寄存器的刷新；
+</p>
+<p>
+<strong>内存占用少：</strong>线程栈空间通常是 2M，Goroutine 栈空间最小
+2K；
+</p>
+<p>
+Golang 程序中可以轻松支持<strong>10w 级别</strong>的 Goroutine
+运行，而线程数量达到 1k 时，内存占用就已经达到 2G。
+</p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Feb 28 2020 06:15:02 GMT+0800">
+                
+                    2020-02-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+    </div>
+
+    <a href="/2020/02/27/golang/">阅读全文<span class="seo-reader-text">Go 为什么这么“快”</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/27/image_hosting/">
+                            图床
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            这里有介绍图床合集：https://zhuanlan.zhihu.com/p/58863378
+挑了其中一个 https://sm.ms/
+一次可以上传10张照片，每张照片限制在5M以内。一个注册账户有5G免费空间。
+支持API：https://doc.sm.ms/#api-_
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Feb 28 2020 03:41:02 GMT+0800">
+                
+                    2020-02-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/02/27/image_hosting/">阅读全文<span class="seo-reader-text">图床</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2020/02/27/graceful/">
+                            Gong服务实现平滑重启分析
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            <p>
+原文档出处：https://www.kancloud.cn/chase688/orange_framework/1448035
+</p>
+<p>
+平滑重启是指能让我们的程序在重启的过程不中断服务，新老进程无缝衔接，实现零停机时间(Zero-Downtime)部署；平滑重启是建立在优雅退出的基础之上的，目前实现平滑重启的主要策略有两种：
+</p>
+<p>
+方案一：我们的服务如果是多机器部署，可以通过网关程序，将即将重启服务的机器从网关下线，重启完成后再重新上线，该方案适合多机器部署的企业级应用；
+</p>
+<p>
+方案二：让我们的程序实现自启动，重启子进程来实现平滑重启，核心策略是通过拷贝文件描述符实现子进程和父进程切换，适合单机器部署应用；
+</p>
+<p>
+今天我们就主要介绍方案二，让我们的程序拥有平滑重启的功能，相关实现参考一个开源库：
+</p>
+<p>
+https://github.com/fvbock/endless
+</p>
+<p>
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Feb 28 2020 02:56:32 GMT+0800">
+                
+                    2020-02-28
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/golang/">golang</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">平滑重启</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2020/02/27/graceful/">阅读全文<span class="seo-reader-text">Gong服务实现平滑重启分析</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1562,7 +1540,7 @@ install sphinx</code>。
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/page/3/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="/page/3/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1588,7 +1566,7 @@ install sphinx</code>。
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 49 篇文章
+                        共撰写了 61 篇文章
                     </span>
                     
                 </p>

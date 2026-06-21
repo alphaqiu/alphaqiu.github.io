@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"alpha.checkitout.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="我为什么做了一个跑在终端里的密码管理器oak-keyring 开源快半个月了。 它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？ 说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我为什么做了一个跑在终端里的密码管理器">
+<meta property="og:url" content="https://alpha.checkitout.dev/2026/06/15/why-terminal-password-manager-zh/index.html">
+<meta property="og:site_name" content="比十万多一点">
+<meta property="og:description" content="我为什么做了一个跑在终端里的密码管理器oak-keyring 开源快半个月了。 它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？ 说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-21T08:47:07.776Z">
+<meta property="article:author" content="alpha">
+<meta property="article:tag" content="checkitout.dev">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://alpha.checkitout.dev/2026/06/15/why-terminal-password-manager-zh/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>我为什么做了一个跑在终端里的密码管理器 | 比十万多一点</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151212624-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-151212624-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">比十万多一点</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">毕方</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/404.html" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/alphaqiu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2026/06/15/why-terminal-password-manager-zh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我为什么做了一个跑在终端里的密码管理器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-06-16 00:00:00" itemprop="dateCreated datePublished" datetime="2026-06-16T00:00:00+08:00">2026-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2026/06/15/why-terminal-password-manager-zh/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/06/15/why-terminal-password-manager-zh/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="我为什么做了一个跑在终端里的密码管理器"><a href="#我为什么做了一个跑在终端里的密码管理器" class="headerlink" title="我为什么做了一个跑在终端里的密码管理器"></a>我为什么做了一个跑在终端里的密码管理器</h1><p>oak-keyring 开源快半个月了。</p>
+<p>它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？</p>
+<p>说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为什么值得被做”。</p>
+<p>后来我想清楚了一件事：oak-keyring 的重点不是重新发明密码管理器，是把密码管理器放回终端工作流。</p>
+<h2 id="密码管理器很多，但终端里的不多"><a href="#密码管理器很多，但终端里的不多" class="headerlink" title="密码管理器很多，但终端里的不多"></a>密码管理器很多，但终端里的不多</h2><p>今天主流密码管理器大多围绕浏览器、手机 App、桌面 GUI 和云账户设计。这没什么问题，大多数人的登录行为就发生在浏览器和手机里。</p>
+<p>但有一类人，他们每天大量时间在终端里度过：写代码、跑测试、部署服务，用 SSH、Git、各种数据库客户端和 CLI，在远程机器、容器、开发环境之间切来切去。最近这两年，越来越多的人开始让 Codex、Claude Code、Gemini CLI、Copilot CLI 这类 coding agent 直接操作自己的工作环境。</p>
+<p>对这类人，密码、token、API key 的管理一直处在很尴尬的位置。</p>
+<p>纯 CLI 适合脚本化，但日常管理密码库不只是敲命令。你要浏览、搜索、选条目、确认、编辑、从回收站恢复、看状态，还得避免手抖。GUI 能做这些，但代价是你得从终端工作流里跳出去。</p>
+<p>TUI 卡在两者中间。它不是把 GUI 搬进终端，也不是把所有操作压成命令行参数。交互界面还在，但同时仍然是键盘驱动、终端原生、本地可控。</p>
+<p>我做 oak-keyring 就是从这里开始的。</p>
+<h2 id="它不是“另一个云密码库”"><a href="#它不是“另一个云密码库”" class="headerlink" title="它不是“另一个云密码库”"></a>它不是“另一个云密码库”</h2><p>oak-keyring 的定位说起来很简单：privacy-first、local-first、keyboard-driven 的终端 TUI。</p>
+<p>命令行二进制叫 <code>ok</code>。启动后是一个全屏 TUI。可以浏览、创建、编辑、删除凭证和安全笔记；可以生成密码、复制 secret；有标签和回收站；也支持导入导出、BIP-39 恢复词、自动锁定、密码健康检查。Google Drive 同步还在预览阶段。</p>
+<p>但我更在意的不是功能清单，而是它的默认边界：</p>
+<ul>
+<li>vault 默认属于用户，保存在本机；</li>
+<li>正常 release build 用的是 SQLCipher-backed 本地数据库；</li>
+<li>访问和恢复都依赖主密码和恢复词；</li>
+<li>没有托管账户恢复；</li>
+<li>同步按当前实现范围理解，不包装成托管保管。</li>
+</ul>
+<p>这不是说云服务不好。很多人需要跨设备体验、团队管理、浏览器自动填充、托管恢复。oak-keyring 不打算替代这些。</p>
+<p>它想服务的是另一种场景：我在终端里工作，我希望密码库也长在终端里，秘密默认留在本地，大部分操作能用键盘完成，工具简单、可审查、开源，最好不要求我先注册一个云账户。</p>
+<h2 id="AI-CLI-时代，secret-更不该随手乱放"><a href="#AI-CLI-时代，secret-更不该随手乱放" class="headerlink" title="AI CLI 时代，secret 更不该随手乱放"></a>AI CLI 时代，secret 更不该随手乱放</h2><p>过去几年，越来越多开发工作被搬进了 AI CLI 和 coding agent 的上下文。我们在终端里让 agent 读代码、改文件、跑命令、查日志、解释报错。</p>
+<p>这带出一个新问题：工作流越来越自动化、越来越围绕终端和 agent 展开，secret 管理应该更谨慎，不是更随意。</p>
+<p>最糟糕的习惯就是把密码、token、恢复词、API key 随手贴进 prompt、shell history、临时文本、issue、聊天记录或者环境变量里。短期方便，长期是坑。</p>
+<p>我希望 oak-keyring 能慢慢变成一种更合理的默认选择：需要人判断的时候，进 TUI 浏览确认；需要复制的时候，走受控的剪贴板流程；以后真要支持更多自动化，也得围绕明确边界设计，不能让 secret 到处散落。</p>
+<p>terminal-native password manager 吸引我的地方就在这里。不是为了炫技，是因为终端已经是很多开发者的工作台。密码管理器如果能自然地待在这个工作台上，能省掉很多没必要的摩擦。</p>
+<h2 id="为什么别人没有做，而我做了？"><a href="#为什么别人没有做，而我做了？" class="headerlink" title="为什么别人没有做，而我做了？"></a>为什么别人没有做，而我做了？</h2><p>我不觉得答案是”别人做不了”。更可能是：这个需求太垂直。</p>
+<p>密码管理器的增长主要来自普通用户、家庭、企业、浏览器扩展、移动端、团队协作。相比之下，全屏终端密码管理器的目标用户小得多，也不太符合典型商业软件的分发路径。</p>
+<p>但开源项目不一定要从最大市场开始。</p>
+<p>Git、Vim、tmux、fzf、ripgrep、lazygit 这类工具不是因为”所有人都需要终端体验”才有价值。它们的价值在于：对终端用户来说，它们足够贴合工作方式。</p>
+<p>oak-keyring 也想从这里开始。</p>
+<p>如果你主要在终端里工作，你关心 local-first，你不想把密码管理完全交给一个远端账户，你希望密码库能和 CLI、SSH、编辑器、coding agent 更顺地待在一起，那 oak-keyring 可能值得你试一下。</p>
+<h2 id="现在它还只是预览版"><a href="#现在它还只是预览版" class="headerlink" title="现在它还只是预览版"></a>现在它还只是预览版</h2><p>我不想把它说得比实际状态更成熟。</p>
+<p>oak-keyring 还在 pre-1.0 预览阶段。当前公开构建只面向 macOS Apple Silicon 和 Intel Mac。Linux、Windows PowerShell 这类环境形态上很适合 TUI 密码管理器，但还不能算正式支持的发布目标。</p>
+<p>预览版也意味着一些限制：二进制还没签名和 notarize；数据格式和打包方式在稳定版之前可能变；没有正式 SLA。</p>
+<p>如果你愿意试，把它当成一个还在长大的开源工具，不是已经兑现所有承诺的商业密码管理器。</p>
+<h2 id="我希望收到什么反馈"><a href="#我希望收到什么反馈" class="headerlink" title="我希望收到什么反馈"></a>我希望收到什么反馈</h2><p>现在我最想知道的不是”这个项目能不能做大”。是几个具体问题：</p>
+<ul>
+<li>你会不会在终端里用密码管理器？</li>
+<li>TUI 相比纯 CLI 或 GUI，对你的工作流有没有真实帮助？</li>
+<li>你希望它怎么和 AI CLI 工具配合？</li>
+<li>哪些 secret 管理场景现在最容易被做得很糟？</li>
+<li>你愿意信任一个 local-first、开源、预览阶段的终端密码库到什么程度？</li>
+</ul>
+<p>如果你对这些问题有感觉，欢迎试用，提 issue，star，或者直接告诉我你现在是怎么在终端里管 secret 的。</p>
+<p>项目地址：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">https://github.com/OpenKeyring/oak-keyring</a></p>
+<p>oak-keyring 不是为了证明密码管理器有多难。</p>
+<p>它只是想回答一个更小的问题：如果一个人的工作台就是终端，密码管理器应该是什么样子？</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/06/20/getting-started-zh/" rel="prev" title="oak-keyring 上手指南：从安装到日常使用">
+      <i class="fa fa-chevron-left"></i> oak-keyring 上手指南：从安装到日常使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/curriculum_vitae_ai_agent" rel="next" title="Curriculum Vitae AI Agent">
+      Curriculum Vitae AI Agent <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E8%B7%91%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E7%9A%84%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">我为什么做了一个跑在终端里的密码管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E7%AE%A1%E7%90%86%E5%99%A8%E5%BE%88%E5%A4%9A%EF%BC%8C%E4%BD%86%E7%BB%88%E7%AB%AF%E9%87%8C%E7%9A%84%E4%B8%8D%E5%A4%9A"><span class="nav-number">1.1.</span> <span class="nav-text">密码管理器很多，但终端里的不多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%83%E4%B8%8D%E6%98%AF%E2%80%9C%E5%8F%A6%E4%B8%80%E4%B8%AA%E4%BA%91%E5%AF%86%E7%A0%81%E5%BA%93%E2%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">它不是“另一个云密码库”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AI-CLI-%E6%97%B6%E4%BB%A3%EF%BC%8Csecret-%E6%9B%B4%E4%B8%8D%E8%AF%A5%E9%9A%8F%E6%89%8B%E4%B9%B1%E6%94%BE"><span class="nav-number">1.3.</span> <span class="nav-text">AI CLI 时代，secret 更不该随手乱放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%AB%E4%BA%BA%E6%B2%A1%E6%9C%89%E5%81%9A%EF%BC%8C%E8%80%8C%E6%88%91%E5%81%9A%E4%BA%86%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">为什么别人没有做，而我做了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E5%9C%A8%E5%AE%83%E8%BF%98%E5%8F%AA%E6%98%AF%E9%A2%84%E8%A7%88%E7%89%88"><span class="nav-number">1.5.</span> <span class="nav-text">现在它还只是预览版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%B8%8C%E6%9C%9B%E6%94%B6%E5%88%B0%E4%BB%80%E4%B9%88%E5%8F%8D%E9%A6%88"><span class="nav-number">1.6.</span> <span class="nav-text">我希望收到什么反馈</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="alpha"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">alpha</p>
+  <div class="site-description" itemprop="description">记录,分享,备忘</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/alphaqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;alphaqiu" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:alphaqiu@gmail.com" title="E-Mail → mailto:alphaqiu@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alpha</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://alphaqiu.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://alpha.checkitout.dev/2026/06/15/why-terminal-password-manager-zh/";
+    this.page.identifier = "2026/06/15/why-terminal-password-manager-zh/";
+    this.page.title = "我为什么做了一个跑在终端里的密码管理器";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://alphaqiu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

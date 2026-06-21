@@ -292,6 +292,379 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2026/06/20/getting-started-zh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/06/20/getting-started-zh/" class="post-title-link" itemprop="url">oak-keyring 上手指南：从安装到日常使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-06-21 00:00:00 / 修改时间：16:47:07" itemprop="dateCreated datePublished" datetime="2026-06-21T00:00:00+08:00">2026-06-21</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2026/06/20/getting-started-zh/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/06/20/getting-started-zh/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="oak-keyring-上手指南：从安装到日常使用"><a href="#oak-keyring-上手指南：从安装到日常使用" class="headerlink" title="oak-keyring 上手指南：从安装到日常使用"></a>oak-keyring 上手指南：从安装到日常使用</h1><p>第一篇博文介绍了 oak-keyring 为什么存在。这篇告诉你怎么用。</p>
+<p>如果你大部分时间都在终端里工作，希望密码库也能自然地待在那里，这篇指南会带你走完从安装到日常使用的完整流程。本文基于当前预览版（v0.8.0-preview.1），部分细节在稳定版发布前可能调整。</p>
+<h2 id="你需要准备什么"><a href="#你需要准备什么" class="headerlink" title="你需要准备什么"></a>你需要准备什么</h2><ul>
+<li>一台 Mac，Apple Silicon 或 Intel 均可。Linux 和 Windows 在形态上很适合这类工具，但预览版目前只支持 macOS。</li>
+<li>一个你信任的终端模拟器。iTerm2、Kitty、Alacritty、WezTerm、Apple Terminal 都可以。</li>
+<li>终端里装好 Nerd Font（推荐）。oak-keyring 在侧边栏和列表里用了图标，没有 Nerd Font 的话部分图标会显示成方框或问号，但布局不受影响。</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>有三种方式，选适合你的就行。</p>
+<h3 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap openkeyring/oak-keyring</span><br><span class="line">brew install ok</span><br></pre></td></tr></table></figure>
+<h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @openkeyring/ok</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
+<p>npm 包内置了 macOS 预编译二进制。如果你的架构暂时没覆盖到，改用 GitHub Release。</p>
+<h3 id="GitHub-Release"><a href="#GitHub-Release" class="headerlink" title="GitHub Release"></a>GitHub Release</h3><ol>
+<li>打开 <a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/releases">releases 页面</a>。</li>
+<li>下载与你的 Mac 架构匹配的 tar 包（Apple Silicon 或 Intel）。</li>
+<li>用 <code>checksums.txt</code> 校验文件完整性。</li>
+<li>解压后把 <code>ok</code> 二进制移到 <code>PATH</code> 里的目录：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar xzf ok-*.tar.gz</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> ok /usr/local/bin/</span><br><span class="line">ok --version</span><br></pre></td></tr></table></figure>
+<p>预览版二进制未签名、未公证，macOS Gatekeeper 可能拦截首次启动。如果你确认是从官方 GitHub Release 下载且校验过 checksum，可以在「系统设置 &gt; 隐私与安全性」里允许运行，或者执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xattr -d com.apple.quarantine /usr/local/bin/ok</span><br></pre></td></tr></table></figure>
+<h2 id="创建你的-Vault"><a href="#创建你的-Vault" class="headerlink" title="创建你的 Vault"></a>创建你的 Vault</h2><p>启动应用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ok</span><br></pre></td></tr></table></figure>
+<p>首次运行时，oak-keyring 会引导你创建新 vault。需要设置两样东西。</p>
+<p>第一项是主密码。每次启动 <code>ok</code> 都要输入它解锁 vault，选一个强且好记的。oak-keyring 不提供托管账户恢复，主密码和恢复词都丢了的话，谁都帮不了你。</p>
+<p>第二项是恢复词。oak-keyring 会生成一组 BIP-39 助记词，抄在纸上，存在和电脑分开的安全地方。这是主密码丢失后的最后兜底，重要程度等同于加密货币钱包的种子短语。</p>
+<p>设置完成后，你就进入了 TUI 主界面。</p>
+<h2 id="界面导览"><a href="#界面导览" class="headerlink" title="界面导览"></a>界面导览</h2><p>整个屏幕分成三个区域：</p>
+<ul>
+<li>左边是侧边栏，在「全部凭证」「安全笔记」「标签」「回收站」之间切换，每项带数量徽标。</li>
+<li>中间是记录列表，显示当前分类下的记录，包含名称、用户名和时间戳。</li>
+<li>右边是详情面板，列出选中记录的字段和可用操作。</li>
+</ul>
+<p>用 <code>Tab</code> 和 <code>Shift+Tab</code> 在区域之间切换，用 <code>j</code>/<code>k</code> 或方向键在区域内移动。整个界面完全键盘驱动，不需要动鼠标。</p>
+<h2 id="创建第一条记录"><a href="#创建第一条记录" class="headerlink" title="创建第一条记录"></a>创建第一条记录</h2><p>按 <code>n</code> 新建记录。表单包含标题、用户名、密码、网址、标签和备注等字段。</p>
+<p>密码字段可以手动输入，也可以用内置生成器。光标停在密码字段时调用生成器，可以按可配置的长度和字符集生成强密码。</p>
+<p>用标签来组织记录（比如 <code>工作</code>、<code>个人</code>、<code>银行</code>）。标签是自由文本，之后可以从侧边栏按标签筛选。</p>
+<p>保存后，记录立刻出现在列表里。</p>
+<h2 id="搜索和复制"><a href="#搜索和复制" class="headerlink" title="搜索和复制"></a>搜索和复制</h2><p>这是最高频的日常操作：找到凭证，复制，粘贴到需要的地方。</p>
+<p>按 <code>Ctrl+K</code> 进入搜索模式，输入记录名称的几个字符，列表实时过滤。按 <code>Enter</code> 确认搜索（过滤后的列表保留），或按 <code>Esc</code> 取消搜索恢复之前的列表。</p>
+<p>选中记录后，在详情面板里用这些快捷键：</p>
+<ul>
+<li><code>c</code> 复制密码到剪贴板。</li>
+<li><code>u</code> 复制用户名。</li>
+<li><code>p</code> 显示或隐藏密码。</li>
+</ul>
+<p>剪贴板内容会在短时间后自动清除，降低粘贴到错误位置的风险。</p>
+<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>上下文</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl+K</code></td>
+<td>主列表</td>
+<td>进入搜索模式</td>
+</tr>
+<tr>
+<td><code>Enter</code></td>
+<td>搜索模式</td>
+<td>确认搜索结果</td>
+</tr>
+<tr>
+<td><code>Esc</code></td>
+<td>搜索模式</td>
+<td>取消搜索，恢复列表</td>
+</tr>
+<tr>
+<td><code>j</code> / <code>Down</code></td>
+<td>侧边栏、列表、详情</td>
+<td>向下移动</td>
+</tr>
+<tr>
+<td><code>k</code> / <code>Up</code></td>
+<td>侧边栏、列表、详情</td>
+<td>向上移动</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>主界面（回收站外）</td>
+<td>新建记录</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>选中记录</td>
+<td>编辑记录</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>详情面板</td>
+<td>复制密码</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td>详情面板</td>
+<td>复制用户名</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>详情面板</td>
+<td>显示/隐藏密码</td>
+</tr>
+<tr>
+<td><code>Ctrl+G</code></td>
+<td>主界面</td>
+<td>打开密码生成器</td>
+</tr>
+<tr>
+<td><code>Ctrl+P</code></td>
+<td>主界面</td>
+<td>打开设置</td>
+</tr>
+<tr>
+<td><code>Ctrl+R</code></td>
+<td>主界面</td>
+<td>触发同步</td>
+</tr>
+<tr>
+<td><code>?</code> / <code>F1</code></td>
+<td>主界面</td>
+<td>打开帮助</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>主界面</td>
+<td>退出</td>
+</tr>
+<tr>
+<td><code>Tab</code> / <code>Shift+Tab</code></td>
+<td>设置页</td>
+<td>在区域间切换焦点</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在应用里随时按 <code>?</code> 或 <code>F1</code> 可以查看当前上下文的帮助。</p>
+<h2 id="密码生成器"><a href="#密码生成器" class="headerlink" title="密码生成器"></a>密码生成器</h2><p>在主界面按 <code>Ctrl+G</code> 可以打开独立的密码生成器。生成前可以配置长度、字符集（大写、小写、数字、符号）和排除规则。</p>
+<p>生成器也内嵌在记录表单里。创建或编辑记录需要密码时，可以直接在表单里生成，不需要跳出去。</p>
+<h2 id="标签、回收站和恢复"><a href="#标签、回收站和恢复" class="headerlink" title="标签、回收站和恢复"></a>标签、回收站和恢复</h2><p>标签显示在侧边栏里，导航到某个标签可以筛选列表。vault 里记录多到搜索不够用时，标签能帮你分层组织。</p>
+<p>回收站是软删除。删除记录时，它先进入回收站而不是直接消失，你可以从侧边栏浏览回收站、改主意就恢复。只有你明确清空回收站时，记录才会被永久删除。对一个保管凭证的工具来说，误删可挽回是底线。</p>
+<h2 id="导入和导出"><a href="#导入和导出" class="headerlink" title="导入和导出"></a>导入和导出</h2><p>oak-keyring 通过 TUI 支持导入和导出。常见场景有两个：从其他密码管理器迁移（从当前工具导出，再导入 oak-keyring），以及创建加密备份（把 vault 导出成文件，加密后存到安全的地方）。</p>
+<p>导出文件包含你的凭证明文。请当作高度敏感数据对待，不要放在临时目录、未加密的云盘文件夹或邮件附件里。</p>
+<h2 id="可选：Google-Drive-同步"><a href="#可选：Google-Drive-同步" class="headerlink" title="可选：Google Drive 同步"></a>可选：Google Drive 同步</h2><p>在 TUI 里通过 <code>Ctrl+P</code>（设置）配置同步。Google Drive 用作加密传输通道，不是托管 vault。你的 vault 数据在本地加密后才上传到 Google 服务器。</p>
+<p>配置好后，在主界面按 <code>Ctrl+R</code> 手动触发同步。</p>
+<p>同步是预览功能，默认关闭，完全是可选项。如果你不需要跨设备访问，可以彻底忽略它，保持 vault 纯本地。</p>
+<h2 id="自动锁定"><a href="#自动锁定" class="headerlink" title="自动锁定"></a>自动锁定</h2><p>Vault 会在一段时间不活动后自动锁定。这防止你离开终端后别人翻看你的凭证。</p>
+<p>锁定后需要重新输入主密码解锁。超时时间可以在设置里调整。</p>
+<h2 id="密码健康检查"><a href="#密码健康检查" class="headerlink" title="密码健康检查"></a>密码健康检查</h2><p>oak-keyring 内置密码健康检查。泄漏密码指示器会标记出现在已知数据泄露中的凭证，省得你手动逐条审查找出需要更新的密码。</p>
+<h2 id="实用建议"><a href="#实用建议" class="headerlink" title="实用建议"></a>实用建议</h2><ul>
+<li>装 Nerd Font。没有它，侧边栏和列表里的图标显示不出来。JetBrains Mono Nerd Font、FiraCode Nerd Font、Hack Nerd Font 都可以。</li>
+<li>恢复词离线保存。纸质、金属刻字、锁起来的抽屉，别用云笔记、截图或者发给自己的聊天消息。</li>
+<li>升级前先导出。预览版可能改变数据格式，更新到新预览版之前先导出 vault，万一出问题可以重新导入。</li>
+<li>保持终端可信。oak-keyring 运行在你的终端里，如果终端会话被入侵，vault 也会受威胁。不要在共享或不受信任的环境里运行 <code>ok</code>。</li>
+</ul>
+<h2 id="目前还不支持什么"><a href="#目前还不支持什么" class="headerlink" title="目前还不支持什么"></a>目前还不支持什么</h2><ul>
+<li>Linux 和 Windows 暂不可用，在这些平台上需要再等一等。</li>
+<li>浏览器自动填充不在产品范围内。oak-keyring 是终端原生的，浏览器登录时需要从 TUI 复制凭证。</li>
+<li>没有移动端。Google Drive 同步预览是目前的数据通道，但没有移动端客户端来消费它。</li>
+<li>签名二进制还在路上，目前需要手动校验 checksum。</li>
+</ul>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><ul>
+<li><strong>完整文档</strong>：<a target="_blank" rel="noopener" href="https://openkeyring.com/zh/docs/">openkeyring.com/zh/docs/</a></li>
+<li><strong>GitHub</strong>：<a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">github.com/OpenKeyring/oak-keyring</a></li>
+<li><strong>Discord</strong>：<a target="_blank" rel="noopener" href="https://discord.gg/3xnuu2bQz">加入社区</a></li>
+<li><strong>安全模型</strong>：阅读 <a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring/blob/develop/THREAT_MODEL.md">THREAT_MODEL.md</a> 了解正式的安全假设和边界。</li>
+</ul>
+<p>遇到问题可以在 GitHub 提 issue。工作流方面的反馈对项目尤其有用，项目还处于早期，真实使用场景会直接影响优先级。</p>
+<hr>
+<p>oak-keyring 不想面面俱到，只想让你不用离开终端就能管理凭证。如果这就是你的工作方式，试试看。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2026/06/15/why-terminal-password-manager-zh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/06/15/why-terminal-password-manager-zh/" class="post-title-link" itemprop="url">我为什么做了一个跑在终端里的密码管理器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-06-16 00:00:00" itemprop="dateCreated datePublished" datetime="2026-06-16T00:00:00+08:00">2026-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2026/06/15/why-terminal-password-manager-zh/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/06/15/why-terminal-password-manager-zh/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="我为什么做了一个跑在终端里的密码管理器"><a href="#我为什么做了一个跑在终端里的密码管理器" class="headerlink" title="我为什么做了一个跑在终端里的密码管理器"></a>我为什么做了一个跑在终端里的密码管理器</h1><p>oak-keyring 开源快半个月了。</p>
+<p>它开始收到一些 star，也有人开始关注这个项目。但我自己一直没写一篇真正介绍它的文章。功能上能写的不少，真正卡住我的是另一个问题：密码管理器已经这么多了，为什么还要做一个？</p>
+<p>说得更直白一点，做一个密码管理器没什么神秘的。数据模型、加密、导入导出、搜索、复制、锁定，都被人做过无数遍。值得回答的不是”能不能做”，是”它为什么值得被做”。</p>
+<p>后来我想清楚了一件事：oak-keyring 的重点不是重新发明密码管理器，是把密码管理器放回终端工作流。</p>
+<h2 id="密码管理器很多，但终端里的不多"><a href="#密码管理器很多，但终端里的不多" class="headerlink" title="密码管理器很多，但终端里的不多"></a>密码管理器很多，但终端里的不多</h2><p>今天主流密码管理器大多围绕浏览器、手机 App、桌面 GUI 和云账户设计。这没什么问题，大多数人的登录行为就发生在浏览器和手机里。</p>
+<p>但有一类人，他们每天大量时间在终端里度过：写代码、跑测试、部署服务，用 SSH、Git、各种数据库客户端和 CLI，在远程机器、容器、开发环境之间切来切去。最近这两年，越来越多的人开始让 Codex、Claude Code、Gemini CLI、Copilot CLI 这类 coding agent 直接操作自己的工作环境。</p>
+<p>对这类人，密码、token、API key 的管理一直处在很尴尬的位置。</p>
+<p>纯 CLI 适合脚本化，但日常管理密码库不只是敲命令。你要浏览、搜索、选条目、确认、编辑、从回收站恢复、看状态，还得避免手抖。GUI 能做这些，但代价是你得从终端工作流里跳出去。</p>
+<p>TUI 卡在两者中间。它不是把 GUI 搬进终端，也不是把所有操作压成命令行参数。交互界面还在，但同时仍然是键盘驱动、终端原生、本地可控。</p>
+<p>我做 oak-keyring 就是从这里开始的。</p>
+<h2 id="它不是“另一个云密码库”"><a href="#它不是“另一个云密码库”" class="headerlink" title="它不是“另一个云密码库”"></a>它不是“另一个云密码库”</h2><p>oak-keyring 的定位说起来很简单：privacy-first、local-first、keyboard-driven 的终端 TUI。</p>
+<p>命令行二进制叫 <code>ok</code>。启动后是一个全屏 TUI。可以浏览、创建、编辑、删除凭证和安全笔记；可以生成密码、复制 secret；有标签和回收站；也支持导入导出、BIP-39 恢复词、自动锁定、密码健康检查。Google Drive 同步还在预览阶段。</p>
+<p>但我更在意的不是功能清单，而是它的默认边界：</p>
+<ul>
+<li>vault 默认属于用户，保存在本机；</li>
+<li>正常 release build 用的是 SQLCipher-backed 本地数据库；</li>
+<li>访问和恢复都依赖主密码和恢复词；</li>
+<li>没有托管账户恢复；</li>
+<li>同步按当前实现范围理解，不包装成托管保管。</li>
+</ul>
+<p>这不是说云服务不好。很多人需要跨设备体验、团队管理、浏览器自动填充、托管恢复。oak-keyring 不打算替代这些。</p>
+<p>它想服务的是另一种场景：我在终端里工作，我希望密码库也长在终端里，秘密默认留在本地，大部分操作能用键盘完成，工具简单、可审查、开源，最好不要求我先注册一个云账户。</p>
+<h2 id="AI-CLI-时代，secret-更不该随手乱放"><a href="#AI-CLI-时代，secret-更不该随手乱放" class="headerlink" title="AI CLI 时代，secret 更不该随手乱放"></a>AI CLI 时代，secret 更不该随手乱放</h2><p>过去几年，越来越多开发工作被搬进了 AI CLI 和 coding agent 的上下文。我们在终端里让 agent 读代码、改文件、跑命令、查日志、解释报错。</p>
+<p>这带出一个新问题：工作流越来越自动化、越来越围绕终端和 agent 展开，secret 管理应该更谨慎，不是更随意。</p>
+<p>最糟糕的习惯就是把密码、token、恢复词、API key 随手贴进 prompt、shell history、临时文本、issue、聊天记录或者环境变量里。短期方便，长期是坑。</p>
+<p>我希望 oak-keyring 能慢慢变成一种更合理的默认选择：需要人判断的时候，进 TUI 浏览确认；需要复制的时候，走受控的剪贴板流程；以后真要支持更多自动化，也得围绕明确边界设计，不能让 secret 到处散落。</p>
+<p>terminal-native password manager 吸引我的地方就在这里。不是为了炫技，是因为终端已经是很多开发者的工作台。密码管理器如果能自然地待在这个工作台上，能省掉很多没必要的摩擦。</p>
+<h2 id="为什么别人没有做，而我做了？"><a href="#为什么别人没有做，而我做了？" class="headerlink" title="为什么别人没有做，而我做了？"></a>为什么别人没有做，而我做了？</h2><p>我不觉得答案是”别人做不了”。更可能是：这个需求太垂直。</p>
+<p>密码管理器的增长主要来自普通用户、家庭、企业、浏览器扩展、移动端、团队协作。相比之下，全屏终端密码管理器的目标用户小得多，也不太符合典型商业软件的分发路径。</p>
+<p>但开源项目不一定要从最大市场开始。</p>
+<p>Git、Vim、tmux、fzf、ripgrep、lazygit 这类工具不是因为”所有人都需要终端体验”才有价值。它们的价值在于：对终端用户来说，它们足够贴合工作方式。</p>
+<p>oak-keyring 也想从这里开始。</p>
+<p>如果你主要在终端里工作，你关心 local-first，你不想把密码管理完全交给一个远端账户，你希望密码库能和 CLI、SSH、编辑器、coding agent 更顺地待在一起，那 oak-keyring 可能值得你试一下。</p>
+<h2 id="现在它还只是预览版"><a href="#现在它还只是预览版" class="headerlink" title="现在它还只是预览版"></a>现在它还只是预览版</h2><p>我不想把它说得比实际状态更成熟。</p>
+<p>oak-keyring 还在 pre-1.0 预览阶段。当前公开构建只面向 macOS Apple Silicon 和 Intel Mac。Linux、Windows PowerShell 这类环境形态上很适合 TUI 密码管理器，但还不能算正式支持的发布目标。</p>
+<p>预览版也意味着一些限制：二进制还没签名和 notarize；数据格式和打包方式在稳定版之前可能变；没有正式 SLA。</p>
+<p>如果你愿意试，把它当成一个还在长大的开源工具，不是已经兑现所有承诺的商业密码管理器。</p>
+<h2 id="我希望收到什么反馈"><a href="#我希望收到什么反馈" class="headerlink" title="我希望收到什么反馈"></a>我希望收到什么反馈</h2><p>现在我最想知道的不是”这个项目能不能做大”。是几个具体问题：</p>
+<ul>
+<li>你会不会在终端里用密码管理器？</li>
+<li>TUI 相比纯 CLI 或 GUI，对你的工作流有没有真实帮助？</li>
+<li>你希望它怎么和 AI CLI 工具配合？</li>
+<li>哪些 secret 管理场景现在最容易被做得很糟？</li>
+<li>你愿意信任一个 local-first、开源、预览阶段的终端密码库到什么程度？</li>
+</ul>
+<p>如果你对这些问题有感觉，欢迎试用，提 issue，star，或者直接告诉我你现在是怎么在终端里管 secret 的。</p>
+<p>项目地址：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/OpenKeyring/oak-keyring">https://github.com/OpenKeyring/oak-keyring</a></p>
+<p>oak-keyring 不是为了证明密码管理器有多难。</p>
+<p>它只是想回答一个更小的问题：如果一个人的工作台就是终端，密码管理器应该是什么样子？</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/curriculum_vitae_ai_agent">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,10 +688,16 @@ mjx-container[display="true"] + br {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-01-22 14:34:54 / 修改时间：15:07:45" itemprop="dateCreated datePublished" datetime="2025-01-22T14:34:54+08:00">2025-01-22</time>
+              <time title="创建时间：2025-01-22 14:34:54" itemprop="dateCreated datePublished" datetime="2025-01-22T14:34:54+08:00">2025-01-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -545,7 +924,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
 
           
@@ -654,7 +1033,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
 
           
@@ -733,7 +1112,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
 
           
@@ -818,7 +1197,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
 
           
@@ -898,7 +1277,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1080,7 +1459,7 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1482,7 +1861,7 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1540,212 +1919,6 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
 <p>Piece 数据结构设计用于证明任意 IPLD 图和客户端数据的存储。 此图显示了 Piece 及其证明树的详细组成，包括完整和带宽优化的 Piece 数据结构。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://filecoin.io/zh-cn/blog/posts/filecoin-plus-client/">Filecoin Plus: 存储提供者如何与已验证用户互动</a></p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/filecoin-provesector-aggregate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/filecoin-provesector-aggregate/" class="post-title-link" itemprop="url">一种推断何时启用FileCoin区块链网络聚合复制证明消息的方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-13 15:36:54" itemprop="dateCreated datePublished" datetime="2021-07-13T15:36:54+08:00">2021-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/filecoin-provesector-aggregate/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/filecoin-provesector-aggregate/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>UTC时间 2021-06-30T22:00:00Z FileCoin 区块链主网络升级到 Hyper Drive 版本。</p>
-<p><a target="_blank" rel="noopener" href="https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-ama-1-recap/">https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-ama-1-recap/</a></p>
-<p><a target="_blank" rel="noopener" href="https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-network-upgrade-unlocks-10-25x-increase-in-storage-onboarding/">https://filecoin.io/blog/posts/filecoin-v13-hyperdrive-network-upgrade-unlocks-10-25x-increase-in-storage-onboarding/</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0013.md">https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0013.md</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/filecoin-bitfield-format/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/filecoin-bitfield-format/" class="post-title-link" itemprop="url">BitField格式化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-04 17:06:23" itemprop="dateCreated datePublished" datetime="2021-07-04T17:06:23+08:00">2021-07-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/FileCoin/" itemprop="url" rel="index"><span itemprop="name">FileCoin</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/filecoin-bitfield-format/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/filecoin-bitfield-format/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>维基百科上对于BitField是这样解释的：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%AE%B5">https://zh.wikipedia.org/wiki/%E4%BD%8D%E6%AE%B5</a></p>
-<p><strong>位段</strong>（或称“位域”，Bit field）为一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/数据结构">数据结构</a>，可以把数据以<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/位">位</a>的形式紧凑的储存，并允许程序员对此结构的位进行操作。这种数据结构的好处：</p>
-<ul>
-<li>可以使数据单元节省储存空间，当程序需要成千上万个数据单元时，这种方法就显得尤为重要。</li>
-<li>位段可以很方便的访问一个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/整數">整数</a>值的部分内容从而可以简化程序源代码。</li>
-</ul>
-</blockquote>
-<p>FileCoin 有一个 具体的实现：[Go-bitfield][<a target="_blank" rel="noopener" href="https://github.com/filecoin-project/go-bitfield">https://github.com/filecoin-project/go-bitfield</a>]</p>
-<blockquote>
-<p>Advanced RLE+ implementation</p>
-</blockquote>
-<p>Features iterator based primitives that scale with number of runs instead of number of bits.</p>
-<p>这个实现包含一个Run-length-encoder(RLE)。援引维基百科上面的解释：</p>
-<blockquote>
-<p><strong>游程编码</strong>（英语：run-length encoding，缩写RLE），又称<strong>行程长度编码</strong>或<strong>变动长度编码法</strong>，是一种与资料性质无关的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/无损数据压缩">无损数据压缩</a>技术，基于“使用变动长度的码来取代连续重复出现的原始资料”来实现压缩。</p>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>举例来说，一组资料串”AAAABBBCCDEEEE”，由4个A、3个B、2个C、1个D、4个E组成，经过<strong>变动长度编码法</strong>可将资料压缩为4A3B2C1D4E（由14个单位转成10个单位）。</p>
-<p>简言之，其优点在于将重复性高的资料量压缩成小单位；然而，其缺点在于─若该资料出现频率不高，可能导致压缩结果资料量比原始资料大，例如：原始资料”ABCDE”，压缩结果为”1A1B1C1D1E”（由5个单位转成10个单位）。</p>
-</blockquote>
-<p>知道了以上大体的功能和说明，针对FileCoin其对BitField的实现版本，目标要将保存在BitField内的数据以JSON格式化形式表示出来。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/filecoin-bitfield-format/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1831,7 +2004,7 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1879,7 +2052,7 @@ key = sha3(sk_a * (E + V))</script><h2 id="参考"><a href="#参考" class="head
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

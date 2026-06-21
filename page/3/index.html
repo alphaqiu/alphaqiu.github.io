@@ -292,6 +292,233 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/filecoin-elliptic-and-sign/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/filecoin-elliptic-and-sign/" class="post-title-link" itemprop="url">FileCoin账户和离线签名</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-19 12:31:08" itemprop="dateCreated datePublished" datetime="2020-04-19T12:31:08+08:00">2020-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index"><span itemprop="name">blockchain</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/filecoin-elliptic-and-sign/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/filecoin-elliptic-and-sign/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="椭圆曲线的选择"><a href="#椭圆曲线的选择" class="headerlink" title="椭圆曲线的选择"></a>椭圆曲线的选择</h2><p>FileCoin和大多数主流区块链一样，底层使用secp256k1这条椭圆曲线。secp256k1有多种语言版本。</p>
+<p>比特币纯Go版本实现：<a target="_blank" rel="noopener" href="https://github.com/btcsuite/btcd/tree/master/btcec">btcec</a></p>
+<p>以太坊采用的C++版本：<a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum/tree/master/crypto/secp256k1">go-ethereum/crypto/secp256k1</a></p>
+<p>以及FileCoin使用的C版本：<a href="github.com/ipsn/go-secp256k1">go-secp256k1</a></p>
+<p>💡 注意，FileCoin 支持两种签名，一种是椭圆曲线签名，一种是bls签名。</p>
+<p>bls签名库使用了rust版本的实现：<a target="_blank" rel="noopener" href="https://github.com/filecoin-project/filecoin-ffi">Filecoin Proofs FFI</a></p>
+<blockquote>
+<p>BLS 签名算法是一种可以实现签名聚合和密钥聚合的算法（即可以将多个密钥聚合成一把密钥，将多个签名聚合成一个签名）。在以太坊未来的 Casper 实现中，有非常多的验证者都要对区块签名，要保证系统的安全性，同时节约存储空间，就需要用到这类签名聚合的算法。</p>
+<p><a target="_blank" rel="noopener" href="https://www.iacr.org/archive/asiacrypt2001/22480516.pdf">Boneh-Lynn-Shacham</a></p>
+</blockquote>
+<p>我们使用椭圆曲线签名来生成私钥。</p>
+<h2 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h2><p>以比特币<code>btcec</code>为例，生成符合FileCoin的私钥：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sk, _ := btcec.NewPrivateKey(btcec.S256())</span><br></pre></td></tr></table></figure>
+<h2 id="生成地址"><a href="#生成地址" class="headerlink" title="生成地址"></a>生成地址</h2><h3 id="获得公钥"><a href="#获得公钥" class="headerlink" title="获得公钥"></a>获得公钥</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;crypto/elliptic&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 序列化椭圆曲线上的坐标点为未压缩格式的公钥</span></span><br><span class="line">pub := elliptic.Marshal(btcec.S256(), sk.PublicKey.X, sk.PublicKey.Y)</span><br></pre></td></tr></table></figure>
+<h3 id="获得地址"><a href="#获得地址" class="headerlink" title="获得地址"></a>获得地址</h3><h4 id="对公钥做哈希运算"><a href="#对公钥做哈希运算" class="headerlink" title="对公钥做哈希运算"></a>对公钥做哈希运算</h4><p>FileCoin中有一个通用的哈希函数，使用blake2b快速哈希。如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hash</span><span class="params">(ingest []<span class="type">byte</span>, cfg *blake2b.Config)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">	hasher, err := blake2b.New(cfg)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// If this happens sth is very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;invalid address hash configuration: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> _, err := hasher.Write(ingest); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">// blake2bs Write implementation never returns an error in its current</span></span><br><span class="line">		<span class="comment">// setup. So if this happens sth went very wrong.</span></span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;blake2b is unable to process hashes: %v&quot;</span>, err)) <span class="comment">// ok</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对公钥进行一次哈希运算：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash(pub, &amp;blake2b.Config&#123;Size: <span class="number">20</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>原文注释里是这样说的：</p>
+<blockquote>
+<p>PayloadHashLength defines the hash length taken over addresses using the Actor and SECP256K1 protocols.</p>
+</blockquote>
+<p>这里的<code>PayloadHashLength</code>等于20。</p>
+<h4 id="生成地址格式"><a href="#生成地址格式" class="headerlink" title="生成地址格式"></a>生成地址格式</h4><p>然后拼接地址格式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">explen := <span class="number">1</span> + <span class="built_in">len</span>(payload)</span><br><span class="line">buf := <span class="built_in">make</span>([]<span class="type">byte</span>, explen)</span><br><span class="line"></span><br><span class="line">buf[<span class="number">0</span>] = protocol</span><br><span class="line"><span class="built_in">copy</span>(buf[<span class="number">1</span>:], payload)</span><br></pre></td></tr></table></figure>
+<p>上面的<code>protocol</code>值固定为1，<code>payload</code>为<code>hash(pub)</code>。</p>
+<h4 id="对地址编码"><a href="#对地址编码" class="headerlink" title="对地址编码"></a>对地址编码</h4><p>FileCoin 内有这样一个函数，将生成编码后我们看到的地址格式如：<code>t1qecjxje6yjq2yatfgj3noapi5fa3cr7vmrw6xti</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(network Network, addr Address)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> addr == Undef &#123;</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> ntwk <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> network &#123;</span><br><span class="line">	<span class="keyword">case</span> Mainnet:</span><br><span class="line">		ntwk = MainnetPrefix</span><br><span class="line">	<span class="keyword">case</span> Testnet:</span><br><span class="line">		ntwk = TestnetPrefix</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownNetwork</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> strAddr <span class="type">string</span></span><br><span class="line">	<span class="keyword">switch</span> addr.Protocol() &#123;</span><br><span class="line">	<span class="keyword">case</span> SECP256K1, Actor, BLS:</span><br><span class="line">		cksm := Checksum(<span class="built_in">append</span>([]<span class="type">byte</span>&#123;addr.Protocol()&#125;, addr.Payload()...))</span><br><span class="line">		strAddr = ntwk + fmt.Sprintf(<span class="string">&quot;%d&quot;</span>, addr.Protocol()) + AddressEncoding.WithPadding(<span class="number">-1</span>).EncodeToString(<span class="built_in">append</span>(addr.Payload(), cksm[:]...))</span><br><span class="line">	<span class="keyword">case</span> ID:</span><br><span class="line">		i, n, err := varint.FromUvarint(addr.Payload())</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;could not decode varint: %w&quot;</span>, err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> n != <span class="built_in">len</span>(addr.Payload()) &#123;</span><br><span class="line">			<span class="keyword">return</span> UndefAddressString, xerrors.Errorf(<span class="string">&quot;payload contains additional bytes&quot;</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		strAddr = fmt.Sprintf(<span class="string">&quot;%s%d%d&quot;</span>, ntwk, addr.Protocol(), i)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> UndefAddressString, ErrUnknownProtocol</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> strAddr, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Network</code>看作是枚举，<code>0</code>代表<code>Mainnet</code>，<code>1</code>代表<code>Testnet</code>。<code>TestnetPrefix = “t”</code>，<code>MainnetPrefix = “f”</code>。</p>
+<p>对地址格式再次做哈希，作为地址摘要</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cksm := hash(buf, &amp;blake2b.Config&#123;Size: <span class="number">4</span>&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ChecksumHashLength defines the hash length used for calculating address checksums.</p>
+</blockquote>
+<p><code>ChecksumHashLength</code>等于4。</p>
+<p>对<code>hash(pub)</code>+<code>cksum</code>做base32转换。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> encodeStd = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz234567&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// AddressEncoding defines the base32 config used for address encoding and decoding.</span></span><br><span class="line"><span class="keyword">var</span> AddressEncoding = base32.NewEncoding(encodeStd)</span><br></pre></td></tr></table></figure>
+<p>最终地址等于<code>网络前缀</code>+<code>椭圆曲线类型</code>+<code>base32(hash(pub)+cksum)</code></p>
+<h2 id="离线签名"><a href="#离线签名" class="headerlink" title="离线签名"></a>离线签名</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用secp256k1签名</span></span><br><span class="line"><span class="comment">// 签名前使用blake2哈希算法对要签名的消息做信息摘要，统一签名消息的长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(secpSigner)</span></span> Sign(pk []<span class="type">byte</span>, msg []<span class="type">byte</span>) ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	b2sum := blake2b.Sum256(msg)</span><br><span class="line">	sig, err := crypto.Sign(pk, b2sum[:])</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> sig, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>crypto.Sign</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sign signs the given message, which must be 32 bytes long.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sign</span><span class="params">(sk, msg []<span class="type">byte</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">  <span class="comment">// secp256k1 就是最终的椭圆曲线签名，这个签名可以替换成secp256k1不同语言版本的实现</span></span><br><span class="line">	<span class="keyword">return</span> secp256k1.Sign(msg, sk)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/golang-interface-pit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="alpha">
+      <meta itemprop="description" content="记录,分享,备忘">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="比十万多一点">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/golang-interface-pit/" class="post-title-link" itemprop="url">Go语言interface的坑</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-10 22:37:56" itemprop="dateCreated datePublished" datetime="2020-04-10T22:37:56+08:00">2020-04-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/golang-interface-pit/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/golang-interface-pit/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下代码执行结果是什么</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Namespace <span class="keyword">interface</span> &#123;</span><br><span class="line">	Value() <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyNamespace <span class="keyword">struct</span> &#123;</span><br><span class="line">	value <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n *MyNamespace)</span></span> Value() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> n.value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> n *MyNamespace = <span class="literal">nil</span></span><br><span class="line">	show(n)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>结果是报错。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">panic: runtime error: invalid memory <span class="selector-tag">address</span> or nil pointer dereference</span><br><span class="line"><span class="selector-attr">[signal SIGSEGV: segmentation violation code=0xffffffff addr=0x0 pc=0xe01c6]</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> <span class="selector-attr">[running]</span>:</span><br><span class="line"><span class="selector-tag">main</span>.(*MyNamespace)<span class="selector-class">.Value</span>(<span class="number">0</span>x0, <span class="number">0</span>x5bf2, <span class="number">0</span>x119bf8, <span class="number">0</span>x1d)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">16</span> +<span class="number">0</span>x6</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.show</span>(<span class="number">0</span>x15d910, <span class="number">0</span>x0)</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">21</span> +<span class="number">0</span>x40</span><br><span class="line"><span class="selector-tag">main</span><span class="selector-class">.main</span>()</span><br><span class="line">	/tmp/sandbox404522411/prog<span class="selector-class">.go</span>:<span class="number">30</span> +<span class="number">0</span>x40</span><br><span class="line"></span><br><span class="line">Program exited.</span><br></pre></td></tr></table></figure>
+<p>报一个空指针错误。<code>n != nil</code>的判断在这里无效。</p>
+<p>原因是Go语言中，<code>interface&#123;&#125;</code>类型的变量包含了2个指针，一个指针指向值的类型，一个指针指向实际的值。<code>MyNamespace</code>实现了<code>Namespace</code>接口，<code>n</code>在传入<code>Show(n)</code>函数时被自动转型成为<code>Namespace</code>。<code>var n *MyNameSpace = nil</code>只是声明了该接口类型的实际值为nil，虽然我们把一个nil值赋值给它，但是实际上interface里依然存了指向类型的指针，所以拿这个interface变量去和nil常量进行比较的话就会返回<code>false</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> asStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	pt <span class="type">uintptr</span></span><br><span class="line">	pv <span class="type">uintptr</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">show</span><span class="params">(n Namespace)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;👉👉 %p\n&quot;</span>, n)</span><br><span class="line">	x := *(*asStruct)(unsafe.Pointer(&amp;n))</span><br><span class="line">	spew.Dump(x)</span><br><span class="line">	spew.Println(<span class="string">&quot;n == nil ?&quot;</span>, n == <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> n != <span class="literal">nil</span> &amp;&amp; !reflect.ValueOf(n).IsNil() &#123;</span><br><span class="line">		fmt.Println(n.Value())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Output：</span></span><br><span class="line"><span class="comment">// 👉👉 0x0</span></span><br><span class="line"><span class="comment">// (main.asStruct) &#123;</span></span><br><span class="line"><span class="comment">//  pt: (uintptr) 0x1125f80,</span></span><br><span class="line"><span class="comment">//  pv: (uintptr) &lt;nil&gt;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// n == nil ? false</span></span><br><span class="line"><span class="comment">// Hello World!</span></span><br></pre></td></tr></table></figure>
+<p>我们看到传入的参数指针值为0，但<code>interface&#123;&#125;</code>类型的变量的两个指针，值的类型是有值的，实际值为nil。因此接口传入的不是实际的nil的情况下，<code>n==nil</code>就为false。可以使用<code>reflect.ValueOf(n).IsNil()</code>来判断是否实际值为nil。</p>
+<p><code>reflect.ValueOf</code>只接受指针类型，否则会<code>panic</code>。</p>
+<p>如果显式传入<code>show(nil)</code>，<code>interface&#123;&#125;</code>类型变量的两个指针都为nil，则<code>n == nil</code>判断生效。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//show(nil)</span></span><br><span class="line">(main.asStruct) &#123;</span><br><span class="line"> pt: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;,</span><br><span class="line"> pv: (<span class="type">uintptr</span>) &lt;<span class="literal">nil</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line">n == <span class="literal">nil</span> ? <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/10635">Go语言第一深坑 - interface 与 nil 的比较</a></p>
+<p><a target="_blank" rel="noopener" href="https://studygolang.com/articles/5955">golang中interface判断nil问题</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/bandwidth">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -323,7 +550,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -423,7 +650,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -519,7 +746,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -633,7 +860,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -745,7 +972,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -836,7 +1063,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -936,7 +1163,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1048,7 +1275,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
+                <time title="修改时间：2026-06-21 16:47:07" itemprop="dateModified" datetime="2026-06-21T16:47:07+08:00">2026-06-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1105,204 +1332,6 @@ mjx-container[display="true"] + br {
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/11/13/mkcert/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/13/mkcert/" class="post-title-link" itemprop="url">本地HTTPS证书工具</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-14 05:27:43" itemprop="dateCreated datePublished" datetime="2019-11-14T05:27:43+08:00">2019-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/11/13/mkcert/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/13/mkcert/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>​        2019年1月11日消息，谷歌加密研究人员称将发布一款工具，目的是让用户能够更安全的上网。本周一，谷歌密码学家Filippo Valsorda表示，他已经快完成一项名为mkcert的开源项目，该项目允许开发者在本地部署HTTPS测试环境。</p>
-<p>　　现在，大多数网络流量通过HTTPS传输，且用户对浏览器功能安全性期望望越来越高，这就需要开发人员在HTTPS环境中创建和测试应用程序。而这样做就需要开发者在本地安装TLS/SSL证书，部署HTTPS环境，但实际操作起来并不那么简单，需要开发人员先生成自签名证书再进行安装，整个过较为程繁琐也容易出错。</p>
-<p>　　mkcert则是一个让网站通过自动发布证书和安装来处理HTTPS流量的工具。Valsorda介绍称，通过不安全的HTTP环境测试Web应用程序，可能会掩盖HTTP 和HTTPS混合内容问题，而这些问题可能降低站点的安全性。</p>
-<p>　　据称，mkcert是一个简单的设计工具，它隐藏了生成有效TLS证书所需的难懂知识，并且适用于包括本地主机在内的任何主机名或IP。mkcert并不是创建自签名证书，而是生成由用户的私有证书颁发机构（CA）签名的证书，并计算机在运行时会自动配置为证书可信任状态。因此，当您的浏览器加载由您的mkcert实例生成的证书时，它将显示绿色锁！</p>
-<p>　　mkcert适用的系统包括Linux、macOS、 Windows，同时支持Firefox、 Chrome和Chromium。通过一些额外的步骤，该工具还可以支持Android和iOS系统。</p>
-</blockquote>
-<p>mkcert地址： <a target="_blank" rel="noopener" href="https://github.com/FiloSottile/mkcert">https://github.com/FiloSottile/mkcert</a></p>
-<p>mkcert是由谷歌的Filippo Valsorda使用Golang开发的一个开源工具，使用非常简单，不需要进行任何配置，就可以生成任何你喜欢的域名的本地可信赖的开发证书。</p>
-<p>这个开源库不仅展示了生成证书的用法，也展示了在各个平台上调用证书导入的办法。值得学习。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/13/mkcert/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://alpha.checkitout.dev/2019/11/05/untrusted_cert_title/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="alpha">
-      <meta itemprop="description" content="记录,分享,备忘">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="比十万多一点">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/05/untrusted_cert_title/" class="post-title-link" itemprop="url">Mac重新安装显示 untrusted_cert_title</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-06 05:19:10" itemprop="dateCreated datePublished" datetime="2019-11-06T05:19:10+08:00">2019-11-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-01-22 15:07:45" itemprop="dateModified" datetime="2025-01-22T15:07:45+08:00">2025-01-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/11/05/untrusted_cert_title/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/05/untrusted_cert_title/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>转载至 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7fadd5c722c1">https://www.jianshu.com/p/7fadd5c722c1</a></p>
-<p>出现 <code>UNTRUSTED_CERT_TITLE</code>原因在于系统时间太旧，只要将待重装的机器系统时间调整至当前时间即可。</p>
-<h2 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h2><p>首先打开MacBook，按下电源按钮后，下一步就是按住⌘ + R.</p>
-<h2 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h2><h3 id="1-接下来你要做的就是去Utilities然后点击Terminal。"><a href="#1-接下来你要做的就是去Utilities然后点击Terminal。" class="headerlink" title="1.接下来你要做的就是去Utilities然后点击Terminal。"></a>1.接下来你要做的就是去Utilities然后点击Terminal。</h3><p><img src="/images/untrusted_cert_title_1.png" alt="img"></p>
-<h3 id="2-命令行输入-date"><a href="#2-命令行输入-date" class="headerlink" title="2.命令行输入 date"></a>2.命令行输入 date</h3><p>如果您收到  UNTRUSTED_CERT_TITLE 错误，则可能会看到一个非常旧的日期。比如31/12/2017</p>
-<h3 id="3-然后只需要在命令行输入-当前日期-date-MMDDHHMMYY"><a href="#3-然后只需要在命令行输入-当前日期-date-MMDDHHMMYY" class="headerlink" title="3.然后只需要在命令行输入  当前日期   date MMDDHHMMYY"></a>3.然后只需要在命令行输入  当前日期   date MMDDHHMMYY</h3><p>注: M=Month, D=Day, H=Hour in 24-hour notation, M=Minute and Y=年份后两位.</p>
-<h2 id="Step3"><a href="#Step3" class="headerlink" title="Step3"></a>Step3</h2><p>退出命令行, 重新启动，按住 ⌘+R 再选择重新安装macOS就OK了。</p>
-
       
     </div>
 
@@ -1388,7 +1417,7 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1436,7 +1465,7 @@ mjx-container[display="true"] + br {
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
